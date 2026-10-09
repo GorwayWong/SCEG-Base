@@ -10,6 +10,8 @@
 
 所有实验使用独立的 `experiments/<experiment>/runs/<run_id>/`。运行目录记录配置、代码版本与差异、命令、环境、数据来源、日志、指标和 checkpoint。随机输入验证不计为数据集结果；overfit 不计为论文复现指标。
 
+Git保存运行目录中的轻量审计记录。数据、虚拟环境和大型checkpoint留本地；每个checkpoint的大小/SHA256由checkpoint_manifest.json记录。清理明细见[docs/cleanup_report.md](docs/cleanup_report.md)，历史首轮overfit事实已合并到[debug_overfit_report.md](debug_overfit_report.md)。
+
 数据只从 `/root/projects/aris/fewshot` 读取并复制，不建立符号链接，不修改来源工程。缺少可核验的类别划分时，不自行生成划分。
 
 环境重建：创建Python3.10虚拟环境，安装requirements.txt；GPU环境使用PyTorch官方cu124 wheels。当前项目已有`.venv`，复用了现有torch安装；实际环境见运行目录environment.json。

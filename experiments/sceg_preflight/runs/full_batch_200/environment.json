@@ -1,0 +1,23 @@
+{
+  "python": "3.10.20",
+  "executable": "/root/projects/aris/sceg_fsfg/.venv/bin/python",
+  "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.35",
+  "packages": {
+    "torch": "2.6.0",
+    "torchvision": "0.21.0",
+    "numpy": "2.2.6",
+    "scipy": "1.15.3",
+    "Pillow": "11.1.0",
+    "PyYAML": "6.0.3",
+    "pytest": "9.1.1",
+    "scikit-learn": "1.6.1"
+  },
+  "torch_build": "2.6.0+cu124",
+  "cuda_runtime": "12.4",
+  "gpu": [
+    {
+      "name": "NVIDIA GeForce RTX 4060 Ti",
+      "memory_bytes": 17175150592
+    }
+  ]
+}

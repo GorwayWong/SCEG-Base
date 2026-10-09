@@ -1,0 +1,31 @@
+{
+  "images": [
+    {
+      "path": "data/frn/CUB_fewshot_raw/train/002.Laysan_Albatross/Laysan_Albatross_0001_545.jpg",
+      "class_id": "002.Laysan_Albatross",
+      "debug_class": 0,
+      "sha256": "aa2bbef70a31772b8f0fa736118e8ec055a732ce7076f4f34c32b888043b4d36"
+    },
+    {
+      "path": "data/frn/CUB_fewshot_raw/train/004.Groove_billed_Ani/Groove_Billed_Ani_0002_1670.jpg",
+      "class_id": "004.Groove_billed_Ani",
+      "debug_class": 1,
+      "sha256": "4b8af9400853b349867ec0dd011bd9c590235e44a0a787e54a3fac5d9bbdc3a4"
+    },
+    {
+      "path": "data/frn/CUB_fewshot_raw/train/006.Least_Auklet/Least_Auklet_0004_795112.jpg",
+      "class_id": "006.Least_Auklet",
+      "debug_class": 2,
+      "sha256": "903d4c9151f3b32a3252b0a2a4128b5fa6bf7cdea53cec70600d122ddbcf7e2d"
+    },
+    {
+      "path": "data/frn/CUB_fewshot_raw/train/008.Rhinoceros_Auklet/Rhinoceros_Auklet_0001_797538.jpg",
+      "class_id": "008.Rhinoceros_Auklet",
+      "debug_class": 3,
+      "sha256": "74121ed923283f79de44b9455d895d59360103b7d3d0073350a15eab8364bf9a"
+    }
+  ],
+  "unique_images": 4,
+  "support_query_reuse": true,
+  "not_a_fewshot_metric": true
+}

@@ -8,7 +8,15 @@ data/**
 !data/provenance/*.json
 !data/provenance/*.md
 docs/sources/*.pdf
-experiments/**/runs/
+experiments/**/runs/**
+!experiments/**/runs/
+!experiments/**/runs/*/
+!experiments/**/runs/*/*.yaml
+!experiments/**/runs/*/*.json
+!experiments/**/runs/*/*.txt
+!experiments/**/runs/*/*.log
+!experiments/**/runs/*/*.md
+!experiments/**/runs/*/*.patch
 checkpoints/
 logs/
 *.pth

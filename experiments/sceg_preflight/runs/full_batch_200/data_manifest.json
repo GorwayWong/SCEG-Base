@@ -1,0 +1,11 @@
+{
+  "type": "torch.randn",
+  "seed": 42,
+  "shape": [
+    200,
+    3,
+    84,
+    84
+  ],
+  "not_a_dataset_result": true
+}

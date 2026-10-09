@@ -1,0 +1,18 @@
+{
+  "seed": 42,
+  "dataset": "cub_raw",
+  "way": 10,
+  "shot": 5,
+  "accuracy": null,
+  "confidence_interval": null,
+  "status": "completed",
+  "forward_backward_passed": true,
+  "optimizer_updates": 0,
+  "full_training_completed": false,
+  "batch_size": 200,
+  "peak_allocated_bytes": 10320701952,
+  "peak_reserved_bytes": 12958302208,
+  "gradient_norm": 59.972190856933594,
+  "strict_all_parameter_gradient_passed": false,
+  "metric_scope": "resource/gradient preflight only"
+}

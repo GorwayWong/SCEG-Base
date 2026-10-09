@@ -1,0 +1,31 @@
+{
+  "images": [
+    {
+      "path": "data/CUB_fewshot_raw/train/001.Black_footed_Albatross/Black_Footed_Albatross_0001_796111.jpg",
+      "class_id": "001.Black_footed_Albatross",
+      "debug_class": 0,
+      "sha256": "6f2640557a14ad1b1deb7b0e52bb0c479f412164d481300713f19c73686feb9c"
+    },
+    {
+      "path": "data/CUB_fewshot_raw/train/003.Sooty_Albatross/Sooty_Albatross_0001_1071.jpg",
+      "class_id": "003.Sooty_Albatross",
+      "debug_class": 1,
+      "sha256": "44d18a861ad1bdd408b86a5d97d77fe0a638095a4fc56d7785566c32e158eeb5"
+    },
+    {
+      "path": "data/CUB_fewshot_raw/train/005.Crested_Auklet/Crested_Auklet_0001_794941.jpg",
+      "class_id": "005.Crested_Auklet",
+      "debug_class": 2,
+      "sha256": "fc73669b8afdcbfd521b85ced04c18bc21887b6f1bcbf7aadf90fa06fa5628e9"
+    },
+    {
+      "path": "data/CUB_fewshot_raw/train/007.Parakeet_Auklet/Parakeet_Auklet_0001_795972.jpg",
+      "class_id": "007.Parakeet_Auklet",
+      "debug_class": 3,
+      "sha256": "79ee9b93736c846b234c96405407d0c466789a89b601a6e69bcbacbc75fe3213"
+    }
+  ],
+  "unique_images": 4,
+  "support_query_reuse": true,
+  "not_a_fewshot_metric": true
+}

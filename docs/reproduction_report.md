@@ -37,7 +37,7 @@ ResNet12、SC、feature transform、cosine classifier、Intra-Inter loss独立�
 
 四图overfit是记忆调试，不是论文数据集accuracy。正式metrics中的未测accuracy/CI保持null。严格gradient例外正在等待用户选择；未收到选择前不进入完整训练。
 
-最新验证：**12 passed, 2 xfailed**；2个xfail就是严格全参数梯度的已确认失败。CUB真实test_pre的5-way1-shot/5-shot各1个random-weight smoke episode通过，batch分别85/105；仅检查I/O/标签顺序/finite stats，不能作为正式结果。正式FRN CUB与Cars共11,326个预缩放PNG通过source Resize92→CenterCrop84的像素逐图对照。此前旧划分的11,344个PNG和历史清单保留。
+最新模型验证：**12 passed, 2 xfailed**；2个xfail就是严格全参数梯度的已确认失败。CUB真实test_pre的5-way1-shot/5-shot各1个random-weight smoke episode通过，batch分别85/105；仅检查I/O/标签顺序/finite stats，不能作为正式结果。正式FRN CUB与Cars共11,326个预缩放PNG通过source Resize92→CenterCrop84的像素逐图对照。旧CUB预缩放缓存已清理，其历史哈希清单和原始JPEG保留；未修改模型或实验指标。
 
 200张10-way5-shot15-query随机输入的完整forward/backward预检通过；GPU峰值allocated约9.61GiB，reserved约12.07GiB（16GiB4060Ti），所有112个活动参数梯度finite、官方12项缺失一致。预检optimizer updates=0，accuracy/CI=null，不等于完整训练，untrained checkpoint位于独立sceg_preflight实验，不能充作baseline。
 
@@ -46,3 +46,5 @@ ResNet12、SC、feature transform、cosine classifier、Intra-Inter loss独立�
 下一步：收到对D01/D02官方闲置参数例外的明确选择后，才执行已准备的CUB800epoch命令；随后做5-way与50-way的1/5-shot2000episode正式评测。Dogs/Flowers需要可核验的作者class清单，当前仅有原始图像和原始标签，不按类别数猜测划分。未启动完整训练、尚无正式论文复现accuracy。
 
 首个debug运行的command.txt未记录-m，保留原文件并附invocation_correction.md；后续使用sys.orig_argv和cwd.txt记录准确命令。checkpoint分析与重载已通过。
+
+清理与发布审计见[cleanup_report.md](cleanup_report.md)。Git保存所有轻量实验记录；数据和大型checkpoint保留本地，checkpoint_manifest.json提供大小与SHA256。初次预检的重复未训练checkpoint已按完全相同SHA256去重，正式预检的同内容文件仍保留。

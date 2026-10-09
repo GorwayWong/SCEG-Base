@@ -1,0 +1,13 @@
+2026-10-09 14:56:34,243 run=/root/projects/aris/sceg_fsfg/experiments/sceg_debug/runs/four_frn_base_images_200_steps
+2026-10-09 14:56:35,495 step=1 loss=34.17801285 episode_acc=100.00 global_acc=25.00 grad_norm=345.333588
+2026-10-09 14:56:37,160 step=20 loss=0.06861647 episode_acc=100.00 global_acc=100.00 grad_norm=0.071789
+2026-10-09 14:56:38,861 step=40 loss=0.03705064 episode_acc=100.00 global_acc=100.00 grad_norm=0.023246
+2026-10-09 14:56:40,595 step=60 loss=0.02906558 episode_acc=100.00 global_acc=100.00 grad_norm=0.013746
+2026-10-09 14:56:42,366 step=80 loss=0.02571133 episode_acc=100.00 global_acc=100.00 grad_norm=0.010329
+2026-10-09 14:56:44,165 step=100 loss=0.02375459 episode_acc=100.00 global_acc=100.00 grad_norm=0.008534
+2026-10-09 14:56:45,943 step=120 loss=0.02240423 episode_acc=100.00 global_acc=100.00 grad_norm=0.007334
+2026-10-09 14:56:47,712 step=140 loss=0.02139936 episode_acc=100.00 global_acc=100.00 grad_norm=0.006458
+2026-10-09 14:56:49,450 step=160 loss=0.02061198 episode_acc=100.00 global_acc=100.00 grad_norm=0.005804
+2026-10-09 14:56:51,270 step=180 loss=0.01997155 episode_acc=100.00 global_acc=100.00 grad_norm=0.005287
+2026-10-09 14:56:53,028 step=200 loss=0.01943743 episode_acc=100.00 global_acc=100.00 grad_norm=0.004865
+2026-10-09 14:56:53,168 overfit_passed=True final_loss=0.01941307 run=/root/projects/aris/sceg_fsfg/experiments/sceg_debug/runs/four_frn_base_images_200_steps

@@ -1,0 +1,8 @@
+{
+  "path": "checkpoint.pth",
+  "bytes": 67328504,
+  "sha256": "83c96441201f24356f26ea387a8e6820d8fe19c6977b94945bbcf5a02db3e7fa",
+  "storage": "local_only",
+  "optimizer_updates": 0,
+  "untrained_weights": true
+}

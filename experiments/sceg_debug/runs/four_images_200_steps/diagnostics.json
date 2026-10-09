@@ -1,0 +1,139 @@
+{
+  "parameters": {
+    "total": 16724355,
+    "requires_grad": 16724355,
+    "official_inactive": 1234560,
+    "parameter_tensors": 124
+  },
+  "flops": {
+    "conv_linear_flops": 58503042560,
+    "cosine_flops": 102400,
+    "total_estimated_flops": 58503144960,
+    "scope": "Conv/Linear MACs*2 + cosine inner products; excludes non-MAC operations"
+  },
+  "final_activations": {
+    "feature_extractor": [
+      {
+        "shape": [
+          8,
+          160,
+          21,
+          21
+        ],
+        "mean": 0.7408185005187988,
+        "std": 1.205908179283142,
+        "minimum": -1.4672657251358032,
+        "maximum": 23.568981170654297
+      },
+      {
+        "shape": [
+          8,
+          320,
+          10,
+          10
+        ],
+        "mean": 0.6952501535415649,
+        "std": 1.305395483970642,
+        "minimum": -1.0507173538208008,
+        "maximum": 19.80276870727539
+      },
+      {
+        "shape": [
+          8,
+          640,
+          5,
+          5
+        ],
+        "mean": 0.7579306960105896,
+        "std": 1.4232925176620483,
+        "minimum": -0.6910800337791443,
+        "maximum": 15.396198272705078
+      }
+    ],
+    "SC": [
+      {
+        "shape": [
+          8,
+          640
+        ],
+        "mean": 2.204890489578247,
+        "std": 1.0801546573638916,
+        "minimum": 0.13624630868434906,
+        "maximum": 7.70639181137085
+      },
+      {
+        "shape": [
+          8,
+          640
+        ],
+        "mean": 2.062159538269043,
+        "std": 1.1856852769851685,
+        "minimum": 0.08962859958410263,
+        "maximum": 9.223837852478027
+      },
+      {
+        "shape": [
+          8,
+          640
+        ],
+        "mean": 2.0788023471832275,
+        "std": 1.5751831531524658,
+        "minimum": 0.0,
+        "maximum": 8.2070894241333
+      }
+    ],
+    "fc_t": [
+      {
+        "shape": [
+          8,
+          640
+        ],
+        "mean": 0.8344568610191345,
+        "std": 0.7985756993293762,
+        "minimum": -0.47943001985549927,
+        "maximum": 4.602032661437988
+      }
+    ],
+    "fc_s": [
+      {
+        "shape": [
+          8,
+          640
+        ],
+        "mean": 0.744217574596405,
+        "std": 0.7158118486404419,
+        "minimum": -0.5843400955200195,
+        "maximum": 4.2467780113220215
+      }
+    ],
+    "fc_l": [
+      {
+        "shape": [
+          8,
+          640
+        ],
+        "mean": 1.4376811981201172,
+        "std": 1.6406937837600708,
+        "minimum": -0.6268230080604553,
+        "maximum": 8.707683563232422
+      }
+    ]
+  },
+  "final_gradients": {
+    "global_norm": 0.004031942691653967,
+    "missing_parameters": [
+      "SC.t_s.mlp.0.weight",
+      "SC.t_s.mlp.0.bias",
+      "SC.t_s.mlp.1.weight",
+      "SC.t_s.mlp.1.bias",
+      "SC.t_t.mlp.0.weight",
+      "SC.t_t.mlp.0.bias",
+      "SC.t_t.mlp.1.weight",
+      "SC.t_t.mlp.1.bias",
+      "SC.t_l.mlp.0.weight",
+      "SC.t_l.mlp.0.bias",
+      "SC.t_l.mlp.1.weight",
+      "SC.t_l.mlp.1.bias"
+    ]
+  }
+}

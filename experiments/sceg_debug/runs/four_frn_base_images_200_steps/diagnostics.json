@@ -1,0 +1,139 @@
+{
+  "parameters": {
+    "total": 16724355,
+    "requires_grad": 16724355,
+    "official_inactive": 1234560,
+    "parameter_tensors": 124
+  },
+  "flops": {
+    "conv_linear_flops": 58503042560,
+    "cosine_flops": 102400,
+    "total_estimated_flops": 58503144960,
+    "scope": "Conv/Linear MACs*2 + cosine inner products; excludes non-MAC operations"
+  },
+  "final_activations": {
+    "feature_extractor": [
+      {
+        "shape": [
+          8,
+          160,
+          21,
+          21
+        ],
+        "mean": 0.7052220702171326,
+        "std": 1.3755112886428833,
+        "minimum": -1.1667333841323853,
+        "maximum": 15.193870544433594
+      },
+      {
+        "shape": [
+          8,
+          320,
+          10,
+          10
+        ],
+        "mean": 0.7012501955032349,
+        "std": 1.376916766166687,
+        "minimum": -1.0289992094039917,
+        "maximum": 12.744683265686035
+      },
+      {
+        "shape": [
+          8,
+          640,
+          5,
+          5
+        ],
+        "mean": 0.7579994201660156,
+        "std": 1.329639196395874,
+        "minimum": -0.9217710494995117,
+        "maximum": 11.425540924072266
+      }
+    ],
+    "SC": [
+      {
+        "shape": [
+          8,
+          640
+        ],
+        "mean": 1.8047122955322266,
+        "std": 1.0943176746368408,
+        "minimum": 0.12734174728393555,
+        "maximum": 6.001755714416504
+      },
+      {
+        "shape": [
+          8,
+          640
+        ],
+        "mean": 1.353548526763916,
+        "std": 1.4099026918411255,
+        "minimum": 0.0,
+        "maximum": 7.1705451011657715
+      },
+      {
+        "shape": [
+          8,
+          640
+        ],
+        "mean": 1.2758644819259644,
+        "std": 1.258589744567871,
+        "minimum": 0.0,
+        "maximum": 5.479300022125244
+      }
+    ],
+    "fc_t": [
+      {
+        "shape": [
+          8,
+          640
+        ],
+        "mean": 0.8071085214614868,
+        "std": 0.874887228012085,
+        "minimum": -0.5907009840011597,
+        "maximum": 4.838143348693848
+      }
+    ],
+    "fc_s": [
+      {
+        "shape": [
+          8,
+          640
+        ],
+        "mean": 0.626909077167511,
+        "std": 0.772251307964325,
+        "minimum": -0.6616222858428955,
+        "maximum": 5.104005813598633
+      }
+    ],
+    "fc_l": [
+      {
+        "shape": [
+          8,
+          640
+        ],
+        "mean": 1.7123092412948608,
+        "std": 2.581615924835205,
+        "minimum": -0.6999423503875732,
+        "maximum": 14.530404090881348
+      }
+    ]
+  },
+  "final_gradients": {
+    "global_norm": 0.004864885471761227,
+    "missing_parameters": [
+      "SC.t_s.mlp.0.weight",
+      "SC.t_s.mlp.0.bias",
+      "SC.t_s.mlp.1.weight",
+      "SC.t_s.mlp.1.bias",
+      "SC.t_t.mlp.0.weight",
+      "SC.t_t.mlp.0.bias",
+      "SC.t_t.mlp.1.weight",
+      "SC.t_t.mlp.1.bias",
+      "SC.t_l.mlp.0.weight",
+      "SC.t_l.mlp.0.bias",
+      "SC.t_l.mlp.1.weight",
+      "SC.t_l.mlp.1.bias"
+    ]
+  }
+}

@@ -1,0 +1,2 @@
+2026-10-09 15:02:00,623 run=/root/projects/aris/sceg_fsfg/experiments/sceg_preflight/runs/full_batch_200
+2026-10-09 15:02:02,566 full_episode batch=200 peak_allocated_GiB=9.6119 zero optimizer steps

@@ -1,0 +1,7 @@
+{
+  "path": "checkpoint.pth",
+  "bytes": 129089714,
+  "sha256": "b68e144ee18533c5c8e9b06dad9e6230877ea6ab81aadfe6ee12d35668f0ca99",
+  "storage": "local_only",
+  "scope": "Historical old-split four-image memorization debug; not the formal FRN split"
+}

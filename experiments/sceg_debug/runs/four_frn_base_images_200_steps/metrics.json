@@ -1,0 +1,18 @@
+{
+  "seed": 42,
+  "dataset": "cub_raw",
+  "way": 4,
+  "shot": 1,
+  "accuracy": 100.0,
+  "confidence_interval": null,
+  "status": "passed",
+  "step": 200,
+  "global_accuracy": 100.0,
+  "loss": 0.019413065165281296,
+  "overfit_passed": true,
+  "eval_accuracy": 100.0,
+  "eval_global_accuracy": 100.0,
+  "strict_all_parameter_gradient_passed": false,
+  "metric_scope": "four-image memorization only",
+  "theoretical_positive_loss_floor": 0.013361522927880287
+}

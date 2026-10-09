@@ -1,0 +1,7 @@
+{
+  "path": "checkpoint.pth",
+  "bytes": 129089714,
+  "sha256": "03ac4c15de8f5b09a6da621b367d5ce1dbdb863b05b913450047edcf00179848",
+  "storage": "local_only",
+  "scope": "FRN base-class four-image memorization debug; not a paper result"
+}

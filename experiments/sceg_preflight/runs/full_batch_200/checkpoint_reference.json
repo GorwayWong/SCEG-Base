@@ -1,0 +1,11 @@
+{
+  "status": "duplicate_binary_removed",
+  "removed_path": "checkpoint.pth",
+  "canonical_path": "../full_batch_200_committed/checkpoint.pth",
+  "bytes": 67328504,
+  "sha256": "83c96441201f24356f26ea387a8e6820d8fe19c6977b94945bbcf5a02db3e7fa",
+  "verification": "Both original files had equal byte size and identical SHA256 before deletion",
+  "optimizer_updates": 0,
+  "untrained_weights": true,
+  "retained": "All original input/config/command/environment/metrics/log/code fingerprint records"
+}

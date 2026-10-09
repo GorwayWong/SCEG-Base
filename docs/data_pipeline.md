@@ -23,6 +23,6 @@ Cars来源脚本为DN4风格seed196抽类，但依赖os.listdir顺序；本项�
 
 测试：随机shuffle class列表，取前way；类内shuffle，先shot support后16 query。官方query_shot被忽略，因此正式协议固定16。按每episode百分比accuracy，取均值与 `1.96*sqrt(var(ddof=0)/n)`；2000测试episodes。
 
-训练变换：PIL RGB→RandomResizedCrop84→ColorJitter(.4,.4,.4)→RandomHorizontalFlip→ToTensor→ImageNet normalize。验证/测试预缩放由官方utils/util.py:21–52规定：Resize(shorter side92)→CenterCrop84→保存PNG；pre模式只ToTensor/normalize。已生成正式FRN CUB/Cars的11,326个PNG，每张均重算变换并对照保存像素，清单见data/provenance/pre_resized.json；旧划分预缩放另存pre_resized_legacy_closerlook.json。debug的确定性变换不等于正式训练aug。
+训练变换：PIL RGB→RandomResizedCrop84→ColorJitter(.4,.4,.4)→RandomHorizontalFlip→ToTensor→ImageNet normalize。验证/测试预缩放由官方utils/util.py:21–52规定：Resize(shorter side92)→CenterCrop84→保存PNG；pre模式只ToTensor/normalize。正式FRN CUB/Cars的11,326个PNG仍保留，每张已重算变换并对照保存像素，清单见data/provenance/pre_resized.json。旧划分的5,903个CUB预缩放PNG已清理；历史清单pre_resized_legacy_closerlook.json和全部原始JPEG保留，可依原变换重建。debug的确定性变换不等于正式训练aug。
 
 Dogs的HTTPS端点证书不匹配，已从同一发布者HTTP端点下载793,579,520-byte images.tar及lists.tar，完整20580图/120breed headers通过。Flowers从Oxford官方站点下载344,862,509-byte tar和labels，8189图与8189个1..102标签通过。SHA256及失败/重试记录保存在data/provenance/downloads*.json，raw_archive_audit.json记录审计范围。下载完成不等于已核验SCEG class split；Dogs/Flowers未按猜测建立train/val/test。
