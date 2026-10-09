@@ -1,1 +1,21 @@
-{"status":"passed","run":"runs/four_images_200_steps","code_commit":"07388e6","seed":42,"dataset":"cub_raw","way":4,"shot":1,"accuracy":100.0,"global_accuracy":100.0,"confidence_interval":null,"loss":0.017862213775515556,"steps":200,"metric_scope":"four-image memorization only","strict_all_parameter_gradient_passed":false}
+{
+  "seed": 42,
+  "dataset": "cub_raw",
+  "way": 4,
+  "shot": 1,
+  "accuracy": 100.0,
+  "confidence_interval": null,
+  "status": "passed",
+  "step": 200,
+  "global_accuracy": 100.0,
+  "loss": 0.019413065165281296,
+  "overfit_passed": true,
+  "eval_accuracy": 100.0,
+  "eval_global_accuracy": 100.0,
+  "strict_all_parameter_gradient_passed": false,
+  "metric_scope": "four-image memorization only",
+  "theoretical_positive_loss_floor": 0.013361522927880287,
+  "run": "runs/four_frn_base_images_200_steps",
+  "code_commit": "40f2b978bb8508f44cf3ba29d74a9fc1b3f013e8",
+  "config_sha256": "03f05a0b94abc45b8e90bb1b55ded11a19dfc7361ae1155c9bb4e761f4f09154"
+}

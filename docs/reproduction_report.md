@@ -32,11 +32,13 @@ ResNet12、SC、feature transform、cosine classifier、Intra-Inter loss独立�
 |活动gradient|CUB112、Cars106个张量；缺失集合精确对照|通过|
 |严格所有参数gradient|官方闲置参数CUB12、Cars18|失败，不能勾选通过|
 |loss数学|标量公式/gradcheck/binary edge|3个测试通过|
-|真实4图overfit|debug_overfit_report.md/独立日志和checkpoint|loss.0178622、accuracy100%，通过|
+|真实4图overfit|FRN训练集，debug_overfit_report.md/独立日志和checkpoint|loss.0194131、accuracy100%，通过|
 |full training/正式few-shot/many-way|未产生完整训练和测试产物|未完成|
 
 四图overfit是记忆调试，不是论文数据集accuracy。正式metrics中的未测accuracy/CI保持null。严格gradient例外正在等待用户选择；未收到选择前不进入完整训练。
 
-最新验证：**12 passed, 2 xfailed**；2个xfail就是严格全参数梯度的已确认失败。CUB真实test_pre的5-way1-shot/5-shot各1个random-weight smoke episode通过，batch分别85/105；仅检查I/O/标签顺序/finite stats，不能作为正式结果。CUB/Cars共11,344个预缩放PNG通过source Resize92→CenterCrop84的像素逐图对照。
+最新验证：**12 passed, 2 xfailed**；2个xfail就是严格全参数梯度的已确认失败。CUB真实test_pre的5-way1-shot/5-shot各1个random-weight smoke episode通过，batch分别85/105；仅检查I/O/标签顺序/finite stats，不能作为正式结果。正式FRN CUB与Cars共11,326个预缩放PNG通过source Resize92→CenterCrop84的像素逐图对照。此前旧划分的11,344个PNG和历史清单保留。
+
+200张10-way5-shot15-query随机输入的完整forward/backward预检通过；GPU峰值allocated约9.61GiB，reserved约12.07GiB（16GiB4060Ti），所有112个活动参数梯度finite、官方12项缺失一致。预检optimizer updates=0，accuracy/CI=null，不等于完整训练，untrained checkpoint位于独立sceg_preflight实验，不能充作baseline。
 
 首个debug运行的command.txt未记录-m，保留原文件并附invocation_correction.md；后续使用sys.orig_argv和cwd.txt记录准确命令。checkpoint分析与重载已通过。
