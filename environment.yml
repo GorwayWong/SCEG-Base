@@ -1,0 +1,8 @@
+name: sceg-reproduction
+channels: [conda-forge]
+dependencies:
+  - python=3.10
+  - pip
+  - pip:
+      - -r requirements.txt
+# CUDA wheels: use the PyTorch cu124 wheel index when installing torch/torchvision.

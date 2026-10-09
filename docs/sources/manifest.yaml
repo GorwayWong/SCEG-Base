@@ -1,0 +1,20 @@
+official_repository:
+  url: https://github.com/Legenddddd/SCEG
+  commit: f7f130aeb5b1b49246150574c53a874d4ce8de80
+  license: MIT
+  reference_checkout: /tmp/sceg-official-reference
+paper:
+  url: https://openaccess.thecvf.com/content/CVPR2026/papers/Zhao_From_Few-way_to_Many-way_Rethinking_Few-shot_Fine-grained_Image_Classification_CVPR_2026_paper.pdf
+  sha256: ea95a36ba6ec7e834cad7696e17994cbf3f4e0f716a1341685f7c5a5779f0822
+  bytes: 2173378
+supplement:
+  url: https://openaccess.thecvf.com/content/CVPR2026/supplemental/Zhao_From_Few-way_to_CVPR_2026_supplemental.pdf
+  sha256: 1e5dd4d919d1d92de1cba984b85af927f45945304719a78ed81c6eecf9be42a6
+  bytes: 211625
+  split_counts_section: '7.1'
+  datasets:
+    cub: {base: 100, validation: 50, novel: 50, images: 11788}
+    dogs: {base: 70, validation: 20, novel: 30, images: 20580}
+    cars: {base: 130, validation: 17, novel: 49, images: 16185}
+    flowers: {base: 51, validation: 26, novel: 25, images: 8189}
+  exact_class_ids_provided: false

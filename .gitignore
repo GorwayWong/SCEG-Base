@@ -1,0 +1,14 @@
+__pycache__/
+.pytest_cache/
+*.py[cod]
+.venv/
+.memsearch/
+data/**
+!data/provenance/
+!data/provenance/*.json
+!data/provenance/*.md
+docs/sources/*.pdf
+experiments/**/runs/
+checkpoints/
+logs/
+*.pth

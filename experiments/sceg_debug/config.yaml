@@ -1,0 +1,68 @@
+experiment: sceg_debug
+official_commit: f7f130aeb5b1b49246150574c53a874d4ce8de80
+seed: 42
+model:
+  dataset: cub_raw
+  input_channels: 3
+  image_size: 84
+  stage_channels: [64, 160, 320, 640]
+  feature_dim: 640
+  base_classes: 4
+  train_way: 4
+  train_shot: 1
+  train_query: 1
+  transform_alpha: 0.3
+  gate_hidden_channels: 16
+  stage3_to_stage2_datasets: [cub_raw, stanford_dog]
+  dropout: 0.0
+  dropblock_size: 5
+  dropblock_ramp_batches: 40000
+  negative_slope: 0.1
+  batchnorm_eps: 0.00001
+  batchnorm_momentum: 0.1
+  projection_bn_momentum: 0.01
+  episode_norm_eps: 0.000000000001
+  global_norm_eps: 0.000000000001
+  convolution_kernel: 3
+  pool_stride: 2
+loss:
+  lamda: 38.0
+  inter: 0.05
+  intra: 0.85
+data:
+  root: data/CUB_fewshot_raw
+  image_size: 84
+  eval_resize: 92
+  mean: [0.485, 0.456, 0.406]
+  std: [0.229, 0.224, 0.225]
+  augmentation: false
+  workers: 0
+train:
+  optimizer: sgd
+  lr: 0.1
+  momentum: 0.9
+  nesterov: true
+  weight_decay: 0.0
+debug:
+  steps: 200
+  unique_images: 4
+  support_query_reuse: true
+  log_every: 20
+  max_final_loss: 0.05
+  minimum_accuracy: 100.0
+  gate_uses_train_mode: true
+runtime:
+  device: cuda:0
+  deterministic: true
+  deterministic_warn_only: true
+  allow_tf32: false
+  amp: false
+  cpu_threads: 2
+verification:
+  way: 5
+  shot: 1
+  query: 15
+  range_tolerance: 0.00001
+  parity_atol: 0.00001
+  parity_rtol: 0.00001
+  microbatch: 4
