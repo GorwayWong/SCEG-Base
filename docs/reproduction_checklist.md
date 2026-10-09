@@ -7,7 +7,7 @@
 - [ ] gradient严格全参数通过（已发现官方未调用参数，待实测）
 - [x] 所有活动参数梯度通过、缺失参数精确对齐官方（CUB112/12，Cars106/18）
 - [x] loss数学验证通过（标量公式、gradcheck、binary edge）
-- [ ] 真实4图片、200 steps overfit通过
+- [x] 真实4图片、200 steps overfit通过（loss0.0178622，episode/global/train/eval均100%）
 - [ ] 四数据集下载/物理副本/划分来源通过
 - [ ] full training完成
 - [ ] 正式few-shot/many-way评测完成

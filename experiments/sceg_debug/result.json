@@ -1,1 +1,1 @@
-{"status":"not_run","seed":42,"dataset":"cub_raw","way":4,"shot":1,"accuracy":null,"confidence_interval":null,"metric_scope":"four-image memorization only"}
+{"status":"passed","run":"runs/four_images_200_steps","code_commit":"07388e6","seed":42,"dataset":"cub_raw","way":4,"shot":1,"accuracy":100.0,"global_accuracy":100.0,"confidence_interval":null,"loss":0.017862213775515556,"steps":200,"metric_scope":"four-image memorization only","strict_all_parameter_gradient_passed":false}

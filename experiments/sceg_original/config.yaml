@@ -30,7 +30,7 @@ loss:
   inter: 0.05
   intra: 0.85
 data:
-  root: data/CUB_fewshot_raw
+  root: data/frn/CUB_fewshot_raw
   image_size: 84
   eval_resize: 92
   mean: [0.485, 0.456, 0.406]
@@ -40,7 +40,7 @@ data:
   jitter: 0.4
   flip_probability: 0.5
   pre_resized: true
-  workers: 3
+  workers: 48
 train:
   optimizer: sgd
   lr: 0.1

@@ -64,7 +64,9 @@ class ExperimentRun:
             commit_result.stdout.strip()+"\n" if commit_result.returncode == 0 else "UNCOMMITTED\n")
         (self.path/"git_diff.patch").write_text(git("diff", "HEAD").stdout)
         (self.path/"git_status.txt").write_text(git("status", "--porcelain").stdout)
-        (self.path/"command.txt").write_text(shlex.join([sys.executable, *sys.argv])+"\n")
+        original_argv = getattr(sys, "orig_argv", [sys.executable, *sys.argv])
+        (self.path/"command.txt").write_text(shlex.join(original_argv)+"\n")
+        (self.path/"cwd.txt").write_text(str(Path.cwd())+"\n")
         write_json(self.path/"environment.json", environment_info())
         write_json(self.path/"source_manifest.json", source_manifest(self.root))
         self.logger = logging.getLogger(f"sceg.{experiment}.{run_id}")
@@ -87,3 +89,11 @@ class ExperimentRun:
         partial = self.path/"checkpoint.pth.part"
         torch.save(payload, partial)
         partial.replace(self.path/"checkpoint.pth")
+
+    def publish_result(self):
+        """Latest family pointer; immutable complete records remain inside each run."""
+        summary = dict(self.metrics)
+        summary["run"] = str(self.path.relative_to(self.path.parents[1]))
+        summary["code_commit"] = (self.path/"git_commit.txt").read_text().strip()
+        summary["config_sha256"] = hashlib.sha256((self.path/"config.yaml").read_bytes()).hexdigest()
+        write_json(self.path.parents[1]/"result.json", summary)

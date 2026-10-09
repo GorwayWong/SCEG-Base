@@ -1,0 +1,25 @@
+{
+  "dogs": {
+    "image_archive": "data/raw/dogs/images.tar",
+    "bytes": 793579520,
+    "sha256": "a443fc2f9a851aa1a7b8e4fa4af94b8459fce2c9f5a2f4dd4669cf9673a4ec58",
+    "images": 20580,
+    "breed_folders": 120,
+    "archive_links": 0,
+    "unsafe_paths": 0,
+    "class_split_verified": false
+  },
+  "flowers": {
+    "image_archive": "data/raw/flowers/102flowers.tgz",
+    "bytes": 344862509,
+    "sha256": "2d01ecc807db462958cfe3d92f57a8c252b4abd240eb955770201e45f783b246",
+    "images": 8189,
+    "label_count": 8189,
+    "label_min": 1,
+    "label_max": 102,
+    "archive_links": 0,
+    "unsafe_paths": 0,
+    "class_split_verified": false
+  },
+  "scope": "Archive headers and Flowers MAT labels checked; not full pixel decoding or few-shot split verification"
+}

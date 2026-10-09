@@ -117,11 +117,13 @@ def main():
             theoretical_positive_loss_floor=4*torch.nn.functional.softplus(
                 torch.tensor(-config["loss"]["lamda"]*(1-config["loss"]["intra"]))).item())
         run.logger.info("overfit_passed=%s final_loss=%.8f run=%s", passed, final_loss.item(), run.path)
+        run.publish_result()
         if not passed:
             raise SystemExit("Overfit gate FAILED; full training forbidden")
     except BaseException as error:
         if run.metrics["status"] == "running":
             run.update_metrics(status="failed", error=f"{type(error).__name__}: {error}")
+        run.publish_result()
         run.logger.exception("run terminated")
         raise
 

@@ -1,0 +1,40 @@
+{
+  "dogs_images": {
+    "url": "https://vision.stanford.edu/aditya86/ImageNetDogs/images.tar",
+    "path": "data/raw/dogs/images.tar",
+    "status": "failed",
+    "failures": [
+      "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'vision.stanford.edu'. (_ssl.c:1017)>",
+      "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'vision.stanford.edu'. (_ssl.c:1017)>"
+    ],
+    "class_split_verified": false
+  },
+  "dogs_lists": {
+    "url": "https://vision.stanford.edu/aditya86/ImageNetDogs/lists.tar",
+    "path": "data/raw/dogs/lists.tar",
+    "status": "failed",
+    "failures": [
+      "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'vision.stanford.edu'. (_ssl.c:1017)>",
+      "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'vision.stanford.edu'. (_ssl.c:1017)>"
+    ],
+    "class_split_verified": false
+  },
+  "flowers_images": {
+    "url": "https://www.robots.ox.ac.uk/~vgg/data/flowers/102/102flowers.tgz",
+    "path": "data/raw/flowers/102flowers.tgz",
+    "bytes": 344862509,
+    "sha256": "2d01ecc807db462958cfe3d92f57a8c252b4abd240eb955770201e45f783b246",
+    "status": "downloaded",
+    "class_split_verified": false,
+    "failures": []
+  },
+  "flowers_labels": {
+    "url": "https://www.robots.ox.ac.uk/~vgg/data/flowers/102/imagelabels.mat",
+    "path": "data/raw/flowers/imagelabels.mat",
+    "bytes": 502,
+    "sha256": "4903e94206bac23bf772aadf06451916df56b58fc483a62db32a97b82656651d",
+    "status": "downloaded",
+    "class_split_verified": false,
+    "failures": []
+  }
+}

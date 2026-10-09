@@ -8,7 +8,7 @@ models/backbone/resnet12.py
 models/modules/{sc,transform_fc,cosine_classifier}.py
 models/sceg.py                  # 仅组装，不加入改进方法开关
 losses/intra_inter_loss.py
-trainers/trainer.py             # shape/gradient后、overfit通过后增量实现
+trainers/trainer.py             # overfit通过后增量实现；完整执行仍受关卡限制
 evaluators/fewshot_eval.py
 tools/{tensor_skeleton,train,test,analyze_checkpoint}.py
 utils/{config,reproducibility,experiment,diagnostics}.py

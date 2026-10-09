@@ -18,3 +18,12 @@ supplement:
     cars: {base: 130, validation: 17, novel: 49, images: 16185}
     flowers: {base: 51, validation: 26, novel: 25, images: 8189}
   exact_class_ids_provided: false
+frn_cub_split:
+  repository: https://github.com/Tsingularity/FRN
+  commit: 64e43f3ca3a4953445788fc853e288e032d0083c
+  source: data/init_CUB_fewshot.py
+  source_sha256: 271ce56cbc9442c20fb2918cbd863e62b37ada44dd2f7a8658f111c76b584a7c
+  iteration: original_class_ids_1_to_200
+  train: id_mod_2_equals_0
+  validation: id_mod_4_equals_1
+  test: id_mod_4_equals_3

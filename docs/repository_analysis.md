@@ -66,7 +66,7 @@ flowchart TD
 
 [作者 README](https://github.com/Legenddddd/SCEG/blob/f7f130aeb5b1b49246150574c53a874d4ce8de80/README.md) 引用 [FRN](https://github.com/Tsingularity/FRN)，但 FRN README 没有 Dogs/Cars/Flowers 的 split；这不能证明四者都具有 FRN 官方清单。
 
-现有只读来源：`/root/projects/aris/fewshot/data/fsfg/`。CUB 为 100/50/50 类、5885/2950/2953 张，Cars 为 130/17/49 类、10744/1408/4033 张。来源附 provenance/split 脚本；Cars 清单明确镜像像素与不可访问原始 archive 的等价性未核验。复制后独立 hash 验证，不能只信原清单。Dogs/Flowers 尚缺，下载图片不能替代 split 的核验。
+现有只读来源：`/root/projects/aris/fewshot/data/fsfg/`。旧CUB为100/50/50类、5885/2950/2953图，但属于0-based CloserLook风格，**不是实际FRN class身份**。正式CUB另按FRN原始IDs1..200规则准备为5903/2927/2958图（数据字节不变）。Cars130/17/49类、10744/1408/4033图，镜像像素与作者原始archive等价性未核验。复制均独立hash验证。Dogs/Flowers原图现已下载，精确class split仍未核验，不能据类别数自行生成。
 
 ## 6. 论文证据及差异
 
@@ -77,8 +77,9 @@ flowchart TD
 | CUB |87.79|94.56|56.02|73.69|
 | Dogs |77.89|89.13|47.55|66.63|
 | Cars |91.18|97.35|64.87|84.08|
+| Flowers102 |87.07|95.63|69.71|85.85|
 
-这些是论文目标值，**不是本项目实验结果**。Flowers 表格、完整式13与完整训练细节仍需补证。已追加核验[补充材料§7.1](https://openaccess.thecvf.com/content/CVPR2026/supplemental/Zhao_From_Few-way_to_CVPR_2026_supplemental.pdf)：CUB100/50/50，Dogs70/20/30，Cars130/17/49，Flowers51/26/25；类别数不能替代精确类别身份。PDF哈希见sources/manifest.yaml。完整台账见 discrepancy_report.md。
+这些是论文目标值，**不是本项目实验结果**。Flowers数值来自Table2。已追加核验补充材料§7.1/§7.2：CUB100/50/50，Dogs70/20/30，Cars130/17/49，Flowers51/26/25；单3090、SGD/momentum.9/lr.1/wd5e-4、Cars/Flowers禁用stage3→stage2、最佳val模型、2000测试episodes。类别数不能替代精确类别身份。PDF哈希见sources/manifest.yaml。论文温度可学习与实际不优化lambda的冲突、Cars/Flowers论文intra.65与发布配置不足见discrepancy_report.md。
 
 ## Phase 0 验证与下一步
 

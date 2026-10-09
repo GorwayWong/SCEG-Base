@@ -1,0 +1,20 @@
+{
+  "dogs_images": {
+    "url": "http://vision.stanford.edu/aditya86/ImageNetDogs/images.tar",
+    "path": "data/raw/dogs/images.tar",
+    "bytes": 793579520,
+    "sha256": "a443fc2f9a851aa1a7b8e4fa4af94b8459fce2c9f5a2f4dd4669cf9673a4ec58",
+    "status": "downloaded",
+    "class_split_verified": false,
+    "failures": []
+  },
+  "dogs_lists": {
+    "url": "http://vision.stanford.edu/aditya86/ImageNetDogs/lists.tar",
+    "path": "data/raw/dogs/lists.tar",
+    "bytes": 481280,
+    "sha256": "34b47cacd9a98b5d150e084f24d29391c084c55272295ec65c85651bc35f4d6c",
+    "status": "downloaded",
+    "class_split_verified": false,
+    "failures": []
+  }
+}

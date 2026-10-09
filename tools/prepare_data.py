@@ -13,8 +13,8 @@ from PIL import Image
 
 
 DOWNLOADS = {
-    "dogs_images": ("https://vision.stanford.edu/aditya86/ImageNetDogs/images.tar", "dogs/images.tar"),
-    "dogs_lists": ("https://vision.stanford.edu/aditya86/ImageNetDogs/lists.tar", "dogs/lists.tar"),
+    "dogs_images": ("http://vision.stanford.edu/aditya86/ImageNetDogs/images.tar", "dogs/images.tar"),
+    "dogs_lists": ("http://vision.stanford.edu/aditya86/ImageNetDogs/lists.tar", "dogs/lists.tar"),
     "flowers_images": ("https://www.robots.ox.ac.uk/~vgg/data/flowers/102/102flowers.tgz", "flowers/102flowers.tgz"),
     "flowers_labels": ("https://www.robots.ox.ac.uk/~vgg/data/flowers/102/imagelabels.mat", "flowers/imagelabels.mat"),
 }
@@ -72,11 +72,15 @@ def verify_copies(source, destination):
     (destination/"provenance/copied_datasets.json").write_text(json.dumps(records, indent=2))
 
 
-def download_missing(destination, timeout, retries):
-    manifest_path = destination/"provenance/downloads.json"
+def download_missing(destination, timeout, retries, group="all"):
+    # Each group has an independent manifest, permitting simultaneous raw downloads.
+    filename = "downloads.json" if group == "all" else f"downloads_{group}.json"
+    manifest_path = destination/"provenance"/filename
     manifest_path.parent.mkdir(parents=True, exist_ok=True)
     records = json.loads(manifest_path.read_text()) if manifest_path.exists() else {}
     for name, (url, relative) in DOWNLOADS.items():
+        if group != "all" and not name.startswith(group+"_"):
+            continue
         target = destination/"raw"/relative
         target.parent.mkdir(parents=True, exist_ok=True)
         previous = records.get(name, {})
@@ -110,6 +114,39 @@ def download_missing(destination, timeout, retries):
         manifest_path.write_text(json.dumps(records, indent=2))
 
 
+def prepare_pre_resized(destination, image_size, resize_size, cub_root=None):
+    from torchvision import transforms
+    transform = transforms.Compose([transforms.Resize(resize_size), transforms.CenterCrop(image_size)])
+    records = {}
+    roots = (cub_root or destination/"CUB_fewshot_raw", destination/"StanfordCars_fewshot")
+    for root in roots:
+        dataset_name = root.name
+        records[dataset_name] = {}
+        records[dataset_name]["root"] = str(root)
+        for split in ("val", "test"):
+            files = {}
+            for source_path in sorted((root/split).rglob("*")):
+                if not source_path.is_file():
+                    continue
+                assert not source_path.is_symlink(), "Only physical local data is accepted"
+                relative = source_path.relative_to(root/split).with_suffix(".png")
+                target = root/(split+"_pre")/relative
+                target.parent.mkdir(parents=True, exist_ok=True)
+                with Image.open(source_path) as source_image:
+                    transformed = transform(source_image.convert("RGB"))
+                    if not target.exists():
+                        transformed.save(target)
+                    with Image.open(target) as saved_image:
+                        assert saved_image.size == (image_size, image_size)
+                        assert saved_image.tobytes() == transformed.tobytes(), str(target)
+                files[str(relative)] = sha256_file(target)
+            records[dataset_name][split+"_pre"] = {"files": files, "images": len(files)}
+            print(f"prepared {dataset_name}/{split}_pre: {len(files)} images", flush=True)
+    records["transform"] = {"resize_shorter_side": resize_size, "center_crop": image_size,
+                             "format": "RGB PNG", "source": "official utils/util.py:21-52"}
+    (destination/"provenance/pre_resized.json").write_text(json.dumps(records, indent=2))
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--source", type=Path, default=Path("/root/projects/aris/fewshot/data/fsfg"))
@@ -118,11 +155,19 @@ def main():
     parser.add_argument("--download-missing", action="store_true")
     parser.add_argument("--timeout", type=int, default=20)
     parser.add_argument("--retries", type=int, default=2)
+    parser.add_argument("--download-group", choices=["all", "dogs", "flowers"], default="all")
+    parser.add_argument("--pre-resize", action="store_true")
+    parser.add_argument("--config", default="configs/sceg_original.yaml")
     args = parser.parse_args()
     if args.verify_copies:
         verify_copies(args.source, args.destination)
     if args.download_missing:
-        download_missing(args.destination, args.timeout, args.retries)
+        download_missing(args.destination, args.timeout, args.retries, args.download_group)
+    if args.pre_resize:
+        from utils.config import load_config
+        config = load_config(args.config)
+        prepare_pre_resized(args.destination, config["data"]["image_size"], config["data"]["eval_resize"],
+                            cub_root=Path(config["data"]["root"]))
 
 
 if __name__ == "__main__":

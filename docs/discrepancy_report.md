@@ -20,8 +20,12 @@
 |D14|源码初始化；SCEG.py:66–71|重置所有Conv/Linear，覆盖backbone初始化，Conv bias保留默认|保持构造与初始化次序，以state_dict parity验证|
 |D15|标签二值化边缘；loss.py:10|sklearn label_binarize二分类仅输出1列，广播导致不同于标准one-hot|原baseline way>=3；四图overfit用4个全局类，不能悄悄按2-way换公式|
 |D16|实测环境限制；torch2.6.0 CUDA backward|AdaptiveMaxPool2d反向无强制确定性实现，严格deterministic=true报错|保留官方算子；显式warn_only=true，控制全部RNG，但不声称GPU逐bit重复；CPU可用严格模式|
+|D17|工程记录修复；utils/experiment.py|首个debug运行的sys.argv记录缺失Python的-m，命令回放需模块形式|保留原command.txt并新增invocation_correction.md；后续使用sys.orig_argv并保存cwd，不改既有结果|
+|D18|**数据来源冲突**；已有cub_split_original.py:33 vs FRN init_CUB_fewshot.py:77–87|已有副本按0-based索引取even即原始odd IDs为train；FRN用原始IDs1..200取even IDs为train，三组class身份不同|保留旧副本/所有旧实验；正式根改为data/frn/CUB_fewshot_raw，严格执行发布FRN规则，逐图片bytes不变；禁止把旧split称FRN|
 |P01|论文§3.4式20 vs loss.py:28–41|已核验的softplus形式与exp/log求和形式数学等价|保留官方exp/log计算，不用数值稳定改写替代|
-|P02|待核验论文§3.3式13/14|完整SC聚合/残差变换需逐公式核对|暂不声称有/无论文冲突|
+|P02|论文§3.3式13/14、§3.4式15–17、补充§7.2|SC加法聚合、max-pool、support先h_phi再求均值、query和global使用h_phi、Cars/Flowers禁用stage3→stage2均与代码一致|保留源码结构；0.3残差混合为源码确定的具体h_phi实现|
 |P03|补充材料§7.1已核验|类别数CUB100/50/50、Dogs70/20/30、Cars130/17/49、Flowers51/26/25；未提供可核验完整class清单|类别数不代表类别身份相同；仍禁止猜split|
+|P04|**论文与代码已确认冲突**；论文§3.4式20后的定义 vs loss.py:22/trainer.py:84|论文称温度alpha可学习；代码lambda有gradient但不在optimizer，每epoch重建，所以固定|严格保留固定lambda38，不加入optimizer|
+|P05|发布配置不足；论文§4.1.2 vs parser/run.sh|论文Cars/Flowers intra=.65；parser默认.85，发布run.sh仅给CUB(.85)，没有Cars/Flowers专用脚本|不把CUB设置静默视为四数据集作者设置；扩展数据集配置需标注来源与缺口|
 
-尚未确认具体论文/代码算法矛盾；P02/P03仍为开放审计项。每次适配需追加来源、理由、验证，不删除异常实现。
+P04是已确认论文/代码冲突；P03的精确class身份仍有开放项。每次适配需追加来源、理由、验证，不删除异常实现。
