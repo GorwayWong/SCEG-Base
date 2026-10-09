@@ -41,4 +41,8 @@ ResNet12、SC、feature transform、cosine classifier、Intra-Inter loss独立�
 
 200张10-way5-shot15-query随机输入的完整forward/backward预检通过；GPU峰值allocated约9.61GiB，reserved约12.07GiB（16GiB4060Ti），所有112个活动参数梯度finite、官方12项缺失一致。预检optimizer updates=0，accuracy/CI=null，不等于完整训练，untrained checkpoint位于独立sceg_preflight实验，不能充作baseline。
 
+已提交代码后的预检运行：[full_batch_200_committed metrics](../experiments/sceg_preflight/runs/full_batch_200_committed/metrics.json)，源码commit `9b39c67b8d9435b53f60e24db610fa3c17cd2a18`。FRN overfit运行源码commit为`40f2b978bb8508f44cf3ba29d74a9fc1b3f013e8`；所有必需运行文件与准确模块命令已核验。
+
+下一步：收到对D01/D02官方闲置参数例外的明确选择后，才执行已准备的CUB800epoch命令；随后做5-way与50-way的1/5-shot2000episode正式评测。Dogs/Flowers需要可核验的作者class清单，当前仅有原始图像和原始标签，不按类别数猜测划分。未启动完整训练、尚无正式论文复现accuracy。
+
 首个debug运行的command.txt未记录-m，保留原文件并附invocation_correction.md；后续使用sys.orig_argv和cwd.txt记录准确命令。checkpoint分析与重载已通过。

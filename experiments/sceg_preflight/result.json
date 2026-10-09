@@ -15,7 +15,7 @@
   "gradient_norm": 59.972190856933594,
   "strict_all_parameter_gradient_passed": false,
   "metric_scope": "resource/gradient preflight only",
-  "run": "runs/full_batch_200",
-  "code_commit": "40f2b978bb8508f44cf3ba29d74a9fc1b3f013e8",
+  "run": "runs/full_batch_200_committed",
+  "code_commit": "9b39c67b8d9435b53f60e24db610fa3c17cd2a18",
   "config_sha256": "ce7cf8ac42e6f855c5f4ecb00fe62a764e30b5c3fa2d811f59e129fb25603bdc"
 }
