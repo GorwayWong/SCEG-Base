@@ -16,13 +16,13 @@
 |确定性|seed42|当前PyTorch的AdaptiveMaxPool2d CUDA backward不支持强制确定性|沿用已确认warn_only=true、TF32=false、AMP=false；不承诺CUDA逐bit复现|
 |记录与入口|用户要求checkpoint_last/best、每轮GPU/时间等|已有入口记录latest.pth/checkpoint.pth，缺少部分独立记录；publish_result会更新旧family result|只在实验执行入口中补充记录、停止检查和产物命名；正式结果按run保存；用户要求清理后删除未运行的family占位文件|
 
-论文目标来自 [CVF论文](https://openaccess.thecvf.com/content/CVPR2026/papers/Zhao_From_Few-way_to_Many-way_Rethinking_Few-shot_Fine-grained_Image_Classification_CVPR_2026_paper.pdf)：CUB 5-way 1/5-shot为87.79/94.56，50-way 1/5-shot为56.02/73.69。这些是论文值。三组已完成的正式指标见cub_result_table.md；50-way 5-shot暂停，accuracy/CI为null。
+论文目标来自 [CVF论文](https://openaccess.thecvf.com/content/CVPR2026/papers/Zhao_From_Few-way_to_Many-way_Rethinking_Few-shot_Fine-grained_Image_Classification_CVPR_2026_paper.pdf)：CUB 5-way 1/5-shot为87.79/94.56，50-way 1/5-shot为56.02/73.69。这些是论文值。当前四组正式指标均已完成，见cub_result_table.md。此前暂停阶段的50-way 5-shot指标为null，仅作为历史记录保留。
 
 Phase A首轮发现固定FRN源码文件没有随旧manifest存储，已保留失败记录，并在新run重新从固定URL验证SHA256；这不代表数据split检查失败。
 
 2026-10-09记录策略修正：按用户指示取消逐epoch完整checkpoint/RNG及临时best归档，只保留rolling last与真实validation-selected best，评测引用同一best而不复制权重；所有轻量配置、环境、命令、source/data hash清单、逐epoch/validation指标和评测原始记录保留。此次清理仅涉及本阶段新增的冗余权重，旧overfit/preflight验证产物不动；模型、优化和采样协议不变，当时训练暂停。
 
-2026-10-10：恢复第122轮状态并完成800轮训练。三组测试完成，50-way 5-shot按用户指令停止，等待自动发布的进程也已取消。原评测入口只在完整setting结束时保存结果，不支持episode级续跑；没有把未保存的部分episode当作正式结果。完整CUB baseline完成标准尚未满足。
+2026-10-10历史暂停阶段：恢复第122轮状态并完成800轮训练。三组测试完成，50-way 5-shot按用户指令停止，等待自动发布的进程也已取消。原评测入口只在完整setting结束时保存结果，不支持episode级续跑；没有把未保存的部分episode当作正式结果。当时完整CUB baseline完成标准尚未满足；现已由独立补测补齐。
 
 实验结束后的存储清理：移除旧中断权重、重复单轮JSON与激活诊断，保留完整800轮历史、全部40次validation指标、best epoch原始验证记录和三组原始测试episode结果；其余39次验证采样明细清理。11788张相同JPEG在项目内部硬链接去重，两套类目录及图像SHA256不变，未链接到外部来源工程。准备时的copy2/独立副本证明仍作为历史记录保留；当前存储变化在cleanup_result.json单独记录。记录入口今后仅验证已保护源码，不再锁定过时输出；运行时原始脚本副本保留。模型/loss/dataset源码与优化参数均未修改。
 

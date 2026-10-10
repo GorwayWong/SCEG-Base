@@ -1,0 +1,27 @@
+{
+  "status": "passed",
+  "review_mode": "fresh_default_agent_read_only",
+  "completed_settings": 4,
+  "episodes_per_setting": 2000,
+  "query": 16,
+  "raw_means_and_official_95_percent_ci_recomputed": true,
+  "episode_indices_unique_and_in_range": true,
+  "same_best_checkpoint_sha_verified_against_actual_file": true,
+  "training_epochs": 800,
+  "validation_metric_epochs": 40,
+  "best_epoch": 480,
+  "protected_source_files_unchanged": 45,
+  "rng_sampler_replay_indices_matched": 2000,
+  "rng_replay_model_forwards": 0,
+  "cleanup": {
+    "duplicate_log_removed": "experiments/sceg_original/logs/20261010_cub800_seed42_completed/evaluation_process.log",
+    "duplicate_log_bytes": 7991,
+    "retained_primary_log": "experiments/sceg_original/runs/20261010_cub50way5shot_seed42/train.log",
+    "expired_pid_record_removed": "evaluation_process.json",
+    "expired_supervisor_pid_removed_from": "process.json",
+    "commands_cwd_and_start_time_retained": true,
+    "final_progress_resource_record_retained": true
+  },
+  "historical_pause_wording_clarified": true,
+  "unrelated_docs_paper_directory_untouched": true
+}

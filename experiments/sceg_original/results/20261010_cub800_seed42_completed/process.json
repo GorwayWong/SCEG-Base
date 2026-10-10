@@ -1,5 +1,4 @@
 {
-  "supervisor_pid": 38820,
   "command": [
     ".venv/bin/python",
     "experiments/sceg_original/runs/20261009_cub800_seed42_execution/complete_cub.py"
