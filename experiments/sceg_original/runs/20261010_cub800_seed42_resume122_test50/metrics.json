@@ -1,0 +1,44 @@
+{
+  "seed": 42,
+  "dataset": "cub_raw",
+  "way": 10,
+  "shot": 5,
+  "accuracy": null,
+  "confidence_interval": null,
+  "status": "paused",
+  "pending_evaluation": {
+    "time_utc": "2026-10-10T06:21:50.908150+00:00",
+    "reason": "user_requested_pause",
+    "way": 50,
+    "shot": 5,
+    "episodes_requested": 2000,
+    "accuracy": null,
+    "confidence_interval": null,
+    "completed_episodes": null,
+    "episode_progress_persisted": false,
+    "note": "The existing evaluator saves at setting completion; no valid completed 5-shot result exists.",
+    "automatic_cleanup_publisher_cancelled": true,
+    "training_resume_required": false
+  },
+  "completed_evaluation": {
+    "dataset": "CUB",
+    "checkpoint_sha256": "bf3c1079739c05d899c3227c7d8583fb40adec8a65eb67500e36749c046ba942",
+    "way": 50,
+    "shot": 1,
+    "query": 16,
+    "episodes": 2000,
+    "accuracy": 56.5245625,
+    "confidence_interval": 0.12589184854904975,
+    "seed": 42,
+    "commit": "900e06e2414a9873d2c9933eda8c417d3834a3c7",
+    "official_commit": "f7f130aeb5b1b49246150574c53a874d4ce8de80",
+    "confidence_interval_type": "95% normal half-width, population variance ddof=0",
+    "confidence_interval_bounds": [
+      56.39867065145095,
+      56.650454348549054
+    ],
+    "raw_result": "experiments/sceg_original/runs/20261010_cub800_seed42_resume122_test50/test_50way_1shot.json",
+    "raw_result_sha256": "573ba192f64547789e5f1f2c3c16c4878ab842f7e7fe12e933e38509fe09659f"
+  },
+  "pause_time_utc": "2026-10-10T06:21:50.908150+00:00"
+}

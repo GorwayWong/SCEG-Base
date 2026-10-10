@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "completed_epochs": 800,
+  "full_training_completed": true,
+  "best_epoch": 480,
+  "best_validation": 95.02125,
+  "checkpoint_best_sha256": "bf3c1079739c05d899c3227c7d8583fb40adec8a65eb67500e36749c046ba942",
+  "formal_testing_status": "next: existing trainer automatically evaluates best checkpoint 5-way 1/5-shot"
+}

@@ -1,0 +1,26 @@
+{
+  "status": "completed",
+  "removed_file_count": 1614,
+  "reclaimed_allocated_bytes": 1440374784,
+  "project_allocated_bytes_after": 5306609664,
+  "preserved_sha256": {
+    "experiments/sceg_original/runs/20261010_cub800_seed42_resume122/latest.pth": "9bb27392307946a53a59b5e215f10734f494f66815cfb9994ba86d3d1d90d28f",
+    "experiments/sceg_original/runs/20261010_cub800_seed42_resume122/checkpoint.pth": "bf3c1079739c05d899c3227c7d8583fb40adec8a65eb67500e36749c046ba942",
+    "experiments/sceg_original/results/20261010_cub800_seed42_resume122/results.json": "ecbe119f65385795e7debe1f75f8583d7c3111ef4d18a8ad8477f4b6c11757ea",
+    "experiments/sceg_original/runs/20261010_cub800_seed42_resume122/test_5way_1shot.json": "eba77ac011302af3552e634882e122fce1851e72d04dd5a33fce189ee11a3f64",
+    "experiments/sceg_original/runs/20261010_cub800_seed42_resume122/test_5way_5shot.json": "07a7d6f5487254439329007d86cd53abed29ce52e061105b533f412b079874d7",
+    "experiments/sceg_original/runs/20261010_cub800_seed42_resume122_test50/test_50way_1shot.json": "573ba192f64547789e5f1f2c3c16c4878ab842f7e7fe12e933e38509fe09659f"
+  },
+  "data_deduplication": {
+    "legacy_root": "data/CUB_fewshot_raw",
+    "canonical_root": "data/frn/CUB_fewshot_raw",
+    "image_count": 11788,
+    "deduplicated_files": 11788,
+    "all_image_sha256_equal": true,
+    "class_paths_preserved": true,
+    "hardlinks_to_legacy_project_copy": true,
+    "hardlinks_to_external_source_project": false,
+    "method": "project-internal hard links; no links to the external source project"
+  },
+  "dataset_contents_splits_and_verified_model_modules_unchanged": true
+}

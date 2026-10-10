@@ -1,0 +1,169 @@
+{
+  "removed_file_count": 39,
+  "removed": [
+    {
+      "path": "experiments/sceg_original/runs/20261009_cub800_seed42_formal/validation_epoch_40.json",
+      "bytes": 1420207
+    },
+    {
+      "path": "experiments/sceg_original/runs/20261009_cub800_seed42_formal/validation_epoch_60.json",
+      "bytes": 1421323
+    },
+    {
+      "path": "experiments/sceg_original/runs/20261009_cub800_seed42_formal/validation_epoch_20.json",
+      "bytes": 1419831
+    },
+    {
+      "path": "experiments/sceg_original/runs/20261009_cub800_seed42_formal/validation_epoch_80.json",
+      "bytes": 1419667
+    },
+    {
+      "path": "experiments/sceg_original/runs/20261009_cub800_seed42_formal/validation_epoch_100.json",
+      "bytes": 1419389
+    },
+    {
+      "path": "experiments/sceg_original/runs/20261009_cub800_seed42_formal/validation_epoch_120.json",
+      "bytes": 1418502
+    },
+    {
+      "path": "experiments/sceg_original/runs/20261010_cub800_seed42_resume122/validation_epoch_600.json",
+      "bytes": 1419433
+    },
+    {
+      "path": "experiments/sceg_original/runs/20261010_cub800_seed42_resume122/validation_epoch_560.json",
+      "bytes": 1419956
+    },
+    {
+      "path": "experiments/sceg_original/runs/20261010_cub800_seed42_resume122/validation_epoch_460.json",
+      "bytes": 1420301
+    },
+    {
+      "path": "experiments/sceg_original/runs/20261010_cub800_seed42_resume122/validation_epoch_640.json",
+      "bytes": 1421342
+    },
+    {
+      "path": "experiments/sceg_original/runs/20261010_cub800_seed42_resume122/validation_epoch_160.json",
+      "bytes": 1419588
+    },
+    {
+      "path": "experiments/sceg_original/runs/20261010_cub800_seed42_resume122/validation_epoch_240.json",
+      "bytes": 1419245
+    },
+    {
+      "path": "experiments/sceg_original/runs/20261010_cub800_seed42_resume122/validation_epoch_380.json",
+      "bytes": 1418588
+    },
+    {
+      "path": "experiments/sceg_original/runs/20261010_cub800_seed42_resume122/validation_epoch_280.json",
+      "bytes": 1420132
+    },
+    {
+      "path": "experiments/sceg_original/runs/20261010_cub800_seed42_resume122/validation_epoch_500.json",
+      "bytes": 1420373
+    },
+    {
+      "path": "experiments/sceg_original/runs/20261010_cub800_seed42_resume122/validation_epoch_760.json",
+      "bytes": 1419148
+    },
+    {
+      "path": "experiments/sceg_original/runs/20261010_cub800_seed42_resume122/validation_epoch_540.json",
+      "bytes": 1419486
+    },
+    {
+      "path": "experiments/sceg_original/runs/20261010_cub800_seed42_resume122/validation_epoch_420.json",
+      "bytes": 1419417
+    },
+    {
+      "path": "experiments/sceg_original/runs/20261010_cub800_seed42_resume122/validation_epoch_680.json",
+      "bytes": 1420198
+    },
+    {
+      "path": "experiments/sceg_original/runs/20261010_cub800_seed42_resume122/validation_epoch_580.json",
+      "bytes": 1420257
+    },
+    {
+      "path": "experiments/sceg_original/runs/20261010_cub800_seed42_resume122/validation_epoch_140.json",
+      "bytes": 1420765
+    },
+    {
+      "path": "experiments/sceg_original/runs/20261010_cub800_seed42_resume122/validation_epoch_400.json",
+      "bytes": 1419951
+    },
+    {
+      "path": "experiments/sceg_original/runs/20261010_cub800_seed42_resume122/validation_epoch_700.json",
+      "bytes": 1419095
+    },
+    {
+      "path": "experiments/sceg_original/runs/20261010_cub800_seed42_resume122/validation_epoch_360.json",
+      "bytes": 1419621
+    },
+    {
+      "path": "experiments/sceg_original/runs/20261010_cub800_seed42_resume122/validation_epoch_660.json",
+      "bytes": 1420025
+    },
+    {
+      "path": "experiments/sceg_original/runs/20261010_cub800_seed42_resume122/validation_epoch_800.json",
+      "bytes": 1419737
+    },
+    {
+      "path": "experiments/sceg_original/runs/20261010_cub800_seed42_resume122/validation_epoch_300.json",
+      "bytes": 1420409
+    },
+    {
+      "path": "experiments/sceg_original/runs/20261010_cub800_seed42_resume122/validation_epoch_220.json",
+      "bytes": 1420650
+    },
+    {
+      "path": "experiments/sceg_original/runs/20261010_cub800_seed42_resume122/validation_epoch_740.json",
+      "bytes": 1419685
+    },
+    {
+      "path": "experiments/sceg_original/runs/20261010_cub800_seed42_resume122/validation_epoch_180.json",
+      "bytes": 1418545
+    },
+    {
+      "path": "experiments/sceg_original/runs/20261010_cub800_seed42_resume122/validation_epoch_720.json",
+      "bytes": 1420154
+    },
+    {
+      "path": "experiments/sceg_original/runs/20261010_cub800_seed42_resume122/validation_epoch_620.json",
+      "bytes": 1419320
+    },
+    {
+      "path": "experiments/sceg_original/runs/20261010_cub800_seed42_resume122/validation_epoch_780.json",
+      "bytes": 1419218
+    },
+    {
+      "path": "experiments/sceg_original/runs/20261010_cub800_seed42_resume122/validation_epoch_340.json",
+      "bytes": 1419800
+    },
+    {
+      "path": "experiments/sceg_original/runs/20261010_cub800_seed42_resume122/validation_epoch_320.json",
+      "bytes": 1419416
+    },
+    {
+      "path": "experiments/sceg_original/runs/20261010_cub800_seed42_resume122/validation_epoch_260.json",
+      "bytes": 1418856
+    },
+    {
+      "path": "experiments/sceg_original/runs/20261010_cub800_seed42_resume122/validation_epoch_200.json",
+      "bytes": 1421084
+    },
+    {
+      "path": "experiments/sceg_original/runs/20261010_cub800_seed42_resume122/validation_epoch_440.json",
+      "bytes": 1418386
+    },
+    {
+      "path": "experiments/sceg_original/runs/20261010_cub800_seed42_resume122/validation_epoch_520.json",
+      "bytes": 1419216
+    }
+  ],
+  "reclaimed_allocated_bytes": 55439360,
+  "validation_metric_epochs_retained": 40,
+  "best_epoch": 480,
+  "preserved_sha256": {
+    "experiments/sceg_original/runs/20261010_cub800_seed42_resume122/metrics.json": "b27c9e007c8011082a5ae03d8f8e7974df96d0ad20f7f8aa2189236e56cfb81c",
+    "experiments/sceg_original/runs/20261010_cub800_seed42_resume122/validation_epoch_480.json": "7891903fd47faa1b70986796b7ced1124677e0a889adf0effad4233251220f31"
+  },
+  "all_formal_test_episode_results_retained": true
+}

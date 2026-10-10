@@ -1,0 +1,121 @@
+experiment: sceg_original
+dataset: CUB
+official_commit: f7f130aeb5b1b49246150574c53a874d4ce8de80
+seed: 42
+lambda: 38.0
+episode:
+  train_way: 10
+  train_shot: 5
+  train_query_shot: 15
+model:
+  dataset: cub_raw
+  input_channels: 3
+  image_size: 84
+  stage_channels:
+  - 64
+  - 160
+  - 320
+  - 640
+  feature_dim: 640
+  base_classes: 100
+  train_way: 10
+  train_shot: 5
+  train_query: 15
+  transform_alpha: 0.3
+  gate_hidden_channels: 16
+  stage3_to_stage2_datasets:
+  - cub_raw
+  - stanford_dog
+  dropout: 0.1
+  dropblock_size: 5
+  dropblock_ramp_batches: 40000
+  negative_slope: 0.1
+  batchnorm_eps: 1.0e-05
+  batchnorm_momentum: 0.1
+  projection_bn_momentum: 0.01
+  episode_norm_eps: 1.0e-12
+  global_norm_eps: 1.0e-12
+  convolution_kernel: 3
+  pool_stride: 2
+loss:
+  lamda: 38.0
+  inter: 0.05
+  intra: 0.85
+data:
+  root: data/frn/CUB_fewshot_raw
+  image_size: 84
+  eval_resize: 92
+  mean:
+  - 0.485
+  - 0.456
+  - 0.406
+  std:
+  - 0.229
+  - 0.224
+  - 0.225
+  crop_scale:
+  - 0.08
+  - 1.0
+  crop_ratio:
+  - 0.75
+  - 1.3333333333333333
+  jitter: 0.4
+  flip_probability: 0.5
+  pre_resized: true
+  workers: 4
+  pin_memory: false
+train:
+  optimizer: sgd
+  lr: 0.1
+  momentum: 0.9
+  nesterov: true
+  weight_decay: 0.0005
+  epochs: 800
+  scheduler: StepLR
+  scheduler_step: 400
+  scheduler_gamma: 0.1
+  validation_every: 20
+eval:
+  way: 5
+  validation_shot: 5
+  shots:
+  - 1
+  - 5
+  query: 16
+  validation_episodes: 1000
+  test_episodes: 2000
+  confidence_multiplier: 1.96
+  many_way: 50
+  many_way_shots:
+  - 1
+  - 5
+  many_way_episodes: 2000
+runtime:
+  device: cuda:0
+  deterministic: true
+  deterministic_warn_only: true
+  allow_tf32: false
+  amp: false
+  cpu_threads: 2
+verification:
+  way: 5
+  shot: 1
+  query: 15
+  range_tolerance: 1.0e-05
+  parity_atol: 1.0e-05
+  parity_rtol: 1.0e-05
+  microbatch: 4
+execution_adaptations:
+  official_workers: 48
+  approved_workers: 4
+  worker_change_authorized_by_user: true
+  validation_every_epoch_requested: true
+  validation_every_epoch_effective: false
+  validation_policy: official_every_20_epochs
+  official_inactive_parameters_accepted: true
+  loss_lambda_alias: lambda_is_documentation_alias_of_lamda
+gates:
+  overfit_result: experiments/sceg_debug/result.json
+  overfit_sha256: 896127c10533e2a08c5dd2d2dd56f69f89c8a5f64fa70d73c7cfaa3db0a82eb4
+  official_inactive_exception_accepted: true
+  strict_all_parameter_gradient_passed: false

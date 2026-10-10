@@ -1,0 +1,1 @@
+{"status":"failed","error":"AssertionError: Cannot identify pinned FRN split source","scope":"Phase A provenance lookup; no training launched","resolution":"Recheck the fixed FRN source URL and SHA256 in a new run; retain this attempt."}

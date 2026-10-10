@@ -1,0 +1,79 @@
+{
+  "audit_time_utc": "2026-10-09 13:53:14 UTC",
+  "audit_time_local": "2026-10-09 21:53:14 Asia/Shanghai",
+  "training_resumed": false,
+  "files_deleted": false,
+  "user_instruction": "暂时不要恢复训练",
+  "run_id": "20261009_cub800_seed42_formal",
+  "completion": {
+    "baseline_reproduced": false,
+    "training_process_running": false,
+    "completed_epochs_in_verified_latest_checkpoint": 122,
+    "target_epochs": 800,
+    "optimizer_steps": 3294,
+    "best_epoch_so_far": 100,
+    "best_validation_accuracy_percent": 91.155,
+    "best_checkpoint_strict_model_load": "passed_cpu_only_no_training",
+    "few_way_formal_tests_completed": false,
+    "many_way_formal_tests_completed": false,
+    "final_results_json_exists": false,
+    "old_status_json_is_stale": true
+  },
+  "checkpoint_integrity": {
+    "latest_pth_load": "passed",
+    "latest_pth_completed_epochs": 122,
+    "latest_pth_sha256": "898b5ac85fbb1bc55318a77cc0ad53dfef24f21bf8396f3a47a69d73e310937e",
+    "latest_pth_hash_matches_recorded_epoch122": true,
+    "epoch121_archive_load": "passed",
+    "best_epoch100_archive_load": "passed",
+    "optimizer_momentum_buffers": 112,
+    "scheduler_last_epoch": 122,
+    "rng_state_present_in_latest": true,
+    "damaged_zero_byte_files": [
+      "checkpoints/epoch_0122.pth",
+      "rng_state_epoch_0122.pt",
+      "epoch_0122.json",
+      "activations_epoch_123.json"
+    ],
+    "empty_git_diff_patch_is_expected": true,
+    "interruption_cause": "undetermined; no live process, recent WSL boot and partially lost writes observed; no training exception traceback found"
+  },
+  "disk": {
+    "units": "bytes; GiB = bytes / 1073741824",
+    "project_allocated_bytes": 26099892224,
+    "data_allocated_bytes": 5700308992,
+    "all_experiments_allocated_bytes": 20311453696,
+    "sceg_original_allocated_bytes": 19985571840,
+    "formal_run_allocated_bytes": 19065450496,
+    "formal_epoch_archive_file_count": 122,
+    "formal_epoch_archive_nonempty_file_count": 121,
+    "formal_epoch_archives_allocated_bytes": 15679905792,
+    "formal_best_archive_file_count": 24,
+    "formal_best_archives_allocated_bytes": 3110109184,
+    "first19_provisional_best_logical_bytes": 2462074678,
+    "rolling_checkpoint_copies_allocated_bytes": 259170304,
+    "all_sceg_original_checkpoint_file_count": 155,
+    "all_sceg_original_checkpoint_logical_bytes": 19955588404,
+    "typical_full_checkpoint_logical_bytes": 129581522,
+    "model_tensor_bytes_in_latest": 67245724,
+    "optimizer_tensor_bytes_in_latest": 62204940,
+    "rng_tensor_bytes_in_latest": 5072,
+    "800_epoch_archives_projected_bytes": 103665217600,
+    "filesystem_available_bytes": 875992104960,
+    "ubuntu22_04_vhdx_file_length_bytes": 152918032384,
+    "vhdx_file_attributes": "Archive",
+    "windows_vhdx_growth_delta": null,
+    "windows_vhdx_growth_delta_reason": "No before-run host VHDX file-size snapshot is available"
+  },
+  "duplication_checks": {
+    "sampled_epochs": [1, 19, 100],
+    "normalized_zip_member_crc_and_size_metadata_equal": true,
+    "scope": "Same-epoch epoch/best payload metadata; not a full cryptographic equivalence audit of every archive"
+  },
+  "protection": {
+    "protected_source_manifest_changed_paths": [],
+    "existing_artifact_hashes_changed_paths": [],
+    "models_losses_datasets_tests_modified": false,
+    "training_configuration_changed": false
+  }
+}

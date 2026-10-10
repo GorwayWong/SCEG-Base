@@ -1,0 +1,9 @@
+{
+  "path": "experiments/sceg_original/runs/20261009_cub800_seed42_execution/baseline.py",
+  "sha256": "f32d2324a6c4c16a7206fbcb6d4cfef6ba06c76c83b29e9fe822b146f7f938f6",
+  "entrypoint": "tools.train.main -> trainers.trainer.train (unchanged)",
+  "stop_after_completed_epoch": null,
+  "phase_a": "experiments/sceg_original/runs/20261009_cub800_seed42_phase_a_verified",
+  "canonical_checkpoint_policy": "rolling aliases point to immutable epoch snapshots",
+  "family_result_policy": "never overwrite existing experiments/sceg_original/result.json"
+}

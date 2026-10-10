@@ -1,0 +1,20 @@
+{
+  "syntax": "passed",
+  "retention_only_artifact_test": "passed",
+  "test_scope": "temporary CPU tensor payloads to check serialization and retention; no ML training or evaluation",
+  "real_checkpoint_files_after_multiple_epochs": 2,
+  "provisional_best_copy_created": false,
+  "last_tracks_latest_epoch": true,
+  "best_remains_at_selected_epoch": true,
+  "all_light_epoch_metrics_retained": true,
+  "current_rng_files": 1,
+  "resume_best_alias": "passed",
+  "evaluation_checkpoint_reference": "passed",
+  "protected_source_manifest_changed_paths": [],
+  "existing_artifact_hashes_changed_paths": [],
+  "real_remaining_baseline_weight_files": 2,
+  "training_or_evaluation_process_running": false,
+  "training_resumed": false,
+  "ubuntu_vhdx_file_length_bytes_after_cleanup": 152985141248,
+  "windows_vhdx_compaction_executed": false
+}

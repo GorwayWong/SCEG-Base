@@ -1,0 +1,2 @@
+2026-10-09 19:39:53,307 run=/root/projects/aris/sceg_fsfg/experiments/sceg_original/runs/20261009_cub800_seed42_dry_epoch1
+2026-10-09 19:40:22,111 epoch=1 episodes=27 loss=34.962846 train_acc=21.4321 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383944704 elapsed=26.31s checkpoint_sha256=1e84e8890feefa433bfd79ab0e3fa434b9a7d969e851681355a8fea3188c647e

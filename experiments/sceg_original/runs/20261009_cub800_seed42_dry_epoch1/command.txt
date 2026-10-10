@@ -1,0 +1,1 @@
+/root/projects/aris/sceg_fsfg/.venv/bin/python experiments/sceg_original/runs/20261009_cub800_seed42_execution/baseline.py --run-id 20261009_cub800_seed42_dry_epoch1 --stop-after-epoch 1

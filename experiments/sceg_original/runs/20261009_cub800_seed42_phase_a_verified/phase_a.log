@@ -1,0 +1,4 @@
+2026-10-09 19:37:02,764 split=train classes=100 images=5903 SHA256/decode/RGB/crop checks passed
+2026-10-09 19:37:09,775 split=val classes=50 images=2927 SHA256/decode/RGB/crop checks passed
+2026-10-09 19:37:16,993 split=test classes=50 images=2958 SHA256/decode/RGB/crop checks passed
+2026-10-09 19:37:17,038 Phase A passed; episodes=27 elapsed=24.0s

@@ -1,0 +1,244 @@
+2026-10-09 19:51:08,663 run=/root/projects/aris/sceg_fsfg/experiments/sceg_original/runs/20261009_cub800_seed42_formal
+2026-10-09 19:51:36,383 epoch=1 episodes=27 loss=34.962846 train_acc=21.4321 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383944704 elapsed=25.82s checkpoint_sha256=1e84e8890feefa433bfd79ab0e3fa434b9a7d969e851681355a8fea3188c647e
+2026-10-09 19:51:36,383 epoch=1/800 episodes=27 loss=34.962846 train_acc=21.4321 best_val=0.0000 lr=0.1
+2026-10-09 19:52:01,823 epoch=2 episodes=27 loss=20.538388 train_acc=28.2469 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.44s checkpoint_sha256=8db6179b930ad7febdd7b3ee3ee7d2725d0029289dacdc6ee1aa8be1217ec4d7
+2026-10-09 19:52:01,823 epoch=2/800 episodes=27 loss=20.538388 train_acc=28.2469 best_val=0.0000 lr=0.1
+2026-10-09 19:52:27,302 epoch=3 episodes=27 loss=19.131285 train_acc=35.2346 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.48s checkpoint_sha256=8a137853eae2f5fb83365ea52adb26c419a538e61473a7c3be76c785752febd0
+2026-10-09 19:52:27,302 epoch=3/800 episodes=27 loss=19.131285 train_acc=35.2346 best_val=0.0000 lr=0.1
+2026-10-09 19:52:52,781 epoch=4 episodes=27 loss=18.294702 train_acc=39.4815 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.48s checkpoint_sha256=b81fa4a3085aec25a3d47a4c27a7a076efb220f2808fdca926cb0587f45fc91b
+2026-10-09 19:52:52,781 epoch=4/800 episodes=27 loss=18.294702 train_acc=39.4815 best_val=0.0000 lr=0.1
+2026-10-09 19:53:18,157 epoch=5 episodes=27 loss=17.982367 train_acc=39.9259 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.38s checkpoint_sha256=67331e21179ce2f2051841361ca30e3f4fecde9c2bcac32fb99aedfd18ad1eca
+2026-10-09 19:53:18,158 epoch=5/800 episodes=27 loss=17.982367 train_acc=39.9259 best_val=0.0000 lr=0.1
+2026-10-09 19:53:43,702 epoch=6 episodes=27 loss=17.262368 train_acc=45.3827 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.54s checkpoint_sha256=dbc4f833150b75b500fe8509c6094e795e5bc24a29c3935b54b5b6895b258f32
+2026-10-09 19:53:43,703 epoch=6/800 episodes=27 loss=17.262368 train_acc=45.3827 best_val=0.0000 lr=0.1
+2026-10-09 19:54:09,096 epoch=7 episodes=27 loss=17.052325 train_acc=46.1235 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.39s checkpoint_sha256=d4e3b55aeb1bff8ead02c268be07af151c748d2fee59168f071b7622e8de2bce
+2026-10-09 19:54:09,097 epoch=7/800 episodes=27 loss=17.052325 train_acc=46.1235 best_val=0.0000 lr=0.1
+2026-10-09 19:54:34,493 epoch=8 episodes=27 loss=16.629872 train_acc=48.8642 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.40s checkpoint_sha256=10a51c6b14177e546e15a18505106d3cf6d92c3205261b88b27250cf18a9ed4e
+2026-10-09 19:54:34,493 epoch=8/800 episodes=27 loss=16.629872 train_acc=48.8642 best_val=0.0000 lr=0.1
+2026-10-09 19:54:59,960 epoch=9 episodes=27 loss=16.536789 train_acc=48.6420 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.47s checkpoint_sha256=180a54ac29d60d32784f64a9d045f3978699c2e489e11edf48e86ec6f6eae6e8
+2026-10-09 19:54:59,961 epoch=9/800 episodes=27 loss=16.536789 train_acc=48.6420 best_val=0.0000 lr=0.1
+2026-10-09 19:55:25,477 epoch=10 episodes=27 loss=16.379959 train_acc=49.2099 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.52s checkpoint_sha256=e1a0f1cf153b5aca4126680205e303274ff3f5534aad1026135203b1c1dac5c6
+2026-10-09 19:55:25,478 epoch=10/800 episodes=27 loss=16.379959 train_acc=49.2099 best_val=0.0000 lr=0.1
+2026-10-09 19:55:51,050 epoch=11 episodes=27 loss=15.915666 train_acc=51.8519 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.57s checkpoint_sha256=67d942d7fca6c9b7391fe52d6a86a3c2d9be3d7b1b971d46d367ad10b8fbad55
+2026-10-09 19:55:51,051 epoch=11/800 episodes=27 loss=15.915666 train_acc=51.8519 best_val=0.0000 lr=0.1
+2026-10-09 19:56:16,936 epoch=12 episodes=27 loss=16.161389 train_acc=50.8395 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.88s checkpoint_sha256=f9d4a55fe87cda395952f1e6635c7636df6ca8a67fc418e44c3ff6b168e450ef
+2026-10-09 19:56:16,936 epoch=12/800 episodes=27 loss=16.161389 train_acc=50.8395 best_val=0.0000 lr=0.1
+2026-10-09 19:56:42,160 epoch=13 episodes=27 loss=15.914727 train_acc=53.2840 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.22s checkpoint_sha256=3a5892df6394d1dccf085ed1d8a673ae4fe01fd956a8f413d539bf50e20d8bea
+2026-10-09 19:56:42,160 epoch=13/800 episodes=27 loss=15.914727 train_acc=53.2840 best_val=0.0000 lr=0.1
+2026-10-09 19:57:07,393 epoch=14 episodes=27 loss=15.740294 train_acc=52.6667 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.23s checkpoint_sha256=d33d7660b5eff7f7b4f90b3d85fb55cbbd67cb8b0a53de133b167ce35c662cfd
+2026-10-09 19:57:07,393 epoch=14/800 episodes=27 loss=15.740294 train_acc=52.6667 best_val=0.0000 lr=0.1
+2026-10-09 19:57:32,586 epoch=15 episodes=27 loss=15.607875 train_acc=53.6296 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.19s checkpoint_sha256=5d0f2dfc066e7f4b2534d48c893427a357d5a61cb55a06c77a515ee2f99632e6
+2026-10-09 19:57:32,587 epoch=15/800 episodes=27 loss=15.607875 train_acc=53.6296 best_val=0.0000 lr=0.1
+2026-10-09 19:57:57,899 epoch=16 episodes=27 loss=15.435175 train_acc=54.4691 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.31s checkpoint_sha256=e2e561a94663fc56e7d98392b91bfe8f4b4fddff81ba02d77808aa8bcc41211e
+2026-10-09 19:57:57,899 epoch=16/800 episodes=27 loss=15.435175 train_acc=54.4691 best_val=0.0000 lr=0.1
+2026-10-09 19:58:23,207 epoch=17 episodes=27 loss=15.159230 train_acc=56.0741 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.31s checkpoint_sha256=d04c2e65b051261dfa74a44964fb37f82a14d00d23ad5a9c4bddd5e6b134035a
+2026-10-09 19:58:23,207 epoch=17/800 episodes=27 loss=15.159230 train_acc=56.0741 best_val=0.0000 lr=0.1
+2026-10-09 19:58:48,449 epoch=18 episodes=27 loss=15.154810 train_acc=56.5432 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.24s checkpoint_sha256=58e9b0492dd4547808359da909b6d4249dce11983b3b5a8eefac38b7eb0f1e0a
+2026-10-09 19:58:48,450 epoch=18/800 episodes=27 loss=15.154810 train_acc=56.5432 best_val=0.0000 lr=0.1
+2026-10-09 19:59:13,767 epoch=19 episodes=27 loss=15.300815 train_acc=55.7037 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.32s checkpoint_sha256=af0b3850d48b4a05cee6add8c17c09f3c02a7c7056b1aa69ed3dadd84f089262
+2026-10-09 19:59:13,767 epoch=19/800 episodes=27 loss=15.300815 train_acc=55.7037 best_val=0.0000 lr=0.1
+2026-10-09 20:01:48,600 epoch=20 episodes=27 loss=14.658988 train_acc=60.0000 lr_used=0.1 val_acc=81.6575 val_ci=0.5145800504391906 gpu_allocated=10383626240 elapsed=154.83s checkpoint_sha256=416fc1d1ea92f7aad981462922bd9d807240af3fed3ff1d9cb78ddbd7c51863b
+2026-10-09 20:01:48,601 epoch=20/800 episodes=27 loss=14.658988 train_acc=60.0000 best_val=81.6575 lr=0.1
+2026-10-09 20:02:13,777 epoch=21 episodes=27 loss=14.793886 train_acc=57.6296 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.18s checkpoint_sha256=a189a87ea582bf57314dc0f456746056af067422f5c92f42e51882919c9d4bed
+2026-10-09 20:02:13,777 epoch=21/800 episodes=27 loss=14.793886 train_acc=57.6296 best_val=81.6575 lr=0.1
+2026-10-09 20:02:38,874 epoch=22 episodes=27 loss=14.415784 train_acc=60.9877 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.10s checkpoint_sha256=690c43402bccb75b8d81da7ac571c5ab0ca2262510f3a7c5265cb78c25aa17fc
+2026-10-09 20:02:38,875 epoch=22/800 episodes=27 loss=14.415784 train_acc=60.9877 best_val=81.6575 lr=0.1
+2026-10-09 20:03:04,223 epoch=23 episodes=27 loss=14.643050 train_acc=59.0864 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.35s checkpoint_sha256=86afd82a9372aef38c10934d165cdce6ff5cc5090b8ce76754adff48556c1828
+2026-10-09 20:03:04,224 epoch=23/800 episodes=27 loss=14.643050 train_acc=59.0864 best_val=81.6575 lr=0.1
+2026-10-09 20:03:29,380 epoch=24 episodes=27 loss=14.199141 train_acc=61.4815 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.16s checkpoint_sha256=11c5a57383df228d761a0c3cdeb4a3f4f95775e1201c05c72c2264941382c095
+2026-10-09 20:03:29,381 epoch=24/800 episodes=27 loss=14.199141 train_acc=61.4815 best_val=81.6575 lr=0.1
+2026-10-09 20:03:54,592 epoch=25 episodes=27 loss=14.379428 train_acc=60.6667 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.21s checkpoint_sha256=15d14965a5605282c32e85181fe1ae2bdb1a21a835a6a61ad0e400abb2a27a1c
+2026-10-09 20:03:54,592 epoch=25/800 episodes=27 loss=14.379428 train_acc=60.6667 best_val=81.6575 lr=0.1
+2026-10-09 20:04:19,888 epoch=26 episodes=27 loss=13.988712 train_acc=62.8642 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.29s checkpoint_sha256=df831fba70c05f876fee32fabb3e3699963c64b69ebae69d5b7dec6ec76729b3
+2026-10-09 20:04:19,888 epoch=26/800 episodes=27 loss=13.988712 train_acc=62.8642 best_val=81.6575 lr=0.1
+2026-10-09 20:04:45,060 epoch=27 episodes=27 loss=14.203522 train_acc=61.9506 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.17s checkpoint_sha256=07a7838a3a7e8aaa3ed4d46d8deb92ad5d4cab8bec7fce7053a22b9d5ba13563
+2026-10-09 20:04:45,060 epoch=27/800 episodes=27 loss=14.203522 train_acc=61.9506 best_val=81.6575 lr=0.1
+2026-10-09 20:05:10,179 epoch=28 episodes=27 loss=14.132896 train_acc=61.8765 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.12s checkpoint_sha256=ab803397903ef53b2adfa5b799dbe12779632cbf200bb7316c6d8256895f9a7c
+2026-10-09 20:05:10,180 epoch=28/800 episodes=27 loss=14.132896 train_acc=61.8765 best_val=81.6575 lr=0.1
+2026-10-09 20:05:35,341 epoch=29 episodes=27 loss=13.789705 train_acc=64.9136 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.16s checkpoint_sha256=d3dd767ff73c858abebe8c8f0952814d47cd50d50b05800ed35757c9057e1a40
+2026-10-09 20:05:35,342 epoch=29/800 episodes=27 loss=13.789705 train_acc=64.9136 best_val=81.6575 lr=0.1
+2026-10-09 20:06:00,537 epoch=30 episodes=27 loss=13.806900 train_acc=64.8395 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.19s checkpoint_sha256=a16ca692bdac98add89e6544f90ad62831f7c6fab2387d8cff6f2d3f5500c6b7
+2026-10-09 20:06:00,537 epoch=30/800 episodes=27 loss=13.806900 train_acc=64.8395 best_val=81.6575 lr=0.1
+2026-10-09 20:06:25,642 epoch=31 episodes=27 loss=13.551389 train_acc=64.9630 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.10s checkpoint_sha256=ccf371bed7ae09930e6c5b85a041939c8dc3495c5832469471679e854a712370
+2026-10-09 20:06:25,642 epoch=31/800 episodes=27 loss=13.551389 train_acc=64.9630 best_val=81.6575 lr=0.1
+2026-10-09 20:06:50,609 epoch=32 episodes=27 loss=13.583965 train_acc=65.8272 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=24.97s checkpoint_sha256=fe975f6ab6c15790fd28478dfa535346ce87517e6008ecfe9816ceb7d53298ac
+2026-10-09 20:06:50,610 epoch=32/800 episodes=27 loss=13.583965 train_acc=65.8272 best_val=81.6575 lr=0.1
+2026-10-09 20:07:15,678 epoch=33 episodes=27 loss=13.752222 train_acc=63.7037 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.07s checkpoint_sha256=9b33732220dc7407ae66f5fd36c8068e9111f387d4aba0b84bc34b6ba345f73e
+2026-10-09 20:07:15,679 epoch=33/800 episodes=27 loss=13.752222 train_acc=63.7037 best_val=81.6575 lr=0.1
+2026-10-09 20:07:41,500 epoch=34 episodes=27 loss=13.553272 train_acc=65.3333 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.82s checkpoint_sha256=b82e6d5fa65037e44b6f325ac69a6c3ea89cda24244292cbaf9077230fa8fb04
+2026-10-09 20:07:41,500 epoch=34/800 episodes=27 loss=13.553272 train_acc=65.3333 best_val=81.6575 lr=0.1
+2026-10-09 20:08:07,402 epoch=35 episodes=27 loss=13.467190 train_acc=66.0247 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.90s checkpoint_sha256=5e7c95fbd13cb3394588f2792c7d92181f1f44b77c184008b951bb6b51f72f3f
+2026-10-09 20:08:07,403 epoch=35/800 episodes=27 loss=13.467190 train_acc=66.0247 best_val=81.6575 lr=0.1
+2026-10-09 20:08:34,010 epoch=36 episodes=27 loss=13.329444 train_acc=66.8889 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=26.61s checkpoint_sha256=382b278d383c4bd375722389d1e87434b93f0f8269a24039805f37811e2a6f1b
+2026-10-09 20:08:34,010 epoch=36/800 episodes=27 loss=13.329444 train_acc=66.8889 best_val=81.6575 lr=0.1
+2026-10-09 20:08:59,837 epoch=37 episodes=27 loss=13.264210 train_acc=66.5679 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.83s checkpoint_sha256=8b176e4b134288950728f34df0cbba33fe2eaf5e1c296dbfb6678b1a181ce18a
+2026-10-09 20:08:59,837 epoch=37/800 episodes=27 loss=13.264210 train_acc=66.5679 best_val=81.6575 lr=0.1
+2026-10-09 20:09:25,553 epoch=38 episodes=27 loss=13.187276 train_acc=66.3210 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.72s checkpoint_sha256=45a87b4267f656162c172af3e4a87b2f8c0af85481e5062ef323f76e835d777e
+2026-10-09 20:09:25,554 epoch=38/800 episodes=27 loss=13.187276 train_acc=66.3210 best_val=81.6575 lr=0.1
+2026-10-09 20:09:51,688 epoch=39 episodes=27 loss=13.076151 train_acc=67.2346 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=26.13s checkpoint_sha256=ab0354537580350b5852bb1bebf0f44f99661d599a238ba3365b193ed8cd20fc
+2026-10-09 20:09:51,689 epoch=39/800 episodes=27 loss=13.076151 train_acc=67.2346 best_val=81.6575 lr=0.1
+2026-10-09 20:12:36,785 epoch=40 episodes=27 loss=12.802990 train_acc=68.8642 lr_used=0.1 val_acc=86.45125 val_ci=0.4218063260520165 gpu_allocated=10383626240 elapsed=165.10s checkpoint_sha256=d1039f6ad17532adb3b7c0690d4d71f69cec5bc157ab3a02e269f9c16dcd0a5b
+2026-10-09 20:12:36,786 epoch=40/800 episodes=27 loss=12.802990 train_acc=68.8642 best_val=86.4513 lr=0.1
+2026-10-09 20:13:03,477 epoch=41 episodes=27 loss=13.129820 train_acc=66.8148 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=26.05s checkpoint_sha256=6259d6b1d63bbfc90a6c8abf9ec0b23d6565eead6befe4defbbaeefced2e46b1
+2026-10-09 20:13:03,480 epoch=41/800 episodes=27 loss=13.129820 train_acc=66.8148 best_val=86.4513 lr=0.1
+2026-10-09 20:13:28,922 epoch=42 episodes=27 loss=12.708733 train_acc=69.8025 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.44s checkpoint_sha256=ca40ed0a0637b31ab2453c4fcbe6b07a2e336e4cf5b65b2fd7684d87d0bb4216
+2026-10-09 20:13:28,923 epoch=42/800 episodes=27 loss=12.708733 train_acc=69.8025 best_val=86.4513 lr=0.1
+2026-10-09 20:13:54,461 epoch=43 episodes=27 loss=12.662238 train_acc=70.1728 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.54s checkpoint_sha256=cc0ece780eb9aff3057f124ebfc6d4e63a6b1ad32bc9e3688ddb93fa68365167
+2026-10-09 20:13:54,462 epoch=43/800 episodes=27 loss=12.662238 train_acc=70.1728 best_val=86.4513 lr=0.1
+2026-10-09 20:14:19,945 epoch=44 episodes=27 loss=12.527936 train_acc=69.7778 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.48s checkpoint_sha256=e6aae4cc69c0e7ed4e9c3021d38f94bd9130cf52c9f63166172e4b773193525e
+2026-10-09 20:14:19,946 epoch=44/800 episodes=27 loss=12.527936 train_acc=69.7778 best_val=86.4513 lr=0.1
+2026-10-09 20:14:45,431 epoch=45 episodes=27 loss=12.680111 train_acc=69.1111 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.48s checkpoint_sha256=d49bf9fba88becad25c99f4549bab6c176c5f4397fa2d1db12d7f86af97fe19f
+2026-10-09 20:14:45,431 epoch=45/800 episodes=27 loss=12.680111 train_acc=69.1111 best_val=86.4513 lr=0.1
+2026-10-09 20:15:10,854 epoch=46 episodes=27 loss=12.624517 train_acc=69.6543 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.42s checkpoint_sha256=f45b9611c775d06287632aef615d3cea6e5489b28c24b37a06d079bbc413c94a
+2026-10-09 20:15:10,855 epoch=46/800 episodes=27 loss=12.624517 train_acc=69.6543 best_val=86.4513 lr=0.1
+2026-10-09 20:15:36,423 epoch=47 episodes=27 loss=12.409144 train_acc=70.6667 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.57s checkpoint_sha256=fb9653509b738052aa1e89b3a86de0e02b9370c23b534cfbc0b62eb7d624aece
+2026-10-09 20:15:36,424 epoch=47/800 episodes=27 loss=12.409144 train_acc=70.6667 best_val=86.4513 lr=0.1
+2026-10-09 20:16:01,975 epoch=48 episodes=27 loss=12.612879 train_acc=69.7531 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.55s checkpoint_sha256=4e91a65689db3f06fd5d52bac8d1a9030a4c798343e93acb6ab13e6b2a4bcbb3
+2026-10-09 20:16:01,976 epoch=48/800 episodes=27 loss=12.612879 train_acc=69.7531 best_val=86.4513 lr=0.1
+2026-10-09 20:16:27,419 epoch=49 episodes=27 loss=12.408385 train_acc=71.1605 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.44s checkpoint_sha256=55f518bfb1c3fc9b8ab6f3b9f3d6b766d025c97bfe2e23c70f389650bb752de6
+2026-10-09 20:16:27,419 epoch=49/800 episodes=27 loss=12.408385 train_acc=71.1605 best_val=86.4513 lr=0.1
+2026-10-09 20:16:52,865 epoch=50 episodes=27 loss=12.312484 train_acc=71.4815 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.45s checkpoint_sha256=da75b3790f82eccafc43264ac09bd00beab81f6e1a6cec396f26e8f9d8801c84
+2026-10-09 20:16:52,866 epoch=50/800 episodes=27 loss=12.312484 train_acc=71.4815 best_val=86.4513 lr=0.1
+2026-10-09 20:17:18,245 epoch=51 episodes=27 loss=12.265009 train_acc=70.9630 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.38s checkpoint_sha256=e58aba3f58fd2ea73d3c99964df2624d82132a4b1be4ffa32d100c2fdd5b5f7c
+2026-10-09 20:17:18,245 epoch=51/800 episodes=27 loss=12.265009 train_acc=70.9630 best_val=86.4513 lr=0.1
+2026-10-09 20:17:43,614 epoch=52 episodes=27 loss=11.891783 train_acc=73.4815 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.37s checkpoint_sha256=e32c4960352f5316aeac6c728f7da1bdc2b06c1ea419493c44130fff059514ef
+2026-10-09 20:17:43,614 epoch=52/800 episodes=27 loss=11.891783 train_acc=73.4815 best_val=86.4513 lr=0.1
+2026-10-09 20:18:09,086 epoch=53 episodes=27 loss=11.978116 train_acc=71.6790 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.47s checkpoint_sha256=5480f054a68f92b60f30838d73c20fe36319165303c9056d26a5282a8d1ee95f
+2026-10-09 20:18:09,086 epoch=53/800 episodes=27 loss=11.978116 train_acc=71.6790 best_val=86.4513 lr=0.1
+2026-10-09 20:18:35,487 epoch=54 episodes=27 loss=12.333987 train_acc=71.9506 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=26.40s checkpoint_sha256=091ceb00f35a04faf30ab301840619138fda982ac8647a66792c5aa2a8b6b010
+2026-10-09 20:18:35,488 epoch=54/800 episodes=27 loss=12.333987 train_acc=71.9506 best_val=86.4513 lr=0.1
+2026-10-09 20:19:01,069 epoch=55 episodes=27 loss=12.131012 train_acc=72.1975 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.58s checkpoint_sha256=a3ca24aad24aac34b1a8117f8c55f797d39c18e33d3112df69117a28b1dfced8
+2026-10-09 20:19:01,069 epoch=55/800 episodes=27 loss=12.131012 train_acc=72.1975 best_val=86.4513 lr=0.1
+2026-10-09 20:19:26,434 epoch=56 episodes=27 loss=11.957551 train_acc=72.8889 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.36s checkpoint_sha256=b39794352aea4d3b915d932911dba6f660d3241d972038c877b466dc27278563
+2026-10-09 20:19:26,434 epoch=56/800 episodes=27 loss=11.957551 train_acc=72.8889 best_val=86.4513 lr=0.1
+2026-10-09 20:19:52,177 epoch=57 episodes=27 loss=11.941983 train_acc=73.4568 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.74s checkpoint_sha256=2770d7cc6907881cee0e2b4363ee82b7585918b7d438d373547d6d325cc032a6
+2026-10-09 20:19:52,177 epoch=57/800 episodes=27 loss=11.941983 train_acc=73.4568 best_val=86.4513 lr=0.1
+2026-10-09 20:20:17,752 epoch=58 episodes=27 loss=12.023061 train_acc=73.7284 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.57s checkpoint_sha256=bfcf10811c4584fa2be5dda28ff57b3ae4345470221c20c9cdaf169c4b78175b
+2026-10-09 20:20:17,752 epoch=58/800 episodes=27 loss=12.023061 train_acc=73.7284 best_val=86.4513 lr=0.1
+2026-10-09 20:20:44,387 epoch=59 episodes=27 loss=11.841807 train_acc=73.9753 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=26.63s checkpoint_sha256=458a5df874c2a0d053ae5fb6d031a0a97b7f054791a50c1f7dbd61ff49c98fd2
+2026-10-09 20:20:44,387 epoch=59/800 episodes=27 loss=11.841807 train_acc=73.9753 best_val=86.4513 lr=0.1
+2026-10-09 20:23:21,657 epoch=60 episodes=27 loss=11.631115 train_acc=75.5062 lr_used=0.1 val_acc=88.31 val_ci=0.39836499750856624 gpu_allocated=10383626240 elapsed=157.27s checkpoint_sha256=c0274bca8da6e84c96625354f26697db8719609f10ab12f45a085d89a4142df1
+2026-10-09 20:23:21,658 epoch=60/800 episodes=27 loss=11.631115 train_acc=75.5062 best_val=88.3100 lr=0.1
+2026-10-09 20:23:47,090 epoch=61 episodes=27 loss=11.680876 train_acc=74.1235 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.43s checkpoint_sha256=e5cec17b21baab4506b1d8da0ee41cd67b96697c30f9ae1cc283ae531e27b0bd
+2026-10-09 20:23:47,091 epoch=61/800 episodes=27 loss=11.680876 train_acc=74.1235 best_val=88.3100 lr=0.1
+2026-10-09 20:24:12,483 epoch=62 episodes=27 loss=11.806727 train_acc=73.8025 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.39s checkpoint_sha256=7757c030143eb852ea3fcd25f04e0be1c1a88823a9d531d7a98f972cc91dce7c
+2026-10-09 20:24:12,484 epoch=62/800 episodes=27 loss=11.806727 train_acc=73.8025 best_val=88.3100 lr=0.1
+2026-10-09 20:24:37,848 epoch=63 episodes=27 loss=11.849215 train_acc=72.6173 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.36s checkpoint_sha256=9400a447f6bb9559841b3ca4e24c476fe5c6fba22b11487b10510745dca6c516
+2026-10-09 20:24:37,849 epoch=63/800 episodes=27 loss=11.849215 train_acc=72.6173 best_val=88.3100 lr=0.1
+2026-10-09 20:25:03,251 epoch=64 episodes=27 loss=11.534826 train_acc=75.3333 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.40s checkpoint_sha256=4d71227719ee8b55e580ea58d03226260a79c70dfdc5eb42a788720d496b5294
+2026-10-09 20:25:03,252 epoch=64/800 episodes=27 loss=11.534826 train_acc=75.3333 best_val=88.3100 lr=0.1
+2026-10-09 20:25:28,695 epoch=65 episodes=27 loss=11.519711 train_acc=74.3210 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.44s checkpoint_sha256=64aa46899ff4f7c38aa16999c84a988f8e8eaa1761e8da11b170188e687b8cfd
+2026-10-09 20:25:28,696 epoch=65/800 episodes=27 loss=11.519711 train_acc=74.3210 best_val=88.3100 lr=0.1
+2026-10-09 20:25:54,152 epoch=66 episodes=27 loss=11.494194 train_acc=74.8148 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.46s checkpoint_sha256=dff56d998385deb92907ef533fdfe6e2869b31555ae062e2c623bdeea99119bb
+2026-10-09 20:25:54,152 epoch=66/800 episodes=27 loss=11.494194 train_acc=74.8148 best_val=88.3100 lr=0.1
+2026-10-09 20:26:19,530 epoch=67 episodes=27 loss=11.290692 train_acc=75.3333 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.38s checkpoint_sha256=5e20594c62da1ce547d757faaadef018d1eb8eab183ba67b3f04640385d2d32f
+2026-10-09 20:26:19,531 epoch=67/800 episodes=27 loss=11.290692 train_acc=75.3333 best_val=88.3100 lr=0.1
+2026-10-09 20:26:44,907 epoch=68 episodes=27 loss=10.951450 train_acc=77.1358 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.38s checkpoint_sha256=e3c822d954db9529647ae5445a3ce58c71ebe8f3e9ae422eeb5613c2721504ae
+2026-10-09 20:26:44,908 epoch=68/800 episodes=27 loss=10.951450 train_acc=77.1358 best_val=88.3100 lr=0.1
+2026-10-09 20:27:10,347 epoch=69 episodes=27 loss=11.106344 train_acc=77.0123 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.44s checkpoint_sha256=4256cb4559f768fc31b3d8b01bb0bda53bc566f4cba6f899cd5c0391149c2c48
+2026-10-09 20:27:10,348 epoch=69/800 episodes=27 loss=11.106344 train_acc=77.0123 best_val=88.3100 lr=0.1
+2026-10-09 20:27:35,765 epoch=70 episodes=27 loss=11.281384 train_acc=76.0247 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.42s checkpoint_sha256=a74167db836aac65e9ba4bf780b142c3755418ba200fff18f38a12f2fa7c4ce8
+2026-10-09 20:27:35,765 epoch=70/800 episodes=27 loss=11.281384 train_acc=76.0247 best_val=88.3100 lr=0.1
+2026-10-09 20:28:01,118 epoch=71 episodes=27 loss=11.255682 train_acc=76.1235 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.35s checkpoint_sha256=d63e818dcbc01dba24a4a190a506b95794ab2feaf00c068abab9d901b94004e6
+2026-10-09 20:28:01,119 epoch=71/800 episodes=27 loss=11.255682 train_acc=76.1235 best_val=88.3100 lr=0.1
+2026-10-09 20:28:26,659 epoch=72 episodes=27 loss=10.936750 train_acc=78.1975 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.54s checkpoint_sha256=6bfcc51f8feb0e072c516903f453ae5ad56811a5c96234057f783714a9ebbf14
+2026-10-09 20:28:26,659 epoch=72/800 episodes=27 loss=10.936750 train_acc=78.1975 best_val=88.3100 lr=0.1
+2026-10-09 20:28:52,095 epoch=73 episodes=27 loss=11.174220 train_acc=76.7654 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.43s checkpoint_sha256=d7dc2b42603edd11b5bbede1cdef5334793b1ebcde19438b88942d225f99e67f
+2026-10-09 20:28:52,095 epoch=73/800 episodes=27 loss=11.174220 train_acc=76.7654 best_val=88.3100 lr=0.1
+2026-10-09 20:29:17,577 epoch=74 episodes=27 loss=11.100969 train_acc=77.0617 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.48s checkpoint_sha256=6b00b10d5fe1790f7446c50e3ae86bdbbe198098584b99f8c0e7d6a907ca6e7d
+2026-10-09 20:29:17,577 epoch=74/800 episodes=27 loss=11.100969 train_acc=77.0617 best_val=88.3100 lr=0.1
+2026-10-09 20:29:43,060 epoch=75 episodes=27 loss=11.202924 train_acc=77.0123 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.48s checkpoint_sha256=c8d80a5b6959e4fa989a96fc3557542b75327171e779b4c6446cd6f40b52d5de
+2026-10-09 20:29:43,060 epoch=75/800 episodes=27 loss=11.202924 train_acc=77.0123 best_val=88.3100 lr=0.1
+2026-10-09 20:30:08,498 epoch=76 episodes=27 loss=11.062518 train_acc=76.1235 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.44s checkpoint_sha256=a1846cfc68e8a0530324d2552fd2643708d0d7f870fb5d28cc3ed09c9f60572e
+2026-10-09 20:30:08,499 epoch=76/800 episodes=27 loss=11.062518 train_acc=76.1235 best_val=88.3100 lr=0.1
+2026-10-09 20:30:33,807 epoch=77 episodes=27 loss=10.812158 train_acc=77.9506 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.31s checkpoint_sha256=0f4a1ccb05ec23d290529e40034f5c2649ab2b2762c0296810150a3976f64991
+2026-10-09 20:30:33,807 epoch=77/800 episodes=27 loss=10.812158 train_acc=77.9506 best_val=88.3100 lr=0.1
+2026-10-09 20:30:59,161 epoch=78 episodes=27 loss=10.975238 train_acc=78.0741 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.35s checkpoint_sha256=61054b4774a1c37dc6e319c3e4b2d0f134ffa79b9b9a82e508204af16dcb9f5a
+2026-10-09 20:30:59,161 epoch=78/800 episodes=27 loss=10.975238 train_acc=78.0741 best_val=88.3100 lr=0.1
+2026-10-09 20:31:24,639 epoch=79 episodes=27 loss=10.792623 train_acc=78.2963 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.48s checkpoint_sha256=5adeb14b83c28645f45a82bedc5b74146881e6dd2179473d667cf675fd0024da
+2026-10-09 20:31:24,639 epoch=79/800 episodes=27 loss=10.792623 train_acc=78.2963 best_val=88.3100 lr=0.1
+2026-10-09 20:33:59,868 epoch=80 episodes=27 loss=10.589505 train_acc=79.9259 lr_used=0.1 val_acc=89.78125 val_ci=0.3732723950917078 gpu_allocated=10383626240 elapsed=155.23s checkpoint_sha256=320428de7a1e5726e13598fb5472cc854d9bbf445ee7c4e2c58cd88d74470272
+2026-10-09 20:33:59,869 epoch=80/800 episodes=27 loss=10.589505 train_acc=79.9259 best_val=89.7812 lr=0.1
+2026-10-09 20:34:25,004 epoch=81 episodes=27 loss=10.619395 train_acc=78.8395 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.13s checkpoint_sha256=d85b0d8186699db33dfb75344ef9b374eda767501ad718432c3b23b4a1218d42
+2026-10-09 20:34:25,005 epoch=81/800 episodes=27 loss=10.619395 train_acc=78.8395 best_val=89.7812 lr=0.1
+2026-10-09 20:34:50,204 epoch=82 episodes=27 loss=10.828324 train_acc=78.0988 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.20s checkpoint_sha256=7b71499109c1410842839eb889ccff58538f1044f7546d6f4119170111dbe3c3
+2026-10-09 20:34:50,204 epoch=82/800 episodes=27 loss=10.828324 train_acc=78.0988 best_val=89.7812 lr=0.1
+2026-10-09 20:35:15,497 epoch=83 episodes=27 loss=10.675570 train_acc=79.3827 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.29s checkpoint_sha256=27d9e03fd85330b13b06a64a3917e62057c7b2fce0622a5201bb92c86dc36320
+2026-10-09 20:35:15,498 epoch=83/800 episodes=27 loss=10.675570 train_acc=79.3827 best_val=89.7812 lr=0.1
+2026-10-09 20:35:40,753 epoch=84 episodes=27 loss=10.803076 train_acc=77.1605 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.25s checkpoint_sha256=37dc7ced311d191629f8f79ad15ef6f1b8c2d868fefb3e098d9536133eea6137
+2026-10-09 20:35:40,753 epoch=84/800 episodes=27 loss=10.803076 train_acc=77.1605 best_val=89.7812 lr=0.1
+2026-10-09 20:36:05,877 epoch=85 episodes=27 loss=10.778395 train_acc=78.0494 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.12s checkpoint_sha256=9e11d463a5f9bc70afb291eab30bf27e9b7c4d8d238574771adfc37925da5cf4
+2026-10-09 20:36:05,878 epoch=85/800 episodes=27 loss=10.778395 train_acc=78.0494 best_val=89.7812 lr=0.1
+2026-10-09 20:36:30,943 epoch=86 episodes=27 loss=10.512294 train_acc=78.8395 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.06s checkpoint_sha256=97aed2c04763255e55e6c9c1ae4f2cfe4dc50ecc7f57f7445db06eb60ecf5d1c
+2026-10-09 20:36:30,943 epoch=86/800 episodes=27 loss=10.512294 train_acc=78.8395 best_val=89.7812 lr=0.1
+2026-10-09 20:36:56,011 epoch=87 episodes=27 loss=10.505021 train_acc=79.2346 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.07s checkpoint_sha256=1836fe87396bdbbb2a4c3145a3f65d7ca796937ea063b7c6616fc040ae05edae
+2026-10-09 20:36:56,011 epoch=87/800 episodes=27 loss=10.505021 train_acc=79.2346 best_val=89.7812 lr=0.1
+2026-10-09 20:37:21,101 epoch=88 episodes=27 loss=10.462684 train_acc=79.1852 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.09s checkpoint_sha256=27b61d997400142f4135a28e7ae8bdae68b150c0c0f8a7b0c082c733890ecf5d
+2026-10-09 20:37:21,102 epoch=88/800 episodes=27 loss=10.462684 train_acc=79.1852 best_val=89.7812 lr=0.1
+2026-10-09 20:37:46,254 epoch=89 episodes=27 loss=10.798031 train_acc=77.6049 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.15s checkpoint_sha256=a09a0969bcc0ad8925e628098b893a588b0d735dd3fa6c300ffdc034530ebd33
+2026-10-09 20:37:46,255 epoch=89/800 episodes=27 loss=10.798031 train_acc=77.6049 best_val=89.7812 lr=0.1
+2026-10-09 20:38:11,475 epoch=90 episodes=27 loss=10.695495 train_acc=76.9630 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.22s checkpoint_sha256=a69078deb3defd33fe836abf83f8cbd7c5a93e32dbebfbc08d4a10103ec0434b
+2026-10-09 20:38:11,475 epoch=90/800 episodes=27 loss=10.695495 train_acc=76.9630 best_val=89.7812 lr=0.1
+2026-10-09 20:38:36,578 epoch=91 episodes=27 loss=10.283829 train_acc=80.1975 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.10s checkpoint_sha256=63a9e7d479758045611f0ed9a3cf754bbc3b83c7568f6735fe92aede8d01f85d
+2026-10-09 20:38:36,579 epoch=91/800 episodes=27 loss=10.283829 train_acc=80.1975 best_val=89.7812 lr=0.1
+2026-10-09 20:39:01,806 epoch=92 episodes=27 loss=10.380000 train_acc=79.7037 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.23s checkpoint_sha256=1b58647e616abfe2dbe55eed4864fa597ea94173072b79c1a5d9a1b96fb25643
+2026-10-09 20:39:01,807 epoch=92/800 episodes=27 loss=10.380000 train_acc=79.7037 best_val=89.7812 lr=0.1
+2026-10-09 20:39:26,936 epoch=93 episodes=27 loss=10.093414 train_acc=81.0617 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.13s checkpoint_sha256=1c515847d70b476ad9f873af319acffd68cedbe75fa4d78ebfe4496cd8568120
+2026-10-09 20:39:26,936 epoch=93/800 episodes=27 loss=10.093414 train_acc=81.0617 best_val=89.7812 lr=0.1
+2026-10-09 20:39:52,151 epoch=94 episodes=27 loss=10.292054 train_acc=80.4938 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.21s checkpoint_sha256=6aabf970554152f8c34d175fe0f6153875a928bad1fe92861da81c4e5e2f77a1
+2026-10-09 20:39:52,151 epoch=94/800 episodes=27 loss=10.292054 train_acc=80.4938 best_val=89.7812 lr=0.1
+2026-10-09 20:40:17,287 epoch=95 episodes=27 loss=10.187547 train_acc=80.2469 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.13s checkpoint_sha256=00331b186b3e409b8cf995075ab0611b016fd7842d49155e33781a77f4c6c8ee
+2026-10-09 20:40:17,288 epoch=95/800 episodes=27 loss=10.187547 train_acc=80.2469 best_val=89.7812 lr=0.1
+2026-10-09 20:40:42,525 epoch=96 episodes=27 loss=10.205797 train_acc=79.9506 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.24s checkpoint_sha256=ab415ecb88c870e7d18bfc35095f85539d7d5bed9499aa8cd5bbd86e29076feb
+2026-10-09 20:40:42,526 epoch=96/800 episodes=27 loss=10.205797 train_acc=79.9506 best_val=89.7812 lr=0.1
+2026-10-09 20:41:07,692 epoch=97 episodes=27 loss=9.977468 train_acc=80.9136 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.17s checkpoint_sha256=bfcec07452581e0c368ed50cf05464369ef7a865d54dd8a50c3a27aedb5bbf95
+2026-10-09 20:41:07,693 epoch=97/800 episodes=27 loss=9.977468 train_acc=80.9136 best_val=89.7812 lr=0.1
+2026-10-09 20:41:32,881 epoch=98 episodes=27 loss=9.847136 train_acc=81.4568 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.19s checkpoint_sha256=c0bc554a0a20f39afb4282a483dd41c2d434167ab4acc1bed960c80887c3dc19
+2026-10-09 20:41:32,881 epoch=98/800 episodes=27 loss=9.847136 train_acc=81.4568 best_val=89.7812 lr=0.1
+2026-10-09 20:41:57,988 epoch=99 episodes=27 loss=10.056952 train_acc=79.8272 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.11s checkpoint_sha256=35e3e1fc266faab53b2bd408fc5739ca9439c53cba4d628e9e879a95d95f709d
+2026-10-09 20:41:57,989 epoch=99/800 episodes=27 loss=10.056952 train_acc=79.8272 best_val=89.7812 lr=0.1
+2026-10-09 20:44:33,226 epoch=100 episodes=27 loss=9.851421 train_acc=81.0370 lr_used=0.1 val_acc=91.155 val_ci=0.34776387759512917 gpu_allocated=10383626240 elapsed=155.24s checkpoint_sha256=06613d28f5246aa56229012f398cbc5a0d02f4f93f9ccca78dc51373ebb0a97e
+2026-10-09 20:44:33,228 epoch=100/800 episodes=27 loss=9.851421 train_acc=81.0370 best_val=91.1550 lr=0.1
+2026-10-09 20:44:58,462 epoch=101 episodes=27 loss=9.746918 train_acc=81.8519 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.23s checkpoint_sha256=29438b2b01a5a25cdd8ed1b54e55aeddcdebef54c37d9b3d8b4036a59014ddf6
+2026-10-09 20:44:58,462 epoch=101/800 episodes=27 loss=9.746918 train_acc=81.8519 best_val=91.1550 lr=0.1
+2026-10-09 20:45:23,589 epoch=102 episodes=27 loss=10.056801 train_acc=80.5926 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.13s checkpoint_sha256=c0a58e49743bf396f897148ecd44783a7d24ac533f4c86dc3ccdc1c8cdfbcca9
+2026-10-09 20:45:23,589 epoch=102/800 episodes=27 loss=10.056801 train_acc=80.5926 best_val=91.1550 lr=0.1
+2026-10-09 20:45:48,798 epoch=103 episodes=27 loss=10.159455 train_acc=80.3457 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.21s checkpoint_sha256=3e9bc8d2a4a49ec3da4b2d68162424bf6cc4f72ab897ba965723e60b999132c9
+2026-10-09 20:45:48,798 epoch=103/800 episodes=27 loss=10.159455 train_acc=80.3457 best_val=91.1550 lr=0.1
+2026-10-09 20:46:14,061 epoch=104 episodes=27 loss=9.858619 train_acc=81.1358 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.26s checkpoint_sha256=bc6290fcc6932488e2c5c5fed5b5f4b8b061d52b38750c3d07525ec8b3a34c43
+2026-10-09 20:46:14,062 epoch=104/800 episodes=27 loss=9.858619 train_acc=81.1358 best_val=91.1550 lr=0.1
+2026-10-09 20:46:39,208 epoch=105 episodes=27 loss=9.864424 train_acc=80.4691 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.14s checkpoint_sha256=29ad48fad75a227f216d10bfe7e2fb1a754c8502450c26dcf6209a83288f185d
+2026-10-09 20:46:39,208 epoch=105/800 episodes=27 loss=9.864424 train_acc=80.4691 best_val=91.1550 lr=0.1
+2026-10-09 20:47:04,390 epoch=106 episodes=27 loss=9.984091 train_acc=80.5679 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.18s checkpoint_sha256=0bc202f841adf9d5b9c203abc3709c5045bdade9cf1e62c928bf2972152445ca
+2026-10-09 20:47:04,391 epoch=106/800 episodes=27 loss=9.984091 train_acc=80.5679 best_val=91.1550 lr=0.1
+2026-10-09 20:47:29,521 epoch=107 episodes=27 loss=10.254600 train_acc=79.7531 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.13s checkpoint_sha256=b10ee79f184a88946b1d7e851b00bba9650b3a92e096cb28bbd62f300d52445a
+2026-10-09 20:47:29,522 epoch=107/800 episodes=27 loss=10.254600 train_acc=79.7531 best_val=91.1550 lr=0.1
+2026-10-09 20:47:54,645 epoch=108 episodes=27 loss=9.560464 train_acc=83.0617 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.12s checkpoint_sha256=fb40cf2f233c5cd5dba4d4aae8a9ac13e87f9b05f51aa2e66f2fa87ce245ca46
+2026-10-09 20:47:54,645 epoch=108/800 episodes=27 loss=9.560464 train_acc=83.0617 best_val=91.1550 lr=0.1
+2026-10-09 20:48:19,813 epoch=109 episodes=27 loss=9.718622 train_acc=81.5556 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.17s checkpoint_sha256=c405842de57a923817eb92c86498a2b8bf3348ec147e674e021bae0032636517
+2026-10-09 20:48:19,813 epoch=109/800 episodes=27 loss=9.718622 train_acc=81.5556 best_val=91.1550 lr=0.1
+2026-10-09 20:48:44,901 epoch=110 episodes=27 loss=10.021883 train_acc=80.4198 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.09s checkpoint_sha256=8b68acd84f356dd04370189d3722ae2577a33adea60feec5935038a4349e8abe
+2026-10-09 20:48:44,902 epoch=110/800 episodes=27 loss=10.021883 train_acc=80.4198 best_val=91.1550 lr=0.1
+2026-10-09 20:49:09,946 epoch=111 episodes=27 loss=9.798136 train_acc=82.0988 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.04s checkpoint_sha256=7d6ac6d1ad544aca78112d216ea1e39ab2e4b68f0c7092a1f5989f924c99279e
+2026-10-09 20:49:09,946 epoch=111/800 episodes=27 loss=9.798136 train_acc=82.0988 best_val=91.1550 lr=0.1
+2026-10-09 20:49:35,182 epoch=112 episodes=27 loss=9.739440 train_acc=81.9753 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.23s checkpoint_sha256=3d301242819a5cb71740b919eb4f4d6abf3fe0cb08ed0f8c42c46d82b6a679d2
+2026-10-09 20:49:35,182 epoch=112/800 episodes=27 loss=9.739440 train_acc=81.9753 best_val=91.1550 lr=0.1
+2026-10-09 20:50:00,378 epoch=113 episodes=27 loss=9.463021 train_acc=83.9753 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.19s checkpoint_sha256=0714165d40dad927dcdbd156b55f0bd17a9fa15fe09fc866b7c4960b14a68a0b
+2026-10-09 20:50:00,378 epoch=113/800 episodes=27 loss=9.463021 train_acc=83.9753 best_val=91.1550 lr=0.1
+2026-10-09 20:50:25,516 epoch=114 episodes=27 loss=9.815546 train_acc=81.4074 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.14s checkpoint_sha256=fd54ca6d433b4c3dc8e027c167c4d4b5a9f036e06697692cfb2f496e0b463281
+2026-10-09 20:50:25,516 epoch=114/800 episodes=27 loss=9.815546 train_acc=81.4074 best_val=91.1550 lr=0.1
+2026-10-09 20:50:50,631 epoch=115 episodes=27 loss=9.540776 train_acc=82.4198 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.11s checkpoint_sha256=7604a27369ec0478790786e72ce07b51f80e0838f99acbc4513023242a705372
+2026-10-09 20:50:50,632 epoch=115/800 episodes=27 loss=9.540776 train_acc=82.4198 best_val=91.1550 lr=0.1
+2026-10-09 20:51:15,806 epoch=116 episodes=27 loss=9.374988 train_acc=82.1975 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.17s checkpoint_sha256=86541c35b5865ec3b79964aa1b8b7cf286f5fa0c28d7b8205a17ad901ef4a47e
+2026-10-09 20:51:15,806 epoch=116/800 episodes=27 loss=9.374988 train_acc=82.1975 best_val=91.1550 lr=0.1
+2026-10-09 20:51:41,002 epoch=117 episodes=27 loss=9.579209 train_acc=81.6296 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.19s checkpoint_sha256=3903202f9b25785b54331c9aa6425f001970f3bca98272e2b34f68aec8e16341
+2026-10-09 20:51:41,003 epoch=117/800 episodes=27 loss=9.579209 train_acc=81.6296 best_val=91.1550 lr=0.1
+2026-10-09 20:52:06,155 epoch=118 episodes=27 loss=9.432187 train_acc=82.6173 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.15s checkpoint_sha256=68abd886e3a59ce082e92bc539ff8939df104d0b0386463613b6af517f672afd
+2026-10-09 20:52:06,155 epoch=118/800 episodes=27 loss=9.432187 train_acc=82.6173 best_val=91.1550 lr=0.1
+2026-10-09 20:52:31,244 epoch=119 episodes=27 loss=9.695078 train_acc=82.1481 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.09s checkpoint_sha256=367a8eb61f5ddbebe75179c598583f64fa154a32eb337c3422add8c85f89783d
+2026-10-09 20:52:31,244 epoch=119/800 episodes=27 loss=9.695078 train_acc=82.1481 best_val=91.1550 lr=0.1
+2026-10-09 20:55:06,298 epoch=120 episodes=27 loss=9.307460 train_acc=83.5062 lr_used=0.1 val_acc=91.095 val_ci=0.34353005044682766 gpu_allocated=10383626240 elapsed=155.05s checkpoint_sha256=0cb25f706fd5a826e4240263eed2c28c8cfe989c866606a60440a47604111f90
+2026-10-09 20:55:06,299 epoch=120/800 episodes=27 loss=9.307460 train_acc=83.5062 best_val=91.1550 lr=0.1
+2026-10-09 20:55:31,548 epoch=121 episodes=27 loss=9.610707 train_acc=81.9259 lr_used=0.1 val_acc=None val_ci=None gpu_allocated=10383626240 elapsed=25.25s checkpoint_sha256=e4605d20ef491993cdf593bdbb6bbd162147fd28858049b2f7f89fd9329a1153
+2026-10-09 20:55:31,549 epoch=121/800 episodes=27 loss=9.610707 train_acc=81.9259 best_val=91.1550 lr=0.1
+                                                                                                                                                                                                                                                                                                                                                         

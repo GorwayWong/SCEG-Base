@@ -17,6 +17,9 @@ experiments/**/runs/**
 !experiments/**/runs/*/*.log
 !experiments/**/runs/*/*.md
 !experiments/**/runs/*/*.patch
+!experiments/**/runs/*/*.py
+!experiments/**/runs/*/*.jsonl
 checkpoints/
 logs/
 *.pth
+*.pt

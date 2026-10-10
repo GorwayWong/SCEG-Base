@@ -1,0 +1,1 @@
+/root/projects/aris/sceg_fsfg/.venv/bin/python experiments/sceg_original/runs/20261009_cub800_seed42_phase_a/phase_a.py 20261009_cub800_seed42_phase_a_verified

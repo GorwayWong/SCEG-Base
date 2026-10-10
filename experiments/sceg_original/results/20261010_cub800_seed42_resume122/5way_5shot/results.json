@@ -1,0 +1,20 @@
+{
+  "dataset": "CUB",
+  "checkpoint_sha256": "bf3c1079739c05d899c3227c7d8583fb40adec8a65eb67500e36749c046ba942",
+  "way": 5,
+  "shot": 5,
+  "query": 16,
+  "episodes": 2000,
+  "accuracy": 94.525625,
+  "confidence_interval": 0.19239505217049502,
+  "seed": 42,
+  "commit": "900e06e2414a9873d2c9933eda8c417d3834a3c7",
+  "official_commit": "f7f130aeb5b1b49246150574c53a874d4ce8de80",
+  "confidence_interval_type": "95% normal half-width, population variance ddof=0",
+  "confidence_interval_bounds": [
+    94.33322994782951,
+    94.7180200521705
+  ],
+  "raw_result": "experiments/sceg_original/runs/20261010_cub800_seed42_resume122/test_5way_5shot.json",
+  "raw_result_sha256": "07a7d6f5487254439329007d86cd53abed29ce52e061105b533f412b079874d7"
+}

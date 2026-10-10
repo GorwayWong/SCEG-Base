@@ -11,6 +11,7 @@
 - [x] 200-image完整episode前向/反向显存预检通过（0 optimizer updates）
 - [x] Dogs/Flowers原始图片和标签下载、archive结构/数量检查通过
 - [ ] 四数据集下载/物理副本/划分来源通过
-- [ ] full training完成
-- [ ] 正式few-shot/many-way评测完成
-- [ ] 指标接近论文
+- [x] CUB full training完成（800 epochs，best epoch480；其他数据集未完成）
+- [x] CUB 5-way 1-shot/5-shot与50-way 1-shot正式评测完成（每项2000 episodes）
+- [ ] CUB 50-way 5-shot正式评测（用户暂停）
+- [ ] 完整四组结果与论文对照（已有三组见cub_result_table.md）

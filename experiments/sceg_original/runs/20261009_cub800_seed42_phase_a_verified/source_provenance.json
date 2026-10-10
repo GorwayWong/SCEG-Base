@@ -1,0 +1,22 @@
+{
+  "official_repository": {
+    "url": "https://github.com/Legenddddd/SCEG",
+    "commit": "f7f130aeb5b1b49246150574c53a874d4ce8de80",
+    "license": "MIT",
+    "reference_checkout": "/tmp/sceg-official-reference"
+  },
+  "frn_split": {
+    "repository": "https://github.com/Tsingularity/FRN",
+    "commit": "64e43f3ca3a4953445788fc853e288e032d0083c",
+    "source": "data/init_CUB_fewshot.py",
+    "source_sha256": "271ce56cbc9442c20fb2918cbd863e62b37ada44dd2f7a8658f111c76b584a7c",
+    "iteration": "original_class_ids_1_to_200",
+    "train": "id_mod_2_equals_0",
+    "validation": "id_mod_4_equals_1",
+    "test": "id_mod_4_equals_3"
+  },
+  "frn_local_source": "https://raw.githubusercontent.com/Tsingularity/FRN/64e43f3ca3a4953445788fc853e288e032d0083c/data/init_CUB_fewshot.py",
+  "official_recipe_sha256": "a84ece432b7058ff85a3f7f794e8f2ade942ff30bd8d41f0dd39340811efc71e",
+  "config_sha256": "b62bd5881a654be215ea0a1cd1dbb7b88f9c29b1f6cc3546bc665081494f1af7",
+  "local_commit": "900e06e2414a9873d2c9933eda8c417d3834a3c7"
+}

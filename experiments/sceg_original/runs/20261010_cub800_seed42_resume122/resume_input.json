@@ -1,0 +1,15 @@
+{
+  "source": "/root/projects/aris/sceg_fsfg/experiments/sceg_original/runs/20261009_cub800_seed42_formal/latest.pth",
+  "sha256": "898b5ac85fbb1bc55318a77cc0ad53dfef24f21bf8396f3a47a69d73e310937e",
+  "completed_epochs": 122,
+  "step": 3294,
+  "scheduler_last_epoch": 122,
+  "optimizer_lr": 0.1,
+  "rng_restored_by": "existing trainers.trainer.restore_rng",
+  "dropblock_counters": {
+    "feature_extractor.layer1.0": 9294,
+    "feature_extractor.layer2.0": 9294,
+    "feature_extractor.layer3.0": 9294,
+    "feature_extractor.layer4.0": 9294
+  }
+}

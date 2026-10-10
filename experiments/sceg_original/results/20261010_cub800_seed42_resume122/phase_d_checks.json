@@ -1,0 +1,8 @@
+{
+  "status": "partial",
+  "completed_settings": 3,
+  "episodes_per_completed_setting": 2000,
+  "same_best_checkpoint": true,
+  "raw_means_and_ci_recomputed": true,
+  "pending": "50-way 5-shot paused by user"
+}

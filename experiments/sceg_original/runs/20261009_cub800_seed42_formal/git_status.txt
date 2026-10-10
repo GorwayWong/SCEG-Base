@@ -1,0 +1,6 @@
+?? docs/cub_discrepancy.md
+?? docs/cub_reproduction_report.md
+?? docs/cub_result_table.md
+?? experiments/sceg_original/configs/
+?? experiments/sceg_original/results/
+?? experiments/sceg_original/runs/

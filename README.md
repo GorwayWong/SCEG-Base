@@ -24,11 +24,17 @@ Git保存运行目录中的轻量审计记录。数据、虚拟环境和大型ch
 .venv/bin/python -m tools.analyze_checkpoint --checkpoint experiments/sceg_debug/runs/four_images_200_steps/checkpoint.pth
 ```
 
-完整训练入口为`tools.train`，默认执行800epochs，不用短训练冒充复现。当前严格全参数梯度关卡失败；只有明确接受官方闲置参数例外后，才能使用`--accept-official-inactive`。debug checkpoint不能用于baseline正式测试。
+完整训练入口为`tools.train`，默认执行800epochs。已接受官方闲置参数例外，保留这些参数并核验所有活动参数的梯度；严格全参数梯度关卡仍不标为通过。debug checkpoint不能用于baseline正式测试。
 
 ```bash
-.venv/bin/python -m tools.train --config experiments/sceg_original/config.yaml --accept-official-inactive
+.venv/bin/python -m tools.train --config experiments/sceg_original/configs/cub.yaml --accept-official-inactive
 .venv/bin/python -m tools.test --checkpoint YOUR_BASELINE_CHECKPOINT --way 50
 ```
 
-目前未启动完整训练；上述train命令是待确认后的操作说明。CUB自动正式测试为5-way，many-way另用50；其他数据集分别30/49/25，并需自己的准确配置与class split来源。所有未知结果维持null。
+CUB 已完成800 epochs，正式 run 为 `20261010_cub800_seed42_resume122`，从前序第122轮恢复并保留完整800轮记录。5-way 1-shot/5-shot与50-way 1-shot各2000 episodes已完成；50-way 5-shot按用户要求暂停。完整baseline复现尚未完成。
+
+冻结配置见 [cub.yaml](experiments/sceg_original/configs/cub.yaml)，正式报告见 [cub_reproduction_report.md](docs/cub_reproduction_report.md)，差异见 [cub_discrepancy.md](docs/cub_discrepancy.md)，结果表见 [cub_result_table.md](docs/cub_result_table.md)。实验记录适配层位于 `experiments/sceg_original/runs/20261009_cub800_seed42_execution/`，调用既有训练和测试入口；其运行时副本保存在结果目录。训练使用获准的4 workers，其他训练数值配置遵循固定官方代码。
+
+其他数据集仍需各自的配置、可核验的class split和正式实验；未测结果保持null。
+
+权威结果：[results.json](experiments/sceg_original/results/20261010_cub800_seed42_resume122/results.json)。最终last/best及三组原始episode结果保留；旧中断权重和重复诊断文件已清理，重复JPEG在项目内部去重。详见[最终清理记录](experiments/sceg_original/results/20261010_final_cleanup/cleanup_report.md)。

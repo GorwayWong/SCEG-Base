@@ -1,0 +1,15 @@
+{
+  "latest_completed_epochs": 800,
+  "best_epoch": 480,
+  "checkpoints": {
+    "experiments/sceg_original/runs/20261010_cub800_seed42_resume122/latest.pth": {
+      "sha256": "9bb27392307946a53a59b5e215f10734f494f66815cfb9994ba86d3d1d90d28f",
+      "bytes": 129581522
+    },
+    "experiments/sceg_original/runs/20261010_cub800_seed42_resume122/checkpoint.pth": {
+      "sha256": "bf3c1079739c05d899c3227c7d8583fb40adec8a65eb67500e36749c046ba942",
+      "bytes": 129582898
+    }
+  },
+  "retention_policy": "final last and best only"
+}

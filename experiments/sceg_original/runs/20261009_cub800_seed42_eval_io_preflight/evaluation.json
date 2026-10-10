@@ -1,0 +1,26 @@
+[
+  {
+    "seed": 42,
+    "dataset": "cub_raw",
+    "split": "test",
+    "way": 50,
+    "shot": 1,
+    "query": 16,
+    "episodes": 1,
+    "accuracy": 11.0,
+    "confidence_interval": 0.0,
+    "confidence_interval_type": "95% normal half-width, population variance ddof=0"
+  },
+  {
+    "seed": 42,
+    "dataset": "cub_raw",
+    "split": "test",
+    "way": 50,
+    "shot": 5,
+    "query": 16,
+    "episodes": 1,
+    "accuracy": 19.25,
+    "confidence_interval": 0.0,
+    "confidence_interval_type": "95% normal half-width, population variance ddof=0"
+  }
+]

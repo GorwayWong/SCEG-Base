@@ -11,6 +11,8 @@
 
 来源项目只读：`/root/projects/aris/fewshot/data/fsfg`。来源图像目录实际使用符号链接；首次`cp -a`被审计拒绝后，重新用`cp -aL --reflink=auto`物理复制，删除本项目中被拒绝的临时链接目录。原项目没有改动。当前目标不存在符号链接/指向来源的硬链接。
 
+2026-10-10训练完成、三组评测完成且50-way 5-shot按用户要求暂停后，将旧CUB根和正式FRN根中逐张SHA256相同的11788张JPEG在项目内部硬链接去重。两套目录、原始图像内容及历史debug路径均保留；外部fewshot来源仍独立、只读。原准备manifest描述准备时的copy2状态；当前内部存储关系另见`experiments/sceg_original/results/20261010_final_cleanup/cleanup_result.json`。正式预缩放PNG、Cars及Dogs/Flowers下载源保留。
+
 CUB 11,788图，目录树SHA256 `4e7ab7af7cb1d5922c9d5ab6ff724a03897ab55ef130ee9f4ac7b3cb2e48792c`；Cars16,185图，`90b98fb285bc73d000359e1223126c9e891f66b4c271847425dfa9d38157cd74`。逐图片SHA256、class IDs及原provenance均保存在data/provenance/copied_datasets.json；class split集合两两无交集。
 
 CUB旧来源脚本按0-based索引分配类，不能称为FRN实际split。[FRN公开初始化脚本](https://github.com/Tsingularity/FRN/blob/64e43f3ca3a4953445788fc853e288e032d0083c/data/init_CUB_fewshot.py#L77)遍历原始class IDs1..200：even IDs为train，id%4==1为val，id%4==3为test。该规则与旧来源完全不同。正式根`data/frn/CUB_fewshot_raw`严格复制发布规则，100/50/50类，5903/2927/2958图；11,788图片bytes全部与已有来源一致，新tree SHA256 `a390d9ae0840bf6fd27311b937ee57a676942aa60c0598155a274fe7d21f0cb0`。旧副本、旧overfit和旧预缩放清单完整保留，不覆盖历史。

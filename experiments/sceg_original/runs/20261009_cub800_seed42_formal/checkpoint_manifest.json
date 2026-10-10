@@ -1,0 +1,16 @@
+{
+  "retention_policy": "last_and_best_only",
+  "latest_completed_epochs": 122,
+  "best_epoch": 100,
+  "checkpoints": {
+    "experiments/sceg_original/runs/20261009_cub800_seed42_formal/latest.pth": {
+      "sha256": "898b5ac85fbb1bc55318a77cc0ad53dfef24f21bf8396f3a47a69d73e310937e",
+      "bytes": 129581522
+    },
+    "experiments/sceg_original/runs/20261009_cub800_seed42_formal/checkpoint.pth": {
+      "sha256": "221fccca971f7dc9bf852078abd47ff8f9e541d9704728ca9a084550ff670ab2",
+      "bytes": 129582834
+    }
+  },
+  "cleanup_manifest": "experiments/sceg_original/results/20261009_light_retention_cleanup/cleanup_manifest.json"
+}

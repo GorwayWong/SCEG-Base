@@ -1,0 +1,18 @@
+{
+  "reason": "user_requested_pause_cleanup_commit_push",
+  "experiment_status": "paused",
+  "training_completed_epochs": 800,
+  "completed_test_settings": 3,
+  "validation_metric_epochs_retained": 40,
+  "raw_validation_epochs_retained": [480],
+  "pending_test_setting": "50-way 5-shot",
+  "additional_removed_files": [
+    "experiments/sceg_original/result.json",
+    "experiments/sceg_original/logs/20261010_final_cleanup/finalize.log"
+  ],
+  "protected_source_files_checked": 45,
+  "protected_source_files_unchanged": true,
+  "runtime_baseline_and_workflow_snapshot_hashes_verified": true,
+  "automatic_finalizer_cancelled": true,
+  "training_or_evaluation_restarted": false
+}

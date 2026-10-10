@@ -1,0 +1,16 @@
+{
+  "supervisor_pid": 2778,
+  "run_id": "20261010_cub800_seed42_resume122",
+  "command": [
+    ".venv/bin/python",
+    "experiments/sceg_original/runs/20261009_cub800_seed42_execution/workflow.py",
+    "--execute",
+    "--run-id",
+    "20261010_cub800_seed42_resume122",
+    "--resume",
+    "experiments/sceg_original/runs/20261009_cub800_seed42_formal/latest.pth"
+  ],
+  "cwd": "/root/projects/aris/sceg_fsfg",
+  "workflow_sha256": "8863fbaf732dca98935e0ed5857493961fec297a7241d6f9a7fb49dcc75a6f88",
+  "resume_source": "/root/projects/aris/sceg_fsfg/experiments/sceg_original/runs/20261009_cub800_seed42_formal/latest.pth"
+}

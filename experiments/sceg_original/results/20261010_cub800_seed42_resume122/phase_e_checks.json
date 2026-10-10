@@ -1,0 +1,10 @@
+{
+  "status": "recorded_partial_closeout",
+  "documents": [
+    "docs/cub_reproduction_report.md",
+    "docs/cub_result_table.md",
+    "docs/cub_discrepancy.md"
+  ],
+  "baseline_protocol_completed": false,
+  "missing": "50-way 5-shot"
+}

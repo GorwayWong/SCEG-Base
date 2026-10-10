@@ -1,0 +1,8 @@
+{
+  "previous_run": "experiments/sceg_original/runs/20261009_cub800_seed42_formal",
+  "initial_completed_epochs": 122,
+  "initial_optimizer_steps": 3294,
+  "prior_epoch_metrics": "experiments/sceg_original/runs/20261009_cub800_seed42_formal/metrics.json",
+  "current_epoch_metrics": "metrics.json",
+  "checkpoint_reference": "resume_input.json"
+}

@@ -1,0 +1,24 @@
+[
+  {
+    "way": 50,
+    "shot": 1,
+    "query": 16,
+    "batch_images": 850,
+    "forward_finite": true,
+    "gpu_max_allocated_bytes": 9563461120,
+    "gpu_max_reserved_bytes": 15179186176,
+    "accuracy": null,
+    "scope": "synthetic inference capacity check; not formal evaluation"
+  },
+  {
+    "way": 50,
+    "shot": 5,
+    "query": 16,
+    "batch_images": 1050,
+    "forward_finite": true,
+    "gpu_max_allocated_bytes": 11747998720,
+    "gpu_max_reserved_bytes": 18415091712,
+    "accuracy": null,
+    "scope": "synthetic inference capacity check; not formal evaluation"
+  }
+]

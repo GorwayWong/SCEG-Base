@@ -1,0 +1,11 @@
+{
+  "supervisor_pid": 16148,
+  "run_id": "20261009_cub800_seed42_formal",
+  "command": [
+    "/root/projects/aris/sceg_fsfg/.venv/bin/python",
+    "experiments/sceg_original/runs/20261009_cub800_seed42_execution/workflow.py",
+    "--execute"
+  ],
+  "cwd": "/root/projects/aris/sceg_fsfg",
+  "workflow_sha256": "5841571ec0d4cac1ae11a9782fa10f52cdf10f39be3e01fb3912ead5b60b083d"
+}

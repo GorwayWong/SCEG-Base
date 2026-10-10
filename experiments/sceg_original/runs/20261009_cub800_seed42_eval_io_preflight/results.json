@@ -1,0 +1,39 @@
+{
+  "seed": 42,
+  "dataset": "cub_raw",
+  "way": 50,
+  "shot": 1,
+  "accuracy": 11.0,
+  "confidence_interval": 0.0,
+  "status": "evaluation_io_preflight_completed",
+  "evaluation": [
+    {
+      "seed": 42,
+      "dataset": "cub_raw",
+      "split": "test",
+      "way": 50,
+      "shot": 1,
+      "query": 16,
+      "episodes": 1,
+      "accuracy": 11.0,
+      "confidence_interval": 0.0,
+      "confidence_interval_type": "95% normal half-width, population variance ddof=0"
+    },
+    {
+      "seed": 42,
+      "dataset": "cub_raw",
+      "split": "test",
+      "way": 50,
+      "shot": 5,
+      "query": 16,
+      "episodes": 1,
+      "accuracy": 19.25,
+      "confidence_interval": 0.0,
+      "confidence_interval_type": "95% normal half-width, population variance ddof=0"
+    }
+  ],
+  "metric_scope": "few held-out episodes used only to verify evaluation I/O, not baseline results",
+  "run_id": "20261009_cub800_seed42_eval_io_preflight",
+  "commit": "900e06e2414a9873d2c9933eda8c417d3834a3c7",
+  "config_sha256": "1ac6ad2dcadbea248ca9e6f1106074b2792087eb328c354f90d635a1e38a1df5"
+}

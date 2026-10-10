@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "completed_epoch": 2,
+  "resume_run": "20261009_cub800_seed42_resume_epoch2",
+  "uninterrupted_formal_run": "20261009_cub800_seed42_formal",
+  "checkpoint_byte_identical": true,
+  "checkpoint_sha256": "8db6179b930ad7febdd7b3ee3ee7d2725d0029289dacdc6ee1aa8be1217ec4d7",
+  "resume_loss": 20.538387651796693,
+  "uninterrupted_loss": 20.538387651796693,
+  "first_epoch_loss": 34.96284612019857,
+  "optimizer_momentum_buffers": 112,
+  "optimizer_steps": 54,
+  "scheduler_last_epoch": 2,
+  "dropblock_counters": 54,
+  "protected_sources_and_existing_artifacts_unchanged": true,
+  "formal_training_completed": false
+}

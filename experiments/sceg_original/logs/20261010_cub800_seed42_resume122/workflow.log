@@ -1,0 +1,19 @@
+2026-10-10 03:07:06,469 INFO Phase C: continue 20261010_cub800_seed42_resume122 from experiments/sceg_original/runs/20261009_cub800_seed42_formal/latest.pth to epoch800
+2026-10-10 03:07:06,470 INFO command=['rtk', 'proxy', '/root/projects/aris/sceg_fsfg/.venv/bin/python', '/root/projects/aris/sceg_fsfg/experiments/sceg_original/runs/20261009_cub800_seed42_execution/baseline.py', '--run-id', '20261010_cub800_seed42_resume122', '--resume', 'experiments/sceg_original/runs/20261009_cub800_seed42_formal/latest.pth']
+2026-10-10 03:07:06,470 INFO child_pid=2805 output=/root/projects/aris/sceg_fsfg/experiments/sceg_original/logs/20261010_cub800_seed42_resume122/train_process.log
+2026-10-10 09:11:08,570 INFO Phase C completed: epochs=800 best_epoch=480. Phase D: 5-way complete; start 50-way.
+2026-10-10 09:11:08,584 INFO command=['rtk', 'proxy', '/root/projects/aris/sceg_fsfg/.venv/bin/python', '/root/projects/aris/sceg_fsfg/experiments/sceg_original/runs/20261009_cub800_seed42_execution/evaluate.py', '--run-id', '20261010_cub800_seed42_resume122_test50', '--checkpoint', '/root/projects/aris/sceg_fsfg/experiments/sceg_original/runs/20261010_cub800_seed42_resume122/checkpoint_best.pth', '--way', '50']
+2026-10-10 09:11:08,591 INFO child_pid=23405 output=/root/projects/aris/sceg_fsfg/experiments/sceg_original/logs/20261010_cub800_seed42_resume122/test50_process.log
+2026-10-10 14:14:52,228 ERROR Workflow stopped; no tuning/retraining/retry performed
+Traceback (most recent call last):
+  File "/root/projects/aris/sceg_fsfg/experiments/sceg_original/runs/20261009_cub800_seed42_execution/workflow.py", line 163, in main
+    invoke([str(execution / "evaluate.py"), "--run-id", many_id,
+  File "/root/projects/aris/sceg_fsfg/experiments/sceg_original/runs/20261009_cub800_seed42_execution/workflow.py", line 37, in invoke
+    returncode = process.wait()
+  File "/root/miniconda3/envs/mamba_vision/lib/python3.10/subprocess.py", line 1209, in wait
+    return self._wait(timeout=timeout)
+  File "/root/miniconda3/envs/mamba_vision/lib/python3.10/subprocess.py", line 1959, in _wait
+    (pid, sts) = self._try_wait(0)
+  File "/root/miniconda3/envs/mamba_vision/lib/python3.10/subprocess.py", line 1917, in _try_wait
+    (pid, sts) = os.waitpid(self.pid, wait_flags)
+KeyboardInterrupt

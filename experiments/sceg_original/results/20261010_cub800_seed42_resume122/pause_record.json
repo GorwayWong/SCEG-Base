@@ -1,0 +1,14 @@
+{
+  "time_utc": "2026-10-10T06:21:50.908150+00:00",
+  "reason": "user_requested_pause",
+  "way": 50,
+  "shot": 5,
+  "episodes_requested": 2000,
+  "accuracy": null,
+  "confidence_interval": null,
+  "completed_episodes": null,
+  "episode_progress_persisted": false,
+  "note": "The existing evaluator saves at setting completion; no valid completed 5-shot result exists.",
+  "automatic_cleanup_publisher_cancelled": true,
+  "training_resume_required": false
+}

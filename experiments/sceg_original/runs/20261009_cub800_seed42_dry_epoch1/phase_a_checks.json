@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "run_id": "20261009_cub800_seed42_phase_a_verified",
+  "train_episode_count_seed42_sampler_only": 27,
+  "train_unique_images_consumed": 5400,
+  "full_data_manifest_verified": true,
+  "recipe_matches_prior_confirmed_config": true,
+  "workers": 4,
+  "formal_training_started": false,
+  "elapsed_seconds": 24.025952482999855
+}

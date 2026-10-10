@@ -1,0 +1,14 @@
+{
+  "input_shape": [
+    200,
+    3,
+    84,
+    84
+  ],
+  "mode": "eval",
+  "forward_flops": 1463450445592,
+  "per_image_flops_average": 7317252227.96,
+  "scope": "PyTorch profiler counted supported convolution and matrix multiplication operations; unsupported elementwise/reduction/pooling FLOPs excluded",
+  "multiply_add_convention": "2 FLOPs per multiply-add",
+  "backward_included": false
+}

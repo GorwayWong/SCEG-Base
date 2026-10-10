@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "forward_backward_optimizer_checkpoint": true,
+  "checkpoint_load_state_matches_live_model": true,
+  "parameters_updated": true,
+  "completed_epochs": 1,
+  "step": 27,
+  "full_training_completed": false,
+  "loss": 34.96284612019857,
+  "resume": false,
+  "strict_all_parameter_gradient_passed": false,
+  "official_inactive_parameters_exception": "accepted; existing active-gradient checks retained"
+}

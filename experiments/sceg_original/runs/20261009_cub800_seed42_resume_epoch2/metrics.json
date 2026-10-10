@@ -1,0 +1,48 @@
+{
+  "seed": 42,
+  "dataset": "cub_raw",
+  "way": 10,
+  "shot": 5,
+  "accuracy": null,
+  "confidence_interval": null,
+  "status": "dry_run_completed",
+  "completed_epochs": 2,
+  "step": 54,
+  "epoch_episodes": 27,
+  "train_loss": 20.538387651796693,
+  "train_accuracy": 28.24691358024691,
+  "gradient_norm": 4.399106502532959,
+  "learning_rate": 0.1,
+  "best_validation": 0.0,
+  "best_epoch": null,
+  "checkpoint_role": "provisional_last",
+  "epoch_history": [
+    {
+      "epoch": 2,
+      "step": 54,
+      "episodes": 27,
+      "train_loss": 20.538387651796693,
+      "train_episode_accuracy": 28.24691358024691,
+      "learning_rate_used": 0.1,
+      "learning_rate_next_epoch": 0.1,
+      "validation_accuracy": null,
+      "validation_confidence_interval": null,
+      "validation_status": "not_scheduled_official_every20",
+      "gpu_max_allocated_bytes": 10452665856,
+      "gpu_max_reserved_bytes": 13084131328,
+      "elapsed_seconds": 26.596588872998836,
+      "checkpoint_sha256": "8db6179b930ad7febdd7b3ee3ee7d2725d0029289dacdc6ee1aa8be1217ec4d7",
+      "checkpoint_completed_epochs": 2,
+      "optimizer_momentum_buffers": 112,
+      "scheduler_last_epoch": 2,
+      "dropblock_counters": {
+        "feature_extractor.layer1.0": 54,
+        "feature_extractor.layer2.0": 54,
+        "feature_extractor.layer3.0": 54,
+        "feature_extractor.layer4.0": 54
+      }
+    }
+  ],
+  "full_training_completed": false,
+  "purpose": "resume_check"
+}
