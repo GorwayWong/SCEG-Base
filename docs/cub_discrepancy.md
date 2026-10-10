@@ -25,3 +25,5 @@ Phase A首轮发现固定FRN源码文件没有随旧manifest存储，已保留�
 2026-10-10：恢复第122轮状态并完成800轮训练。三组测试完成，50-way 5-shot按用户指令停止，等待自动发布的进程也已取消。原评测入口只在完整setting结束时保存结果，不支持episode级续跑；没有把未保存的部分episode当作正式结果。完整CUB baseline完成标准尚未满足。
 
 实验结束后的存储清理：移除旧中断权重、重复单轮JSON与激活诊断，保留完整800轮历史、全部40次validation指标、best epoch原始验证记录和三组原始测试episode结果；其余39次验证采样明细清理。11788张相同JPEG在项目内部硬链接去重，两套类目录及图像SHA256不变，未链接到外部来源工程。准备时的copy2/独立副本证明仍作为历史记录保留；当前存储变化在cleanup_result.json单独记录。记录入口今后仅验证已保护源码，不再锁定过时输出；运行时原始脚本副本保留。模型/loss/dataset源码与优化参数均未修改。
+
+补测完成：只计算50-way 5-shot 2000 episodes，使用同一epoch480 best，未重新训练或重复前三组推理。原tools.test只在[1,5]循环前设一次seed；本次用原batch sampler重放1-shot采样，并逐集核对已有2000组indices，保留NumPy随机状态续接。没有加载这些图片或执行1-shot模型forward；eval变换确定，DropBlock关闭，省略的forward计数不影响预测。核心评测代码保持原样；进度记录仅包装loader迭代。历史暂停与清理记录保留，当前完整结果见新completed suite。

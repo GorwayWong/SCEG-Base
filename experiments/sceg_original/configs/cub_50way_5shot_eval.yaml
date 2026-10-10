@@ -1,0 +1,15 @@
+dataset: CUB
+training_config: experiments/sceg_original/configs/cub.yaml
+training_run: 20261010_cub800_seed42_resume122
+checkpoint: experiments/sceg_original/runs/20261010_cub800_seed42_resume122/checkpoint_best.pth
+way: 50
+shots: [5]
+query: 16
+episodes: 2000
+seed: 42
+workers: 4
+amp: false
+tf32: false
+sampler_rng_protocol: replay_original_completed_1shot_sampler_then_evaluate_5shot
+sampler_replay_source: experiments/sceg_original/runs/20261010_cub800_seed42_resume122_test50/test_50way_1shot.json
+official_commit: f7f130aeb5b1b49246150574c53a874d4ce8de80

@@ -1,0 +1,9 @@
+{
+  "source": "experiments/sceg_original/runs/20261010_cub800_seed42_resume122_test50/test_50way_1shot.json",
+  "source_sha256": "573ba192f64547789e5f1f2c3c16c4878ab842f7e7fe12e933e38509fe09659f",
+  "replayed_sampler_episodes": 2000,
+  "all_indices_match_completed_1shot": true,
+  "numpy_state_after_replay_sha256": "9f7926d8d60ddff94e929e179bdeed77fbccd05fd967fca1099ee2c8b65fbe36",
+  "model_forwards_replayed": 0,
+  "note": "Preserve original [1,5] NumPy sampling continuation; eval transforms are deterministic and DropBlock is disabled."
+}

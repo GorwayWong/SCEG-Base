@@ -1,0 +1,5 @@
+ M experiments/sceg_original/runs/20261009_cub800_seed42_execution/evaluate.py
+?? experiments/sceg_original/configs/cub_50way_5shot_eval.yaml
+?? experiments/sceg_original/results/20261010_cub800_seed42_completed/
+?? experiments/sceg_original/runs/20261009_cub800_seed42_execution/complete_cub.py
+?? experiments/sceg_original/runs/20261010_cub50way5shot_seed42/

@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "preflight": false,
+  "checkpoint_strict_load_passed": true,
+  "episodes_per_setting": 2000,
+  "way": 50,
+  "shots": [
+    5
+  ],
+  "checkpoint_sha256": "bf3c1079739c05d899c3227c7d8583fb40adec8a65eb67500e36749c046ba942",
+  "dataset_rehashed": true
+}

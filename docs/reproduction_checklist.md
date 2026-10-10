@@ -13,5 +13,5 @@
 - [ ] 四数据集下载/物理副本/划分来源通过
 - [x] CUB full training完成（800 epochs，best epoch480；其他数据集未完成）
 - [x] CUB 5-way 1-shot/5-shot与50-way 1-shot正式评测完成（每项2000 episodes）
-- [ ] CUB 50-way 5-shot正式评测（用户暂停）
-- [ ] 完整四组结果与论文对照（已有三组见cub_result_table.md）
+- [x] CUB 50-way 5-shot正式评测完成（2000 episodes）
+- [x] 完整四组结果与论文对照（见cub_result_table.md）

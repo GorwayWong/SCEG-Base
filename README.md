@@ -31,10 +31,12 @@ Git保存运行目录中的轻量审计记录。数据、虚拟环境和大型ch
 .venv/bin/python -m tools.test --checkpoint YOUR_BASELINE_CHECKPOINT --way 50
 ```
 
-CUB 已完成800 epochs，正式 run 为 `20261010_cub800_seed42_resume122`，从前序第122轮恢复并保留完整800轮记录。5-way 1-shot/5-shot与50-way 1-shot各2000 episodes已完成；50-way 5-shot按用户要求暂停。完整baseline复现尚未完成。
+CUB 已完成800 epochs，正式 run 为 `20261010_cub800_seed42_resume122`，从前序第122轮恢复并保留完整800轮记录。四组5-way/50-way、1-shot/5-shot均完成2000 episodes；暂停的50-way 5-shot已补齐。SCEG CUB baseline reproduced（协议完成，精度对照见结果表）。
 
 冻结配置见 [cub.yaml](experiments/sceg_original/configs/cub.yaml)，正式报告见 [cub_reproduction_report.md](docs/cub_reproduction_report.md)，差异见 [cub_discrepancy.md](docs/cub_discrepancy.md)，结果表见 [cub_result_table.md](docs/cub_result_table.md)。实验记录适配层位于 `experiments/sceg_original/runs/20261009_cub800_seed42_execution/`，调用既有训练和测试入口；其运行时副本保存在结果目录。训练使用获准的4 workers，其他训练数值配置遵循固定官方代码。
 
 其他数据集仍需各自的配置、可核验的class split和正式实验；未测结果保持null。
 
-权威结果：[results.json](experiments/sceg_original/results/20261010_cub800_seed42_resume122/results.json)。最终last/best及三组原始episode结果保留；旧中断权重和重复诊断文件已清理，重复JPEG在项目内部去重。详见[最终清理记录](experiments/sceg_original/results/20261010_final_cleanup/cleanup_report.md)。
+权威结果：[results.json](experiments/sceg_original/results/20261010_cub800_seed42_completed/results.json)。最终last/best及四组原始episode结果保留；旧中断权重和重复诊断文件已清理，重复JPEG在项目内部去重。详见[最终清理记录](experiments/sceg_original/results/20261010_final_cleanup/cleanup_report.md)。
+
+2026-10-10已按用户要求启动缺失50-way 5-shot的独立补测：run `20261010_cub50way5shot_seed42`，仍用epoch480 best、2000 episodes、query16、seed42和4 workers。仅重放原1-shot sampler并核对已有indices以保留NumPy续接，不重复1-shot推理。实时[episode进度](experiments/sceg_original/runs/20261010_cub50way5shot_seed42/evaluation_progress.json)与[完整套件状态](experiments/sceg_original/results/20261010_cub800_seed42_completed/status.json)可核验；完成后合并四组结果并更新报告。

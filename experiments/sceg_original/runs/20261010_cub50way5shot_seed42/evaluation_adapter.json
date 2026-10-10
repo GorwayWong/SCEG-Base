@@ -1,0 +1,9 @@
+{
+  "path": "experiments/sceg_original/runs/20261009_cub800_seed42_execution/evaluate.py",
+  "sha256": "9f62b39dc88156099cd50fddf47e5d7acee5fba923eb38bdd88bd8fef946f2a5",
+  "requested_shots": [
+    5
+  ],
+  "entrypoint": "tools.test.main -> evaluators.fewshot_eval.evaluate_episodes (unchanged)",
+  "rng_protocol": "original 1-shot sampler replay then 5-shot"
+}

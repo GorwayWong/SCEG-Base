@@ -1,0 +1,8 @@
+{
+  "status": "completed",
+  "completed_episodes": 2000,
+  "requested_episodes": 2000,
+  "elapsed_seconds": 4035.321602188,
+  "seconds_per_episode": 2.017660801094,
+  "gpu_max_allocated_bytes": 11571371520
+}

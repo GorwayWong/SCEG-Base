@@ -1,0 +1,10 @@
+{
+  "path": "experiments/sceg_original/runs/20261009_cub800_seed42_execution/baseline.py",
+  "sha256": "6859202db36b3ec58bd03c20c35c9b663a0c03a65a03bc0176fd6b40643c21be",
+  "entrypoint": "tools.train.main -> trainers.trainer.train (unchanged)",
+  "stop_after_completed_epoch": null,
+  "phase_a": "experiments/sceg_original/runs/20261009_cub800_seed42_phase_a_verified",
+  "canonical_checkpoint_policy": "only rolling last and validation-selected best; no epoch archives",
+  "rng_policy": "one current rng_state.pt; complete RNG also stored in last checkpoint",
+  "family_result_policy": "never overwrite existing experiments/sceg_original/result.json"
+}

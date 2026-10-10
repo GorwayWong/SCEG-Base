@@ -1,6 +1,6 @@
 # SCEG reproduction — engineering record
 
-CUB 正式训练已完成800 epochs，三组正式测试完成，50-way 5-shot按用户要求暂停。当前实验状态、正式结果和协议见 [CUB reproduction report](cub_reproduction_report.md)、[CUB result table](cub_result_table.md) 与 [CUB discrepancy](cub_discrepancy.md)。
+CUB 正式训练已完成800 epochs，四组正式测试均完成，每组2000 episodes。当前实验状态、正式结果和协议见 [CUB reproduction report](cub_reproduction_report.md)、[CUB result table](cub_result_table.md) 与 [CUB discrepancy](cub_discrepancy.md)。
 
 以下保留正式训练前Phase4的工程验证记录，其中“未开始”“待确认”等表述记录当时状态，不代表当前CUB实验状态。
 

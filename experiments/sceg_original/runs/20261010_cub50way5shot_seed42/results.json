@@ -1,0 +1,27 @@
+{
+  "seed": 42,
+  "dataset": "cub_raw",
+  "way": 50,
+  "shot": 5,
+  "accuracy": 74.1623125,
+  "confidence_interval": 0.06518874020850438,
+  "status": "completed",
+  "evaluation": [
+    {
+      "seed": 42,
+      "dataset": "cub_raw",
+      "split": "test",
+      "way": 50,
+      "shot": 5,
+      "query": 16,
+      "episodes": 2000,
+      "accuracy": 74.1623125,
+      "confidence_interval": 0.06518874020850438,
+      "confidence_interval_type": "95% normal half-width, population variance ddof=0"
+    }
+  ],
+  "metric_scope": "held-out test episodes",
+  "run_id": "20261010_cub50way5shot_seed42",
+  "commit": "94b63a9f81c0bfb6d8c93f5e3b5c32f8ac203ab4",
+  "config_sha256": "ff40717bdb5404bcd7a3a769649fbabd958dbe17c97c4dda60ef8b555a5b5c1c"
+}

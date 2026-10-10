@@ -1,0 +1,97 @@
+{
+  "dataset": "CUB",
+  "run_id": "20261010_cub800_seed42_completed",
+  "status": "completed",
+  "full_training_completed": true,
+  "completed_epochs": 800,
+  "seed": 42,
+  "commit": "900e06e2414a9873d2c9933eda8c417d3834a3c7",
+  "checkpoint_sha256": "bf3c1079739c05d899c3227c7d8583fb40adec8a65eb67500e36749c046ba942",
+  "evaluations": [
+    {
+      "dataset": "CUB",
+      "checkpoint_sha256": "bf3c1079739c05d899c3227c7d8583fb40adec8a65eb67500e36749c046ba942",
+      "way": 5,
+      "shot": 1,
+      "query": 16,
+      "episodes": 2000,
+      "accuracy": 87.61375,
+      "confidence_interval": 0.3824932553637384,
+      "seed": 42,
+      "commit": "900e06e2414a9873d2c9933eda8c417d3834a3c7",
+      "official_commit": "f7f130aeb5b1b49246150574c53a874d4ce8de80",
+      "confidence_interval_type": "95% normal half-width, population variance ddof=0",
+      "confidence_interval_bounds": [
+        87.23125674463626,
+        87.99624325536374
+      ],
+      "raw_result": "experiments/sceg_original/runs/20261010_cub800_seed42_resume122/test_5way_1shot.json",
+      "raw_result_sha256": "eba77ac011302af3552e634882e122fce1851e72d04dd5a33fce189ee11a3f64"
+    },
+    {
+      "dataset": "CUB",
+      "checkpoint_sha256": "bf3c1079739c05d899c3227c7d8583fb40adec8a65eb67500e36749c046ba942",
+      "way": 5,
+      "shot": 5,
+      "query": 16,
+      "episodes": 2000,
+      "accuracy": 94.525625,
+      "confidence_interval": 0.19239505217049502,
+      "seed": 42,
+      "commit": "900e06e2414a9873d2c9933eda8c417d3834a3c7",
+      "official_commit": "f7f130aeb5b1b49246150574c53a874d4ce8de80",
+      "confidence_interval_type": "95% normal half-width, population variance ddof=0",
+      "confidence_interval_bounds": [
+        94.33322994782951,
+        94.7180200521705
+      ],
+      "raw_result": "experiments/sceg_original/runs/20261010_cub800_seed42_resume122/test_5way_5shot.json",
+      "raw_result_sha256": "07a7d6f5487254439329007d86cd53abed29ce52e061105b533f412b079874d7"
+    },
+    {
+      "dataset": "CUB",
+      "checkpoint_sha256": "bf3c1079739c05d899c3227c7d8583fb40adec8a65eb67500e36749c046ba942",
+      "way": 50,
+      "shot": 1,
+      "query": 16,
+      "episodes": 2000,
+      "accuracy": 56.5245625,
+      "confidence_interval": 0.12589184854904975,
+      "seed": 42,
+      "commit": "900e06e2414a9873d2c9933eda8c417d3834a3c7",
+      "official_commit": "f7f130aeb5b1b49246150574c53a874d4ce8de80",
+      "confidence_interval_type": "95% normal half-width, population variance ddof=0",
+      "confidence_interval_bounds": [
+        56.39867065145095,
+        56.650454348549054
+      ],
+      "raw_result": "experiments/sceg_original/runs/20261010_cub800_seed42_resume122_test50/test_50way_1shot.json",
+      "raw_result_sha256": "573ba192f64547789e5f1f2c3c16c4878ab842f7e7fe12e933e38509fe09659f"
+    },
+    {
+      "dataset": "CUB",
+      "checkpoint_sha256": "bf3c1079739c05d899c3227c7d8583fb40adec8a65eb67500e36749c046ba942",
+      "way": 50,
+      "shot": 5,
+      "query": 16,
+      "episodes": 2000,
+      "accuracy": 74.1623125,
+      "confidence_interval": 0.06518874020850438,
+      "seed": 42,
+      "commit": "900e06e2414a9873d2c9933eda8c417d3834a3c7",
+      "official_commit": "f7f130aeb5b1b49246150574c53a874d4ce8de80",
+      "confidence_interval_type": "95% normal half-width, population variance ddof=0",
+      "confidence_interval_bounds": [
+        74.0971237597915,
+        74.2275012402085
+      ],
+      "raw_result": "experiments/sceg_original/runs/20261010_cub50way5shot_seed42/test_50way_5shot.json",
+      "raw_result_sha256": "9f3f0eff1623e870321421eb51396d8f92b5d5645c8d8b26718781658da4c753"
+    }
+  ],
+  "baseline_protocol_completed": true,
+  "formal_evaluation_completed": true,
+  "reproduction_debug_report": "experiments/sceg_original/runs/20261010_cub50way5shot_seed42/reproduction_debug_report.md",
+  "previous_partial_results": "experiments/sceg_original/results/20261010_cub800_seed42_resume122",
+  "evaluation_run": "20261010_cub50way5shot_seed42"
+}

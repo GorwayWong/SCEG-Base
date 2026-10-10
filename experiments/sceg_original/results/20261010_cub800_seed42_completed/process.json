@@ -1,0 +1,9 @@
+{
+  "supervisor_pid": 38820,
+  "command": [
+    ".venv/bin/python",
+    "experiments/sceg_original/runs/20261009_cub800_seed42_execution/complete_cub.py"
+  ],
+  "cwd": "/root/projects/aris/sceg_fsfg",
+  "start_time_utc": "2026-10-10T08:24:29.837667+00:00"
+}
