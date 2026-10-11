@@ -1,0 +1,828 @@
+diff --git a/experiments/sceg_dogs_baseline/prepare.py b/experiments/sceg_dogs_baseline/prepare.py
+new file mode 100644
+index 0000000..d9edbe6
+--- /dev/null
++++ b/experiments/sceg_dogs_baseline/prepare.py
+@@ -0,0 +1,183 @@
++"""Dogs-only archive adapter. Exact class identities must be supplied with evidence.
++
++No split is inferred from order, a seed, breed counts or Stanford image-level lists.
++The downloaded archive and all historical provenance are read-only.
++"""
++import argparse
++from collections import Counter
++import hashlib
++import json
++from pathlib import Path, PurePosixPath
++import tarfile
++
++from PIL import Image
++from torchvision import transforms
++from datasets import make_dataset
++from tools.prepare_data import sha256_file
++from utils.config import load_config
++from utils.experiment import write_json
++
++BASE = Path(__file__).resolve().parent
++COUNTS = {"train": 70, "val": 20, "test": 30}
++
++
++def archive_record(config):
++    path = Path(config["data_protocol"]["archive"])
++    manifest = Path(config["data_protocol"]["existing_archive_manifest"])
++    record = json.loads(manifest.read_text())["dogs"]
++    if path.stat().st_size != record["bytes"]:
++        raise ValueError("Archive size differs from existing source audit")
++    return {"path": str(path.resolve()), "bytes": record["bytes"],
++            "sha256": record["sha256"], "hash_source": str(manifest),
++            "sha256_recomputed": False}
++
++
++def image_members(archive):
++    seen = set()
++    for member in archive:
++        if member.isdir():
++            continue
++        parts = PurePosixPath(member.name).parts
++        if (not member.isfile() or len(parts) != 3 or parts[0] != "Images"
++                or ".." in parts or member.name in seen):
++            raise ValueError(f"Unsafe or duplicate Dogs archive entry: {member.name}")
++        seen.add(member.name)
++        yield member, parts[1], parts[2]
++
++
++def audit_raw(config, output):
++    source = archive_record(config)
++    counts = Counter()
++    with tarfile.open(source["path"]) as archive:
++        for member, breed, _ in image_members(archive):
++            with archive.extractfile(member) as stream, Image.open(stream) as image:
++                image.convert("RGB").load()  # decode pixels, not just JPEG headers
++            counts[breed] += 1
++    if len(counts) != 120 or sum(counts.values()) != 20580:
++        raise ValueError("Raw Dogs archive does not contain the expected 120/20580")
++    result = {"source": source, "images": sum(counts.values()), "classes": len(counts),
++              "all_images_decoded": True, "class_images": dict(sorted(counts.items())),
++              "exact_fsfg_split_verified": False, "fsfg_class_to_index": None}
++    write_json(output, result)
++    return result
++
++
++def trusted_split(path, available):
++    manifest = json.loads(Path(path).read_text())
++    if manifest.get("status") != "verified":
++        raise RuntimeError("BLOCKED: trusted exact Dogs 70/20/30 class split missing")
++    source = manifest.get("source") or {}
++    for key in ("url", "revision", "artifact_path", "artifact_sha256", "mapping_method"):
++        if not source.get(key):
++            raise ValueError(f"Split source lacks {key}")
++    if sha256_file(source["artifact_path"]) != source["artifact_sha256"]:
++        raise ValueError("Exact split source artifact hash mismatch")
++    classes = manifest["classes"]
++    flattened = []
++    for split, expected in COUNTS.items():
++        ids = classes[split]
++        if not isinstance(ids, list) or len(ids) != expected or len(set(ids)) != expected:
++            raise ValueError(f"Invalid exact class list: {split}")
++        flattened.extend(ids)
++    if len(set(flattened)) != 120 or set(flattened) != set(available):
++        raise ValueError("Class lists must be disjoint and cover all 120 raw breeds")
++    return manifest
++
++
++def file_state(path):
++    stat = path.stat()
++    return [stat.st_size, stat.st_mtime_ns]
++
++
++def prepare(config):
++    source = archive_record(config)
++    with tarfile.open(source["path"]) as archive:
++        available = {breed for _, breed, _ in image_members(archive)}
++    split_path = Path(config["data_protocol"]["split_manifest"])
++    split = trusted_split(split_path, available)  # before any dataset writes
++    destination = Path(config["data"]["root"])
++    destination.mkdir(parents=True, exist_ok=False)
++    lookup = {breed: part for part, breeds in split["classes"].items() for breed in breeds}
++    transform = transforms.Compose([transforms.Resize(config["data"]["eval_resize"]),
++                                    transforms.CenterCrop(config["data"]["image_size"])])
++    files = {}
++    with tarfile.open(source["path"]) as archive:
++        for member, breed, name in image_members(archive):
++            part = lookup[breed]
++            target = destination/part/breed/name
++            target.parent.mkdir(parents=True, exist_ok=True)
++            with archive.extractfile(member) as stream:
++                content = stream.read()
++            target.write_bytes(content)
++            files[str(target.relative_to(destination))] = {
++                "sha256": hashlib.sha256(content).hexdigest(), "stat": file_state(target)}
++            with Image.open(target) as image:
++                image = image.convert("RGB")
++                image.load()
++                if part != "train":
++                    cropped = transform(image)
++                    pre = destination/(part+"_pre")/breed/Path(name).with_suffix(".png")
++                    pre.parent.mkdir(parents=True, exist_ok=True)
++                    if pre.exists():
++                        raise ValueError("Pre-resized filename collision")
++                    cropped.save(pre)
++                    with Image.open(pre) as saved:
++                        if saved.tobytes() != cropped.tobytes():
++                            raise ValueError("Pre-resized PNG pixel mismatch")
++                    files[str(pre.relative_to(destination))] = {
++                        "sha256": sha256_file(pre), "stat": file_state(pre)}
++    classes = {}
++    for part in COUNTS:
++        dataset = make_dataset(config, part)
++        if set(dataset.classes) != set(split["classes"][part]):
++            raise ValueError("Prepared ImageFolder class identity mismatch")
++        counts = Counter(dataset.targets)
++        if min(counts.values()) < (20 if part == "train" else 21):
++            raise ValueError("Insufficient disjoint support/query images")
++        classes[part] = {"class_to_idx": dataset.class_to_idx, "images": len(dataset)}
++    result = {"status": "verified", "root": str(destination.resolve()), "source": source,
++              "split_manifest_sha256": sha256_file(split_path), "classes": classes,
++              "files": files, "all_images_decoded": True, "pre_pixels_verified": True,
++              "transform": {"resize": 92, "center_crop": 84, "format": "RGB PNG"}}
++    write_json(config["data_protocol"]["prepared_manifest"], result)
++    return result
++
++
++def check_prepared(config):
++    split_path = Path(config["data_protocol"]["split_manifest"])
++    inventory = json.loads((BASE/"data_protocol/raw_inventory.json").read_text())
++    split = trusted_split(split_path, inventory["class_images"])
++    record = json.loads(Path(config["data_protocol"]["prepared_manifest"]).read_text())
++    root = Path(config["data"]["root"]).resolve()
++    if (record["status"] != "verified" or record["root"] != str(root)
++            or record["split_manifest_sha256"] != sha256_file(split_path)):
++        raise ValueError("Prepared data provenance differs from configuration/split")
++    actual = {str(p.relative_to(root)) for p in root.rglob("*") if p.is_file()}
++    if actual != set(record["files"]):
++        raise ValueError("Prepared file inventory changed")
++    for relative, fingerprint in record["files"].items():
++        path = root/relative
++        if path.is_symlink() or file_state(path) != fingerprint["stat"]:
++            raise ValueError(f"Prepared file state changed: {relative}")
++    for part in COUNTS:
++        dataset = make_dataset(config, part)
++        if (set(dataset.classes) != set(split["classes"][part])
++                or dataset.class_to_idx != record["classes"][part]["class_to_idx"]):
++            raise ValueError("ImageFolder class-to-index changed")
++    return record
++
++
++def main():
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument("--config", default=str(BASE/"configs/dogs.yaml"))
++    parser.add_argument("--audit-raw", action="store_true")
++    args = parser.parse_args()
++    config = load_config(args.config)
++    result = (audit_raw(config, BASE/"data_protocol/raw_inventory.json")
++              if args.audit_raw else prepare(config))
++    print(json.dumps({key: result.get(key) for key in ("status", "classes", "images")},
++                     default=str))
++
++
++if __name__ == "__main__":
++    main()
+diff --git a/experiments/sceg_dogs_baseline/run.py b/experiments/sceg_dogs_baseline/run.py
+new file mode 100644
+index 0000000..6affc28
+--- /dev/null
++++ b/experiments/sceg_dogs_baseline/run.py
+@@ -0,0 +1,172 @@
++"""Thin Dogs training/suite entrypoint; uses the existing trainer and evaluator."""
++import argparse
++import hashlib
++import json
++from pathlib import Path
++import subprocess
++import time
++
++import torch
++from evaluators import evaluate_episodes
++from models import SCEG
++from trainers.trainer import train
++from tools.prepare_data import sha256_file
++from utils.config import load_config, ModelConfig
++from utils.experiment import ExperimentRun, write_json
++from utils.reproducibility import seed_everything
++from .prepare import BASE, check_prepared
++
++
++class DogsRun(ExperimentRun):
++    """Only recording additions; checkpoint policy and model training are unchanged."""
++    def __init__(self, config, run_id):
++        if config["experiment"] != "sceg_dogs_baseline":
++            raise ValueError("Dogs entrypoint requires experiment sceg_dogs_baseline")
++        self.started = time.perf_counter()
++        self.last_epoch_time = self.started
++        super().__init__(config, run_id)
++        # source_manifest() and git diff HEAD omit untracked experiments/ sources.
++        patches = []
++        sources = [*BASE.glob("*.py"), BASE/"configs/dogs.yaml"]
++        for path in sorted(sources):
++            result = subprocess.run(["rtk", "proxy", "git", "diff", "--no-index", "--",
++                                     "/dev/null", str(path.relative_to(self.root))],
++                                    cwd=self.root, capture_output=True, text=True)
++            if result.returncode not in (0, 1):
++                raise RuntimeError(result.stderr)
++            patches.append(result.stdout)
++        (self.path/"experiment_source.patch").write_text("".join(patches))
++        write_json(self.path/"experiment_source_manifest.json", {
++            str(path.relative_to(self.root)): sha256_file(path) for path in sources})
++
++    def update_metrics(self, **values):
++        super().update_metrics(**values)
++        if "completed_epochs" in values:
++            now = time.perf_counter()
++            with (self.path/"epoch_history.jsonl").open("a") as stream:
++                stream.write(json.dumps({**values, "epoch_seconds": now-self.last_epoch_time,
++                                         "elapsed_seconds": now-self.started})+"\n")
++            self.last_epoch_time = now
++
++
++def checkpoint_records(run):
++    records = {}
++    for name in ("latest.pth", "checkpoint.pth"):
++        path = run.path/name
++        if path.exists():
++            records[name] = {"path": str(path), "bytes": path.stat().st_size,
++                             "sha256": sha256_file(path)}
++    write_json(run.path/"checkpoint_manifest.json", records)
++    return records
++
++
++def complete_suite(model, config, run):
++    """Reuse trainer's two 5-way files; evaluate only missing 30-way settings."""
++    best = run.path/"checkpoint.pth"
++    source_hash = sha256_file(best)
++    payload = torch.load(best, map_location="cpu", weights_only=False)
++    if payload["best_epoch"] is None:
++        raise RuntimeError("No validation-selected best checkpoint")
++    model.load_state_dict(payload["model_state_dict"], strict=True)
++    results = []
++    for way in (5, 30):
++        for shot in (1, 5):
++            path = run.path/f"test_{way}way_{shot}shot.json"
++            if path.exists():
++                result = json.loads(path.read_text())
++                if (result["way"], result["shot"], result["query"], result["episodes"]) != (
++                        way, shot, 16, config["eval"]["test_episodes"]):
++                    raise ValueError("Existing test result has incompatible protocol")
++            else:
++                started = time.perf_counter()
++                result = evaluate_episodes(model, config, "test", way, shot,
++                                           config["eval"]["test_episodes"])
++                result["evaluation_seconds"] = time.perf_counter()-started
++                write_json(path, result)
++            result = {key: value for key, value in result.items()
++                      if key not in {"episode_indices", "sample_index_paths", "episode_accuracies"}}
++            result["checkpoint_sha256"] = source_hash
++            results.append(result)
++    run.update_metrics(status="completed", full_training_completed=True,
++                       full_evaluation_completed=True, evaluation=results,
++                       best_epoch=payload["best_epoch"])
++    write_json(run.path/"evaluation.json", results)
++
++
++def main():
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument("--config", default=str(BASE/"configs/dogs.yaml"))
++    parser.add_argument("--run-id", required=True)
++    parser.add_argument("--resume", type=Path)
++    args = parser.parse_args()
++    config = load_config(args.config)
++    if config["model"]["dataset"] != "stanford_dog" or config["model"]["base_classes"] != 70:
++        raise ValueError("Dogs baseline requires stanford_dog and a 70-class global head")
++    if (config["train"]["epochs"], config["train"]["validation_every"], config["eval"]["way"],
++            config["eval"]["validation_episodes"], config["eval"]["test_episodes"],
++            config["eval"]["query"], config["eval"]["many_way"]) != (800, 20, 5, 1000, 2000, 16, 30):
++        raise ValueError("Formal Dogs protocol differs from frozen baseline configuration")
++    config["purpose"] = "formal_dogs_baseline"
++    config["checkpoint_source"] = str(args.resume.resolve()) if args.resume else None
++    config["checkpoint_source_sha256"] = sha256_file(args.resume) if args.resume else None
++    gate = Path("experiments/sceg_debug/result.json")
++    if json.loads(gate.read_text()).get("status") != "passed":
++        raise RuntimeError("Existing CUB equivalence/overfit gate is not passed")
++    config["gates"] = {"overfit_result": str(gate), "overfit_sha256": sha256_file(gate),
++                       "official_inactive_exception_accepted": True,
++                       "strict_all_parameter_gradient_passed": False}
++    run = DogsRun(config, args.run_id)
++    exit_code = 0
++    try:
++        data_record = check_prepared(config)
++        write_json(run.path/"data_manifest.json", {
++            "prepared_manifest": config["data_protocol"]["prepared_manifest"],
++            "sha256": sha256_file(config["data_protocol"]["prepared_manifest"]),
++            "split_manifest": config["data_protocol"]["split_manifest"],
++            "split_sha256": data_record["split_manifest_sha256"],
++            "integrity_check": "inventory + size/mtime, no repeat image hashing"})
++        seed_everything(config["seed"], deterministic=config["runtime"]["deterministic"],
++                        allow_tf32=config["runtime"]["allow_tf32"],
++                        warn_only=config["runtime"]["deterministic_warn_only"])
++        torch.set_num_threads(config["runtime"]["cpu_threads"])
++        model = SCEG(ModelConfig.from_dict(config["model"])).to(config["runtime"]["device"])
++        # Add timings around the existing evaluator; no sampler/forward changes.
++        import trainers.trainer as trainer_module
++        original_evaluate = trainer_module.evaluate_episodes
++        def timed_evaluate(*evaluation_args, **evaluation_kwargs):
++            started = time.perf_counter()
++            result = original_evaluate(*evaluation_args, **evaluation_kwargs)
++            result["evaluation_seconds"] = time.perf_counter()-started
++            return result
++        trainer_module.evaluate_episodes = timed_evaluate
++        train_started = time.perf_counter()
++        try:
++            train(model, config, run, args.resume)
++        finally:
++            trainer_module.evaluate_episodes = original_evaluate
++        five_way_seconds = sum(json.loads((run.path/f"test_5way_{shot}shot.json").read_text())[
++            "evaluation_seconds"] for shot in (1, 5))
++        run.update_metrics(training_with_validation_seconds=time.perf_counter()-train_started-five_way_seconds)
++        complete_suite(model, config, run)
++        run.update_metrics(test_seconds=sum(item["evaluation_seconds"] for item in run.metrics["evaluation"]))
++        checkpoint_records(run)
++    except RuntimeError as error:
++        blocked = str(error).startswith("BLOCKED:")
++        run.update_metrics(status="blocked" if blocked else "failed", error=str(error),
++                           full_training_completed=bool(run.metrics.get("full_training_completed", False)),
++                           full_evaluation_completed=False)
++        run.logger.exception("Dogs execution stopped")
++        exit_code = 2 if blocked else 1
++    except BaseException as error:
++        run.update_metrics(status="failed", error=f"{type(error).__name__}: {error}")
++        run.publish_result()
++        raise
++    run.update_metrics(elapsed_seconds=time.perf_counter()-run.started,
++                       gpu_peak_allocated_bytes=torch.cuda.max_memory_allocated()
++                       if torch.cuda.is_available() else None)
++    run.publish_result()
++    return exit_code
++
++
++if __name__ == "__main__":
++    raise SystemExit(main())
+diff --git a/experiments/sceg_dogs_baseline/verify.py b/experiments/sceg_dogs_baseline/verify.py
+new file mode 100644
+index 0000000..76ca511
+--- /dev/null
++++ b/experiments/sceg_dogs_baseline/verify.py
+@@ -0,0 +1,220 @@
++"""At most two TOTAL synthetic epochs; no Dogs research result or guessed class split.
++
++All image fixtures and diagnostic weights are deleted after verification. Raw Dogs
++readability is audited separately by prepare --audit-raw, without extracting images.
++"""
++import argparse
++from collections import Counter
++import copy
++import hashlib
++import json
++from pathlib import Path
++import tempfile
++import time
++
++import numpy as np
++from PIL import Image
++import torch
++from torchvision import transforms
++from datasets import make_dataset
++from datasets.samplers import TrainingEpisodeSampler, EvaluationEpisodeSampler
++from datasets.transforms import image_transform
++from evaluators import evaluate_episodes
++from models import SCEG
++from trainers.trainer import train, restore_rng
++from tools.prepare_data import sha256_file
++from utils.config import load_config, ModelConfig
++from utils.experiment import write_json
++from utils.reproducibility import seed_everything, rng_state
++from .prepare import BASE, COUNTS
++from .run import DogsRun, checkpoint_records
++
++
++class EpochOneSaved(Exception):
++    pass
++
++
++class StopAfterOne(DogsRun):
++    def update_metrics(self, **values):
++        super().update_metrics(**values)
++        if values.get("completed_epochs") == 1:
++            raise EpochOneSaved("Intentional diagnostic interruption after complete epoch1")
++
++
++def protected_inventory():
++    """Metadata inventory, avoiding another hash of historical images/weights."""
++    root = Path("/root/projects/aris/sceg_fsfg")
++    digest = hashlib.sha256()
++    count = 0
++    for relative in ("experiments/sceg_original", "data/frn", "configs", "models", "docs/paper"):
++        for path in sorted((root/relative).rglob("*")):
++            if path.is_file() and "__pycache__" not in path.parts:
++                stat = path.stat()
++                digest.update(json.dumps([str(path.relative_to(root)), stat.st_size,
++                                          stat.st_mtime_ns, stat.st_ino]).encode())
++                count += 1
++    return {"root": str(root), "files": count, "metadata_sha256": digest.hexdigest(),
++            "method": "relative path + size + mtime_ns + inode; no image rehash"}
++
++
++def fixture(root):
++    generator = np.random.RandomState(7)
++    for split, count in COUNTS.items():
++        for category in range(count):
++            folder = root/split/f"synthetic_{split}_{category:03d}"
++            folder.mkdir(parents=True)
++            for index in range(20 if split == "train" else 21):
++                Image.fromarray(generator.randint(0, 256, (84, 84, 3), dtype=np.uint8)).save(
++                    folder/f"{index:03d}.png")
++    crop = transforms.Compose([transforms.Resize(92), transforms.CenterCrop(84)])
++    for split in ("val", "test"):
++        for path in sorted((root/split).rglob("*.png")):
++            target = root/(split+"_pre")/path.relative_to(root/split)
++            target.parent.mkdir(parents=True, exist_ok=True)
++            with Image.open(path) as image:
++                crop(image.convert("RGB")).save(target)
++
++
++def check_order(dataset, indices, way, shot, query):
++    labels = np.array(dataset.targets)[indices]
++    support = labels[:way*shot].reshape(way, shot)
++    queries = labels[way*shot:].reshape(way, query)
++    assert len(set(indices)) == len(indices)
++    assert len(set(support[:, 0])) == way
++    assert (support == support[:, :1]).all() and (queries == support[:, :1]).all()
++
++
++def main():
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument("--run-id", required=True)
++    args = parser.parse_args()
++    before = protected_inventory()
++    started = time.perf_counter()
++    config = load_config(BASE/"configs/dogs.yaml")
++    config["purpose"] = "synthetic_technical_smoke_only_not_Dogs_baseline"
++    config["train"]["epochs"] = 2
++    config["train"]["validation_every"] = 1
++    config["eval"]["validation_episodes"] = 2
++    config["eval"]["test_episodes"] = 2
++    config["checkpoint_source"] = None
++    config["checkpoint_source_sha256"] = None
++    torch.set_num_threads(config["runtime"]["cpu_threads"])
++    seed_everything(42, allow_tf32=False, warn_only=True)
++    device = config["runtime"]["device"]
++    runs = []
++    with tempfile.TemporaryDirectory(prefix="dogs_synthetic_smoke_") as directory:
++        config["data"]["root"] = directory
++        fixture(Path(directory))
++        datasets = {split: make_dataset(config, split) for split in COUNTS}
++        for split, dataset in datasets.items():
++            assert len(dataset.classes) == COUNTS[split]
++            assert dataset.class_to_idx == {name: i for i, name in enumerate(sorted(dataset.classes))}
++        class_sets = [set(dataset.classes) for dataset in datasets.values()]
++        assert sum(map(len, class_sets)) == len(set.union(*class_sets)) == 120
++        episodes = list(TrainingEpisodeSampler(datasets["train"], 10, (5, 15)))
++        assert len(episodes) == 7  # fixture exhaustion only; no formal epoch budget set
++        assert len(set(sum(episodes, []))) == 1400
++        for episode in episodes:
++            check_order(datasets["train"], episode, 10, 5, 15)
++        for way in (5, 30):
++            for shot in (1, 5):
++                sampler = EvaluationEpisodeSampler(datasets["test"], way, shot, 2, 16)
++                for episode in sampler:
++                    check_order(datasets["test"], episode, way, shot, 16)
++        val_image = sorted((Path(directory)/"val").rglob("*.png"))[0]
++        pre_image = Path(directory)/"val_pre"/val_image.relative_to(Path(directory)/"val")
++        with Image.open(val_image) as raw, Image.open(pre_image) as pre:
++            assert torch.equal(image_transform(config, False, False)(raw.convert("RGB")),
++                               image_transform(config, False, True)(pre.convert("RGB")))
++        # Reset randomness independently of fixture creation and sampler inspection.
++        seed_everything(42, allow_tf32=False, warn_only=True)
++        model = SCEG(ModelConfig.from_dict(config["model"])).to(device)
++        assert model.class_representative.weight.shape == (70, 640)
++        observed = {}
++        def output_witness(module, inputs, output):
++            observed.setdefault("global_shape", list(output.global_cosine.shape))
++            observed.setdefault("episode_shape", list(output.scores.shape))
++        hook = model.register_forward_hook(output_witness)
++        first = StopAfterOne(copy.deepcopy(config), args.run_id+"_epoch1")
++        runs.append(first)
++        try:
++            train(model, config, first)
++        except EpochOneSaved:
++            first.update_metrics(status="diagnostic_interrupted", full_training_completed=False,
++                                 metric_scope="synthetic fixture only")
++        hook.remove()
++        checkpoint_records(first)
++        payload = torch.load(first.path/"latest.pth", map_location="cpu", weights_only=False)
++        assert payload["completed_epochs"] == 1 and payload["step"] == 7
++        assert payload["scheduler"]["last_epoch"] == 1 and payload["optimizer"]["state"]
++        assert payload["best_epoch"] == 1
++        restore_rng(payload["rng"])
++        witness = [float(np.random.rand()), float(torch.rand(1))]
++        restore_rng(payload["rng"])
++        assert witness == [float(np.random.rand()), float(torch.rand(1))]
++        # Existing trainer restores model, optimizer, scheduler, counters and RNG.
++        resumed_config = copy.deepcopy(config)
++        resumed_config["checkpoint_source"] = str(first.path/"latest.pth")
++        resumed_config["checkpoint_source_sha256"] = sha256_file(first.path/"latest.pth")
++        resumed = DogsRun(resumed_config, args.run_id+"_resume2")
++        runs.append(resumed)
++        resumed_model = SCEG(ModelConfig.from_dict(config["model"])).to(device)
++        train(resumed_model, resumed_config, resumed, first.path/"latest.pth")
++        checkpoint_records(resumed)
++        final_payload = torch.load(resumed.path/"latest.pth", map_location="cpu", weights_only=False)
++        assert final_payload["completed_epochs"] == 2 and final_payload["step"] == 14
++        assert final_payload["scheduler"]["last_epoch"] == 2
++        assert all(final_payload["dropblock_counters"][key] > value
++                   for key, value in payload["dropblock_counters"].items())
++        checks = {"fixture_scope": config["purpose"], "formal_training_executed": False,
++                  "technical_epochs_total": 2, "class_counts": COUNTS,
++                  "support_first_and_sample_nonoverlap": True,
++                  "global_head_shape": [70, 640], "first_train_output": observed,
++                  "forward_backward_active_gradient_check": "passed by unchanged trainer",
++                  "accepted_inactive_parameters": sorted(model.expected_inactive_parameters()),
++                  "online_and_pre_resized_eval_tensors_equal": True,
++                  "resume_completed_epochs": 2, "resume_steps": 14,
++                  "rng_replay_checked": True, "scheduler_and_momentum_restored": True,
++                  "dropblock_counters_continued": True, "formal_accuracy": None,
++                  "evaluation": [], "protected_before": before}
++        best = torch.load(resumed.path/"checkpoint.pth", map_location="cpu", weights_only=False)
++        resumed_model.load_state_dict(best["model_state_dict"], strict=True)
++        for way in (5, 30):
++            for shot in (1, 5):
++                if way == 5:
++                    path = resumed.path/f"test_{way}way_{shot}shot.json"
++                    result = json.loads(path.read_text())
++                else:
++                    result = evaluate_episodes(resumed_model, config, "test", way, shot, 2)
++                    write_json(resumed.path/f"test_{way}way_{shot}shot.json", result)
++                values = np.array(result["episode_accuracies"])
++                assert result["episodes"] == len(result["episode_indices"]) == len(values) == 2
++                assert result["accuracy"] == float(values.mean())
++                assert result["confidence_interval"] == float(1.96*np.sqrt(values.var()/2))
++                checks["evaluation"].append({"way": way, "shot": shot, "episodes": 2,
++                                             "indices_and_population_CI_verified": True})
++        checks["elapsed_seconds"] = time.perf_counter()-started
++        checks["gpu_peak_allocated_bytes"] = torch.cuda.max_memory_allocated()
++        checks["protected_after"] = protected_inventory()
++        assert checks["protected_after"] == before
++        checks["historical_CUB_and_untracked_paper_unchanged"] = True
++        write_json(resumed.path/"technical_checks.json", checks)
++        # No synthetic weights are needed for scientific claims or formal resume.
++        for run in runs:
++            removed = []
++            for path in run.path.glob("*.pth"):
++                removed.append({"name": path.name, "bytes": path.stat().st_size})
++                path.unlink()
++            write_json(run.path/"diagnostic_cleanup.json", {"weights_removed": removed,
++                                                         "reason": "regenerable synthetic fixtures"})
++            run.update_metrics(status="technical_checks_passed", accuracy=None,
++                               confidence_interval=None, full_training_completed=False,
++                               full_evaluation_completed=False,
++                               metric_scope="synthetic technical smoke only; not Dogs accuracy")
++        print(json.dumps({"technical_checks": str(resumed.path/"technical_checks.json"),
++                          "elapsed_seconds": checks["elapsed_seconds"],
++                          "gpu_peak_allocated_bytes": checks["gpu_peak_allocated_bytes"]}))
++
++
++if __name__ == "__main__":
++    main()
+diff --git a/experiments/sceg_dogs_baseline/configs/dogs.yaml b/experiments/sceg_dogs_baseline/configs/dogs.yaml
+new file mode 100644
+index 0000000..0f3f34a
+--- /dev/null
++++ b/experiments/sceg_dogs_baseline/configs/dogs.yaml
+@@ -0,0 +1,102 @@
++experiment: sceg_dogs_baseline
++dataset: Stanford Dogs
++official_commit: f7f130aeb5b1b49246150574c53a874d4ce8de80
++seed: 42
++lambda: 38.0
++episode:
++  train_way: 10
++  train_shot: 5
++  train_query_shot: 15
++model:
++  dataset: stanford_dog
++  input_channels: 3
++  image_size: 84
++  stage_channels: [64, 160, 320, 640]
++  feature_dim: 640
++  base_classes: 70
++  train_way: 10
++  train_shot: 5
++  train_query: 15
++  transform_alpha: 0.3
++  gate_hidden_channels: 16
++  stage3_to_stage2_datasets: [cub_raw, stanford_dog]
++  dropout: 0.1
++  dropblock_size: 5
++  dropblock_ramp_batches: 40000
++  negative_slope: 0.1
++  batchnorm_eps: 0.00001
++  batchnorm_momentum: 0.1
++  projection_bn_momentum: 0.01
++  episode_norm_eps: 0.000000000001
++  global_norm_eps: 0.000000000001
++  convolution_kernel: 3
++  pool_stride: 2
++loss:
++  lamda: 38.0
++  inter: 0.05
++  intra: 0.85
++data:
++  root: /root/projects/aris/sceg_dogs_baseline/data/dogs/StanfordDogs_fewshot
++  image_size: 84
++  eval_resize: 92
++  mean: [0.485, 0.456, 0.406]
++  std: [0.229, 0.224, 0.225]
++  crop_scale: [0.08, 1.0]
++  crop_ratio: [0.75, 1.3333333333333333]
++  jitter: 0.4
++  flip_probability: 0.5
++  pre_resized: true
++  workers: 4
++  pin_memory: false
++train:
++  optimizer: sgd
++  lr: 0.1
++  momentum: 0.9
++  nesterov: true
++  weight_decay: 0.0005
++  epochs: 800
++  scheduler: StepLR
++  scheduler_step: 400
++  scheduler_gamma: 0.1
++  validation_every: 20
++eval:
++  way: 5
++  validation_shot: 5
++  shots: [1, 5]
++  query: 16
++  validation_episodes: 1000
++  test_episodes: 2000
++  confidence_multiplier: 1.96
++  many_way: 30
++  many_way_shots: [1, 5]
++  many_way_episodes: 2000
++runtime:
++  device: cuda:0
++  deterministic: true
++  deterministic_warn_only: true
++  allow_tf32: false
++  amp: false
++  cpu_threads: 2
++verification:
++  way: 5
++  shot: 1
++  query: 15
++  range_tolerance: 0.00001
++  parity_atol: 0.00001
++  parity_rtol: 0.00001
++  microbatch: 4
++execution_adaptations:
++  official_workers: 48
++  approved_workers: 4
++  worker_change_authorized_by_user: true
++  validation_every_epoch_requested: false
++  validation_every_epoch_effective: false
++  validation_policy: official_every_20_epochs
++  official_inactive_parameters_accepted: true
++  loss_lambda_alias: lambda_is_documentation_alias_of_lamda
++  lambda_source: released_CUB_run_sh_38_Dogs_44_is_commented_not_active
++data_protocol:
++  archive: /root/projects/aris/sceg_fsfg/data/raw/dogs/images.tar
++  existing_archive_manifest: /root/projects/aris/sceg_fsfg/data/provenance/raw_archive_audit.json
++  split_manifest: experiments/sceg_dogs_baseline/data_protocol/split.json
++  prepared_manifest: experiments/sceg_dogs_baseline/data_protocol/prepared.json
+diff --git a/experiments/sceg_dogs_baseline/data_protocol/split.json b/experiments/sceg_dogs_baseline/data_protocol/split.json
+new file mode 100644
+index 0000000..1b6c54b
+--- /dev/null
++++ b/experiments/sceg_dogs_baseline/data_protocol/split.json
+@@ -0,0 +1,14 @@
++{
++  "status": "blocked",
++  "reason": "No trusted exact 70/20/30 class identities found; counts and Stanford image-level lists are insufficient.",
++  "source": null,
++  "classes": {"train": null, "val": null, "test": null},
++  "expected_counts": {"train": 70, "val": 20, "test": 30},
++  "evidence": [
++    "docs/sources/manifest.yaml: supplement exact_class_ids_provided=false",
++    "/root/projects/aris/sceg_fsfg/data/provenance/downloads_dogs.json: class_split_verified=false",
++    "https://github.com/Legenddddd/SCEG/blob/f7f130aeb5b1b49246150574c53a874d4ce8de80/README.md",
++    "https://github.com/Tsingularity/FRN",
++    "https://github.com/Legenddddd/AIS-MLI"
++  ]
++}
+diff --git a/tests/test_dogs_protocol.py b/tests/test_dogs_protocol.py
+new file mode 100644
+index 0000000..7386d44
+--- /dev/null
++++ b/tests/test_dogs_protocol.py
+@@ -0,0 +1,101 @@
++"""New Dogs provenance gates; fixtures are explicitly not author splits."""
++import json
++import pytest
++from experiments.sceg_dogs_baseline.prepare import trusted_split
++from tools.prepare_data import sha256_file
++
++
++def test_counts_without_class_id_source_are_blocked(tmp_path):
++    path = tmp_path/"split.json"
++    path.write_text(json.dumps({"status": "blocked", "expected_counts": [70, 20, 30]}))
++    with pytest.raises(RuntimeError, match="BLOCKED"):
++        trusted_split(path, [])
++
++
++@pytest.mark.parametrize("problem", ["overlap", "hash", "missing_source"])
++def test_untrusted_or_overlapping_ids_are_rejected(tmp_path, problem):
++    evidence = tmp_path/"fixture_only.txt"
++    evidence.write_text("Synthetic class identities, never author protocol")
++    ids = [f"synthetic_{i:03d}" for i in range(120)]
++    source = {"url": "fixture://technical-test", "revision": "fixture-v1",
++              "artifact_path": str(evidence), "artifact_sha256": sha256_file(evidence),
++              "mapping_method": "synthetic unit test"}
++    classes = {"train": ids[:70], "val": ids[70:90], "test": ids[90:]}
++    if problem == "overlap":
++        classes["test"][0] = ids[0]
++    elif problem == "hash":
++        source["artifact_sha256"] = "0"*64
++    else:
++        source.pop("artifact_path")
++    path = tmp_path/"split.json"
++    path.write_text(json.dumps({"status": "verified", "source": source, "classes": classes}))
++    with pytest.raises(ValueError):
++        trusted_split(path, ids)
++
++
++def test_preparation_and_inventory_guard(tmp_path, monkeypatch):
++    import io
++    import tarfile
++    from PIL import Image
++    from utils.config import load_config
++    from experiments.sceg_dogs_baseline import prepare as adapter
++    config = load_config(adapter.BASE/"configs/dogs.yaml")
++    evidence = tmp_path/"synthetic_evidence.txt"
++    evidence.write_text("Explicit synthetic protocol fixture, not Dogs author split")
++    breeds = [f"synthetic_{i:03d}" for i in range(120)]
++    split_file = tmp_path/"split.json"
++    split_file.write_text(json.dumps({"status": "verified", "source": {
++        "url": "fixture://technical-test", "revision": "unit-test", "artifact_path": str(evidence),
++        "artifact_sha256": sha256_file(evidence), "mapping_method": "synthetic test only"},
++        "classes": {"train": breeds[:70], "val": breeds[70:90], "test": breeds[90:]}}))
++    image = io.BytesIO()
++    Image.new("RGB", (30, 25), (32, 64, 128)).save(image, format="PNG")
++    content = image.getvalue()
++    archive = tmp_path/"images.tar"
++    with tarfile.open(archive, "w") as stream:
++        for breed in breeds:
++            for index in range(21):
++                info = tarfile.TarInfo(f"Images/{breed}/{index:03d}.png")
++                info.size = len(content)
++                stream.addfile(info, io.BytesIO(content))
++    old_manifest = tmp_path/"archive_manifest.json"
++    old_manifest.write_text(json.dumps({"dogs": {"bytes": archive.stat().st_size,
++                                                 "sha256": sha256_file(archive)}}))
++    config["data"]["root"] = str(tmp_path/"prepared")
++    config["data_protocol"] = {"archive": str(archive), "existing_archive_manifest": str(old_manifest),
++        "split_manifest": str(split_file), "prepared_manifest": str(tmp_path/"prepared.json")}
++    (tmp_path/"data_protocol").mkdir()
++    (tmp_path/"data_protocol/raw_inventory.json").write_text(json.dumps({"class_images": breeds}))
++    monkeypatch.setattr(adapter, "BASE", tmp_path)
++    record = adapter.prepare(config)
++    assert {key: len(value["class_to_idx"]) for key, value in record["classes"].items()} == adapter.COUNTS
++    assert adapter.check_prepared(config)["pre_pixels_verified"]
++    path = next((tmp_path/"prepared/train").rglob("*.png"))
++    path.write_bytes(b"changed")
++    with pytest.raises(ValueError, match="state changed"):
++        adapter.check_prepared(config)
++
++
++def test_suite_reuses_five_way_and_same_checkpoint(tmp_path, monkeypatch):
++    from types import SimpleNamespace
++    from experiments.sceg_dogs_baseline import run as entry
++    (tmp_path/"checkpoint.pth").write_bytes(b"synthetic checkpoint fixture")
++    seen = []
++    monkeypatch.setattr(entry.torch, "load", lambda *args, **kwargs: {
++        "best_epoch": 20, "model_state_dict": {}})
++    def evaluate(model, config, split, way, shot, episodes):
++        seen.append((way, shot))
++        return {"way": way, "shot": shot, "query": 16, "episodes": episodes,
++                "accuracy": 0.0, "confidence_interval": 0.0}
++    monkeypatch.setattr(entry, "evaluate_episodes", evaluate)
++    for shot in (1, 5):
++        (tmp_path/f"test_5way_{shot}shot.json").write_text(json.dumps(
++            {"way": 5, "shot": shot, "query": 16, "episodes": 2000, "accuracy": 0.0}))
++    metrics = {}
++    recorder = SimpleNamespace(path=tmp_path, update_metrics=lambda **values: metrics.update(values))
++    model = SimpleNamespace(load_state_dict=lambda state, strict: None)
++    entry.complete_suite(model, {"eval": {"test_episodes": 2000}}, recorder)
++    assert seen == [(30, 1), (30, 5)]
++    assert len({item["checkpoint_sha256"] for item in metrics["evaluation"]}) == 1
++    assert metrics["full_evaluation_completed"] is True
++    assert not (tmp_path/"checkpoint_30way.pth").exists()

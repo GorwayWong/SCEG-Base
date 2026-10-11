@@ -1,0 +1,14 @@
+{
+  "status": "blocked",
+  "reason": "No trusted exact 70/20/30 class identities found; counts and Stanford image-level lists are insufficient.",
+  "source": null,
+  "classes": {"train": null, "val": null, "test": null},
+  "expected_counts": {"train": 70, "val": 20, "test": 30},
+  "evidence": [
+    "docs/sources/manifest.yaml: supplement exact_class_ids_provided=false",
+    "/root/projects/aris/sceg_fsfg/data/provenance/downloads_dogs.json: class_split_verified=false",
+    "https://github.com/Legenddddd/SCEG/blob/f7f130aeb5b1b49246150574c53a874d4ce8de80/README.md",
+    "https://github.com/Tsingularity/FRN",
+    "https://github.com/Legenddddd/AIS-MLI"
+  ]
+}

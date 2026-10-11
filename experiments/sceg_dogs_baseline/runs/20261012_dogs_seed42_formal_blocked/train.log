@@ -1,0 +1,10 @@
+2026-10-12 02:27:42,970 run=/root/projects/aris/sceg_dogs_baseline/experiments/sceg_dogs_baseline/runs/20261012_dogs_seed42_formal_blocked
+2026-10-12 02:27:43,037 Dogs execution stopped
+Traceback (most recent call last):
+  File "/root/projects/aris/sceg_dogs_baseline/experiments/sceg_dogs_baseline/run.py", line 121, in main
+    data_record = check_prepared(config)
+  File "/root/projects/aris/sceg_dogs_baseline/experiments/sceg_dogs_baseline/prepare.py", line 149, in check_prepared
+    split = trusted_split(split_path, inventory["class_images"])
+  File "/root/projects/aris/sceg_dogs_baseline/experiments/sceg_dogs_baseline/prepare.py", line 68, in trusted_split
+    raise RuntimeError("BLOCKED: trusted exact Dogs 70/20/30 class split missing")
+RuntimeError: BLOCKED: trusted exact Dogs 70/20/30 class split missing

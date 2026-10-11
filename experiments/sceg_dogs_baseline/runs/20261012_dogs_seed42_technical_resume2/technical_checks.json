@@ -1,0 +1,88 @@
+{
+  "fixture_scope": "synthetic_technical_smoke_only_not_Dogs_baseline",
+  "formal_training_executed": false,
+  "technical_epochs_total": 2,
+  "class_counts": {
+    "train": 70,
+    "val": 20,
+    "test": 30
+  },
+  "support_first_and_sample_nonoverlap": true,
+  "global_head_shape": [
+    70,
+    640
+  ],
+  "first_train_output": {
+    "global_shape": [
+      200,
+      70
+    ],
+    "episode_shape": [
+      150,
+      10
+    ]
+  },
+  "forward_backward_active_gradient_check": "passed by unchanged trainer",
+  "accepted_inactive_parameters": [
+    "SC.t_l.mlp.0.bias",
+    "SC.t_l.mlp.0.weight",
+    "SC.t_l.mlp.1.bias",
+    "SC.t_l.mlp.1.weight",
+    "SC.t_s.mlp.0.bias",
+    "SC.t_s.mlp.0.weight",
+    "SC.t_s.mlp.1.bias",
+    "SC.t_s.mlp.1.weight",
+    "SC.t_t.mlp.0.bias",
+    "SC.t_t.mlp.0.weight",
+    "SC.t_t.mlp.1.bias",
+    "SC.t_t.mlp.1.weight"
+  ],
+  "online_and_pre_resized_eval_tensors_equal": true,
+  "resume_completed_epochs": 2,
+  "resume_steps": 14,
+  "rng_replay_checked": true,
+  "scheduler_and_momentum_restored": true,
+  "dropblock_counters_continued": true,
+  "formal_accuracy": null,
+  "evaluation": [
+    {
+      "way": 5,
+      "shot": 1,
+      "episodes": 2,
+      "indices_and_population_CI_verified": true
+    },
+    {
+      "way": 5,
+      "shot": 5,
+      "episodes": 2,
+      "indices_and_population_CI_verified": true
+    },
+    {
+      "way": 30,
+      "shot": 1,
+      "episodes": 2,
+      "indices_and_population_CI_verified": true
+    },
+    {
+      "way": 30,
+      "shot": 5,
+      "episodes": 2,
+      "indices_and_population_CI_verified": true
+    }
+  ],
+  "protected_before": {
+    "root": "/root/projects/aris/sceg_fsfg",
+    "files": 17946,
+    "metadata_sha256": "898b26a9a49b03caebed491cc67bcb52a734708dca236e33fe847ce85eea5b1d",
+    "method": "relative path + size + mtime_ns + inode; no image rehash"
+  },
+  "elapsed_seconds": 98.73265227999991,
+  "gpu_peak_allocated_bytes": 10583883264,
+  "protected_after": {
+    "root": "/root/projects/aris/sceg_fsfg",
+    "files": 17946,
+    "metadata_sha256": "898b26a9a49b03caebed491cc67bcb52a734708dca236e33fe847ce85eea5b1d",
+    "method": "relative path + size + mtime_ns + inode; no image rehash"
+  },
+  "historical_CUB_and_untracked_paper_unchanged": true
+}

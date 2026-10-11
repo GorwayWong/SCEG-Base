@@ -1,0 +1,17 @@
+{
+  "seed": 42,
+  "dataset": "stanford_dog",
+  "way": 10,
+  "shot": 5,
+  "accuracy": null,
+  "confidence_interval": null,
+  "status": "blocked",
+  "error": "BLOCKED: trusted exact Dogs 70/20/30 class split missing",
+  "full_training_completed": false,
+  "full_evaluation_completed": false,
+  "elapsed_seconds": 0.2129761520000102,
+  "gpu_peak_allocated_bytes": 0,
+  "run": "runs/20261012_dogs_seed42_formal_blocked",
+  "code_commit": "8009b6b118d9f7d1c0c4a889de972c6482ce63f5",
+  "config_sha256": "1ec7b7f9efe40ec441b4d17d97757358c5c1bad35929f0967af401d5b9e3856b"
+}

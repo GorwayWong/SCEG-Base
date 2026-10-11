@@ -1,0 +1,48 @@
+{
+  "seed": 42,
+  "dataset": "stanford_dog",
+  "way": 5,
+  "shot": 1,
+  "accuracy": null,
+  "confidence_interval": null,
+  "status": "technical_checks_passed",
+  "completed_epochs": 2,
+  "step": 14,
+  "epoch_episodes": 7,
+  "train_loss": 29.37290355137416,
+  "train_accuracy": 8.761904761904763,
+  "gradient_norm": 5.384144306182861,
+  "learning_rate": 0.1,
+  "best_validation": 18.125,
+  "best_epoch": 1,
+  "checkpoint_role": "best_validation",
+  "full_training_completed": false,
+  "evaluation": [
+    {
+      "seed": 42,
+      "dataset": "stanford_dog",
+      "split": "test",
+      "way": 5,
+      "shot": 1,
+      "query": 16,
+      "episodes": 2,
+      "accuracy": 16.875,
+      "confidence_interval": 2.5986174208605624,
+      "confidence_interval_type": "95% normal half-width, population variance ddof=0"
+    },
+    {
+      "seed": 42,
+      "dataset": "stanford_dog",
+      "split": "test",
+      "way": 5,
+      "shot": 5,
+      "query": 16,
+      "episodes": 2,
+      "accuracy": 18.75,
+      "confidence_interval": 0.0,
+      "confidence_interval_type": "95% normal half-width, population variance ddof=0"
+    }
+  ],
+  "metric_scope": "synthetic technical smoke only; not Dogs accuracy",
+  "full_evaluation_completed": false
+}

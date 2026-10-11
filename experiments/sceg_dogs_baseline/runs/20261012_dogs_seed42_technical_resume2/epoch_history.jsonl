@@ -1,0 +1,1 @@
+{"completed_epochs": 2, "step": 14, "epoch_episodes": 7, "train_loss": 29.37290355137416, "train_accuracy": 8.761904761904763, "gradient_norm": 5.384144306182861, "learning_rate": 0.1, "best_validation": 18.125, "best_epoch": 1, "checkpoint_role": "best_validation", "epoch_seconds": 7.99082005199989, "elapsed_seconds": 7.99082005199989}

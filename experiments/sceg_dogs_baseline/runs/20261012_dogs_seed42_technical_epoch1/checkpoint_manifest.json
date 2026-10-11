@@ -1,0 +1,12 @@
+{
+  "latest.pth": {
+    "path": "/root/projects/aris/sceg_dogs_baseline/experiments/sceg_dogs_baseline/runs/20261012_dogs_seed42_technical_epoch1/latest.pth",
+    "bytes": 129428242,
+    "sha256": "2f5a5acf9dee97669af48fcedd4d472d2a96cbac17748dc0bdc472199105f579"
+  },
+  "checkpoint.pth": {
+    "path": "/root/projects/aris/sceg_dogs_baseline/experiments/sceg_dogs_baseline/runs/20261012_dogs_seed42_technical_epoch1/checkpoint.pth",
+    "bytes": 129429618,
+    "sha256": "98f9fffc8c8c3edeb431b66bec1cccb9db8a6b7de7f2a2730e8caf67b3c4b7a7"
+  }
+}

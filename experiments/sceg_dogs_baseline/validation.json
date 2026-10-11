@@ -1,0 +1,25 @@
+{
+  "cwd": "/root/projects/aris/sceg_dogs_baseline",
+  "checks": [
+    {"command": "rtk proxy /root/projects/aris/sceg_fsfg/.venv/bin/python -m pytest -q tests/test_dogs_protocol.py tests/test_episode_sampling.py::test_training_nonoverlap_support_order tests/test_episode_sampling.py::test_evaluation_ignores_query_and_uses_disjoint_samples",
+     "exit_code": 0, "passed": 6, "seconds": 0.69},
+    {"command": "rtk proxy /root/projects/aris/sceg_fsfg/.venv/bin/python -m pytest -q tests/test_dogs_protocol.py",
+     "exit_code": 0, "passed": 6, "seconds": 1.52,
+     "reason_for_additional_run": "Added prepare/check-prepared roundtrip, data mutation rejection, and suite reuse checks"},
+    {"command": "rtk proxy /root/projects/aris/sceg_fsfg/.venv/bin/python -m experiments.sceg_dogs_baseline.prepare --audit-raw",
+     "exit_code": 0, "images_decoded": 20580, "classes": 120, "seconds": null},
+    {"command": "rtk proxy /root/projects/aris/sceg_fsfg/.venv/bin/python -m experiments.sceg_dogs_baseline.verify --run-id 20261012_dogs_seed42_technical",
+     "exit_code": 0, "synthetic_epochs_total": 2,
+     "record": "runs/20261012_dogs_seed42_technical_resume2/technical_checks.json"},
+    {"command": "rtk proxy /root/projects/aris/sceg_fsfg/.venv/bin/python -m experiments.sceg_dogs_baseline.run --run-id 20261012_dogs_seed42_formal_blocked",
+     "exit_code": 2, "expected_status": "blocked", "formal_training_started": false},
+    {"command": "rtk proxy git apply --reverse --check experiments/sceg_dogs_baseline/implementation.patch",
+     "exit_code": 0, "scope": "Complete patch of six newly added source/config/split/test files; matches final files"}
+  ],
+  "distinct_passing_tests": 8,
+  "representative_regression": "Existing training/evaluation sampler order and nonoverlap tests, run once",
+  "baseline_equivalence_and_overfit": "Referenced existing CUB gates; not rerun",
+  "strict_all_parameter_gradient_passed": false,
+  "official_inactive_parameters_exception_accepted": true,
+  "final_diff": "Only experiment-local additions and tests/test_dogs_protocol.py; no tracked baseline modifications"
+}

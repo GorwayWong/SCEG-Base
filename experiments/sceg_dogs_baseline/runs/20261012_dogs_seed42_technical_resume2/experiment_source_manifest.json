@@ -1,0 +1,6 @@
+{
+  "experiments/sceg_dogs_baseline/prepare.py": "d197c83a3ea11b7e085b4576b01bc561552ef6b896467d064839f9189f4f26bc",
+  "experiments/sceg_dogs_baseline/run.py": "9276415dac88a2db1fd08f202aa3fb2cb048b83e5f5264613bdb94991bb187df",
+  "experiments/sceg_dogs_baseline/verify.py": "cf534eb5e9c2f8e8e691f753a424915a52922906ba6b3ecbdd516759f02c8dcb",
+  "experiments/sceg_dogs_baseline/configs/dogs.yaml": "b97b82a69bc89036c03f8305dadafb09138ed6cbdcaacfec4e442bfa2f7dbc85"
+}

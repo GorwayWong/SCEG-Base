@@ -1,0 +1,1 @@
+/root/projects/aris/sceg_fsfg/.venv/bin/python -m experiments.sceg_dogs_baseline.run --run-id 20261012_dogs_seed42_formal_blocked

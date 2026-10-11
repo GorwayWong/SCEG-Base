@@ -1,0 +1,13 @@
+{
+  "weights_removed": [
+    {
+      "name": "latest.pth",
+      "bytes": 129428434
+    },
+    {
+      "name": "checkpoint.pth",
+      "bytes": 129429618
+    }
+  ],
+  "reason": "regenerable synthetic fixtures"
+}
