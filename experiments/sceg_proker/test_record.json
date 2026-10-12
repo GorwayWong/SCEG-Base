@@ -1,0 +1,6 @@
+{
+  "command": "rtk proxy /root/projects/aris/sceg_fsfg/.venv/bin/python -m pytest -q experiments/sceg_proker/test_head.py tests/test_forward_shape.py::test_einsum_matches_independent_cosine",
+  "result": "7 passed in 1.12s",
+  "scope": "6 independent head checks + 1 representative existing cosine regression",
+  "real_episode_checks": "performed separately by run.py before validation"
+}

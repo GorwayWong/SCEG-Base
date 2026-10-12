@@ -1,0 +1,12 @@
+--- a/run.py
++++ b/run.py
+@@ -460,6 +460,9 @@
+         previous = yaml.safe_load((run_path/"config.yaml").read_text())
+         if previous != config:
+             raise ValueError("Resolved configuration changed since this run; use a fresh run_id")
++        if json.loads((run_path/"metrics.json").read_text())["status"] == "completed":
++            print(f"Run already completed; preserved records: {run_path/'report.md'}")
++            return
+         # Reuse the native record class without creating/overwriting the exclusive run.
+         import logging
+         run = ExperimentRun.__new__(ExperimentRun)

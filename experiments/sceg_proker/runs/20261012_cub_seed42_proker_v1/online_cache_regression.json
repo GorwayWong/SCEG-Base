@@ -1,0 +1,47 @@
+{
+  "status": "passed",
+  "checks": [
+    {
+      "setting": "5way_1shot",
+      "episode": 0,
+      "max_score_error": 1.7881393432617188e-07,
+      "predictions_equal": true,
+      "zero_residual_equal": true
+    },
+    {
+      "setting": "5way_1shot",
+      "episode": 1,
+      "max_score_error": 1.7881393432617188e-07,
+      "predictions_equal": true,
+      "zero_residual_equal": true
+    },
+    {
+      "setting": "5way_5shot",
+      "episode": 0,
+      "max_score_error": 1.7881393432617188e-07,
+      "predictions_equal": true,
+      "zero_residual_equal": true
+    },
+    {
+      "setting": "5way_5shot",
+      "episode": 1,
+      "max_score_error": 1.7881393432617188e-07,
+      "predictions_equal": true,
+      "zero_residual_equal": true
+    },
+    {
+      "setting": "50way_5shot",
+      "episode": 0,
+      "max_score_error": 2.384185791015625e-07,
+      "predictions_equal": true,
+      "zero_residual_equal": true
+    },
+    {
+      "setting": "50way_5shot",
+      "episode": 1,
+      "max_score_error": 1.7881393432617188e-07,
+      "predictions_equal": true,
+      "zero_residual_equal": true
+    }
+  ]
+}

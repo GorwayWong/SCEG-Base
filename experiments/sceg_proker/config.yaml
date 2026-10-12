@@ -1,0 +1,30 @@
+experiment: sceg_proker
+baseline_config: /root/projects/aris/sceg_fsfg/experiments/sceg_original/configs/cub.yaml
+checkpoint: /root/projects/aris/sceg_fsfg/experiments/sceg_original/runs/20261010_cub800_seed42_resume122/checkpoint.pth
+checkpoint_sha256: bf3c1079739c05d899c3227c7d8583fb40adec8a65eb67500e36749c046ba942
+data_root: /root/projects/aris/sceg_fsfg/data/frn/CUB_fewshot_raw
+data_manifest: /root/projects/aris/sceg_fsfg/experiments/sceg_original/runs/20261009_cub800_seed42_phase_a_verified/data_manifest.json
+historical_results:
+  5way_1shot: /root/projects/aris/sceg_fsfg/experiments/sceg_original/runs/20261010_cub800_seed42_resume122/test_5way_1shot.json
+  5way_5shot: /root/projects/aris/sceg_fsfg/experiments/sceg_original/runs/20261010_cub800_seed42_resume122/test_5way_5shot.json
+  50way_1shot: /root/projects/aris/sceg_fsfg/experiments/sceg_original/runs/20261010_cub800_seed42_resume122_test50/test_50way_1shot.json
+  50way_5shot: /root/projects/aris/sceg_fsfg/experiments/sceg_original/runs/20261010_cub50way5shot_seed42/test_50way_5shot.json
+proker_reference_commit: f2ecb3d2a0d7e0993f977e550286b34f06015edb
+encoding_batch_size: 48
+beta: [1, 5, 10]
+ridge_lambda: [0.1, 1, 10]
+residual_weight: [0.5, 1]
+linear_ridge_lambda: [0.001, 0.01, 0.1, 1, 10, 100]
+local_expansion: true
+# Six one-axis neighbours of the coarse 50-way winner, once only; total <=24.
+# beta x{0.5,2}, lambda x{0.5,2}, weight {0.25,1.5}; duplicates skipped.
+coarse_episodes: 200
+confirm_episodes: 1000
+formal_episodes: 2000
+validation_seeds:
+  coarse_5way_1shot: 120101
+  coarse_50way_1shot: 120102
+  coarse_5way_5shot: 120501
+  coarse_50way_5shot: 120502
+  confirm_50way_1shot: 121102
+  confirm_50way_5shot: 121502

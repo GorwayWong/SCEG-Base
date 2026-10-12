@@ -1,0 +1,47 @@
+{
+  "status": "passed",
+  "formal_groups": 4,
+  "episodes_per_group": 2000,
+  "methods_per_group": 3,
+  "independent_recalculation": {
+    "input": "test_{5,50}way_{1,5}shot.json methods.*.episode_accuracies; deleted results.json was their exact duplicate union",
+    "accuracy": "numpy.float64 mean",
+    "original_ci_half_width": "1.96 * sqrt(var(ddof=0)/2000)",
+    "gain_pp": "mean(method_episode_accuracy - same_episode_baseline_accuracy)",
+    "paired_ci_half_width_pp": "1.96 * sqrt(var(method-baseline,ddof=0)/2000)",
+    "maximum_allowed_numeric_error": 1e-12,
+    "all_12_method_records_passed": true
+  },
+  "execution_source_hashes_verified": true,
+  "execution_source_locations": {
+    "__init__.py": "../../__init__.py",
+    "config.yaml": "../../config.yaml",
+    "head.py": "../../head.py",
+    "run.py": "source_snapshot/run.py",
+    "test_head.py": "../../test_head.py"
+  },
+  "post_evaluation_fix": {
+    "scope": "Only a 3-line completed-resume guard in run.py; inference/selection/evaluation unchanged",
+    "patch": "post_evaluation_fix.patch",
+    "patch_sha256": "63c5805770aa53cbf32adde1a0ed83a4de58903908a567f64fe633c43ed7e40e",
+    "execution_run_source_sha256": "4a7766e488cc79ce8790b4e559d1eef7d383303286d24b78c6608e3fff86dbad",
+    "final_run_source_sha256": "d1c2363e44441c7c6c9795ee6376196bcd776e473d0b485b808f2e7cef14ba18",
+    "patch_dry_run_passed": true,
+    "actual_command": "rtk proxy /root/projects/aris/sceg_fsfg/.venv/bin/python -m experiments.sceg_proker.run --run-id 20261012_cub_seed42_proker_v1 --resume",
+    "exit_code": 0,
+    "six_record_hashes_unchanged": true,
+    "six_record_check_performed_before_duplicate_results_cleanup": true
+  },
+  "new_file_diff_whitespace_errors": [],
+  "tracked_baseline_diff_bytes": 0,
+  "original_worktree_status": "master...origin/master; only preexisting untracked docs/paper/",
+  "experiment_worktree": "/root/projects/aris/sceg_proker",
+  "experiment_branch": "experiment/sceg_proker",
+  "base_head": "8009b6b118d9f7d1c0c4a889de972c6482ce63f5",
+  "historical_replay_disagreement": "One episode, one query, diagnosed in replay_diagnostic.json; paired metrics use the same cached baseline",
+  "required_tests": "../../test_record.json",
+  "cleanup_scope": "Only this experiment's exact duplicate results union, empty diff, four duplicate source snapshots and generated Python caches in the independent worktree; historical baseline untouched",
+  "deleted_duplicate_record_bytes": 423936,
+  "retained_feature_cache": "Unique reusable feature cache retained locally; .pth excluded from Git",
+  "episode_indices_and_path_mapping_retained": true
+}

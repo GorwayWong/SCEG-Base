@@ -1,0 +1,34 @@
+{
+  "episode_zero_based": 1171,
+  "status": "diagnosed",
+  "command": [
+    "/root/projects/aris/sceg_fsfg/.venv/bin/python",
+    "-m",
+    "experiments.sceg_proker.runs.20261012_cub_seed42_proker_v1.replay_diagnostic"
+  ],
+  "seconds": 1.7185335880001276,
+  "peak_gpu_bytes": 9392607744,
+  "cached_original_accuracy": 53.875,
+  "full_episode_original_accuracy": 53.75,
+  "historical_accuracy": 53.75,
+  "f0_equals_cached_original_div3": true,
+  "div3_prediction_differences": 0,
+  "maximum_original_score_difference": 1.5497207641601562e-06,
+  "changed_predictions": [
+    {
+      "query_offset": 77,
+      "truth": 4,
+      "cached_prediction": 4,
+      "original_batch_prediction": 8,
+      "cached_top2_scores": [
+        2.418583869934082,
+        2.418583869934082
+      ],
+      "original_batch_top2_scores": [
+        2.418583869934082,
+        2.418583393096924
+      ]
+    }
+  ],
+  "interpretation": "Batch-dependent float32 encoding differences at a tied decision; all paired comparisons use the same cached features. No hyperparameter changes."
+}

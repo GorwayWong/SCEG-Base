@@ -1,0 +1,5 @@
+# Keep compact episode indices and the exact executed entrypoint in Git.
+!runs/*/episodes/
+!runs/*/episodes/*.npz
+!runs/*/source_snapshot/
+!runs/*/source_snapshot/run.py

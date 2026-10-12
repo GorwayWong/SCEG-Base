@@ -1,0 +1,1 @@
+/root/projects/aris/sceg_fsfg/.venv/bin/python -m experiments.sceg_proker.run --run-id 20261012_cub_seed42_proker_v1

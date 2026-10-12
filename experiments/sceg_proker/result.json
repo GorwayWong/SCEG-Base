@@ -1,0 +1,232 @@
+{
+  "seed": 42,
+  "dataset": "cub_raw",
+  "way": 10,
+  "shot": 5,
+  "accuracy": null,
+  "confidence_interval": null,
+  "status": "completed",
+  "metric_scope": "frozen visual CUB inference, existing seed42 checkpoint",
+  "engineering_decision": "continue",
+  "evaluation": {
+    "5way_1shot": {
+      "way": 5,
+      "shot": 1,
+      "methods": {
+        "baseline": {
+          "accuracy": 87.61375,
+          "confidence_interval": 0.3824932553637384,
+          "episodes": 2000,
+          "gain_pp": 0.0,
+          "paired_ci_half_width_pp": 0.0,
+          "head_ms_per_episode": 1.4488904554984856,
+          "head_ms_p50": 1.2854100000367907,
+          "head_ms_p95": 2.4508208499582906,
+          "head_total_seconds": 2.897780910996971,
+          "peak_gpu_bytes": 57214464,
+          "head_timing": "synchronized wall time including support fit + query scores, excluding encoding/gather/argmax",
+          "parameters": {}
+        },
+        "ridge": {
+          "accuracy": 87.6425,
+          "confidence_interval": 0.38225890539659113,
+          "episodes": 2000,
+          "gain_pp": 0.02875,
+          "paired_ci_half_width_pp": 0.019712301711114308,
+          "head_ms_per_episode": 1.6163130555009957,
+          "head_ms_p50": 1.4271259999532049,
+          "head_ms_p95": 2.7052815998786173,
+          "head_total_seconds": 3.2326261110019914,
+          "peak_gpu_bytes": 58233344,
+          "head_timing": "synchronized wall time including support fit + query scores, excluding encoding/gather/argmax",
+          "parameters": {
+            "ridge_lambda": 100.0
+          }
+        },
+        "proker": {
+          "accuracy": 87.645,
+          "confidence_interval": 0.381958630194423,
+          "episodes": 2000,
+          "gain_pp": 0.03125,
+          "paired_ci_half_width_pp": 0.027192516778518316,
+          "head_ms_per_episode": 2.628515251005183,
+          "head_ms_p50": 2.368915500028379,
+          "head_ms_p95": 4.35537755012092,
+          "head_total_seconds": 5.257030502010366,
+          "peak_gpu_bytes": 58235392,
+          "head_timing": "synchronized wall time including support fit + query scores, excluding encoding/gather/argmax",
+          "parameters": {
+            "beta": 10.0,
+            "ridge_lambda": 1.0,
+            "residual_weight": 1.0
+          }
+        }
+      }
+    },
+    "5way_5shot": {
+      "way": 5,
+      "shot": 5,
+      "methods": {
+        "baseline": {
+          "accuracy": 94.525625,
+          "confidence_interval": 0.19239505217049502,
+          "episodes": 2000,
+          "gain_pp": 0.0,
+          "paired_ci_half_width_pp": 0.0,
+          "head_ms_per_episode": 1.5385719420016812,
+          "head_ms_p50": 1.3163460000669147,
+          "head_ms_p95": 2.6008722501501325,
+          "head_total_seconds": 3.0771438840033625,
+          "peak_gpu_bytes": 57540608,
+          "head_timing": "synchronized wall time including support fit + query scores, excluding encoding/gather/argmax",
+          "parameters": {}
+        },
+        "ridge": {
+          "accuracy": 94.52,
+          "confidence_interval": 0.1973622435523066,
+          "episodes": 2000,
+          "gain_pp": -0.005625,
+          "paired_ci_half_width_pp": 0.0816346424607072,
+          "head_ms_per_episode": 1.6696875619992397,
+          "head_ms_p50": 1.427090499987571,
+          "head_ms_p95": 2.8794094001000303,
+          "head_total_seconds": 3.3393751239984795,
+          "peak_gpu_bytes": 58542592,
+          "head_timing": "synchronized wall time including support fit + query scores, excluding encoding/gather/argmax",
+          "parameters": {
+            "ridge_lambda": 0.1
+          }
+        },
+        "proker": {
+          "accuracy": 94.75125,
+          "confidence_interval": 0.1875522527157432,
+          "episodes": 2000,
+          "gain_pp": 0.225625,
+          "paired_ci_half_width_pp": 0.05133085475313557,
+          "head_ms_per_episode": 2.7328153854978154,
+          "head_ms_p50": 2.4376979998805837,
+          "head_ms_p95": 4.5286904998647515,
+          "head_total_seconds": 5.465630770995631,
+          "peak_gpu_bytes": 58544640,
+          "head_timing": "synchronized wall time including support fit + query scores, excluding encoding/gather/argmax",
+          "parameters": {
+            "beta": 1.0,
+            "ridge_lambda": 0.1,
+            "residual_weight": 1.5
+          }
+        }
+      }
+    },
+    "50way_1shot": {
+      "way": 50,
+      "shot": 1,
+      "methods": {
+        "baseline": {
+          "accuracy": 56.524625,
+          "confidence_interval": 0.1258892622799399,
+          "episodes": 2000,
+          "gain_pp": 0.0,
+          "paired_ci_half_width_pp": 0.0,
+          "head_ms_per_episode": 6.26772717550034,
+          "head_ms_p50": 5.761184999869329,
+          "head_ms_p95": 10.428393499944377,
+          "head_total_seconds": 12.53545435100068,
+          "peak_gpu_bytes": 66114048,
+          "head_timing": "synchronized wall time including support fit + query scores, excluding encoding/gather/argmax",
+          "parameters": {}
+        },
+        "ridge": {
+          "accuracy": 56.58325,
+          "confidence_interval": 0.12400357933563853,
+          "episodes": 2000,
+          "gain_pp": 0.058625,
+          "paired_ci_half_width_pp": 0.03281401580098815,
+          "head_ms_per_episode": 7.013620657498564,
+          "head_ms_p50": 6.466347000014139,
+          "head_ms_p95": 11.68308354998544,
+          "head_total_seconds": 14.027241314997127,
+          "peak_gpu_bytes": 76277760,
+          "head_timing": "synchronized wall time including support fit + query scores, excluding encoding/gather/argmax",
+          "parameters": {
+            "ridge_lambda": 100.0
+          }
+        },
+        "proker": {
+          "accuracy": 56.7581875,
+          "confidence_interval": 0.12367637974820364,
+          "episodes": 2000,
+          "gain_pp": 0.2335625,
+          "paired_ci_half_width_pp": 0.03346076131227255,
+          "head_ms_per_episode": 8.071353570501401,
+          "head_ms_p50": 7.444078000048648,
+          "head_ms_p95": 13.308786950153717,
+          "head_total_seconds": 16.142707141002802,
+          "peak_gpu_bytes": 76438016,
+          "head_timing": "synchronized wall time including support fit + query scores, excluding encoding/gather/argmax",
+          "parameters": {
+            "beta": 10.0,
+            "ridge_lambda": 1.0,
+            "residual_weight": 1.0
+          }
+        }
+      }
+    },
+    "50way_5shot": {
+      "way": 50,
+      "shot": 5,
+      "methods": {
+        "baseline": {
+          "accuracy": 74.1623125,
+          "confidence_interval": 0.06518874020850438,
+          "episodes": 2000,
+          "gain_pp": 0.0,
+          "paired_ci_half_width_pp": 0.0,
+          "head_ms_per_episode": 6.296982568997123,
+          "head_ms_p50": 5.757239000104164,
+          "head_ms_p95": 10.537133150091904,
+          "head_total_seconds": 12.593965137994246,
+          "peak_gpu_bytes": 70231040,
+          "head_timing": "synchronized wall time including support fit + query scores, excluding encoding/gather/argmax",
+          "parameters": {}
+        },
+        "ridge": {
+          "accuracy": 72.3418125,
+          "confidence_interval": 0.06514720220486736,
+          "episodes": 2000,
+          "gain_pp": -1.8205,
+          "paired_ci_half_width_pp": 0.055207939250618655,
+          "head_ms_per_episode": 7.279213718000392,
+          "head_ms_p50": 6.714880499998799,
+          "head_ms_p95": 11.793876249964796,
+          "head_total_seconds": 14.558427436000784,
+          "peak_gpu_bytes": 80290816,
+          "head_timing": "synchronized wall time including support fit + query scores, excluding encoding/gather/argmax",
+          "parameters": {
+            "ridge_lambda": 0.1
+          }
+        },
+        "proker": {
+          "accuracy": 75.2640625,
+          "confidence_interval": 0.06274436218136953,
+          "episodes": 2000,
+          "gain_pp": 1.10175,
+          "paired_ci_half_width_pp": 0.03252157168788126,
+          "head_ms_per_episode": 8.318875209001362,
+          "head_ms_p50": 7.6457984999933615,
+          "head_ms_p95": 13.60106460009547,
+          "head_total_seconds": 16.637750418002724,
+          "peak_gpu_bytes": 80451072,
+          "head_timing": "synchronized wall time including support fit + query scores, excluding encoding/gather/argmax",
+          "parameters": {
+            "beta": 1.0,
+            "ridge_lambda": 0.1,
+            "residual_weight": 1.5
+          }
+        }
+      }
+    }
+  },
+  "run": "runs/20261012_cub_seed42_proker_v1",
+  "code_commit": "8009b6b118d9f7d1c0c4a889de972c6482ce63f5",
+  "config_sha256": "008037dffdbc51ba601dc37024c8b66fab86a0e14eae2ce53045a46a78739dcb"
+}

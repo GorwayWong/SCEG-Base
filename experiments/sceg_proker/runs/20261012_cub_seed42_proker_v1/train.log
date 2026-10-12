@@ -1,0 +1,127 @@
+2026-10-12 19:18:32,320 run=/root/projects/aris/sceg_proker/experiments/sceg_proker/runs/20261012_cub_seed42_proker_v1
+2026-10-12 19:18:34,580 encoding val 1/61 batches
+2026-10-12 19:18:35,807 encoding val 21/61 batches
+2026-10-12 19:18:37,044 encoding val 41/61 batches
+2026-10-12 19:18:38,281 encoding val 61/61 batches
+2026-10-12 19:18:38,483 encoding test 1/62 batches
+2026-10-12 19:18:39,771 encoding test 21/62 batches
+2026-10-12 19:18:41,027 encoding test 41/62 batches
+2026-10-12 19:18:42,243 encoding test 61/62 batches
+2026-10-12 19:18:46,799 online/cache regression passed: 6 real episodes
+2026-10-12 19:18:53,155 coarse_5way_1shot 100/200 episodes, 25 candidates
+2026-10-12 19:18:57,282 coarse_5way_1shot 200/200 episodes, 25 candidates
+2026-10-12 19:19:03,408 coarse_50way_1shot 100/200 episodes, 25 candidates
+2026-10-12 19:19:10,416 coarse_50way_1shot 200/200 episodes, 25 candidates
+2026-10-12 19:19:11,362 coarse_5way_1shot_local 100/200 episodes, 5 candidates
+2026-10-12 19:19:12,330 coarse_5way_1shot_local 200/200 episodes, 5 candidates
+2026-10-12 19:19:14,091 coarse_50way_1shot_local 100/200 episodes, 5 candidates
+2026-10-12 19:19:15,881 coarse_50way_1shot_local 200/200 episodes, 5 candidates
+2026-10-12 19:19:17,358 confirm_50way_1shot 100/1000 episodes, 5 candidates
+2026-10-12 19:19:18,764 confirm_50way_1shot 200/1000 episodes, 5 candidates
+2026-10-12 19:19:20,161 confirm_50way_1shot 300/1000 episodes, 5 candidates
+2026-10-12 19:19:21,550 confirm_50way_1shot 400/1000 episodes, 5 candidates
+2026-10-12 19:19:22,855 confirm_50way_1shot 500/1000 episodes, 5 candidates
+2026-10-12 19:19:24,337 confirm_50way_1shot 600/1000 episodes, 5 candidates
+2026-10-12 19:19:25,735 confirm_50way_1shot 700/1000 episodes, 5 candidates
+2026-10-12 19:19:26,991 confirm_50way_1shot 800/1000 episodes, 5 candidates
+2026-10-12 19:19:28,298 confirm_50way_1shot 900/1000 episodes, 5 candidates
+2026-10-12 19:19:29,783 confirm_50way_1shot 1000/1000 episodes, 5 candidates
+2026-10-12 19:19:33,696 coarse_5way_5shot 100/200 episodes, 25 candidates
+2026-10-12 19:19:37,741 coarse_5way_5shot 200/200 episodes, 25 candidates
+2026-10-12 19:19:43,756 coarse_50way_5shot 100/200 episodes, 25 candidates
+2026-10-12 19:19:49,934 coarse_50way_5shot 200/200 episodes, 25 candidates
+2026-10-12 19:19:51,058 coarse_5way_5shot_local 100/200 episodes, 6 candidates
+2026-10-12 19:19:52,188 coarse_5way_5shot_local 200/200 episodes, 6 candidates
+2026-10-12 19:19:54,232 coarse_50way_5shot_local 100/200 episodes, 6 candidates
+2026-10-12 19:19:57,472 coarse_50way_5shot_local 200/200 episodes, 6 candidates
+2026-10-12 19:19:59,007 confirm_50way_5shot 100/1000 episodes, 5 candidates
+2026-10-12 19:20:00,368 confirm_50way_5shot 200/1000 episodes, 5 candidates
+2026-10-12 19:20:01,988 confirm_50way_5shot 300/1000 episodes, 5 candidates
+2026-10-12 19:20:03,362 confirm_50way_5shot 400/1000 episodes, 5 candidates
+2026-10-12 19:20:04,580 confirm_50way_5shot 500/1000 episodes, 5 candidates
+2026-10-12 19:20:05,913 confirm_50way_5shot 600/1000 episodes, 5 candidates
+2026-10-12 19:20:07,220 confirm_50way_5shot 700/1000 episodes, 5 candidates
+2026-10-12 19:20:08,657 confirm_50way_5shot 800/1000 episodes, 5 candidates
+2026-10-12 19:20:10,022 confirm_50way_5shot 900/1000 episodes, 5 candidates
+2026-10-12 19:20:11,303 confirm_50way_5shot 1000/1000 episodes, 5 candidates
+2026-10-12 19:20:11,316 parameters locked: {'1': {'proker': {'beta': 10.0, 'ridge_lambda': 1.0, 'residual_weight': 1.0}, 'ridge': {'ridge_lambda': 100.0}, 'proker_candidates_tested': 23}, '5': {'proker': {'beta': 1.0, 'ridge_lambda': 0.1, 'residual_weight': 1.5}, 'ridge': {'ridge_lambda': 0.1}, 'proker_candidates_tested': 24}}
+2026-10-12 19:20:11,883 formal 5way_1shot 100/2000
+2026-10-12 19:20:12,468 formal 5way_1shot 200/2000
+2026-10-12 19:20:13,066 formal 5way_1shot 300/2000
+2026-10-12 19:20:13,666 formal 5way_1shot 400/2000
+2026-10-12 19:20:14,305 formal 5way_1shot 500/2000
+2026-10-12 19:20:14,937 formal 5way_1shot 600/2000
+2026-10-12 19:20:15,604 formal 5way_1shot 700/2000
+2026-10-12 19:20:16,348 formal 5way_1shot 800/2000
+2026-10-12 19:20:17,019 formal 5way_1shot 900/2000
+2026-10-12 19:20:17,675 formal 5way_1shot 1000/2000
+2026-10-12 19:20:18,317 formal 5way_1shot 1100/2000
+2026-10-12 19:20:18,929 formal 5way_1shot 1200/2000
+2026-10-12 19:20:19,552 formal 5way_1shot 1300/2000
+2026-10-12 19:20:20,195 formal 5way_1shot 1400/2000
+2026-10-12 19:20:20,789 formal 5way_1shot 1500/2000
+2026-10-12 19:20:21,503 formal 5way_1shot 1600/2000
+2026-10-12 19:20:22,188 formal 5way_1shot 1700/2000
+2026-10-12 19:20:22,871 formal 5way_1shot 1800/2000
+2026-10-12 19:20:23,513 formal 5way_1shot 1900/2000
+2026-10-12 19:20:24,215 formal 5way_1shot 2000/2000
+2026-10-12 19:20:24,911 formal 5way_5shot 100/2000
+2026-10-12 19:20:25,566 formal 5way_5shot 200/2000
+2026-10-12 19:20:26,303 formal 5way_5shot 300/2000
+2026-10-12 19:20:26,986 formal 5way_5shot 400/2000
+2026-10-12 19:20:27,653 formal 5way_5shot 500/2000
+2026-10-12 19:20:28,268 formal 5way_5shot 600/2000
+2026-10-12 19:20:28,965 formal 5way_5shot 700/2000
+2026-10-12 19:20:30,459 formal 5way_5shot 800/2000
+2026-10-12 19:20:31,125 formal 5way_5shot 900/2000
+2026-10-12 19:20:31,815 formal 5way_5shot 1000/2000
+2026-10-12 19:20:32,505 formal 5way_5shot 1100/2000
+2026-10-12 19:20:33,184 formal 5way_5shot 1200/2000
+2026-10-12 19:20:33,908 formal 5way_5shot 1300/2000
+2026-10-12 19:20:34,566 formal 5way_5shot 1400/2000
+2026-10-12 19:20:35,226 formal 5way_5shot 1500/2000
+2026-10-12 19:20:35,983 formal 5way_5shot 1600/2000
+2026-10-12 19:20:36,753 formal 5way_5shot 1700/2000
+2026-10-12 19:20:37,428 formal 5way_5shot 1800/2000
+2026-10-12 19:20:38,074 formal 5way_5shot 1900/2000
+2026-10-12 19:20:38,632 formal 5way_5shot 2000/2000
+2026-10-12 19:20:40,869 formal 50way_1shot 100/2000
+2026-10-12 19:20:43,199 formal 50way_1shot 200/2000
+2026-10-12 19:20:45,767 formal 50way_1shot 300/2000
+2026-10-12 19:20:48,096 formal 50way_1shot 400/2000
+2026-10-12 19:20:50,305 formal 50way_1shot 500/2000
+2026-10-12 19:20:52,552 formal 50way_1shot 600/2000
+2026-10-12 19:20:54,810 formal 50way_1shot 700/2000
+2026-10-12 19:20:57,118 formal 50way_1shot 800/2000
+2026-10-12 19:20:59,488 formal 50way_1shot 900/2000
+2026-10-12 19:21:01,705 formal 50way_1shot 1000/2000
+2026-10-12 19:21:03,831 formal 50way_1shot 1100/2000
+2026-10-12 19:21:05,996 formal 50way_1shot 1200/2000
+2026-10-12 19:21:08,184 formal 50way_1shot 1300/2000
+2026-10-12 19:21:10,302 formal 50way_1shot 1400/2000
+2026-10-12 19:21:12,300 formal 50way_1shot 1500/2000
+2026-10-12 19:21:14,466 formal 50way_1shot 1600/2000
+2026-10-12 19:21:16,750 formal 50way_1shot 1700/2000
+2026-10-12 19:21:19,542 formal 50way_1shot 1800/2000
+2026-10-12 19:21:21,740 formal 50way_1shot 1900/2000
+2026-10-12 19:21:23,949 formal 50way_1shot 2000/2000
+2026-10-12 19:21:26,287 formal 50way_5shot 100/2000
+2026-10-12 19:21:28,584 formal 50way_5shot 200/2000
+2026-10-12 19:21:30,814 formal 50way_5shot 300/2000
+2026-10-12 19:21:32,961 formal 50way_5shot 400/2000
+2026-10-12 19:21:35,094 formal 50way_5shot 500/2000
+2026-10-12 19:21:37,317 formal 50way_5shot 600/2000
+2026-10-12 19:21:39,482 formal 50way_5shot 700/2000
+2026-10-12 19:21:41,747 formal 50way_5shot 800/2000
+2026-10-12 19:21:43,924 formal 50way_5shot 900/2000
+2026-10-12 19:21:46,399 formal 50way_5shot 1000/2000
+2026-10-12 19:21:48,763 formal 50way_5shot 1100/2000
+2026-10-12 19:21:51,018 formal 50way_5shot 1200/2000
+2026-10-12 19:21:53,968 formal 50way_5shot 1300/2000
+2026-10-12 19:21:56,264 formal 50way_5shot 1400/2000
+2026-10-12 19:21:58,680 formal 50way_5shot 1500/2000
+2026-10-12 19:22:01,044 formal 50way_5shot 1600/2000
+2026-10-12 19:22:03,345 formal 50way_5shot 1700/2000
+2026-10-12 19:22:05,646 formal 50way_5shot 1800/2000
+2026-10-12 19:22:07,961 formal 50way_5shot 1900/2000
+2026-10-12 19:22:10,240 formal 50way_5shot 2000/2000

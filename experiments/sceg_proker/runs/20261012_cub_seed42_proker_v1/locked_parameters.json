@@ -1,0 +1,32 @@
+{
+  "status": "locked_before_test",
+  "selected_at_unix": 1791804011.316802,
+  "by_shot": {
+    "1": {
+      "proker": {
+        "beta": 10.0,
+        "ridge_lambda": 1.0,
+        "residual_weight": 1.0
+      },
+      "ridge": {
+        "ridge_lambda": 100.0
+      },
+      "proker_candidates_tested": 23
+    },
+    "5": {
+      "proker": {
+        "beta": 1.0,
+        "ridge_lambda": 0.1,
+        "residual_weight": 1.5
+      },
+      "ridge": {
+        "ridge_lambda": 0.1
+      },
+      "proker_candidates_tested": 24
+    }
+  },
+  "selection": "coarse 50-way top two per method -> independent 1000-episode 50-way confirmation; stable grid tie-break",
+  "test_labels_used": false,
+  "same_parameters_for_5way_and_50way": true,
+  "validation_episode_manifest_sha256": "8d6f6942fe3460c83625f39fcf4b3041e38392d1f263efea2a928642e5fecdba"
+}
