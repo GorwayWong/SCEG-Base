@@ -1,0 +1,543 @@
+{
+  "checked_utc": "2026-10-13T11:28:29.894919+00:00",
+  "source_provenance": "User supplied attachments obtained from the paper authors",
+  "scope": "Exact class identities/assignments; author files contain no image-level lists",
+  "author_sources": {
+    "dogs": {
+      "path": "data_protocol/author_splits/StanfordDogs_fewshot_splits.txt",
+      "sha256": "350aa6cbc28605cfe5371354ec8f440878825fb420960e51fcc9766809c55df1"
+    },
+    "cars": {
+      "path": "data_protocol/author_splits/StanfordCars_fewshot_splits.txt",
+      "sha256": "2677107210b2bf1c9dfe1741ddc7d6d8dad992232ff04efa24ba4676aa48052c"
+    }
+  },
+  "dogs": {
+    "protocol_id": "dn4_dogs_2019",
+    "sceg_exact_split_match": "mismatch",
+    "author_class_counts": {
+      "train": 70,
+      "val": 20,
+      "test": 30
+    },
+    "dn4_class_counts": {
+      "train": 70,
+      "val": 20,
+      "test": 30
+    },
+    "prepared_class_counts": {
+      "train": 70,
+      "val": 20,
+      "test": 30
+    },
+    "prepared_classes_match_dn4_csv": true,
+    "class_universe_matches_archive": true,
+    "total_classes": 120,
+    "matched_class_count": 58,
+    "changed_class_count": 62,
+    "matrix_dn4_rows_author_columns": {
+      "train": {
+        "train": 45,
+        "val": 11,
+        "test": 14
+      },
+      "val": {
+        "train": 9,
+        "val": 4,
+        "test": 7
+      },
+      "test": {
+        "train": 16,
+        "val": 5,
+        "test": 9
+      }
+    },
+    "changed_assignments": [
+      {
+        "class": "n02085782-Japanese_spaniel",
+        "dn4_split": "train",
+        "author_split": "val"
+      },
+      {
+        "class": "n02085936-Maltese_dog",
+        "dn4_split": "val",
+        "author_split": "test"
+      },
+      {
+        "class": "n02086079-Pekinese",
+        "dn4_split": "val",
+        "author_split": "train"
+      },
+      {
+        "class": "n02086240-Shih-Tzu",
+        "dn4_split": "train",
+        "author_split": "test"
+      },
+      {
+        "class": "n02086646-Blenheim_spaniel",
+        "dn4_split": "train",
+        "author_split": "val"
+      },
+      {
+        "class": "n02086910-papillon",
+        "dn4_split": "train",
+        "author_split": "test"
+      },
+      {
+        "class": "n02087394-Rhodesian_ridgeback",
+        "dn4_split": "val",
+        "author_split": "test"
+      },
+      {
+        "class": "n02088094-Afghan_hound",
+        "dn4_split": "val",
+        "author_split": "test"
+      },
+      {
+        "class": "n02088238-basset",
+        "dn4_split": "train",
+        "author_split": "test"
+      },
+      {
+        "class": "n02089867-Walker_hound",
+        "dn4_split": "test",
+        "author_split": "val"
+      },
+      {
+        "class": "n02090622-borzoi",
+        "dn4_split": "val",
+        "author_split": "test"
+      },
+      {
+        "class": "n02090721-Irish_wolfhound",
+        "dn4_split": "train",
+        "author_split": "test"
+      },
+      {
+        "class": "n02091032-Italian_greyhound",
+        "dn4_split": "test",
+        "author_split": "train"
+      },
+      {
+        "class": "n02091467-Norwegian_elkhound",
+        "dn4_split": "val",
+        "author_split": "test"
+      },
+      {
+        "class": "n02091635-otterhound",
+        "dn4_split": "test",
+        "author_split": "train"
+      },
+      {
+        "class": "n02092002-Scottish_deerhound",
+        "dn4_split": "test",
+        "author_split": "train"
+      },
+      {
+        "class": "n02093428-American_Staffordshire_terrier",
+        "dn4_split": "train",
+        "author_split": "val"
+      },
+      {
+        "class": "n02093991-Irish_terrier",
+        "dn4_split": "test",
+        "author_split": "val"
+      },
+      {
+        "class": "n02094433-Yorkshire_terrier",
+        "dn4_split": "test",
+        "author_split": "train"
+      },
+      {
+        "class": "n02095570-Lakeland_terrier",
+        "dn4_split": "test",
+        "author_split": "train"
+      },
+      {
+        "class": "n02095889-Sealyham_terrier",
+        "dn4_split": "train",
+        "author_split": "val"
+      },
+      {
+        "class": "n02096294-Australian_terrier",
+        "dn4_split": "test",
+        "author_split": "train"
+      },
+      {
+        "class": "n02096437-Dandie_Dinmont",
+        "dn4_split": "train",
+        "author_split": "val"
+      },
+      {
+        "class": "n02096585-Boston_bull",
+        "dn4_split": "test",
+        "author_split": "train"
+      },
+      {
+        "class": "n02097130-giant_schnauzer",
+        "dn4_split": "test",
+        "author_split": "val"
+      },
+      {
+        "class": "n02098105-soft-coated_wheaten_terrier",
+        "dn4_split": "train",
+        "author_split": "val"
+      },
+      {
+        "class": "n02098413-Lhasa",
+        "dn4_split": "test",
+        "author_split": "train"
+      },
+      {
+        "class": "n02100583-vizsla",
+        "dn4_split": "train",
+        "author_split": "test"
+      },
+      {
+        "class": "n02100735-English_setter",
+        "dn4_split": "train",
+        "author_split": "test"
+      },
+      {
+        "class": "n02100877-Irish_setter",
+        "dn4_split": "train",
+        "author_split": "test"
+      },
+      {
+        "class": "n02101006-Gordon_setter",
+        "dn4_split": "val",
+        "author_split": "train"
+      },
+      {
+        "class": "n02102040-English_springer",
+        "dn4_split": "test",
+        "author_split": "train"
+      },
+      {
+        "class": "n02102177-Welsh_springer_spaniel",
+        "dn4_split": "train",
+        "author_split": "test"
+      },
+      {
+        "class": "n02102318-cocker_spaniel",
+        "dn4_split": "train",
+        "author_split": "test"
+      },
+      {
+        "class": "n02102480-Sussex_spaniel",
+        "dn4_split": "test",
+        "author_split": "train"
+      },
+      {
+        "class": "n02104029-kuvasz",
+        "dn4_split": "train",
+        "author_split": "test"
+      },
+      {
+        "class": "n02104365-schipperke",
+        "dn4_split": "train",
+        "author_split": "test"
+      },
+      {
+        "class": "n02105056-groenendael",
+        "dn4_split": "train",
+        "author_split": "val"
+      },
+      {
+        "class": "n02105162-malinois",
+        "dn4_split": "train",
+        "author_split": "val"
+      },
+      {
+        "class": "n02105412-kelpie",
+        "dn4_split": "test",
+        "author_split": "val"
+      },
+      {
+        "class": "n02105505-komondor",
+        "dn4_split": "test",
+        "author_split": "train"
+      },
+      {
+        "class": "n02105641-Old_English_sheepdog",
+        "dn4_split": "val",
+        "author_split": "train"
+      },
+      {
+        "class": "n02105855-Shetland_sheepdog",
+        "dn4_split": "train",
+        "author_split": "val"
+      },
+      {
+        "class": "n02106030-collie",
+        "dn4_split": "test",
+        "author_split": "train"
+      },
+      {
+        "class": "n02106550-Rottweiler",
+        "dn4_split": "val",
+        "author_split": "test"
+      },
+      {
+        "class": "n02106662-German_shepherd",
+        "dn4_split": "train",
+        "author_split": "test"
+      },
+      {
+        "class": "n02107574-Greater_Swiss_Mountain_dog",
+        "dn4_split": "val",
+        "author_split": "train"
+      },
+      {
+        "class": "n02107908-Appenzeller",
+        "dn4_split": "test",
+        "author_split": "train"
+      },
+      {
+        "class": "n02108089-boxer",
+        "dn4_split": "test",
+        "author_split": "train"
+      },
+      {
+        "class": "n02108551-Tibetan_mastiff",
+        "dn4_split": "val",
+        "author_split": "train"
+      },
+      {
+        "class": "n02109525-Saint_Bernard",
+        "dn4_split": "train",
+        "author_split": "val"
+      },
+      {
+        "class": "n02109961-Eskimo_dog",
+        "dn4_split": "train",
+        "author_split": "val"
+      },
+      {
+        "class": "n02110627-affenpinscher",
+        "dn4_split": "test",
+        "author_split": "train"
+      },
+      {
+        "class": "n02111129-Leonberg",
+        "dn4_split": "train",
+        "author_split": "test"
+      },
+      {
+        "class": "n02112137-chow",
+        "dn4_split": "val",
+        "author_split": "train"
+      },
+      {
+        "class": "n02112706-Brabancon_griffon",
+        "dn4_split": "test",
+        "author_split": "train"
+      },
+      {
+        "class": "n02113023-Pembroke",
+        "dn4_split": "val",
+        "author_split": "test"
+      },
+      {
+        "class": "n02113712-miniature_poodle",
+        "dn4_split": "val",
+        "author_split": "train"
+      },
+      {
+        "class": "n02113799-standard_poodle",
+        "dn4_split": "test",
+        "author_split": "val"
+      },
+      {
+        "class": "n02113978-Mexican_hairless",
+        "dn4_split": "val",
+        "author_split": "train"
+      },
+      {
+        "class": "n02115641-dingo",
+        "dn4_split": "val",
+        "author_split": "train"
+      },
+      {
+        "class": "n02115913-dhole",
+        "dn4_split": "train",
+        "author_split": "test"
+      }
+    ],
+    "per_split_difference": {
+      "train": {
+        "dn4_only": [
+          "n02085782-Japanese_spaniel",
+          "n02086240-Shih-Tzu",
+          "n02086646-Blenheim_spaniel",
+          "n02086910-papillon",
+          "n02088238-basset",
+          "n02090721-Irish_wolfhound",
+          "n02093428-American_Staffordshire_terrier",
+          "n02095889-Sealyham_terrier",
+          "n02096437-Dandie_Dinmont",
+          "n02098105-soft-coated_wheaten_terrier",
+          "n02100583-vizsla",
+          "n02100735-English_setter",
+          "n02100877-Irish_setter",
+          "n02102177-Welsh_springer_spaniel",
+          "n02102318-cocker_spaniel",
+          "n02104029-kuvasz",
+          "n02104365-schipperke",
+          "n02105056-groenendael",
+          "n02105162-malinois",
+          "n02105855-Shetland_sheepdog",
+          "n02106662-German_shepherd",
+          "n02109525-Saint_Bernard",
+          "n02109961-Eskimo_dog",
+          "n02111129-Leonberg",
+          "n02115913-dhole"
+        ],
+        "author_only": [
+          "n02086079-Pekinese",
+          "n02091032-Italian_greyhound",
+          "n02091635-otterhound",
+          "n02092002-Scottish_deerhound",
+          "n02094433-Yorkshire_terrier",
+          "n02095570-Lakeland_terrier",
+          "n02096294-Australian_terrier",
+          "n02096585-Boston_bull",
+          "n02098413-Lhasa",
+          "n02101006-Gordon_setter",
+          "n02102040-English_springer",
+          "n02102480-Sussex_spaniel",
+          "n02105505-komondor",
+          "n02105641-Old_English_sheepdog",
+          "n02106030-collie",
+          "n02107574-Greater_Swiss_Mountain_dog",
+          "n02107908-Appenzeller",
+          "n02108089-boxer",
+          "n02108551-Tibetan_mastiff",
+          "n02110627-affenpinscher",
+          "n02112137-chow",
+          "n02112706-Brabancon_griffon",
+          "n02113712-miniature_poodle",
+          "n02113978-Mexican_hairless",
+          "n02115641-dingo"
+        ]
+      },
+      "val": {
+        "dn4_only": [
+          "n02085936-Maltese_dog",
+          "n02086079-Pekinese",
+          "n02087394-Rhodesian_ridgeback",
+          "n02088094-Afghan_hound",
+          "n02090622-borzoi",
+          "n02091467-Norwegian_elkhound",
+          "n02101006-Gordon_setter",
+          "n02105641-Old_English_sheepdog",
+          "n02106550-Rottweiler",
+          "n02107574-Greater_Swiss_Mountain_dog",
+          "n02108551-Tibetan_mastiff",
+          "n02112137-chow",
+          "n02113023-Pembroke",
+          "n02113712-miniature_poodle",
+          "n02113978-Mexican_hairless",
+          "n02115641-dingo"
+        ],
+        "author_only": [
+          "n02085782-Japanese_spaniel",
+          "n02086646-Blenheim_spaniel",
+          "n02089867-Walker_hound",
+          "n02093428-American_Staffordshire_terrier",
+          "n02093991-Irish_terrier",
+          "n02095889-Sealyham_terrier",
+          "n02096437-Dandie_Dinmont",
+          "n02097130-giant_schnauzer",
+          "n02098105-soft-coated_wheaten_terrier",
+          "n02105056-groenendael",
+          "n02105162-malinois",
+          "n02105412-kelpie",
+          "n02105855-Shetland_sheepdog",
+          "n02109525-Saint_Bernard",
+          "n02109961-Eskimo_dog",
+          "n02113799-standard_poodle"
+        ]
+      },
+      "test": {
+        "dn4_only": [
+          "n02089867-Walker_hound",
+          "n02091032-Italian_greyhound",
+          "n02091635-otterhound",
+          "n02092002-Scottish_deerhound",
+          "n02093991-Irish_terrier",
+          "n02094433-Yorkshire_terrier",
+          "n02095570-Lakeland_terrier",
+          "n02096294-Australian_terrier",
+          "n02096585-Boston_bull",
+          "n02097130-giant_schnauzer",
+          "n02098413-Lhasa",
+          "n02102040-English_springer",
+          "n02102480-Sussex_spaniel",
+          "n02105412-kelpie",
+          "n02105505-komondor",
+          "n02106030-collie",
+          "n02107908-Appenzeller",
+          "n02108089-boxer",
+          "n02110627-affenpinscher",
+          "n02112706-Brabancon_griffon",
+          "n02113799-standard_poodle"
+        ],
+        "author_only": [
+          "n02085936-Maltese_dog",
+          "n02086240-Shih-Tzu",
+          "n02086910-papillon",
+          "n02087394-Rhodesian_ridgeback",
+          "n02088094-Afghan_hound",
+          "n02088238-basset",
+          "n02090622-borzoi",
+          "n02090721-Irish_wolfhound",
+          "n02091467-Norwegian_elkhound",
+          "n02100583-vizsla",
+          "n02100735-English_setter",
+          "n02100877-Irish_setter",
+          "n02102177-Welsh_springer_spaniel",
+          "n02102318-cocker_spaniel",
+          "n02104029-kuvasz",
+          "n02104365-schipperke",
+          "n02106550-Rottweiler",
+          "n02106662-German_shepherd",
+          "n02111129-Leonberg",
+          "n02113023-Pembroke",
+          "n02115913-dhole"
+        ]
+      }
+    },
+    "author_test_classes_in_dn4_train": [
+      "n02086240-Shih-Tzu",
+      "n02086910-papillon",
+      "n02088238-basset",
+      "n02090721-Irish_wolfhound",
+      "n02100583-vizsla",
+      "n02100735-English_setter",
+      "n02100877-Irish_setter",
+      "n02102177-Welsh_springer_spaniel",
+      "n02102318-cocker_spaniel",
+      "n02104029-kuvasz",
+      "n02104365-schipperke",
+      "n02106662-German_shepherd",
+      "n02111129-Leonberg",
+      "n02115913-dhole"
+    ]
+  },
+  "cars": {
+    "author_class_counts": {
+      "train": 130,
+      "val": 17,
+      "test": 49
+    },
+    "unique_classes": 196,
+    "mutually_disjoint": true,
+    "covers_original_ids_1_to_196": true,
+    "current_experiment": null,
+    "comparison_status": "not_applicable_no_Cars_run_in_this_task"
+  },
+  "frozen_protocol_files_modified": false,
+  "training_or_evaluation_changed": false,
+  "conclusion": "Current Dogs run is a DN4 public-split baseline, not a reproduction of the author-provided class split"
+}
