@@ -1,0 +1,171 @@
+{
+  "stage": "author_data_preparation",
+  "status": "completed",
+  "protocol_id": "sceg_author_dogs_v1",
+  "root": "/root/projects/aris/sceg_dogs_baseline/data/dogs_author/StanfordDogs_fewshot",
+  "data_ready": true,
+  "training_started": false,
+  "accuracy": null,
+  "author_split_sha256": "350aa6cbc28605cfe5371354ec8f440878825fb420960e51fcc9766809c55df1",
+  "split_manifest": "split.json",
+  "split_manifest_sha256": "66583f8db0e29f2f801a5901f0a2643ad505a74670bae51361b8dd6a2f6292cc",
+  "sample_manifest": "samples.jsonl",
+  "sample_manifest_sha256": "5ab016cdccd9ef49daa5145cb5e6b185692e53ed342df0bdf2ed89050d6aeb7f",
+  "raw_images": 20580,
+  "image_counts": {
+    "train": 11877,
+    "val": 3325,
+    "test": 5378
+  },
+  "class_counts": {
+    "train": 70,
+    "val": 20,
+    "test": 30
+  },
+  "raw_archive": {
+    "path": "/root/projects/aris/sceg_fsfg/data/raw/dogs/images.tar",
+    "bytes": 793579520,
+    "sha256": "a443fc2f9a851aa1a7b8e4fa4af94b8459fce2c9f5a2f4dd4669cf9673a4ec58",
+    "hash_source": "/root/projects/aris/sceg_fsfg/data/provenance/raw_archive_audit.json",
+    "sha256_recomputed": false
+  },
+  "data_component_config": {
+    "data": {
+      "root": "/root/projects/aris/sceg_dogs_baseline/data/dogs_author/StanfordDogs_fewshot",
+      "image_size": 84,
+      "eval_resize": 92,
+      "mean": [
+        0.485,
+        0.456,
+        0.406
+      ],
+      "std": [
+        0.229,
+        0.224,
+        0.225
+      ],
+      "crop_scale": [
+        0.08,
+        1.0
+      ],
+      "crop_ratio": [
+        0.75,
+        1.3333333333333333
+      ],
+      "jitter": 0.4,
+      "flip_probability": 0.5,
+      "pre_resized": true,
+      "workers": 0
+    }
+  },
+  "transform": {
+    "RGB": true,
+    "resize_short_edge": 92,
+    "center_crop": 84,
+    "pre_format": "PNG",
+    "pre_loader_resizes_again": false,
+    "source": "Legenddddd/SCEG@f7f130aeb5b1b49246150574c53a874d4ce8de80 utils/util.py:get_pre_folder(type=0)"
+  },
+  "reuse": {
+    "raw_hardlink": 20580,
+    "pre_generated": 4250,
+    "pre_hardlink": 4453,
+    "new_pre_classes": [
+      "n02085782-Japanese_spaniel",
+      "n02086240-Shih-Tzu",
+      "n02086646-Blenheim_spaniel",
+      "n02086910-papillon",
+      "n02088238-basset",
+      "n02090721-Irish_wolfhound",
+      "n02093428-American_Staffordshire_terrier",
+      "n02095889-Sealyham_terrier",
+      "n02096437-Dandie_Dinmont",
+      "n02098105-soft-coated_wheaten_terrier",
+      "n02100583-vizsla",
+      "n02100735-English_setter",
+      "n02100877-Irish_setter",
+      "n02102177-Welsh_springer_spaniel",
+      "n02102318-cocker_spaniel",
+      "n02104029-kuvasz",
+      "n02104365-schipperke",
+      "n02105056-groenendael",
+      "n02105162-malinois",
+      "n02105855-Shetland_sheepdog",
+      "n02106662-German_shepherd",
+      "n02109525-Saint_Bernard",
+      "n02109961-Eskimo_dog",
+      "n02111129-Leonberg",
+      "n02115913-dhole"
+    ],
+    "symlinks_created": 0
+  },
+  "validation": {
+    "full_inventory_checked": true,
+    "ImageFolder_checked": true,
+    "CPU_batches": 3,
+    "batch_size": 3,
+    "input_shape": [
+      3,
+      84,
+      84
+    ],
+    "online_pre_tensor_equal_samples": [
+      "test/n02085936-Maltese_dog/n02085936_10073.jpg",
+      "test/n02086240-Shih-Tzu/n02086240_1016.jpg",
+      "test/n02086910-papillon/n02086910_1409.jpg",
+      "test/n02088238-basset/n02088238_10013.jpg",
+      "test/n02090721-Irish_wolfhound/n02090721_1003.jpg",
+      "test/n02100583-vizsla/n02100583_10249.jpg",
+      "test/n02100735-English_setter/n02100735_10038.jpg",
+      "test/n02100877-Irish_setter/n02100877_1020.jpg",
+      "test/n02102177-Welsh_springer_spaniel/n02102177_1022.jpg",
+      "test/n02102318-cocker_spaniel/n02102318_10019.jpg",
+      "test/n02104029-kuvasz/n02104029_1075.jpg",
+      "test/n02104365-schipperke/n02104365_10071.jpg",
+      "test/n02106662-German_shepherd/n02106662_10122.jpg",
+      "test/n02111129-Leonberg/n02111129_1.jpg",
+      "test/n02115913-dhole/n02115913_1010.jpg",
+      "val/n02085782-Japanese_spaniel/n02085782_1039.jpg",
+      "val/n02086646-Blenheim_spaniel/n02086646_1002.jpg",
+      "val/n02087046-toy_terrier/n02087046_1577.jpg",
+      "val/n02093428-American_Staffordshire_terrier/n02093428_10245.jpg",
+      "val/n02095889-Sealyham_terrier/n02095889_1019.jpg",
+      "val/n02096437-Dandie_Dinmont/n02096437_1015.jpg",
+      "val/n02098105-soft-coated_wheaten_terrier/n02098105_1024.jpg",
+      "val/n02105056-groenendael/n02105056_1018.jpg",
+      "val/n02105162-malinois/n02105162_10076.jpg",
+      "val/n02105855-Shetland_sheepdog/n02105855_1013.jpg",
+      "val/n02109525-Saint_Bernard/n02109525_10032.jpg",
+      "val/n02109961-Eskimo_dog/n02109961_10021.jpg"
+    ],
+    "new_pre_classes_checked": [
+      "n02085782-Japanese_spaniel",
+      "n02086240-Shih-Tzu",
+      "n02086646-Blenheim_spaniel",
+      "n02086910-papillon",
+      "n02088238-basset",
+      "n02090721-Irish_wolfhound",
+      "n02093428-American_Staffordshire_terrier",
+      "n02095889-Sealyham_terrier",
+      "n02096437-Dandie_Dinmont",
+      "n02098105-soft-coated_wheaten_terrier",
+      "n02100583-vizsla",
+      "n02100735-English_setter",
+      "n02100877-Irish_setter",
+      "n02102177-Welsh_springer_spaniel",
+      "n02102318-cocker_spaniel",
+      "n02104029-kuvasz",
+      "n02104365-schipperke",
+      "n02105056-groenendael",
+      "n02105162-malinois",
+      "n02105855-Shetland_sheepdog",
+      "n02106662-German_shepherd",
+      "n02109525-Saint_Bernard",
+      "n02109961-Eskimo_dog",
+      "n02111129-Leonberg",
+      "n02115913-dhole"
+    ],
+    "model_loaded": false
+  },
+  "cars_image_mapping_checked": false
+}

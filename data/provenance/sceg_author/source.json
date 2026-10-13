@@ -1,0 +1,41 @@
+{
+  "source_kind": "author_via_email_user_supplied",
+  "email_date": "unknown",
+  "publication_permission": "unknown",
+  "author_supplied_image_lists": false,
+  "author_supplied_complete_training_recipe": false,
+  "files": {
+    "dogs": {
+      "original_filename": "StanfordDogs_fewshot_splits.txt",
+      "path": "StanfordDogs_fewshot_splits.txt",
+      "original_location": "experiments/sceg_dogs_dn4/data_protocol/author_splits/StanfordDogs_fewshot_splits.txt",
+      "sha256": "350aa6cbc28605cfe5371354ec8f440878825fb420960e51fcc9766809c55df1",
+      "bytes": 3027,
+      "class_id_semantics": "complete breed directory names with synset IDs",
+      "class_counts": {
+        "train": 70,
+        "val": 20,
+        "test": 30
+      },
+      "unique_classes": 120,
+      "class_list_checked": true,
+      "image_mapping_checked": null
+    },
+    "cars": {
+      "original_filename": "StanfordCars_fewshot_splits.txt",
+      "path": "StanfordCars_fewshot_splits.txt",
+      "original_location": "experiments/sceg_dogs_dn4/data_protocol/author_splits/StanfordCars_fewshot_splits.txt",
+      "sha256": "2677107210b2bf1c9dfe1741ddc7d6d8dad992232ff04efa24ba4676aa48052c",
+      "bytes": 786,
+      "class_id_semantics": "original 1-based IDs",
+      "class_counts": {
+        "train": 130,
+        "val": 17,
+        "test": 49
+      },
+      "unique_classes": 196,
+      "class_list_checked": true,
+      "image_mapping_checked": false
+    }
+  }
+}

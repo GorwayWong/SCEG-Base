@@ -7,6 +7,9 @@ data/**
 !data/provenance/
 !data/provenance/*.json
 !data/provenance/*.md
+!data/provenance/sceg_author/
+!data/provenance/sceg_author/*.txt
+!data/provenance/sceg_author/source.json
 docs/sources/*.pdf
 experiments/**/runs/**
 !experiments/**/runs/
