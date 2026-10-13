@@ -1,0 +1,572 @@
+diff --git a/experiments/sceg_dogs_dn4/check.py b/experiments/sceg_dogs_dn4/check.py
+new file mode 100644
+index 0000000..6ab8995
+--- /dev/null
++++ b/experiments/sceg_dogs_dn4/check.py
+@@ -0,0 +1,87 @@
++"""One real Dogs train forward/backward and two validation episodes; no checkpoints."""
++from copy import deepcopy
++import json
++from pathlib import Path
++import shlex
++import sys
++import time
++
++from PIL import Image
++import torch
++from datasets import make_dataset, make_loader
++from datasets.transforms import image_transform
++from evaluators import evaluate_episodes
++from experiments.sceg_dogs_baseline.prepare import check_prepared
++from losses import IntraInterLoss
++from models import SCEG
++from utils.config import load_config, ModelConfig
++from utils.diagnostics import assert_finite, gradient_summary
++from utils.experiment import write_json
++from utils.reproducibility import seed_everything
++from .prepare import BASE
++
++
++def main():
++    started = time.perf_counter()
++    config = load_config(BASE/"configs/dogs.yaml")
++    record = check_prepared(config)
++    seed_everything(config["seed"], deterministic=config["runtime"]["deterministic"],
++                    allow_tf32=config["runtime"]["allow_tf32"],
++                    warn_only=config["runtime"]["deterministic_warn_only"])
++    torch.set_num_threads(config["runtime"]["cpu_threads"])
++    equal_inputs = []
++    for part in ("val", "test"):
++        raw_config = deepcopy(config)
++        raw_config["data"]["pre_resized"] = False
++        raw = make_dataset(raw_config, part)
++        pre = make_dataset(config, part)
++        assert raw.class_to_idx == pre.class_to_idx
++        for path, label in raw.samples[:3]:
++            pre_path = Path(config["data"]["root"])/(part+"_pre")/Path(path).parent.name/(Path(path).stem+".png")
++            with Image.open(path) as image:
++                online = raw.transform(image.convert("RGB"))
++            with Image.open(pre_path) as image:
++                offline = pre.transform(image.convert("RGB"))
++            assert torch.equal(online, offline)
++            equal_inputs.append(str(Path(path).relative_to(config["data"]["root"])))
++    model = SCEG(ModelConfig.from_dict(config["model"])).to(config["runtime"]["device"])
++    loader = make_loader(config, "train")
++    assert len(loader.dataset.classes) == 70
++    assert loader.dataset.class_to_idx == record["classes"]["train"]["class_to_idx"]
++    images, labels = next(iter(loader))
++    way, shot, query = (config["model"][key] for key in ("train_way", "train_shot", "train_query"))
++    support = labels[:way*shot].reshape(way, shot)
++    queries = labels[way*shot:].reshape(way, query)
++    assert (support == support[:, :1]).all() and (queries == support[:, :1]).all()
++    assert support[:, 0].unique().numel() == way and labels.min() >= 0 and labels.max() < 70
++    images, labels = images.to(config["runtime"]["device"]), labels.to(config["runtime"]["device"])
++    model.train()
++    output = model(images)
++    assert output.global_cosine.shape == (200, 70) and output.scores.shape == (150, 10)
++    assert_finite(output, "real_dogs.forward")
++    local = torch.arange(way, device=images.device).repeat_interleave(query)
++    criterion = IntraInterLoss(way, **config["loss"]).to(images.device)
++    global_criterion = IntraInterLoss(70, **config["loss"]).to(images.device)
++    loss = sum(criterion(cosine, local) for cosine in output[:3])+global_criterion(output.global_cosine, labels)
++    assert_finite(loss, "real_dogs.loss")
++    loss.backward()
++    gradients = gradient_summary(model)
++    assert set(gradients["missing_parameters"]) == model.expected_inactive_parameters()
++    validation = evaluate_episodes(model, config, "val", 5, 5, 2)
++    result = {"status": "passed", "data": "real DN4 Stanford Dogs", "training_episodes": 1,
++              "validation_episodes": validation["episodes"], "formal_training_state_reused": False,
++              "global_head_shape": list(model.class_representative.weight.shape),
++              "global_output_shape": list(output.global_cosine.shape),
++              "episode_output_shape": list(output.scores.shape), "support_first": True,
++              "global_labels_match_ImageFolder": True, "loss": loss.item(),
++              "gradient_summary": gradients, "original_pre_input_tensor_equal": equal_inputs,
++              "elapsed_seconds": time.perf_counter()-started,
++              "gpu_peak_allocated_bytes": torch.cuda.max_memory_allocated(),
++              "command": shlex.join(sys.orig_argv),
++              "historical_checks": "../sceg_dogs_baseline/REPORT.md (synthetic smoke/resume), ../../docs/cub_reproduction_report.md"}
++    write_json(BASE/"technical_checks.json", result)
++    print(json.dumps({key: result[key] for key in ("status", "loss", "global_output_shape", "episode_output_shape", "elapsed_seconds")}))
++
++
++if __name__ == "__main__":
++    main()
+diff --git a/experiments/sceg_dogs_dn4/configs/dogs.yaml b/experiments/sceg_dogs_dn4/configs/dogs.yaml
+new file mode 100644
+index 0000000..de24fe4
+--- /dev/null
++++ b/experiments/sceg_dogs_dn4/configs/dogs.yaml
+@@ -0,0 +1,105 @@
++experiment: sceg_dogs_dn4
++dataset: Stanford Dogs
++official_commit: f7f130aeb5b1b49246150574c53a874d4ce8de80
++seed: 42
++lambda: 38.0
++episode:
++  train_way: 10
++  train_shot: 5
++  train_query_shot: 15
++model:
++  dataset: stanford_dog
++  input_channels: 3
++  image_size: 84
++  stage_channels: [64, 160, 320, 640]
++  feature_dim: 640
++  base_classes: 70
++  train_way: 10
++  train_shot: 5
++  train_query: 15
++  transform_alpha: 0.3
++  gate_hidden_channels: 16
++  stage3_to_stage2_datasets: [cub_raw, stanford_dog]
++  dropout: 0.1
++  dropblock_size: 5
++  dropblock_ramp_batches: 40000
++  negative_slope: 0.1
++  batchnorm_eps: 0.00001
++  batchnorm_momentum: 0.1
++  projection_bn_momentum: 0.01
++  episode_norm_eps: 0.000000000001
++  global_norm_eps: 0.000000000001
++  convolution_kernel: 3
++  pool_stride: 2
++loss:
++  lamda: 38.0
++  inter: 0.05
++  intra: 0.85
++data:
++  root: /root/projects/aris/sceg_dogs_baseline/data/dogs_dn4/StanfordDogs_fewshot
++  image_size: 84
++  eval_resize: 92
++  mean: [0.485, 0.456, 0.406]
++  std: [0.229, 0.224, 0.225]
++  crop_scale: [0.08, 1.0]
++  crop_ratio: [0.75, 1.3333333333333333]
++  jitter: 0.4
++  flip_probability: 0.5
++  pre_resized: true
++  workers: 4
++  pin_memory: false
++train:
++  optimizer: sgd
++  lr: 0.1
++  momentum: 0.9
++  nesterov: true
++  weight_decay: 0.0005
++  epochs: 800
++  scheduler: StepLR
++  scheduler_step: 400
++  scheduler_gamma: 0.1
++  validation_every: 20
++eval:
++  way: 5
++  validation_shot: 5
++  shots: [1, 5]
++  query: 16
++  validation_episodes: 1000
++  test_episodes: 2000
++  confidence_multiplier: 1.96
++  many_way: 30
++  many_way_shots: [1, 5]
++  many_way_episodes: 2000
++runtime:
++  device: cuda:0
++  deterministic: true
++  deterministic_warn_only: true
++  allow_tf32: false
++  amp: false
++  cpu_threads: 2
++verification:
++  way: 5
++  shot: 1
++  query: 15
++  range_tolerance: 0.00001
++  parity_atol: 0.00001
++  parity_rtol: 0.00001
++  microbatch: 4
++execution_adaptations:
++  official_workers: 48
++  approved_workers: 4
++  worker_change_authorized_by_user: true
++  validation_every_epoch_requested: false
++  validation_every_epoch_effective: false
++  validation_policy: official_every_20_epochs
++  official_inactive_parameters_accepted: true
++  loss_lambda_alias: lambda_is_documentation_alias_of_lamda
++  lambda_source: released_CUB_run_sh_38_Dogs_44_is_commented_not_active
++data_protocol:
++  protocol_id: dn4_dogs_2019
++  sceg_exact_split_match: unconfirmed
++  archive: /root/projects/aris/sceg_fsfg/data/raw/dogs/images.tar
++  existing_archive_manifest: /root/projects/aris/sceg_fsfg/data/provenance/raw_archive_audit.json
++  raw_inventory_manifest: experiments/sceg_dogs_baseline/data_protocol/raw_inventory.json
++  split_manifest: experiments/sceg_dogs_dn4/data_protocol/split.json
++  prepared_manifest: experiments/sceg_dogs_dn4/data_protocol/prepared.json
+diff --git a/experiments/sceg_dogs_dn4/prepare.py b/experiments/sceg_dogs_dn4/prepare.py
+new file mode 100644
+index 0000000..c29201d
+--- /dev/null
++++ b/experiments/sceg_dogs_dn4/prepare.py
+@@ -0,0 +1,76 @@
++"""Verify the released DN4 Dogs CSVs, then reuse the original Dogs archive adapter."""
++import argparse
++from collections import Counter
++import json
++from pathlib import Path
++import tarfile
++
++from experiments.sceg_dogs_baseline.prepare import (
++    COUNTS, archive_record, check_prepared, csv_rows, image_members, prepare,
++)
++from tools.prepare_data import sha256_file
++from utils.config import load_config
++from utils.experiment import write_json
++
++BASE = Path(__file__).resolve().parent
++REVISION = "440857b23a5bc9798004f81f732c5cc9272a99b8"
++PREFIX = f"https://raw.githubusercontent.com/WenbinLee/DN4/{REVISION}/DN4_2019_Version/dataset/StanfordDogs/"
++IMAGE_COUNTS = {"train": 11962, "val": 3478, "test": 5140}
++
++
++def verify_protocol(config):
++    source = {"url": "https://github.com/WenbinLee/DN4", "revision": REVISION,
++              "mapping_method": "Exact Images/<label>/<filename> membership; no resplit or JPEG encoding",
++              "artifacts": {part: {"url": PREFIX+part+".csv",
++                  "path": str(BASE/"data_protocol"/(part+".csv")),
++                  "sha256": sha256_file(BASE/"data_protocol"/(part+".csv"))}
++                  for part in COUNTS}}
++    rows = csv_rows(source)
++    classes = {part: sorted({label for label, _ in pairs}) for part, pairs in rows.items()}
++    union = set().union(*(set(ids) for ids in classes.values()))
++    csv_inventory = Counter(pair for pairs in rows.values() for pair in pairs)
++    archive_source = archive_record(config)
++    with tarfile.open(archive_source["path"]) as archive:
++        archive_inventory = {(label, name) for _, label, name in image_members(archive)}
++    missing = sorted(set(csv_inventory)-archive_inventory)
++    uncovered = sorted(archive_inventory-set(csv_inventory))
++    duplicates = sorted(pair for pair, count in csv_inventory.items() if count != 1)
++    summary = {"protocol_id": "dn4_dogs_2019", "source_verified": False,
++               "sceg_exact_split_match": "unconfirmed", "source": source,
++               "archive_source": archive_source,
++               "archive_decode_audit": config["data_protocol"]["raw_inventory_manifest"],
++               "classes": classes, "class_counts": {part: len(ids) for part, ids in classes.items()},
++               "image_counts": {part: len(pairs) for part, pairs in rows.items()},
++               "union_classes": len(union), "union_images": len(csv_inventory),
++               "mapping_check": {"csv_minus_archive": missing, "archive_minus_csv": uncovered,
++                                 "duplicate_pairs": duplicates}}
++    verified = (summary["class_counts"] == COUNTS and summary["image_counts"] == IMAGE_COUNTS
++                and len(union) == 120 and len(csv_inventory) == 20580
++                and sum(len(ids) for ids in classes.values()) == len(union)
++                and not missing and not uncovered and not duplicates)
++    summary.update(status="verified" if verified else "failed", source_verified=verified)
++    write_json(config["data_protocol"]["split_manifest"], summary)
++    if not verified:
++        raise ValueError("DN4 CSV/archive mapping failed; exact differences are in split.json")
++    return summary
++
++
++def main():
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument("--config", default=str(BASE/"configs/dogs.yaml"))
++    args = parser.parse_args()
++    config = load_config(args.config)
++    split = verify_protocol(config)
++    # Reuse only a preparation with matching sources, class mapping and file inventory.
++    record = check_prepared(config) if Path(config["data"]["root"]).exists() else prepare(config)
++    for part, expected in IMAGE_COUNTS.items():
++        if record["classes"][part]["images"] != expected:
++            raise ValueError(f"Prepared image count differs from CSV: {part}")
++    print(json.dumps({"status": record["status"], "protocol_id": split["protocol_id"],
++                      "source_verified": split["source_verified"],
++                      "sceg_exact_split_match": split["sceg_exact_split_match"],
++                      "class_counts": split["class_counts"], "image_counts": split["image_counts"]}))
++
++
++if __name__ == "__main__":
++    main()
+diff --git a/experiments/sceg_dogs_dn4/report.py b/experiments/sceg_dogs_dn4/report.py
+new file mode 100644
+index 0000000..82b8621
+--- /dev/null
++++ b/experiments/sceg_dogs_dn4/report.py
+@@ -0,0 +1,166 @@
++"""Recompute published metrics from raw episodes and render the current run report."""
++import argparse
++from datetime import datetime, timezone
++import hashlib
++import json
++from pathlib import Path
++
++import numpy as np
++import yaml
++from tools.prepare_data import sha256_file
++from utils.experiment import write_json
++from .prepare import BASE
++
++
++def protected_state():
++    """Lightweight file metadata over existing experiments/data; no content rehash."""
++    roots = [Path("/root/projects/aris/sceg_fsfg/experiments/sceg_original"),
++             Path("/root/projects/aris/sceg_fsfg/data"),
++             Path("/root/projects/aris/sceg_dogs_baseline/experiments/sceg_original"),
++             Path("/root/projects/aris/sceg_proker/experiments/sceg_proker"),
++             BASE.parent/"sceg_dogs_baseline"]
++    result = {}
++    for root in roots:
++        digest, count = hashlib.sha256(), 0
++        for path in sorted(root.rglob("*")):
++            if path.is_file() and "__pycache__" not in path.parts and path.suffix != ".py":
++                stat = path.stat()
++                digest.update(json.dumps([str(path.relative_to(root)), stat.st_size,
++                                          stat.st_mtime_ns, stat.st_ino]).encode())
++                count += 1
++        result[str(root)] = {"files": count, "metadata_sha256": digest.hexdigest()}
++    return result
++
++
++def generate_report(run_id):
++    run = BASE/"runs"/run_id
++    metrics = json.loads((run/"metrics.json").read_text())
++    config = yaml.safe_load((run/"config.yaml").read_text())
++    split = json.loads((BASE/"data_protocol/split.json").read_text())
++    rows, results = [], []
++    checkpoint_hash = sha256_file(run/"checkpoint.pth") if (run/"checkpoint.pth").exists() else None
++    for way in (5, 30):
++        for shot in (1, 5):
++            path = run/f"test_{way}way_{shot}shot.json"
++            result = {"way": way, "shot": shot, "accuracy": None, "confidence_interval": None,
++                      "episodes": 0, "checkpoint_sha256": None, "raw_record": None}
++            if path.exists():
++                raw = json.loads(path.read_text())
++                values = np.asarray(raw["episode_accuracies"], dtype=float)
++                assert len(values) == raw["episodes"] == 2000
++                assert len(raw["episode_indices"]) == 2000 and raw["sample_index_paths"]
++                assert raw["checkpoint_sha256"] == checkpoint_hash
++                for indices in raw["episode_indices"]:
++                    assert len(indices) == way*(shot+16) and len(set(indices)) == len(indices)
++                    assert min(indices) >= 0 and max(indices) < len(raw["sample_index_paths"])
++                mean = float(values.mean())
++                ci = float(1.96*np.sqrt(values.var(ddof=0)/len(values)))
++                assert np.isclose(mean, raw["accuracy"]) and np.isclose(ci, raw["confidence_interval"])
++                result.update(accuracy=mean, confidence_interval=ci, episodes=len(values),
++                              checkpoint_sha256=checkpoint_hash, raw_record=str(path.relative_to(BASE)))
++            results.append(result)
++            value = "null" if result["accuracy"] is None else f"{result['accuracy']:.4f} ± {result['confidence_interval']:.4f}"
++            rows.append(f"| {way}-way {shot}-shot | {value} | {result['episodes']} / 2000 |")
++    protection_path = BASE/"preservation_check.json"
++    preservation = json.loads(protection_path.read_text()) if protection_path.exists() else {}
++    if "before" in preservation:
++        preservation["after"] = protected_state()
++        preservation["unchanged"] = preservation["before"] == preservation["after"]
++        write_json(protection_path, preservation)
++    summary = {"status": metrics["status"], "updated_utc": datetime.now(timezone.utc).isoformat(),
++               "run": str(run), "protocol_id": split["protocol_id"],
++               "source_verified": split["source_verified"], "sceg_exact_split_match": "unconfirmed",
++               "completed_epochs": metrics.get("completed_epochs", 0), "required_epochs": 800,
++               "full_training_completed": metrics.get("full_training_completed", False),
++               "full_evaluation_completed": metrics.get("full_evaluation_completed", False),
++               "best_epoch": metrics.get("best_epoch"), "best_validation": metrics.get("best_validation"),
++               "checkpoint_sha256": checkpoint_hash, "results": results,
++               "protected_artifacts_unchanged": preservation.get("unchanged")}
++    write_json(BASE/"results.json", summary)
++    command = (run/"command.txt").read_text().strip()
++    restore = f"rtk proxy /root/projects/aris/sceg_fsfg/.venv/bin/python -u -m experiments.sceg_dogs_dn4.run --run-id {run_id} --resume {run/'latest.pth'}"
++    tests = json.loads((BASE/"technical_checks.json").read_text())
++    text = f"""# Original SCEG on the publicly released DN4 Stanford Dogs split
++
++状态 **{metrics['status']}**；记录时间 {summary['updated_utc']}。已完成 {summary['completed_epochs']}/800 epochs；正式训练完整={summary['full_training_completed']}，四组正式评测完整={summary['full_evaluation_completed']}。只有 seed42。未执行指标为 null，启动不等于完成。
++
++## 数据与配置来源
++
++DN4@{split['source']['revision']} 的三个发布 CSV 只用于划分，未采用 DN4 的模型或训练配方。原始 CSV、SHA256、精确 breed 清单、archive 双向差集见 [split.json](data_protocol/split.json)。实际核验 70/20/30 类，两两互斥、合并120类；图片 11962/3478/5140，总20580，每个(label,filename)唯一，CSV/archive 差集为空。`protocol_id: dn4_dogs_2019`、`source_verified: true`、`sceg_exact_split_match: unconfirmed`。verified 仅指公开来源和映射已核验。
++
++复用原 archive 及 [已有来源审计](/root/projects/aris/sceg_fsfg/data/provenance/raw_archive_audit.json)，未重复下载或全量哈希。独立根 `{config['data']['root']}`；原图字节保持不变；RGB→短边Resize92→CenterCrop84，val_pre/test_pre 各生成一次PNG，使用pre路径时不再resize。ImageFolder映射、文件状态及提取时的hash见 [prepared.json](data_protocol/prepared.json)。
++
++SCEG 来源 [Legenddddd/SCEG@{config['official_commit']}](https://github.com/Legenddddd/SCEG/tree/{config['official_commit']})；已核对固定版本 scripts/run.sh 和 utils/util.py，并复用模型/损失/trainer/evaluator及 [补充/差异核验](../../docs/discrepancy_report.md)。
++
++| 配方 | 设置 | 来源性质 |
++|---|---|---|
++| Dogs网络 | stanford_dog，70类，ResNet12，84×84，stage3→stage2 | Dogs类数/分支 + 通用实现 |
++| 训练episode | 10-way、5 support、15 query，support-first；按样本消耗，不固定每轮episode数 | 公开CUB脚本/通用trainer |
++| 原四项I²L | intra=.85，inter=.05，固定lamda=38 | 沿用公开CUB脚本；非作者Dogs专项确认 |
++| 优化与预算 | SGD .1/.9，Nesterov，wd=5e-4；StepLR400/.1；800 epochs | 通用实现/公开脚本及冻结工程 |
++| 验证best | 每20 epochs，5-way5-shot，1000 episodes，均值最大 | 作者实际调度；20个val类 |
++| 数值与资源 | FP32，AMP=false，TF32=false，deterministic warn_only；seed42，GPU0，workers4，CPU threads2 | 已验证工程环境 |
++| 正式测试 | 5/30-way × 1/5-shot，各2000 episodes，query16 | 本轮固定公开协议 |
++
++Dogs lamda=44 是 utils/util.py 的注释；不视作执行配置。loss 温度保持原实现，未加入 optimizer。没有调参、CUB checkpoint 微调或其他训练seed；从独立随机初始化开始。
++
++## 执行与检查
++
++工作区 `/root/projects/aris/sceg_dogs_baseline`，分支 `experiment/sceg_dogs_baseline`，接续HEAD `3dec9cc569dc3b8b07e1dd35423f9ed07ca25a51`，没有回退、push或merge。环境复用 `/root/projects/aris/sceg_fsfg/.venv/bin/python`，没有安装/升级依赖。
++
++准备命令：`rtk proxy /root/projects/aris/sceg_fsfg/.venv/bin/python -m experiments.sceg_dogs_dn4.prepare`。
++必要测试：`rtk proxy /root/projects/aris/sceg_fsfg/.venv/bin/python -m pytest -q tests/test_dogs_protocol.py tests/test_dogs_dn4_protocol.py`；12项通过；包括CSV来源/映射、入口隔离、5-way复用及评测RNG记录的流不变检查。
++真实数据检查：`rtk proxy /root/projects/aris/sceg_fsfg/.venv/bin/python -m experiments.sceg_dogs_dn4.check`；1个训练forward/backward与2个验证episode通过，global=[200,70]，episode=[150,10]，loss={tests['loss']:.6f}，活动参数梯度通过；6张原图/pre输入逐元素相同。没有保存smoke权重或继承smoke状态。旧 [Dogs合成smoke/恢复](../sceg_dogs_baseline/REPORT.md) 和 [CUB等价性结论](../../docs/cub_reproduction_report.md) 直接引用，没有重复实验。
++
++真实正式命令（cwd为上述工作区）：
++```bash
++{command}
++```
++
++持久 screen 会话 `{metrics.get('screen_session')}`，Python PID `{metrics.get('process_id')}`。日志 [train.log]({run.relative_to(BASE)}/train.log)、[metrics.json]({run.relative_to(BASE)}/metrics.json)、[epoch_history.jsonl]({run.relative_to(BASE)}/epoch_history.jsonl)；实际配置/环境/代码HEAD/差异/未跟踪源码小补丁均在同一run内。启动方式见 [session.log](session.log) 与运行command/cwd。只运行本任务一个GPU进程，没有终止其他任务。
++
++恢复命令（确认原进程已经退出后使用同一run；latest、best原位滚动，不复制权重）：
++```bash
++{restore}
++```
++若800轮已完成、仅评测中断，在该命令末尾添加 `--evaluate-only`。会复用已存在的5-way记录，只完成缺项；逐设置保存rng_after，以保持评测随机流续接。正常执行不额外重置各setting的seed。
++
++## 进度、资源与正式结果
++
++总执行耗时 {metrics.get('elapsed_seconds')} 秒；训练含验证耗时 {metrics.get('training_with_validation_seconds')} 秒；测试耗时 {metrics.get('test_seconds')} 秒；峰值GPU allocated {metrics.get('gpu_peak_allocated_bytes')} bytes。曲线见epoch_history及validation_epoch_*.json。
++
++best epoch={summary['best_epoch']}，best验证均值={summary['best_validation']}；权重 `{run/'checkpoint.pth'}`，SHA256={checkpoint_hash}。best尚未选出时文件仅为trainer的临时last，不能当作验证best。只长期保存该目录的latest.pth与checkpoint.pth；前者含model/optimizer/scheduler/RNG/DropBlock counters；无历史epoch权重或按setting复制权重。
++
++| setting | accuracy (%) ± 原版95% CI半宽 | 正式episodes |
++|---|---|---|
++{chr(10).join(rows)}
++
++原始记录为run内test_*way_*shot.json：逐episode准确率、实际episode索引、样本路径表、同一checkpoint hash。生成报告时从逐episode记录重算均值与 `1.96 * sqrt(var(episode_accuracy, ddof=0) / N)`，并检查2000个任务及索引范围/无重复。CI仅反映固定模型与划分下episode抽样变化，不代表多训练seed稳定性。
++
++## 结论与范围
++
++{('在可公开追溯的 Dogs 协议上建立了原版 SCEG 本地基线。' if summary['full_training_completed'] and summary['full_evaluation_completed'] else '公开协议与必要技术检查已经核验，正式任务尚未完整完成；当前不能宣称已建立完成的数值基线。')} SCEG作者精确split及部分专项配置未确认，不把原论文差值视为模块增益，不设置追平/超论文数字门槛。一个seed不能宣称稳健性或保证符合其他论文的比较协议。
++
++已有CUB、ProKeR v1及旧Dogs blocked记录元数据保持不变={summary['protected_artifacts_unchanged']}，核验见 [preservation_check.json](preservation_check.json)。旧Dogs prepare/run仅做兼容入口适配，旧配置/split/runs/报告没有回填成功。共享trainer仅适配同路径续训best不复制和过滤记录metadata，未改变公式、增强、初始化、采样或调度。没有运行ProKeR、CUB重训、其他数据集、多seed或调参。完成本轮后停止。
++"""
++    (BASE/"report.md").write_text(text, encoding="utf-8")
++    return summary
++
++
++def main():
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument("--run-id", required=True)
++    parser.add_argument("--capture-before", action="store_true")
++    args = parser.parse_args()
++    if args.capture_before:
++        path = BASE/"preservation_check.json"
++        if path.exists():
++            raise ValueError("Preservation baseline already exists")
++        write_json(path, {"before": protected_state()})
++    else:
++        summary = generate_report(args.run_id)
++        print(json.dumps({key: summary[key] for key in ("status", "completed_epochs", "best_epoch", "full_evaluation_completed")}))
++
++
++if __name__ == "__main__":
++    main()
+diff --git a/experiments/sceg_dogs_dn4/run.py b/experiments/sceg_dogs_dn4/run.py
+new file mode 100644
+index 0000000..1174cba
+--- /dev/null
++++ b/experiments/sceg_dogs_dn4/run.py
+@@ -0,0 +1,17 @@
++"""Isolated DN4 configuration; all training and evaluation use the existing Dogs runner."""
++from experiments.sceg_dogs_baseline.run import main
++from .prepare import BASE
++from .report import generate_report
++import argparse
++
++
++if __name__ == "__main__":
++    parser = argparse.ArgumentParser(add_help=False)
++    parser.add_argument("--run-id")
++    args, _ = parser.parse_known_args()
++    try:
++        exit_code = main(BASE/"configs/dogs.yaml")
++    finally:
++        if args.run_id and (BASE/"runs"/args.run_id/"metrics.json").exists():
++            generate_report(args.run_id)
++    raise SystemExit(exit_code)
+diff --git a/tests/test_dogs_dn4_protocol.py b/tests/test_dogs_dn4_protocol.py
+new file mode 100644
+index 0000000..057ec79
+--- /dev/null
++++ b/tests/test_dogs_dn4_protocol.py
+@@ -0,0 +1,85 @@
++"""CSV provenance and isolated records; no model or synthetic training repeat."""
++import copy
++import csv
++import json
++
++import pytest
++from experiments.sceg_dogs_baseline.prepare import csv_rows, trusted_split
++from tools.prepare_data import sha256_file
++
++
++def source_fixture(tmp_path):
++    breeds = [f"fixture_{i:03}" for i in range(120)]
++    classes = {"train": breeds[:70], "val": breeds[70:90], "test": breeds[90:]}
++    source = {"url": "fixture://unit-test", "revision": "fixture-v1",
++              "mapping_method": "Synthetic CSV unit fixture", "artifacts": {}}
++    for part, ids in classes.items():
++        path = tmp_path/(part+".csv")
++        with path.open("w", newline="") as stream:
++            writer = csv.writer(stream)
++            writer.writerow(["filename", "label"])
++            writer.writerows(("image.jpg", label) for label in ids)
++        source["artifacts"][part] = {"url": "fixture://"+part, "path": str(path), "sha256": sha256_file(path)}
++    return breeds, classes, source
++
++
++def test_csv_source_and_exact_class_identities(tmp_path):
++    breeds, classes, source = source_fixture(tmp_path)
++    path = tmp_path/"split.json"
++    manifest = {"status": "verified", "source": source, "classes": classes}
++    path.write_text(json.dumps(manifest))
++    assert trusted_split(path, breeds)["classes"] == classes
++    manifest["classes"]["train"][0], manifest["classes"]["val"][0] = (
++        manifest["classes"]["val"][0], manifest["classes"]["train"][0])
++    path.write_text(json.dumps(manifest))
++    with pytest.raises(ValueError, match="CSV class identities"):
++        trusted_split(path, breeds)
++
++
++@pytest.mark.parametrize("problem", ["duplicate", "path", "hash"])
++def test_invalid_csv_rejected(tmp_path, problem):
++    _, _, source = source_fixture(tmp_path)
++    artifact = source["artifacts"]["train"]
++    with open(artifact["path"], "a") as stream:
++        stream.write("image.jpg,fixture_000\n" if problem != "path" else "../image.jpg,fixture_000\n")
++    if problem != "hash":
++        artifact["sha256"] = sha256_file(artifact["path"])
++    with pytest.raises(ValueError, match={"duplicate": "Duplicate", "path": "Invalid", "hash": "hash"}[problem]):
++        csv_rows(source)
++
++
++def test_dn4_entry_sources_and_results_are_isolated(tmp_path, monkeypatch):
++    from experiments.sceg_dogs_baseline.run import DogsRun
++    from experiments.sceg_dogs_dn4.prepare import BASE
++    from utils.config import load_config
++    import utils.experiment as recording
++    config = load_config(BASE/"configs/dogs.yaml")
++    monkeypatch.setattr(recording, "__file__", str(tmp_path/"utils/experiment.py"))
++    monkeypatch.setattr(recording, "environment_info", lambda: {"fixture": True})
++    base = tmp_path/"experiments/sceg_dogs_dn4"
++    (base/"configs").mkdir(parents=True)
++    (base/"configs/dogs.yaml").write_text("fixture: true\n")
++    (base/"run.py").write_text("# synthetic source fixture\n")
++    (tmp_path/"tests").mkdir()
++    (tmp_path/"tests/test_dogs_dn4_protocol.py").write_text("# synthetic test fixture\n")
++    run = DogsRun(copy.deepcopy(config), "fixture")
++    run.publish_result()
++    snapshot = (run.path/"experiment_source.patch").read_text()
++    assert "sceg_dogs_dn4/run.py" in snapshot and "sceg_dogs_baseline" not in snapshot
++    assert (base/"result.json").exists()
++    assert not (tmp_path/"experiments/sceg_original/result.json").exists()
++    assert not (tmp_path/"experiments/sceg_dogs_baseline/result.json").exists()
++
++
++def test_evaluation_metadata_preserves_random_stream():
++    import random
++    import numpy as np
++    import torch
++    from experiments.sceg_dogs_baseline.run import evaluation_rng, restore_evaluation_rng
++    state = json.loads(json.dumps(evaluation_rng()))
++    expected = (random.random(), np.random.rand(3), torch.rand(3))
++    restore_evaluation_rng(state)
++    actual = (random.random(), np.random.rand(3), torch.rand(3))
++    assert actual[0] == expected[0]
++    assert np.array_equal(actual[1], expected[1])
++    assert torch.equal(actual[2], expected[2])

@@ -1,0 +1,55 @@
+{
+  "status": "paused",
+  "updated_utc": "2026-10-13T12:55:15.315003+00:00",
+  "run": "/root/projects/aris/sceg_dogs_baseline/experiments/sceg_dogs_dn4/runs/dogs800_seed42_dn4",
+  "protocol_id": "dn4_dogs_2019",
+  "source_verified": true,
+  "sceg_exact_split_match": "mismatch",
+  "author_split_comparison": "data_protocol/author_split_comparison.json",
+  "completed_epochs": 800,
+  "required_epochs": 800,
+  "full_training_completed": true,
+  "full_evaluation_completed": false,
+  "best_epoch": 420,
+  "best_validation": 91.07875,
+  "checkpoint_sha256": "2428ab008377ea8f9559b3ef26c0cd271475d38907a10e93588c340d42180c9d",
+  "results": [
+    {
+      "way": 5,
+      "shot": 1,
+      "accuracy": 80.180625,
+      "confidence_interval": 0.4364598492698813,
+      "episodes": 2000,
+      "checkpoint_sha256": "2428ab008377ea8f9559b3ef26c0cd271475d38907a10e93588c340d42180c9d",
+      "raw_record": "runs/dogs800_seed42_dn4/test_5way_1shot.json"
+    },
+    {
+      "way": 5,
+      "shot": 5,
+      "accuracy": 90.396875,
+      "confidence_interval": 0.24176108995698106,
+      "episodes": 2000,
+      "checkpoint_sha256": "2428ab008377ea8f9559b3ef26c0cd271475d38907a10e93588c340d42180c9d",
+      "raw_record": "runs/dogs800_seed42_dn4/test_5way_5shot.json"
+    },
+    {
+      "way": 30,
+      "shot": 1,
+      "accuracy": 48.46041666666667,
+      "confidence_interval": 0.166736530555028,
+      "episodes": 2000,
+      "checkpoint_sha256": "2428ab008377ea8f9559b3ef26c0cd271475d38907a10e93588c340d42180c9d",
+      "raw_record": "runs/dogs800_seed42_dn4/test_30way_1shot.json"
+    },
+    {
+      "way": 30,
+      "shot": 5,
+      "accuracy": null,
+      "confidence_interval": null,
+      "episodes": 0,
+      "checkpoint_sha256": null,
+      "raw_record": null
+    }
+  ],
+  "protected_artifacts_unchanged": true
+}

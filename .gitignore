@@ -23,3 +23,5 @@ checkpoints/
 logs/
 *.pth
 *.pt
+experiments/sceg_dogs_dn4/runs/*/activations_epoch_*.json
+experiments/sceg_dogs_dn4/session.log

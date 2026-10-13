@@ -1,0 +1,6 @@
+ M experiments/sceg_dogs_baseline/prepare.py
+ M experiments/sceg_dogs_baseline/run.py
+ M trainers/trainer.py
+ M utils/experiment.py
+?? experiments/sceg_dogs_dn4/
+?? tests/test_dogs_dn4_protocol.py

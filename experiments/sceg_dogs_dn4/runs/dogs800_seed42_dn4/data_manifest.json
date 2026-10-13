@@ -1,0 +1,7 @@
+{
+  "prepared_manifest": "experiments/sceg_dogs_dn4/data_protocol/prepared.json",
+  "sha256": "d2ee22282d170bc9ebde559bd7a27b175c207876b1a991bc3afc05c069d50c3f",
+  "split_manifest": "experiments/sceg_dogs_dn4/data_protocol/split.json",
+  "split_sha256": "ea9c9c03ba9e2580927c109f32ca98c7099f2eb27cf8fa2bb7bee379a179d9e2",
+  "integrity_check": "inventory + size/mtime, no repeat image hashing"
+}

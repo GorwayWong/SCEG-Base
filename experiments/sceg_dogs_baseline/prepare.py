@@ -5,6 +5,7 @@ The downloaded archive and all historical provenance are read-only.
 """
 import argparse
 from collections import Counter
+import csv
 import hashlib
 import json
 from pathlib import Path, PurePosixPath
@@ -67,11 +68,20 @@ def trusted_split(path, available):
     if manifest.get("status") != "verified":
         raise RuntimeError("BLOCKED: trusted exact Dogs 70/20/30 class split missing")
     source = manifest.get("source") or {}
-    for key in ("url", "revision", "artifact_path", "artifact_sha256", "mapping_method"):
+    for key in ("url", "revision", "mapping_method"):
         if not source.get(key):
             raise ValueError(f"Split source lacks {key}")
-    if sha256_file(source["artifact_path"]) != source["artifact_sha256"]:
-        raise ValueError("Exact split source artifact hash mismatch")
+    if "artifacts" in source:
+        rows = csv_rows(source)
+        for part in COUNTS:
+            if sorted({label for label, _ in rows[part]}) != sorted(manifest["classes"][part]):
+                raise ValueError("CSV class identities differ from split manifest")
+    else:
+        for key in ("artifact_path", "artifact_sha256"):
+            if not source.get(key):
+                raise ValueError(f"Split source lacks {key}")
+        if sha256_file(source["artifact_path"]) != source["artifact_sha256"]:
+            raise ValueError("Exact split source artifact hash mismatch")
     classes = manifest["classes"]
     flattened = []
     for split, expected in COUNTS.items():
@@ -82,6 +92,32 @@ def trusted_split(path, available):
     if len(set(flattened)) != 120 or set(flattened) != set(available):
         raise ValueError("Class lists must be disjoint and cover all 120 raw breeds")
     return manifest
+
+
+def csv_rows(source):
+    """Read the three released filename,label artifacts without altering their bytes."""
+    if set(source["artifacts"]) != set(COUNTS):
+        raise ValueError("CSV source requires train, val and test artifacts")
+    rows = {}
+    for part, artifact in source["artifacts"].items():
+        if not artifact.get("url") or sha256_file(artifact["path"]) != artifact["sha256"]:
+            raise ValueError(f"CSV source artifact hash/URL mismatch: {part}")
+        with Path(artifact["path"]).open(newline="", encoding="utf-8") as stream:
+            reader = csv.DictReader(stream)
+            if reader.fieldnames != ["filename", "label"]:
+                raise ValueError(f"Unexpected CSV header: {part}")
+            pairs = []
+            for row in reader:
+                name, label = row["filename"], row["label"]
+                if (None in row or not name or not label or
+                        any(PurePosixPath(value).name != value or value in {".", ".."}
+                            or "\\" in value for value in (name, label))):
+                    raise ValueError(f"Invalid CSV path: {part}, {row}")
+                pairs.append((label, name))
+        if len(set(pairs)) != len(pairs):
+            raise ValueError(f"Duplicate (label, filename) in CSV: {part}")
+        rows[part] = pairs
+    return rows
 
 
 def file_state(path):
@@ -145,7 +181,9 @@ def prepare(config):
 
 def check_prepared(config):
     split_path = Path(config["data_protocol"]["split_manifest"])
-    inventory = json.loads((BASE/"data_protocol/raw_inventory.json").read_text())
+    inventory_path = config["data_protocol"].get("raw_inventory_manifest",
+                                                   BASE/"data_protocol/raw_inventory.json")
+    inventory = json.loads(Path(inventory_path).read_text())
     split = trusted_split(split_path, inventory["class_images"])
     record = json.loads(Path(config["data_protocol"]["prepared_manifest"]).read_text())
     root = Path(config["data"]["root"]).resolve()

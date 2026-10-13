@@ -1,0 +1,47 @@
+{
+  "before": {
+    "/root/projects/aris/sceg_fsfg/experiments/sceg_original": {
+      "files": 244,
+      "metadata_sha256": "1c4bd849c5e88f6c846055ccdf57fc035259587c70aee875b67c2e4f62c7ec71"
+    },
+    "/root/projects/aris/sceg_fsfg/data": {
+      "files": 51115,
+      "metadata_sha256": "abf38cea68fe83a5f55d0c01e12a63d20eae0fcd5efc54706028ce7118aab736"
+    },
+    "/root/projects/aris/sceg_dogs_baseline/experiments/sceg_original": {
+      "files": 233,
+      "metadata_sha256": "ef8e3f51b5d9ce815be8198a81b6c5a0f3e1c21d92470709d4fb0a996046b488"
+    },
+    "/root/projects/aris/sceg_proker/experiments/sceg_proker": {
+      "files": 43,
+      "metadata_sha256": "c4e0513790e5197777ff8ae04e63ca8673925441786fdf75f5652acabf546697"
+    },
+    "/root/projects/aris/sceg_dogs_baseline/experiments/sceg_dogs_baseline": {
+      "files": 63,
+      "metadata_sha256": "5ffa4f1bd1424793a8462b4de3bca93ea96d95e81c77bebe759c1e2ce2c6785e"
+    }
+  },
+  "after": {
+    "/root/projects/aris/sceg_fsfg/experiments/sceg_original": {
+      "files": 244,
+      "metadata_sha256": "1c4bd849c5e88f6c846055ccdf57fc035259587c70aee875b67c2e4f62c7ec71"
+    },
+    "/root/projects/aris/sceg_fsfg/data": {
+      "files": 51115,
+      "metadata_sha256": "abf38cea68fe83a5f55d0c01e12a63d20eae0fcd5efc54706028ce7118aab736"
+    },
+    "/root/projects/aris/sceg_dogs_baseline/experiments/sceg_original": {
+      "files": 233,
+      "metadata_sha256": "ef8e3f51b5d9ce815be8198a81b6c5a0f3e1c21d92470709d4fb0a996046b488"
+    },
+    "/root/projects/aris/sceg_proker/experiments/sceg_proker": {
+      "files": 43,
+      "metadata_sha256": "c4e0513790e5197777ff8ae04e63ca8673925441786fdf75f5652acabf546697"
+    },
+    "/root/projects/aris/sceg_dogs_baseline/experiments/sceg_dogs_baseline": {
+      "files": 63,
+      "metadata_sha256": "5ffa4f1bd1424793a8462b4de3bca93ea96d95e81c77bebe759c1e2ce2c6785e"
+    }
+  },
+  "unchanged": true
+}

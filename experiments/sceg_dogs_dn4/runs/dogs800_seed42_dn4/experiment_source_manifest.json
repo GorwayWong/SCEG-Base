@@ -1,0 +1,8 @@
+{
+  "experiments/sceg_dogs_dn4/check.py": "807c7a73469c5d6c4e870fb054a0f479d745e3611e72dbfe2124b7150c706fe2",
+  "experiments/sceg_dogs_dn4/prepare.py": "46b721e11efd69a8930ac8911b4db8da73d9e6a5384ac2ab428f1fb96da246af",
+  "experiments/sceg_dogs_dn4/run.py": "c87160a9c31e698c2025f3b97e2b33a48985e593afa22648a882dce3b87ce8fa",
+  "experiments/sceg_dogs_dn4/report.py": "6384d33b447acdfc1cb1cd3c0d82ca68acf980f45056484bcbe8eb0817a96b3c",
+  "experiments/sceg_dogs_dn4/configs/dogs.yaml": "08c7b315dfb160e302f484f83e2903e53144c62dfd9c027882099971bd2fbc1b",
+  "tests/test_dogs_dn4_protocol.py": "cf8af1eb6879e11c2fd9e3dbc51281590ed2a798575877b14db1e05ed95c09ea"
+}

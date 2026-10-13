@@ -1,0 +1,51 @@
+{
+  "status": "passed",
+  "data": "real DN4 Stanford Dogs",
+  "training_episodes": 1,
+  "validation_episodes": 2,
+  "formal_training_state_reused": false,
+  "global_head_shape": [
+    70,
+    640
+  ],
+  "global_output_shape": [
+    200,
+    70
+  ],
+  "episode_output_shape": [
+    150,
+    10
+  ],
+  "support_first": true,
+  "global_labels_match_ImageFolder": true,
+  "loss": 53.673240661621094,
+  "gradient_summary": {
+    "global_norm": 79.29611206054688,
+    "missing_parameters": [
+      "SC.t_s.mlp.0.weight",
+      "SC.t_s.mlp.0.bias",
+      "SC.t_s.mlp.1.weight",
+      "SC.t_s.mlp.1.bias",
+      "SC.t_t.mlp.0.weight",
+      "SC.t_t.mlp.0.bias",
+      "SC.t_t.mlp.1.weight",
+      "SC.t_t.mlp.1.bias",
+      "SC.t_l.mlp.0.weight",
+      "SC.t_l.mlp.0.bias",
+      "SC.t_l.mlp.1.weight",
+      "SC.t_l.mlp.1.bias"
+    ]
+  },
+  "original_pre_input_tensor_equal": [
+    "val/n02085936-Maltese_dog/n02085936_10073.jpg",
+    "val/n02085936-Maltese_dog/n02085936_10130.jpg",
+    "val/n02085936-Maltese_dog/n02085936_10148.jpg",
+    "test/n02089867-Walker_hound/n02089867_1029.jpg",
+    "test/n02089867-Walker_hound/n02089867_1048.jpg",
+    "test/n02089867-Walker_hound/n02089867_1062.jpg"
+  ],
+  "elapsed_seconds": 4.237217077999958,
+  "gpu_peak_allocated_bytes": 10320524288,
+  "command": "/root/projects/aris/sceg_fsfg/.venv/bin/python -m experiments.sceg_dogs_dn4.check",
+  "historical_checks": "../sceg_dogs_baseline/REPORT.md (synthetic smoke/resume), ../../docs/cub_reproduction_report.md"
+}

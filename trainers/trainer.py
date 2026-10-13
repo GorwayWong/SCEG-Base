@@ -60,7 +60,8 @@ def train(model, config, run, resume=None):
             if not best_path.exists():
                 raise FileNotFoundError("Resume needs the corresponding best-validation checkpoint")
             import shutil
-            shutil.copy2(best_path, run.path/"checkpoint.pth")
+            if best_path.resolve() != (run.path/"checkpoint.pth").resolve():
+                shutil.copy2(best_path, run.path/"checkpoint.pth")
     (run.path/"model_summary.txt").write_text(str(model))
     write_json(run.path/"parameter_summary.json", parameter_summary(model))
     for epoch in range(first_epoch, config["train"]["epochs"]):
@@ -129,7 +130,7 @@ def train(model, config, run, resume=None):
                                   config["eval"]["test_episodes"])
         write_json(run.path/f"test_{result['way']}way_{shot}shot.json", result)
         results.append({key: value for key, value in result.items()
-                        if key not in {"episode_indices", "sample_index_paths", "episode_accuracies"}})
+                        if key not in {"episode_indices", "sample_index_paths", "episode_accuracies", "rng_after"}})
     run.update_metrics(status="completed", full_training_completed=True, evaluation=results,
         way=results[0]["way"], shot=results[0]["shot"], accuracy=results[0]["accuracy"],
         confidence_interval=results[0]["confidence_interval"], metric_scope="held-out test episodes")
