@@ -1,0 +1,22 @@
+{
+  "at": "2026-10-14T12:15:59+00:00",
+  "status": "blocked",
+  "reason": "User requested stop if re-testing is required",
+  "training_completed": true,
+  "completed_epochs": 800,
+  "full_evaluation_completed": false,
+  "missing_setting": "30way_5shot",
+  "complete_result_available": false,
+  "partial_episode_results_persisted": false,
+  "original_interruption_cause": "unresolved; original process disappeared without a failure event",
+  "current_recovery": "The previous turn restarted only the missing setting from its saved RNG boundary",
+  "process_group": 2731,
+  "paused_processes": [2731, 2844, 2846, 2848, 2850],
+  "signal": "SIGSTOP",
+  "stopped_state_verified": true,
+  "in_memory_state_retained": true,
+  "gpu_memory_retained": true,
+  "checkpoint_sha256": "1939b5e0513b88702dcc06a9413f67c14e247cea1d4be0eb51b2c3ba1810b7bb",
+  "required_to_finish": "Explicit user instruction to continue the already paused 30-way 5-shot evaluation; if this process is lost, the incomplete setting must restart from its recorded boundary",
+  "new_training_or_testing_started_in_this_turn": false
+}

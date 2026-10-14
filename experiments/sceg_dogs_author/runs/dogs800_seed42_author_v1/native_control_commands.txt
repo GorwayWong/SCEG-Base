@@ -1,0 +1,12 @@
+Native continuation of the already existing evaluation process; no new model or evaluator was launched.
+Process group: 2731; Python parent: 2731; DataLoader workers: 2844, 2846, 2848, 2850.
+
+Executed after source/checkpoint identity verification:
+rtk proxy bash -c '/bin/kill -s CONT 2731 2844 2846 2848 2850; sleep 1; ps -p 2731,2844,2846,2848,2850 -o pid,pgid,stat,time,cmd'
+Verified parent Rsl+ and workers Sl+; recorded resumed_at 2026-10-14T12:43:05+00:00.
+
+Enabled the existing screen session's native console logging:
+rtk proxy screen -S sceg_dogs_author_eval_resume -X logfile /root/projects/aris/sceg_dogs_baseline/experiments/sceg_dogs_author/runs/dogs800_seed42_author_v1/console_resume.log
+rtk proxy screen -S sceg_dogs_author_eval_resume -X log on
+
+The setting's recorded stopwatch includes the user-requested pause. Resume does not restore the lost original process: it continues the recovery attempt that was already in memory before SIGSTOP.

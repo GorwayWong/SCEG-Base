@@ -806,3 +806,4 @@
 2026-10-14 20:04:36,302 test=5way_1shot accuracy=77.1644 ci=0.4826
 2026-10-14 20:04:36,690 test=5way_5shot accuracy=88.7400 ci=0.2569
 2026-10-14 20:04:38,434 test=30way_1shot accuracy=47.0756 ci=0.1711
+2026-10-14 20:58:14,334 test=30way_5shot accuracy=66.2110 ci=0.0979

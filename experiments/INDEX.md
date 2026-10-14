@@ -1,11 +1,11 @@
 # Active Dogs project state
 
-The active Dogs work is **original SCEG training and evaluation**, protocol `sceg_author_dogs_v1`. The completed preparation stage remains read-only. The seed42 run `dogs800_seed42_author_v1` was launched from random initialization on GPU0; its live state, not launch success, determines completion.
+The seed42 original SCEG author-split run **dogs800_seed42_author_v1 is completed**, protocol `sceg_author_dogs_v1`: 800 epochs and four verified 2000-episode formal evaluations. The prepared data and historical preparation handoff remain read-only.
 
 - Frozen recipe and source distinctions: [recipe.md](sceg_dogs_author/recipe.md).
 - Independent configuration and entry: [config.yaml](sceg_dogs_author/config.yaml), [run.py](sceg_dogs_author/run.py).
-- Live progress: [metrics.json](sceg_dogs_author/runs/dogs800_seed42_author_v1/metrics.json), [train.log](sceg_dogs_author/runs/dogs800_seed42_author_v1/train.log).
-- Report, including same-run resume and evaluate-only commands: [REPORT.md](sceg_dogs_author/runs/dogs800_seed42_author_v1/REPORT.md). Missing formal measurements remain null; completed requires800 epochs and four verified2000-episode tests.
+- Completed run records: [metrics.json](sceg_dogs_author/runs/dogs800_seed42_author_v1/metrics.json), [train.log](sceg_dogs_author/runs/dogs800_seed42_author_v1/train.log).
+- Final report, paper comparison and recovery commands: [REPORT.md](sceg_dogs_author/runs/dogs800_seed42_author_v1/REPORT.md); independent result/count/identity checks: [final_checks.json](sceg_dogs_author/runs/dogs800_seed42_author_v1/final_checks.json). The original evaluation interruption remains unexplained; the missing setting completed after native continuation of its recovered process.
 
 - Author originals and source semantics: [data/provenance/sceg_author/source.json](../data/provenance/sceg_author/source.json).
 - Exact Dogs classes, counts and ImageFolder labels: [split.json](sceg_dogs_author/prep/split.json).

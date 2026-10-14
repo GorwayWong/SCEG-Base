@@ -1,8 +1,60 @@
 {
-  "status": "running",
+  "status": "completed",
+  "completion_verified": true,
+  "completion_verification_record": "final_checks.json",
+  "statistics_verified_at": "2026-10-14T13:02:28.538611+00:00",
+  "final_report_revision_at": "2026-10-14 13:10:46 UTC",
+  "recorded_user_pause_seconds": 1626,
+  "last_setting_seconds_include_pause": true,
+  "completed_setting_seconds_sum": 20983.96850451801,
+  "overall_calendar_wall_seconds": 72438.249841,
+  "original_interruption_cause": "unresolved",
+  "native_continuation_record": "native_control_commands.txt",
+  "source_archive_commit": "a15f7556a9487ee426c99a0b87506ab7342fe5d8",
+  "training_start_commit": "5ee680fa9fbcdd93fc3381a4d2e3aefe5fd52c82",
+  "paper_reference": {
+    "source": "https://openaccess.thecvf.com/content/CVPR2026/papers/Zhao_From_Few-way_to_Many-way_Rethinking_Few-shot_Fine-grained_Image_Classification_CVPR_2026_paper.pdf",
+    "table": 1,
+    "accuracy_percent": [
+      77.89,
+      89.13,
+      47.55,
+      66.63
+    ]
+  },
+  "paper_comparison": [
+    {
+      "way": 5,
+      "shot": 1,
+      "accuracy": 77.164375,
+      "paper_accuracy": 77.89,
+      "difference_percentage_points": -0.7256249999999937
+    },
+    {
+      "way": 5,
+      "shot": 5,
+      "accuracy": 88.74,
+      "paper_accuracy": 89.13,
+      "difference_percentage_points": -0.39000000000000057
+    },
+    {
+      "way": 30,
+      "shot": 1,
+      "accuracy": 47.075625,
+      "paper_accuracy": 47.55,
+      "difference_percentage_points": -0.4743749999999949
+    },
+    {
+      "way": 30,
+      "shot": 5,
+      "accuracy": 66.21104166666667,
+      "paper_accuracy": 66.63,
+      "difference_percentage_points": -0.4189583333333218
+    }
+  ],
   "protocol_id": "sceg_author_dogs_v1",
   "training_completed": true,
-  "full_evaluation_completed": false,
+  "full_evaluation_completed": true,
   "completed_epochs": 800,
   "best_epoch": 520,
   "best_sha256": "1939b5e0513b88702dcc06a9413f67c14e247cea1d4be0eb51b2c3ba1810b7bb",
@@ -43,7 +95,18 @@
       "checkpoint_sha256": "1939b5e0513b88702dcc06a9413f67c14e247cea1d4be0eb51b2c3ba1810b7bb",
       "statistics_recomputed": true
     },
-    "30way_5shot": null
+    "30way_5shot": {
+      "way": 30,
+      "shot": 5,
+      "query": 16,
+      "episodes": 2000,
+      "accuracy": 66.21104166666667,
+      "confidence_interval": 0.09788254696868277,
+      "seconds": 3213.395025787,
+      "peak_cuda_memory_bytes": 6987019264,
+      "checkpoint_sha256": "1939b5e0513b88702dcc06a9413f67c14e247cea1d4be0eb51b2c3ba1810b7bb",
+      "statistics_recomputed": true
+    }
   },
   "train_validation_checkpoint_seconds": 46060.102688835934,
   "peak_train_cuda_memory_bytes": 10383925248,
@@ -53,7 +116,7 @@
     "evaluate_only": "rtk proxy env CUDA_VISIBLE_DEVICES=0 /root/projects/aris/sceg_fsfg/.venv/bin/python -m experiments.sceg_dogs_author.run --run-id dogs800_seed42_author_v1 --mode evaluate",
     "status": "rtk proxy env CUDA_VISIBLE_DEVICES=0 /root/projects/aris/sceg_fsfg/.venv/bin/python -m experiments.sceg_dogs_author.run --run-id dogs800_seed42_author_v1 --mode status"
   },
-  "updated_at": "2026-10-14T12:04:35.109757+00:00",
+  "updated_at": "2026-10-14T12:58:19.020694+00:00",
   "initialization": "random; no pretrained weights",
   "training_seeds": [
     42
