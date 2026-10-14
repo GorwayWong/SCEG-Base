@@ -1,0 +1,58 @@
+{
+  "protocol_id": "sceg_author_dogs_v1",
+  "references": {
+    "author_split_sha256": {
+      "path": "/root/projects/aris/sceg_dogs_baseline/data/provenance/sceg_author/StanfordDogs_fewshot_splits.txt",
+      "sha256": "350aa6cbc28605cfe5371354ec8f440878825fb420960e51fcc9766809c55df1"
+    },
+    "split_manifest_sha256": {
+      "path": "/root/projects/aris/sceg_dogs_baseline/experiments/sceg_dogs_author/prep/split.json",
+      "sha256": "66583f8db0e29f2f801a5901f0a2643ad505a74670bae51361b8dd6a2f6292cc"
+    },
+    "sample_manifest_sha256": {
+      "path": "/root/projects/aris/sceg_dogs_baseline/experiments/sceg_dogs_author/prep/samples.jsonl",
+      "sha256": "5ab016cdccd9ef49daa5145cb5e6b185692e53ed342df0bdf2ed89050d6aeb7f"
+    },
+    "prepared": {
+      "path": "/root/projects/aris/sceg_dogs_baseline/experiments/sceg_dogs_author/prep/prepared.json",
+      "sha256": "abf3b2f7c9b427790efa906705ea65d2df2758d4a53ff2ac2d56531fcb3579c6"
+    },
+    "source": {
+      "path": "/root/projects/aris/sceg_dogs_baseline/data/provenance/sceg_author/source.json",
+      "sha256": "3f41569ae54cb2b915485b6708ab6ffb17faaf75f51f1223b1cc0dd9a16b5a82"
+    }
+  },
+  "datasets": {
+    "train": {
+      "root": "/root/projects/aris/sceg_dogs_baseline/data/dogs_author/StanfordDogs_fewshot/train",
+      "classes": 70,
+      "images": 11877,
+      "transforms": [
+        "RandomResizedCrop",
+        "ColorJitter",
+        "RandomHorizontalFlip",
+        "ToTensor",
+        "Normalize"
+      ]
+    },
+    "val": {
+      "root": "/root/projects/aris/sceg_dogs_baseline/data/dogs_author/StanfordDogs_fewshot/val_pre",
+      "classes": 20,
+      "images": 3325,
+      "transforms": [
+        "ToTensor",
+        "Normalize"
+      ]
+    },
+    "test": {
+      "root": "/root/projects/aris/sceg_dogs_baseline/data/dogs_author/StanfordDogs_fewshot/test_pre",
+      "classes": 30,
+      "images": 5378,
+      "transforms": [
+        "ToTensor",
+        "Normalize"
+      ]
+    }
+  },
+  "scope": "metadata hashes + ImageFolder paths/mapping; prior full image validation reused"
+}

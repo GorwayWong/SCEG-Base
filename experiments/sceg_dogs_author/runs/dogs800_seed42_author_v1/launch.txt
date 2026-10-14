@@ -1,0 +1,11 @@
+cwd: /root/projects/aris/sceg_dogs_baseline
+Actual persistent launch:
+rtk proxy screen -dmS sceg_dogs_author_seed42 env CUDA_VISIBLE_DEVICES=0 PYTHONUNBUFFERED=1 /root/projects/aris/sceg_fsfg/.venv/bin/python -m experiments.sceg_dogs_author.run --run-id dogs800_seed42_author_v1 --mode pipeline
+
+Verified screen session: 9810.sceg_dogs_author_seed42
+Initial Python PID: 9811
+GPU: physical0, NVIDIA GeForce RTX4060Ti,16380MiB
+Existing Python: /root/projects/aris/sceg_fsfg/.venv/bin/python
+The single process schedules training→four formal evaluations→report. No watchdog/restart automation was installed.
+No other CUDA compute process existed at launch. Normal training logs are in train.log; failures and resumptions are in events.jsonl.
+Resume and evaluate-only commands are in REPORT.md. Do not start a second process while this session is active; an advisory run lock also rejects duplicates.

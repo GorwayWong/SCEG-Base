@@ -1,0 +1,21 @@
+{
+  "unit_regressions": {
+    "command": "rtk proxy env CUDA_VISIBLE_DEVICES= /root/projects/aris/sceg_fsfg/.venv/bin/python -m pytest -q experiments/sceg_dogs_author/test_entrypoint.py tests/test_training_contract.py",
+    "passed": 7,
+    "seconds": 1.77,
+    "scope": "entry isolation, complete-result identity/count/statistics/disjointness, RNG roundtrip, same-run checkpoint validation, public default behavior and explicit recording/finalization options"
+  },
+  "model_check": {
+    "command": "rtk proxy env CUDA_VISIBLE_DEVICES=0 /root/projects/aris/sceg_fsfg/.venv/bin/python -m experiments.sceg_dogs_author.run --mode check",
+    "record": "model_check.json",
+    "real_training_episodes": 1,
+    "validation_episodes": 3,
+    "test_episodes": 0,
+    "model_weights_saved": false,
+    "formal_initialization": "fresh process, reset seed42, new model/optimizer/loader/BN/DropBlock state",
+    "expected_warning": "adaptive_max_pool2d_backward_cuda lacks deterministic implementation; explicit warn_only=true retained"
+  },
+  "git_diff_check": "passed",
+  "source_freeze": "execution_sources.json; tracked edits in git_diff.patch, untracked entry files in source_snapshot/",
+  "scope": "Only new author task, experiments/INDEX.md, and three default-preserving trainer options. No CUB, ProKeR, archives, or prepared data writes. No commit, push or merge."
+}

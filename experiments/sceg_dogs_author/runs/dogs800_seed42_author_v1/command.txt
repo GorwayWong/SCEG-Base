@@ -1,0 +1,1 @@
+/root/projects/aris/sceg_fsfg/.venv/bin/python -m experiments.sceg_dogs_author.run --run-id dogs800_seed42_author_v1 --mode pipeline

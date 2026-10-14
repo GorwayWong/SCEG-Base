@@ -8,6 +8,7 @@ gradient accumulation, clipping, early stopping, or alternative method.
 from pathlib import Path
 import numpy as np
 import random
+import time
 import torch
 from datasets import make_loader
 from evaluators import evaluate_episodes
@@ -65,6 +66,7 @@ def train(model, config, run, resume=None):
     (run.path/"model_summary.txt").write_text(str(model))
     write_json(run.path/"parameter_summary.json", parameter_summary(model))
     for epoch in range(first_epoch, config["train"]["epochs"]):
+        epoch_started = time.perf_counter()
         model.train()
         # Recreate both loss modules each epoch exactly as official default_train.
         criterion = IntraInterLoss(settings["train_way"], **config["loss"]).to(device)
@@ -72,7 +74,7 @@ def train(model, config, run, resume=None):
         loss_sum, accuracy_sum, batches = 0.0, 0.0, 0
         for images, global_labels in loader:
             images, global_labels = images.to(device), global_labels.to(device)
-            if batches == 0:
+            if batches == 0 and config.get("runtime", {}).get("record_activations", True):
                 with activation_statistics(model) as activations:
                     output = model(images)
                 write_json(run.path/f"activations_epoch_{epoch+1}.json", activations)
@@ -112,16 +114,27 @@ def train(model, config, run, resume=None):
         torch.save(payload, partial); partial.replace(run.path/"latest.pth")
         if improved or best_epoch is None:
             run.checkpoint(payload)
+        timing = {}
+        if config.get("runtime", {}).get("record_epoch_timing", False):
+            timing = {"epoch_seconds": time.perf_counter()-epoch_started,
+                      "validation_accuracy": validation["accuracy"] if validation else None,
+                      "validation_ci": validation["confidence_interval"] if validation else None,
+                      "peak_cuda_memory_bytes": torch.cuda.max_memory_allocated(device)
+                          if device.type == "cuda" else 0}
         run.update_metrics(completed_epochs=epoch+1, step=step, epoch_episodes=batches,
             train_loss=loss_sum/batches, train_accuracy=accuracy_sum/batches,
             gradient_norm=gradients["global_norm"], learning_rate=scheduler.get_last_lr()[0],
             best_validation=best_validation, best_epoch=best_epoch,
-            checkpoint_role="best_validation" if best_epoch is not None else "provisional_last")
+            checkpoint_role="best_validation" if best_epoch is not None else "provisional_last", **timing)
         run.logger.info("epoch=%d/%d episodes=%d loss=%.6f train_acc=%.4f best_val=%.4f lr=%.6g",
             epoch+1, config["train"]["epochs"], batches, loss_sum/batches,
             accuracy_sum/batches, best_validation, optimizer.param_groups[0]["lr"])
     if best_epoch is None:
         raise RuntimeError("No best-validation checkpoint selected; do not report a paper result")
+    if not config.get("runtime", {}).get("post_training_evaluation", True):
+        run.update_metrics(training_completed=True, full_training_completed=True,
+                           full_evaluation_completed=False, status="running")
+        return
     payload = torch.load(run.path/"checkpoint.pth", map_location=device, weights_only=False)
     model.load_state_dict(payload["model_state_dict"], strict=True)
     results = []

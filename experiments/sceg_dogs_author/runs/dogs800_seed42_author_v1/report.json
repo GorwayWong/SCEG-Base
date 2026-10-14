@@ -1,0 +1,76 @@
+{
+  "status": "running",
+  "protocol_id": "sceg_author_dogs_v1",
+  "training_completed": true,
+  "full_evaluation_completed": false,
+  "completed_epochs": 800,
+  "best_epoch": 520,
+  "best_sha256": "1939b5e0513b88702dcc06a9413f67c14e247cea1d4be0eb51b2c3ba1810b7bb",
+  "results": {
+    "5way_1shot": {
+      "way": 5,
+      "shot": 1,
+      "query": 16,
+      "episodes": 2000,
+      "accuracy": 77.164375,
+      "confidence_interval": 0.48261395676014957,
+      "seconds": 215.55590190500516,
+      "peak_cuda_memory_bytes": 1126520832,
+      "checkpoint_sha256": "1939b5e0513b88702dcc06a9413f67c14e247cea1d4be0eb51b2c3ba1810b7bb",
+      "statistics_recomputed": true
+    },
+    "5way_5shot": {
+      "way": 5,
+      "shot": 5,
+      "query": 16,
+      "episodes": 2000,
+      "accuracy": 88.74,
+      "confidence_interval": 0.25689938773769,
+      "seconds": 264.07077572800335,
+      "peak_cuda_memory_bytes": 1345182720,
+      "checkpoint_sha256": "1939b5e0513b88702dcc06a9413f67c14e247cea1d4be0eb51b2c3ba1810b7bb",
+      "statistics_recomputed": true
+    },
+    "30way_1shot": {
+      "way": 30,
+      "shot": 1,
+      "query": 16,
+      "episodes": 2000,
+      "accuracy": 47.075625,
+      "confidence_interval": 0.17108572940672737,
+      "seconds": 17290.946801097998,
+      "peak_cuda_memory_bytes": 5768955904,
+      "checkpoint_sha256": "1939b5e0513b88702dcc06a9413f67c14e247cea1d4be0eb51b2c3ba1810b7bb",
+      "statistics_recomputed": true
+    },
+    "30way_5shot": null
+  },
+  "train_validation_checkpoint_seconds": 46060.102688835934,
+  "peak_train_cuda_memory_bytes": 10383925248,
+  "commands": {
+    "train": "rtk proxy env CUDA_VISIBLE_DEVICES=0 /root/projects/aris/sceg_fsfg/.venv/bin/python -m experiments.sceg_dogs_author.run --run-id dogs800_seed42_author_v1 --mode pipeline",
+    "resume": "rtk proxy env CUDA_VISIBLE_DEVICES=0 /root/projects/aris/sceg_fsfg/.venv/bin/python -m experiments.sceg_dogs_author.run --run-id dogs800_seed42_author_v1 --mode pipeline --resume",
+    "evaluate_only": "rtk proxy env CUDA_VISIBLE_DEVICES=0 /root/projects/aris/sceg_fsfg/.venv/bin/python -m experiments.sceg_dogs_author.run --run-id dogs800_seed42_author_v1 --mode evaluate",
+    "status": "rtk proxy env CUDA_VISIBLE_DEVICES=0 /root/projects/aris/sceg_fsfg/.venv/bin/python -m experiments.sceg_dogs_author.run --run-id dogs800_seed42_author_v1 --mode status"
+  },
+  "updated_at": "2026-10-14T12:04:35.109757+00:00",
+  "initialization": "random; no pretrained weights",
+  "training_seeds": [
+    42
+  ],
+  "class_counts": [
+    70,
+    20,
+    30
+  ],
+  "image_counts": [
+    11877,
+    3325,
+    5378
+  ],
+  "ci_scope": "episode sampling conditional on one trained model; not multi-training-seed stability",
+  "failure_and_resume_record": "events.jsonl",
+  "source": "execution_sources.json + git_commit.txt + git_diff.patch + source_snapshot/",
+  "recipe": "source_snapshot/recipe.md or repository recipe.md at the recorded version",
+  "uncertainty": "Dogs-specific complete training command unconfirmed; lambda38 and other run.sh choices inherited from public CUB script"
+}

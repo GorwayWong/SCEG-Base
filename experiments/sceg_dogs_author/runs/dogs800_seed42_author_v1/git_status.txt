@@ -1,0 +1,8 @@
+ M trainers/trainer.py
+?? experiments/sceg_dogs_author/.dogs800_seed42_author_v1.lock
+?? experiments/sceg_dogs_author/checks/
+?? experiments/sceg_dogs_author/config.yaml
+?? experiments/sceg_dogs_author/recipe.md
+?? experiments/sceg_dogs_author/run.py
+?? experiments/sceg_dogs_author/runs/
+?? experiments/sceg_dogs_author/test_entrypoint.py

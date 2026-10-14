@@ -1,0 +1,16 @@
+{"at": "2026-10-13T16:50:56.183917+00:00", "event": "invocation", "mode": "pipeline", "resume": false, "pid": 9811, "command": "/root/projects/aris/sceg_fsfg/.venv/bin/python -m experiments.sceg_dogs_author.run --run-id dogs800_seed42_author_v1 --mode pipeline"}
+{"at": "2026-10-13T16:50:56.455437+00:00", "event": "training_started", "completed_epochs": 0}
+{"at": "2026-10-14T05:38:37.281454+00:00", "event": "training_completed"}
+{"at": "2026-10-14T05:38:37.781442+00:00", "event": "evaluation_started", "setting": "5way_1shot"}
+{"at": "2026-10-14T05:42:13.710373+00:00", "event": "evaluation_completed", "setting": "5way_1shot", "way": 5, "shot": 1, "query": 16, "episodes": 2000, "accuracy": 77.164375, "confidence_interval": 0.48261395676014957, "seconds": 215.55590190500516, "peak_cuda_memory_bytes": 1126520832, "checkpoint_sha256": "1939b5e0513b88702dcc06a9413f67c14e247cea1d4be0eb51b2c3ba1810b7bb", "statistics_recomputed": true}
+{"at": "2026-10-14T05:42:13.715523+00:00", "event": "evaluation_started", "setting": "5way_5shot"}
+{"at": "2026-10-14T05:46:38.221197+00:00", "event": "evaluation_completed", "setting": "5way_5shot", "way": 5, "shot": 5, "query": 16, "episodes": 2000, "accuracy": 88.74, "confidence_interval": 0.25689938773769, "seconds": 264.07077572800335, "peak_cuda_memory_bytes": 1345182720, "checkpoint_sha256": "1939b5e0513b88702dcc06a9413f67c14e247cea1d4be0eb51b2c3ba1810b7bb", "statistics_recomputed": true}
+{"at": "2026-10-14T05:46:38.226782+00:00", "event": "evaluation_started", "setting": "30way_1shot"}
+{"at": "2026-10-14T10:34:51.227168+00:00", "event": "evaluation_completed", "setting": "30way_1shot", "way": 30, "shot": 1, "query": 16, "episodes": 2000, "accuracy": 47.075625, "confidence_interval": 0.17108572940672737, "seconds": 17290.946801097998, "peak_cuda_memory_bytes": 5768955904, "checkpoint_sha256": "1939b5e0513b88702dcc06a9413f67c14e247cea1d4be0eb51b2c3ba1810b7bb", "statistics_recomputed": true}
+{"at": "2026-10-14T10:34:51.238430+00:00", "event": "evaluation_started", "setting": "30way_5shot"}
+{"at": "2026-10-14T12:03:06+00:00", "event": "interruption_observed", "setting": "30way_5shot", "previous_pid": 9811, "screen_session_present": false, "failure_event_recorded": false, "cause": "unresolved; process and screen absent, no trainer failure record", "recovery": "evaluate-only from this setting's saved RNG boundary; retain the three complete settings and same best checkpoint"}
+{"at": "2026-10-14T12:04:32.674275+00:00", "event": "invocation", "mode": "evaluate", "resume": false, "pid": 2731, "command": "/root/projects/aris/sceg_fsfg/.venv/bin/python -m experiments.sceg_dogs_author.run --run-id dogs800_seed42_author_v1 --mode evaluate"}
+{"at": "2026-10-14T12:04:36.302247+00:00", "event": "reuse_complete_evaluation", "setting": "5way_1shot"}
+{"at": "2026-10-14T12:04:36.690176+00:00", "event": "reuse_complete_evaluation", "setting": "5way_5shot"}
+{"at": "2026-10-14T12:04:38.434656+00:00", "event": "reuse_complete_evaluation", "setting": "30way_1shot"}
+{"at": "2026-10-14T12:04:38.439050+00:00", "event": "evaluation_started", "setting": "30way_5shot"}
