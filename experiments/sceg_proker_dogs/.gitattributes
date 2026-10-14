@@ -1,0 +1,4 @@
+# Preserve recorded artifact/source bytes and their SHA256 across checkouts.
+runs/** -text
+# Python's csv writer emitted CRLF; keep those original experiment bytes.
+runs/**/*.csv whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

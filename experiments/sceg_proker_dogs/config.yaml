@@ -1,0 +1,27 @@
+experiment: sceg_proker_dogs
+run_id: dogs_seed42_proker_transfer_v1
+dogs_root: /root/projects/aris/sceg_dogs_baseline
+dogs_run: experiments/sceg_dogs_author/runs/dogs800_seed42_author_v1
+checkpoint_sha256: 1939b5e0513b88702dcc06a9413f67c14e247cea1d4be0eb51b2c3ba1810b7bb
+dogs_commit: 727a6b1b3e9e60dd57cc0d2e7e4e014bb16abb6f
+proker_root: /root/projects/aris/sceg_proker
+proker_commit: 3b95006c2f0ebe71e19e64668a796fe6a65c6a8a
+proker_head_sha256: cde51fdb07ac72916da6ceb9c1c6bc40e9852b36cc116108fbece23f38c9089f
+parameter_lock: experiments/sceg_proker/runs/20261012_cub_seed42_proker_v1/locked_parameters.json
+parameter_lock_sha256: fc90d35929aae807f08bd82b089cf36bd0a73b6187556978a730e493de7bac98
+parameters:
+  1:
+    proker: {beta: 10.0, ridge_lambda: 1.0, residual_weight: 1.0}
+    ridge: {ridge_lambda: 100.0}
+  5:
+    proker: {beta: 1.0, ridge_lambda: 0.1, residual_weight: 1.5}
+    ridge: {ridge_lambda: 0.1}
+encoding_batch_size: 48
+workers: 2
+cpu_threads: 2
+settings: [[5, 1], [5, 5], [30, 1], [30, 5]]
+episodes: 2000
+query: 16
+online_check_episodes_per_setting: 2
+float32_score_atol: 0.00001
+max_boundary_episodes: 8

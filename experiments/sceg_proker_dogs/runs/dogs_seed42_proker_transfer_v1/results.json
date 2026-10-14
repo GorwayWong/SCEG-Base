@@ -1,0 +1,141 @@
+{
+  "status": "completed",
+  "settings": {
+    "5way_1shot": {
+      "way": 5,
+      "shot": 1,
+      "query": 16,
+      "episodes": 2000,
+      "metrics_file": "episode_metrics_5way_1shot.csv",
+      "metrics_sha256": "6916c2f82136f75912e06a2b29226927c73826624abd861a69fc0c4a1aef1eb1",
+      "historical_source": "/root/projects/aris/sceg_dogs_baseline/experiments/sceg_dogs_author/runs/dogs800_seed42_author_v1/test_5way_1shot.json",
+      "historical_sha256": "c27dddd514d98ab5a4afa9f5d32b14122da62448fcd88963d99efe28eaf48cbc",
+      "methods": {
+        "baseline": {
+          "accuracy_pct": 77.164375,
+          "ci95_halfwidth_pp": 0.4826139567601495,
+          "head_mean_ms": 0.8016617669527477,
+          "peak_allocated_bytes": 34445312
+        },
+        "ridge": {
+          "accuracy_pct": 77.2275,
+          "ci95_halfwidth_pp": 0.4819047116339495,
+          "head_mean_ms": 1.6624290195559297,
+          "peak_allocated_bytes": 35515904,
+          "gain_pp": 0.063125,
+          "paired_ci95_halfwidth_pp": 0.025161735575820278
+        },
+        "proker": {
+          "accuracy_pct": 77.27,
+          "ci95_halfwidth_pp": 0.4807938328223439,
+          "head_mean_ms": 2.7313562915096554,
+          "peak_allocated_bytes": 35517952,
+          "gain_pp": 0.105625,
+          "paired_ci95_halfwidth_pp": 0.03453369296335826
+        }
+      }
+    },
+    "5way_5shot": {
+      "way": 5,
+      "shot": 5,
+      "query": 16,
+      "episodes": 2000,
+      "metrics_file": "episode_metrics_5way_5shot.csv",
+      "metrics_sha256": "3fdd9980c4c1e28ec3e67c15e6215ffef4a25fe0d203bbb5fe4cf3b819e8f44f",
+      "historical_source": "/root/projects/aris/sceg_dogs_baseline/experiments/sceg_dogs_author/runs/dogs800_seed42_author_v1/test_5way_5shot.json",
+      "historical_sha256": "8b9e25bb29642567e4d0b976a80de6a9b09d1f9fe678c3db083368fa113ba295",
+      "methods": {
+        "baseline": {
+          "accuracy_pct": 88.74,
+          "ci95_halfwidth_pp": 0.25689938773769,
+          "head_mean_ms": 0.7858048919788416,
+          "peak_allocated_bytes": 34598912
+        },
+        "ridge": {
+          "accuracy_pct": 88.2375,
+          "ci95_halfwidth_pp": 0.26798061473733503,
+          "head_mean_ms": 1.6111933175598097,
+          "peak_allocated_bytes": 35825152,
+          "gain_pp": -0.5025,
+          "paired_ci95_halfwidth_pp": 0.12386919913763873
+        },
+        "proker": {
+          "accuracy_pct": 89.00625,
+          "ci95_halfwidth_pp": 0.25517649768101686,
+          "head_mean_ms": 2.664297760995396,
+          "peak_allocated_bytes": 35827200,
+          "gain_pp": 0.26625,
+          "paired_ci95_halfwidth_pp": 0.07291849929030356
+        }
+      }
+    },
+    "30way_1shot": {
+      "way": 30,
+      "shot": 1,
+      "query": 16,
+      "episodes": 2000,
+      "metrics_file": "episode_metrics_30way_1shot.csv",
+      "metrics_sha256": "758f865f6ae5fdcd15c3a0b24e5b29804964a85076f13c201b8f845c29e51355",
+      "historical_source": "/root/projects/aris/sceg_dogs_baseline/experiments/sceg_dogs_author/runs/dogs800_seed42_author_v1/test_30way_1shot.json",
+      "historical_sha256": "0e350cd06503acc3a27cd03b57626d61b3165d6c4637ee800d08b2178affbcf7",
+      "methods": {
+        "baseline": {
+          "accuracy_pct": 47.075625,
+          "ci95_halfwidth_pp": 0.1710857294067274,
+          "head_mean_ms": 0.7738525605273026,
+          "peak_allocated_bytes": 39031808
+        },
+        "ridge": {
+          "accuracy_pct": 47.45833333333333,
+          "ci95_halfwidth_pp": 0.16892345807347184,
+          "head_mean_ms": 4.467058024471044,
+          "peak_allocated_bytes": 45552128,
+          "gain_pp": 0.3827083333333333,
+          "paired_ci95_halfwidth_pp": 0.03141703902907094
+        },
+        "proker": {
+          "accuracy_pct": 47.493854166666665,
+          "ci95_halfwidth_pp": 0.16988522463605862,
+          "head_mean_ms": 5.521508616006031,
+          "peak_allocated_bytes": 45609984,
+          "gain_pp": 0.4182291666666667,
+          "paired_ci95_halfwidth_pp": 0.034201961669978125
+        }
+      }
+    },
+    "30way_5shot": {
+      "way": 30,
+      "shot": 5,
+      "query": 16,
+      "episodes": 2000,
+      "metrics_file": "episode_metrics_30way_5shot.csv",
+      "metrics_sha256": "5a5a81442d6ed77b7ca92b418d40884eb3ec4874f251acab00abe2ea66c0503a",
+      "historical_source": "/root/projects/aris/sceg_dogs_baseline/experiments/sceg_dogs_author/runs/dogs800_seed42_author_v1/test_30way_5shot.json",
+      "historical_sha256": "f5fe6183580f1934d2638f4b7e081cfed88573b67131bd80731bb8d69c85c0e3",
+      "methods": {
+        "baseline": {
+          "accuracy_pct": 66.2109375,
+          "ci95_halfwidth_pp": 0.09788225429760089,
+          "head_mean_ms": 0.7885703684751206,
+          "peak_allocated_bytes": 39954432
+        },
+        "ridge": {
+          "accuracy_pct": 63.12895833333334,
+          "ci95_halfwidth_pp": 0.09804449780566614,
+          "head_mean_ms": 4.614224813502005,
+          "peak_allocated_bytes": 47280640,
+          "gain_pp": -3.081979166666667,
+          "paired_ci95_halfwidth_pp": 0.08201040191852824
+        },
+        "proker": {
+          "accuracy_pct": 66.79,
+          "ci95_halfwidth_pp": 0.09780011093637196,
+          "head_mean_ms": 5.674985950481641,
+          "peak_allocated_bytes": 47338496,
+          "gain_pp": 0.5790624999999998,
+          "paired_ci95_halfwidth_pp": 0.04434590214993173
+        }
+      }
+    }
+  }
+}

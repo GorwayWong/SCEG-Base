@@ -1,0 +1,247 @@
+transfer:
+  experiment: sceg_proker_dogs
+  run_id: dogs_seed42_proker_transfer_v1
+  dogs_root: /root/projects/aris/sceg_dogs_baseline
+  dogs_run: experiments/sceg_dogs_author/runs/dogs800_seed42_author_v1
+  checkpoint_sha256: 1939b5e0513b88702dcc06a9413f67c14e247cea1d4be0eb51b2c3ba1810b7bb
+  dogs_commit: 727a6b1b3e9e60dd57cc0d2e7e4e014bb16abb6f
+  proker_root: /root/projects/aris/sceg_proker
+  proker_commit: 3b95006c2f0ebe71e19e64668a796fe6a65c6a8a
+  proker_head_sha256: cde51fdb07ac72916da6ceb9c1c6bc40e9852b36cc116108fbece23f38c9089f
+  parameter_lock: experiments/sceg_proker/runs/20261012_cub_seed42_proker_v1/locked_parameters.json
+  parameter_lock_sha256: fc90d35929aae807f08bd82b089cf36bd0a73b6187556978a730e493de7bac98
+  parameters:
+    1:
+      proker:
+        beta: 10.0
+        ridge_lambda: 1.0
+        residual_weight: 1.0
+      ridge:
+        ridge_lambda: 100.0
+    5:
+      proker:
+        beta: 1.0
+        ridge_lambda: 0.1
+        residual_weight: 1.5
+      ridge:
+        ridge_lambda: 0.1
+  encoding_batch_size: 48
+  workers: 2
+  cpu_threads: 2
+  settings:
+  - - 5
+    - 1
+  - - 5
+    - 5
+  - - 30
+    - 1
+  - - 30
+    - 5
+  episodes: 2000
+  query: 16
+  online_check_episodes_per_setting: 2
+  float32_score_atol: 1.0e-05
+  max_boundary_episodes: 8
+frozen_sceg:
+  experiment: sceg_dogs_author
+  official_commit: f7f130aeb5b1b49246150574c53a874d4ce8de80
+  seed: 42
+  model:
+    dataset: stanford_dog
+    input_channels: 3
+    image_size: 84
+    stage_channels:
+    - 64
+    - 160
+    - 320
+    - 640
+    feature_dim: 640
+    base_classes: 70
+    train_way: 10
+    train_shot: 5
+    train_query: 15
+    transform_alpha: 0.3
+    gate_hidden_channels: 16
+    stage3_to_stage2_datasets:
+    - cub_raw
+    - stanford_dog
+    dropout: 0.1
+    dropblock_size: 5
+    dropblock_ramp_batches: 40000
+    negative_slope: 0.1
+    batchnorm_eps: 1.0e-05
+    batchnorm_momentum: 0.1
+    projection_bn_momentum: 0.01
+    episode_norm_eps: 1.0e-12
+    global_norm_eps: 1.0e-12
+    convolution_kernel: 3
+    pool_stride: 2
+  loss:
+    lamda: 38.0
+    inter: 0.05
+    intra: 0.85
+  data:
+    root: /root/projects/aris/sceg_dogs_baseline/data/dogs_author/StanfordDogs_fewshot
+    image_size: 84
+    eval_resize: 92
+    mean:
+    - 0.485
+    - 0.456
+    - 0.406
+    std:
+    - 0.229
+    - 0.224
+    - 0.225
+    crop_scale:
+    - 0.08
+    - 1.0
+    crop_ratio:
+    - 0.75
+    - 1.3333333333333333
+    jitter: 0.4
+    flip_probability: 0.5
+    pre_resized: true
+    workers: 4
+  train:
+    optimizer: sgd
+    lr: 0.1
+    momentum: 0.9
+    nesterov: true
+    weight_decay: 0.0005
+    epochs: 800
+    scheduler: StepLR
+    scheduler_step: 400
+    scheduler_gamma: 0.1
+    validation_every: 20
+  eval:
+    way: 5
+    validation_shot: 5
+    shots:
+    - 1
+    - 5
+    ways:
+    - 5
+    - 30
+    query: 16
+    validation_episodes: 1000
+    test_episodes: 2000
+    confidence_multiplier: 1.96
+  runtime:
+    device: cuda:0
+    deterministic: true
+    deterministic_warn_only: true
+    allow_tf32: false
+    amp: false
+    cpu_threads: 2
+    record_activations: false
+    record_epoch_timing: true
+    post_training_evaluation: false
+  data_protocol:
+    protocol_id: sceg_author_dogs_v1
+    prepared: experiments/sceg_dogs_author/prep/prepared.json
+    author_split_sha256: 350aa6cbc28605cfe5371354ec8f440878825fb420960e51fcc9766809c55df1
+    split_manifest_sha256: 66583f8db0e29f2f801a5901f0a2643ad505a74670bae51361b8dd6a2f6292cc
+    sample_manifest_sha256: 5ab016cdccd9ef49daa5145cb5e6b185692e53ed342df0bdf2ed89050d6aeb7f
+  run_id: dogs800_seed42_author_v1
+input_identity:
+  input_files_sha256:
+    /root/projects/aris/sceg_dogs_baseline/experiments/sceg_dogs_author/runs/dogs800_seed42_author_v1/checkpoint.pth: 1939b5e0513b88702dcc06a9413f67c14e247cea1d4be0eb51b2c3ba1810b7bb
+    /root/projects/aris/sceg_proker/experiments/sceg_proker/runs/20261012_cub_seed42_proker_v1/locked_parameters.json: fc90d35929aae807f08bd82b089cf36bd0a73b6187556978a730e493de7bac98
+    /root/projects/aris/sceg_dogs_baseline/experiments/sceg_dogs_author/runs/dogs800_seed42_author_v1/config.yaml: a27068c3873b13ff85c77bc0f9d009a6b997588d879e3b7f29b87061f1d5063c
+    /root/projects/aris/sceg_dogs_baseline/experiments/sceg_dogs_author/runs/dogs800_seed42_author_v1/REPORT.md: 8a2c5354b8116676494de5a491b49480704c65a781fd1e9e150f1d758f7313b2
+    /root/projects/aris/sceg_dogs_baseline/experiments/sceg_dogs_author/runs/dogs800_seed42_author_v1/execution_sources.json: 7203d45cd4d728d6e2e71acb0289944b5f0b66b19e6cc5d081f09cb0d95494ab
+    /root/projects/aris/sceg_dogs_baseline/experiments/sceg_dogs_author/runs/dogs800_seed42_author_v1/final_checks.json: 7c744b7f5005d33e563ced23744b3ea64418e96c77a91bfeccc9df711ca6b109
+    /root/projects/aris/sceg_dogs_baseline/experiments/sceg_dogs_author/runs/dogs800_seed42_author_v1/data_check.json: 341fff30e6302d2135e02561ff55204ebc38f4464c6cf547760e0b497843d1dc
+    /root/projects/aris/sceg_dogs_baseline/data/provenance/sceg_author/StanfordDogs_fewshot_splits.txt: 350aa6cbc28605cfe5371354ec8f440878825fb420960e51fcc9766809c55df1
+    /root/projects/aris/sceg_dogs_baseline/experiments/sceg_dogs_author/prep/split.json: 66583f8db0e29f2f801a5901f0a2643ad505a74670bae51361b8dd6a2f6292cc
+    /root/projects/aris/sceg_dogs_baseline/experiments/sceg_dogs_author/prep/samples.jsonl: 5ab016cdccd9ef49daa5145cb5e6b185692e53ed342df0bdf2ed89050d6aeb7f
+    /root/projects/aris/sceg_dogs_baseline/experiments/sceg_dogs_author/prep/prepared.json: abf3b2f7c9b427790efa906705ea65d2df2758d4a53ff2ac2d56531fcb3579c6
+    /root/projects/aris/sceg_dogs_baseline/data/provenance/sceg_author/source.json: 3f41569ae54cb2b915485b6708ab6ffb17faaf75f51f1223b1cc0dd9a16b5a82
+    /root/projects/aris/sceg_dogs_baseline/experiments/sceg_dogs_author/runs/dogs800_seed42_author_v1/test_5way_1shot.json: c27dddd514d98ab5a4afa9f5d32b14122da62448fcd88963d99efe28eaf48cbc
+    /root/projects/aris/sceg_dogs_baseline/experiments/sceg_dogs_author/runs/dogs800_seed42_author_v1/test_5way_5shot.json: 8b9e25bb29642567e4d0b976a80de6a9b09d1f9fe678c3db083368fa113ba295
+    /root/projects/aris/sceg_dogs_baseline/experiments/sceg_dogs_author/runs/dogs800_seed42_author_v1/test_30way_1shot.json: 0e350cd06503acc3a27cd03b57626d61b3165d6c4637ee800d08b2178affbcf7
+    /root/projects/aris/sceg_dogs_baseline/experiments/sceg_dogs_author/runs/dogs800_seed42_author_v1/test_30way_5shot.json: f5fe6183580f1934d2638f4b7e081cfed88573b67131bd80731bb8d69c85c0e3
+  test_png_inventory_sha256: 4d8449f1d2f614068dbfdd7c92512f1efbbbfcdf2ba827646dc39083c6297e8d
+  sample_mapping_sha256: 79ac82b73e044700b6085148d6bd15406ba0a21de73bf1fc99b0931ed4c52eeb
+  dogs_execution_sources:
+    datasets/__init__.py: b97a121266d09a11dcc1166dc055c38b26b675be2e4c793ebc0d12889345ec4f
+    datasets/cars.py: 978dc919f5e17b5d91b79eca23d77db4c0550c3051df569035335ccd3d12ed5a
+    datasets/cub.py: 094e5995a43c5b2abe36849c6f7620a0c0c36f6d43f1313733e1377fb2a55fb2
+    datasets/dogs.py: 6baff532e3e3242bcf0af26b81d13a660ac7acb6f42ba56f3c5144bcd7e31278
+    datasets/flowers.py: 5073a5d0b98f7632dc0d74bedf6fcb461e52d1f27cdad29a8520aa12a6da2327
+    datasets/folder.py: e6af785a75a68e69744c527889895c0fc225d6c2198fd6d2535e33c71fa35dc7
+    datasets/samplers.py: e92ff0bce7d01aeeec2926c45fe620d18fee1dbaf0af15a0dffb46bb9aec1ee4
+    datasets/transforms.py: 50ae8a15bf76a8b66ca602e9b2416c1b497bb7e488300009e6ceab736fdf4be2
+    evaluators/__init__.py: 0a6568c18ea985ced28ee693c888b930bfcb84ea1a98289f50d79455ff43daba
+    evaluators/fewshot_eval.py: 8259d0f76c9a2e76559df199294b0bb0cd5a20e0e046d9f49f34e0c893304d58
+    experiments/sceg_dogs_author/config.yaml: d9b1c8c168914df9bec585820f3deae9b3d20b45c2b3a62e7a200410fbba19e5
+    experiments/sceg_dogs_author/prepare.py: 88e62d97347541161046f66402fb2c351a75076dce56dbdf967b1af197cfb069
+    experiments/sceg_dogs_author/recipe.md: 5480f42692722078462aa6a8900e79f2f007a9fa157246fa3510280ff38eb507
+    experiments/sceg_dogs_author/run.py: e1cdbbf86db2aac3eb87ff8bd00ba297dd54ac40467332fda615a7df86aaebd2
+    experiments/sceg_dogs_author/test_entrypoint.py: 58ef436e8ebc65433fdd1db062f326e77c598fae9c9a8e3dba03cf55d50d222d
+    losses/__init__.py: 247682f23ee6ab0c7a8ac14d92c11688ef5f336bb75eb6bcf655c10bfc89bd57
+    losses/intra_inter_loss.py: ca45456eda12aa2bff852e5ee8d1aff0558cf1e5d3952491fc97b0892e60cf1b
+    models/__init__.py: 8b8e4a8c3a23b16b5e7a92a4d5d30e5354fe9ac0f9d7efdb82ae837ac4fbe6ae
+    models/backbone/__init__.py: 4e9b84bfdd6989f9555dc1bf73c7cdaa83cc08d853574bbe4d566de839068dbb
+    models/backbone/resnet12.py: efae5d9d29c73eee3ca4308cf559dd0c8baef357b4c76a5b14642b9ce29e3491
+    models/modules/__init__.py: ed986c39787d931e3544a0d9d2cd3e0b0b685aa4ad5be1007fc5036d8f4a99a0
+    models/modules/cosine_classifier.py: b8f5951fd0197dcbb9eff68cc84ba12d3ab930be272c8fd7441870e8b90c916d
+    models/modules/sc.py: ed7881cb681de69f870d2fd13e06bf9c5bc92449fb909161799d9c8669ac5f35
+    models/modules/transform_fc.py: eb3cb72376a7c32009b0970fc517625f05b2e17269b6e967c2672865e5dd0437
+    models/sceg.py: 4f146599c3b7475fe9c9f102a4b2ccfe5571e50cf505693c7bbc2a74f5af4a11
+    trainers/__init__.py: c975c61959a6129aea070dcab99d6cf95fa2d5b374878cce07ebacfaa53da599
+    trainers/trainer.py: c7c78a2d4ad14154512dc7c03d97de9fb01e1b862cfa47f4832e4963f47b780a
+    utils/__init__.py: 2ea78307524e490c4173108aaaced61d6d3ba04470971411669ee53fcec1d7ff
+    utils/config.py: fb30781879583e31fa29fd3c47bcd463e96cf4cf953b2e694a5d9fad7f95db24
+    utils/diagnostics.py: b0f476cb43ae5bd728bcd5c813df66b8d6b1b3caf14a6dbe209f8489dd07ce22
+    utils/experiment.py: ff3f4ad8a7e6504ec05e6dbeedae43b492a74c6d840023a113bbf204c55f0f75
+    utils/reproducibility.py: 11b4817516ad265d965296e290fdbfccd0d7b5bb230276a5e23d9f554f60330b
+  experiment_sources:
+    __init__.py: 34cbfaee2fac9a5c9a568b3bf5b8f9dbc22fd9687688ca7612b21a577b622151
+    run.py: 51d517f04ae441f78ba50d8e5c1539007e05510f1038867a6f3c37f6e5ddb5ce
+    config.yaml: d240973fbe18e0e5794ab2377e848ad036afe14faecbd286983bb5f1836d93ed
+    head.py: cde51fdb07ac72916da6ceb9c1c6bc40e9852b36cc116108fbece23f38c9089f
+  settings:
+    experiment: sceg_proker_dogs
+    run_id: dogs_seed42_proker_transfer_v1
+    dogs_root: /root/projects/aris/sceg_dogs_baseline
+    dogs_run: experiments/sceg_dogs_author/runs/dogs800_seed42_author_v1
+    checkpoint_sha256: 1939b5e0513b88702dcc06a9413f67c14e247cea1d4be0eb51b2c3ba1810b7bb
+    dogs_commit: 727a6b1b3e9e60dd57cc0d2e7e4e014bb16abb6f
+    proker_root: /root/projects/aris/sceg_proker
+    proker_commit: 3b95006c2f0ebe71e19e64668a796fe6a65c6a8a
+    proker_head_sha256: cde51fdb07ac72916da6ceb9c1c6bc40e9852b36cc116108fbece23f38c9089f
+    parameter_lock: experiments/sceg_proker/runs/20261012_cub_seed42_proker_v1/locked_parameters.json
+    parameter_lock_sha256: fc90d35929aae807f08bd82b089cf36bd0a73b6187556978a730e493de7bac98
+    parameters:
+      '1':
+        proker:
+          beta: 10.0
+          ridge_lambda: 1.0
+          residual_weight: 1.0
+        ridge:
+          ridge_lambda: 100.0
+      '5':
+        proker:
+          beta: 1.0
+          ridge_lambda: 0.1
+          residual_weight: 1.5
+        ridge:
+          ridge_lambda: 0.1
+    encoding_batch_size: 48
+    workers: 2
+    cpu_threads: 2
+    settings:
+    - - 5
+      - 1
+    - - 5
+      - 5
+    - - 30
+      - 1
+    - - 30
+      - 5
+    episodes: 2000
+    query: 16
+    online_check_episodes_per_setting: 2
+    float32_score_atol: 1.0e-05
+    max_boundary_episodes: 8

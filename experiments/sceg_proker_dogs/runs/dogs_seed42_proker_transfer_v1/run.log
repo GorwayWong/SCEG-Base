@@ -1,0 +1,28 @@
+2026-10-15 01:49:48,755 INFO input and all 8000 episode mappings verified; no Dogs parameter selection
+2026-10-15 01:49:50,173 INFO encoded 48/5378 test images
+2026-10-15 01:49:51,381 INFO encoded 1008/5378 test images
+2026-10-15 01:49:52,588 INFO encoded 1968/5378 test images
+2026-10-15 01:49:53,798 INFO encoded 2928/5378 test images
+2026-10-15 01:49:55,014 INFO encoded 3888/5378 test images
+2026-10-15 01:49:56,221 INFO encoded 4848/5378 test images
+2026-10-15 01:50:17,463 INFO historical replay 5way_1shot: 2000/2000 episode accuracies match
+2026-10-15 01:50:22,952 INFO historical replay 5way_5shot: 2000/2000 episode accuracies match
+2026-10-15 01:50:34,542 INFO historical replay 30way_1shot: 2000/2000 episode accuracies match
+2026-10-15 01:50:51,690 INFO historical replay 30way_5shot: 1999/2000 episode accuracies match
+2026-10-15 01:50:55,335 INFO formal 5way_1shot: 500/2000 episodes
+2026-10-15 01:50:58,385 INFO formal 5way_1shot: 1000/2000 episodes
+2026-10-15 01:51:01,652 INFO formal 5way_1shot: 1500/2000 episodes
+2026-10-15 01:51:04,973 INFO formal 5way_1shot: 2000/2000 episodes
+2026-10-15 01:51:08,237 INFO formal 5way_5shot: 500/2000 episodes
+2026-10-15 01:51:11,418 INFO formal 5way_5shot: 1000/2000 episodes
+2026-10-15 01:51:14,683 INFO formal 5way_5shot: 1500/2000 episodes
+2026-10-15 01:51:17,800 INFO formal 5way_5shot: 2000/2000 episodes
+2026-10-15 01:51:24,131 INFO formal 30way_1shot: 500/2000 episodes
+2026-10-15 01:51:30,469 INFO formal 30way_1shot: 1000/2000 episodes
+2026-10-15 01:51:36,787 INFO formal 30way_1shot: 1500/2000 episodes
+2026-10-15 01:51:43,393 INFO formal 30way_1shot: 2000/2000 episodes
+2026-10-15 01:51:49,966 INFO formal 30way_5shot: 500/2000 episodes
+2026-10-15 01:51:56,374 INFO formal 30way_5shot: 1000/2000 episodes
+2026-10-15 01:52:02,877 INFO formal 30way_5shot: 1500/2000 episodes
+2026-10-15 01:52:09,414 INFO formal 30way_5shot: 2000/2000 episodes
+2026-10-15 01:52:10,987 INFO completed: four settings / 8000 episodes, statistics and historical preservation passed
