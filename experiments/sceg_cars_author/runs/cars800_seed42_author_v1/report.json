@@ -1,8 +1,8 @@
 {
-  "status": "evaluating",
+  "status": "completed",
   "protocol_id": "sceg_author_cars_v1",
   "training_completed": true,
-  "full_evaluation_completed": false,
+  "full_evaluation_completed": true,
   "completed_epochs": 800,
   "best_epoch": 660,
   "best_sha256": "d4cf951237d05dbc751d9bc6196bd7fcc5d7cce9bed2c0b6dcbe0e9bca45168f",
@@ -31,8 +31,36 @@
       "checkpoint_sha256": "d4cf951237d05dbc751d9bc6196bd7fcc5d7cce9bed2c0b6dcbe0e9bca45168f",
       "statistics_recomputed": true
     },
-    "49way_1shot": null,
-    "49way_5shot": null
+    "49way_1shot": {
+      "way": 49,
+      "shot": 1,
+      "query": 16,
+      "episodes": 2000,
+      "accuracy": 62.198469387755104,
+      "confidence_interval": 0.12127493351884389,
+      "seconds": 2068.877141534991,
+      "peak_cuda_memory_bytes": 1505639936,
+      "checkpoint_sha256": "d4cf951237d05dbc751d9bc6196bd7fcc5d7cce9bed2c0b6dcbe0e9bca45168f",
+      "statistics_recomputed": true,
+      "encoding_chunk_size": 128,
+      "first_episode_seconds": 1.972243554002489,
+      "first_episode_peak_cuda_memory_bytes": 1504737280
+    },
+    "49way_5shot": {
+      "way": 49,
+      "shot": 5,
+      "query": 16,
+      "episodes": 2000,
+      "accuracy": 82.50950255102042,
+      "confidence_interval": 0.06627422900107931,
+      "seconds": 2531.2762722540065,
+      "peak_cuda_memory_bytes": 1507707904,
+      "checkpoint_sha256": "d4cf951237d05dbc751d9bc6196bd7fcc5d7cce9bed2c0b6dcbe0e9bca45168f",
+      "statistics_recomputed": true,
+      "encoding_chunk_size": 128,
+      "first_episode_seconds": 2.122465314998408,
+      "first_episode_peak_cuda_memory_bytes": 1506703360
+    }
   },
   "train_validation_checkpoint_seconds": 38216.260306855,
   "train_seconds": 32857.49611833701,
@@ -44,7 +72,7 @@
     "evaluate_only": "rtk proxy env CUDA_VISIBLE_DEVICES=0 /root/projects/aris/sceg_fsfg/.venv/bin/python -m experiments.sceg_cars_author.run --run-id cars800_seed42_author_v1 --mode evaluate",
     "status": "rtk proxy env CUDA_VISIBLE_DEVICES=0 /root/projects/aris/sceg_fsfg/.venv/bin/python -m experiments.sceg_cars_author.run --run-id cars800_seed42_author_v1 --mode status"
   },
-  "updated_at": "2026-10-16T14:30:35.560384+00:00",
+  "updated_at": "2026-10-16T15:47:40.332263+00:00",
   "initialization": "random; no pretrained weights",
   "training_seeds": [
     42
@@ -63,8 +91,10 @@
   "failure_and_resume_record": "events.jsonl",
   "source": "execution_sources.json + git_commit.txt + git_diff.patch + source_snapshot/",
   "recipe": "source_snapshot/recipe.md or repository recipe.md at the recorded version",
-  "latest_sha256": null,
-  "disk_bytes": 315771792,
+  "latest_sha256": "bce92de8765b82695de417e246eb311f5a5fa40a94a8d0909fa14dc37d01999b",
+  "disk_bytes": 362716227,
+  "disk_bytes_measurement": "at completion, before the later user-authorized cleanup",
+  "cleanup_record": "cleanup.json",
   "evaluation_execution_record": "evaluation_execution.json",
   "uncertainty": "Cars complete command and actual original temperature unconfirmed; lambda36 is generic parser default; mirror pixels not verified against original archive"
 }

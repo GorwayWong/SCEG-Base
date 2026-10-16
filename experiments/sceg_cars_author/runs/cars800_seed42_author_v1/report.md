@@ -1,9 +1,7 @@
 # Cars original SCEG — author split
 
-Optimization progress snapshot, 2026-10-16 22:32 +08:00: the two 5-way files and both checkpoints are preserved byte-for-byte. Chunk=128 passed the existing 1e-5 absolute/relative tolerance on two original 5-way validation tasks, including embeddings, prototypes, scores and predictions. Formal 49-way 1-shot reached 100/2000 tasks in 105.52s (1.055s/task), peak PyTorch allocated 1.402 GiB. Windows adapter memory was about 2.86 GiB dedicated / 0.14 GiB shared after restart, compared with about 15.65 / 10.02 GiB during the slow run; these are host snapshots, not PyTorch allocated. The old short observation was about 34s/task, not a complete-setting average. Fresh-process restart and chunking were applied together; tensor retention alone is not proven to explain the historical slowdown. 49-way 5-shot is pending. Overall evaluation is **not completed**. The same process continues both missing settings; full results and this report are updated at setting completion. Sparse live progress: `train.log`; check/resource/source record: `evaluation_execution.json`; exact three-file implementation delta: `evaluation_source.patch`. No training/config/model changes or extra GPU jobs were made in this optimization stage.
-
-Status: **evaluating**; epochs: 800/800.
-Training completed: True; full evaluation completed: False.
+Status: **completed**; epochs: 800/800.
+Training completed: True; full evaluation completed: True.
 
 Protocol: sceg_author_cars_v1. Classes 130/17/49; original images 10747/1410/4028 (16185 total).
 Original annotation class IDs (1..196) map through author membership to zero-padded folders; ImageFolder train labels are 0..129; episode labels are 0..way-1. Original train/test filename prefixes prevent collisions.
@@ -14,12 +12,14 @@ Best epoch: 660; best SHA256: d4cf951237d05dbc751d9bc6196bd7fcc5d7cce9bed2c0b6dc
 |---|---:|---:|---:|---:|---:|
 | 5way_1shot | 90.252500 | 0.333381 | 2000 | 214.56 | 1191471616 |
 | 5way_5shot | 96.929375 | 0.146079 | 2000 | 263.03 | 1410168832 |
-| 49way_1shot | null | null | null | null | null |
-| 49way_5shot | null | null | null | null | null |
+| 49way_1shot | 62.198469 | 0.121275 | 2000 | 2068.88 | 1505639936 |
+| 49way_5shot | 82.509503 | 0.066274 | 2000 | 2531.28 | 1507707904 |
 
 49-way resource adaptation: FP32/no-grad encoding in chunks of 128, then the original full-episode classify. BN fixed; DropBlock counters advance once per logical episode. Training config, best and sampling protocol unchanged.
 Numerical check: passed, two 5-way validation tasks; atol/rtol={'atol': 1e-05, 'rtol': 1e-05}. Evidence and source identity: evaluation_execution.json; exact changes: evaluation_source.patch.
 Earlier slow run used about 15.22 GiB dedicated + 9.99 GiB shared GPU memory at the Windows VM level and briefly advanced about 34s/episode. This is not the same measurement as PyTorch peak allocated. Extra intermediate tensor residency is a contributor, not a proven complete explanation; the historical CUB result also argues against treating tensor retention alone as sufficient cause.
+49way_1shot: chunk=128, total/2000=1.034s per episode; first episode (includes loader startup)=1.972s, first peak allocated=1.401GiB; full-setting peak allocated=1.402GiB.
+49way_5shot: chunk=128, total/2000=1.266s per episode; first episode (includes loader startup)=2.122s, first peak allocated=1.403GiB; full-setting peak allocated=1.404GiB.
 
 CI = 1.96 × sqrt(var(episode_accuracy, ddof=0) / 2000), in percentage points. All available summaries are recomputed from raw arrays.
 One trained model: this CI describes episode sampling only, not variation across training seeds.
@@ -29,11 +29,11 @@ Training compute/data time: 32857.50s; validation time: 5273.10s.
 Interrupted partial epochs are not included in epoch totals; invocation starts, failures and resumes are in events.jsonl.
 
 Recipe provenance: recipe.md. Cars intra=0.65 explicitly uses the paper value through the official parameter interface; fixed lambda36 is the generic parser default, not a confirmed Cars-specific training temperature. The Cars g_st gate still executes and updates BN but its output is discarded. No model formulas changed.
-Run disk bytes (including two checkpoints when present): 315771792. Raw-image mirror equivalence to the original Stanford archive is unverified; full images were not cropped/re-encoded for training.
+Run disk bytes at completion, before cleanup (including both checkpoints): 362716227. The subsequent cleanup removed 39 non-best validation detail files after checking all means/CIs against epoch summaries; epoch history, best validation raw data and all formal tests remain. See cleanup.json for exact deletion scope and retained-file hashes. Raw-image mirror equivalence to the original Stanford archive is unverified; full images were not cropped/re-encoded for training.
 Original source: git_commit.txt + git_diff.patch + source_snapshot/ + execution_sources.json. Inference-only updates, when present: evaluation_source.patch + evaluation_execution.json. Original environment and training config remain preserved; resume_commands.txt records subsequent invocations.
 Input fingerprints: data_check.json, referencing the original prep manifests without duplicating their sample list.
 Raw tests bind the same best SHA and split SHA, with class names, sample indices, relative paths and episode accuracy; evaluation_boundaries.json preserves retries' RNG.
-This task changes only the author entry and optional public trainer recording/finalization. CUB, ProKeR and archives are not written. No ProKeR gain is computed.
+Implementation changes comprise the Cars entry/preparation, optional public trainer timing, and optional chunked evaluation; model formulas and training settings were preserved. CUB, Dogs, ProKeR and archives were not modified. No ProKeR gain is computed. This run is complete: the commands below are retained for reproducibility; continuation of a completed run returns without recomputation, and fresh training must use a different run ID.
 
 Commands (cwd: /root/projects/aris/sceg_cars_author):
 

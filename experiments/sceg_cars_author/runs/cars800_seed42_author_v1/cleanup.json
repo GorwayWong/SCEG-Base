@@ -1,0 +1,52 @@
+{
+  "status": "completed",
+  "date": "2026-10-17",
+  "authorization": "User requested audit, removal of redundant/outdated files from this work, disk cleanup, commit and push",
+  "scope": "Cars worktree only; no images, environment, other worktrees, CUB/Dogs/ProKeR/archive evidence or weights removed",
+  "deleted_files": 75,
+  "logical_bytes_removed": 49045920,
+  "allocated_bytes_released": 49213440,
+  "groups": [
+    {
+      "pattern": "runs/cars800_seed42_author_v1/validation_epoch_{epoch}.json",
+      "epochs": [20,40,60,80,100,120,140,160,180,200,220,240,260,280,300,320,340,360,380,400,420,440,460,480,500,520,540,560,580,600,620,640,680,700,720,740,760,780,800],
+      "files": 39,
+      "bytes": 48821268,
+      "reason": "Non-best per-task validation detail; all 40 validation means and ddof=0 CIs independently matched the retained epoch history before removal. Best epoch660 raw validation remains.",
+      "limitation": "Non-best validation per-episode lists are no longer retained locally; their epoch summaries remain. All four formal test per-episode records are preserved."
+    },
+    {
+      "pattern": "Python __pycache__/*.pyc under this worktree's Cars/public-code directories and .pytest_cache",
+      "files": 34,
+      "bytes": 131711,
+      "reason": "Regenerable interpreter/test caches; no source removed"
+    },
+    {
+      "paths": ["experiments/sceg_cars_author/console.log", "experiments/sceg_cars_author/.cars800_seed42_author_v1.lock"],
+      "files": 2,
+      "bytes": 92941,
+      "reason": "All 850 timestamped console lines already exist in train.log; interruption traceback is retained in events.jsonl and the CUDA determinism warning in launch.json. No live Cars process held the zero-byte lock."
+    }
+  ],
+  "retained_evidence": ["both best/latest checkpoints", "all four complete formal test records", "best validation raw record", "800-epoch summaries and curves", "full sample mapping and data provenance", "RNG boundaries", "source snapshots and inference patch", "numerical/entry/data checks", "historical slow-run and user-pause records", "one authoritative training/progress log"],
+  "protected_sha256": {
+    "latest.pth": "bce92de8765b82695de417e246eb311f5a5fa40a94a8d0909fa14dc37d01999b",
+    "checkpoint.pth": "d4cf951237d05dbc751d9bc6196bd7fcc5d7cce9bed2c0b6dcbe0e9bca45168f",
+    "config.yaml": "8c97a7b2829043531c3ec3b9663b8a1c3b0c9d1dda829d7fb31ac4c851614553",
+    "epochs.jsonl": "6b9a1048805e2fb5125366fe5fead41f875f766419cbadcb9827f587d3db7f74",
+    "curves.csv": "024bbbc9cd118f0f9be1ccb9d344e288654545e0c76bd40f72394479359acdc0",
+    "evaluation_boundaries.json": "b4bb617238c82371a7b08c502385d691dbc129c7f5f7b361d28229b328fefcee",
+    "evaluation_execution.json": "919c1ab310122b4849cc6b245d3e59bfc13110c95a96b3f77fbc1c03068df884",
+    "evaluation_source.patch": "3b4ec97c09b70d5b91753d1cdcba6c3b80ec253c9c875e703c8234fe935fe92c",
+    "execution_sources.json": "476ba14e1ad47a07e4418582c788ef91335447928bf70e88b7b81cb4e0aa9b74",
+    "validation_epoch_660.json": "5e4b813c05abdd331e7ea371fc666affb954d6e9838c20b148c3d18556e3eacc",
+    "test_5way_1shot.json": "72dc4692696c8d3d9923c00f0a26ee2d54e0383fb38a2a9d16aa8427705002e4",
+    "test_5way_5shot.json": "76049a406a89b5153632f1c3d5840ef998e510362dcc2861a196633926f203e2",
+    "test_49way_1shot.json": "3002c17dc2dc147372c351b9d640f9e62dde443abd852c81c51b1270668cb4d1",
+    "test_49way_5shot.json": "8f9a8f10ff1296bcfcebc5ec7cb8c8da2aa0039d0bd9af3c3d5dae51a47d844c"
+  },
+  "document_updates": "Index now identifies the completed Cars baseline; old slow-run report is explicitly historical; final report corrects implementation scope and labels its pre-cleanup disk measurement. Completed metrics no longer carry an active interruption_kind; the historical pause link is correctly scoped, including in the experiment-level result pointer.",
+  "source_code_changed": false,
+  "formal_results_changed": false,
+  "new_gpu_work": false
+}
