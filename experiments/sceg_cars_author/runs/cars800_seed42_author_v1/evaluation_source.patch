@@ -1,0 +1,289 @@
+--- a/evaluators/fewshot_eval.py
++++ b/evaluators/fewshot_eval.py
+@@ -1,12 +1,27 @@
+ """Official trainers/eval.py protocol, with explicit raw episode accuracies and CI."""
+ from pathlib import Path
++import time
+ import numpy as np
+ import torch
+ from datasets import make_loader
+ 
+ 
+ @torch.no_grad()
+-def evaluate_episodes(model, config, split, way, shot, episodes):
++def encode_in_chunks(model, images, chunk_size):
++    """CPU images -> ordered GPU embeddings; one logical eval forward per episode."""
++    assert not model.training
++    device = next(model.parameters()).device
++    counters = [(m, m.num_batches_tracked) for m in model.modules() if hasattr(m, "ramp_batches")]
++    parts = [model.encode(chunk.to(device)) for chunk in images.split(chunk_size)]
++    # Official eval increments these plain counters, but DropBlock is inactive.
++    # Chunk count must not change the continuation state of the next episode.
++    for module, before in counters:
++        module.num_batches_tracked = before + 1
++    return tuple(torch.cat(branch, dim=0) for branch in zip(*parts))
++
++
++@torch.no_grad()
++def evaluate_episodes(model, config, split, way, shot, episodes, *, encode_chunk_size=None, logger=None):
+     if config["eval"]["query"] != 16:
+         raise ValueError("Official evaluation sampler requires actual query=16 (D05)")
+     if episodes <= 0:
+@@ -16,18 +31,33 @@
+     device = next(model.parameters()).device
+     targets = torch.arange(way, device=device).repeat_interleave(config["eval"]["query"])
+     accuracies = []
++    started = time.perf_counter()
++    execution = {}
+     for images, global_labels in loader:
+         support_labels = global_labels[:way*shot].reshape(way, shot)
+         query_labels = global_labels[way*shot:].reshape(way, config["eval"]["query"])
+         assert (support_labels == support_labels[:, :1]).all()
+         assert (query_labels == support_labels[:, :1]).all(), "Support/query class order changed"
+         assert support_labels[:, 0].unique().numel() == way
+-        output = model(images.to(device), way=way, shot=shot)
++        if encode_chunk_size is None:
++            output = model(images.to(device), way=way, shot=shot)
++        else:
++            output = model.classify(encode_in_chunks(model, images, encode_chunk_size), way, shot)
+         assert output.scores.shape[0] == targets.numel()
+         predictions = output.scores.argmax(dim=1)
+         accuracies.append(100*(predictions == targets).sum().item()/targets.numel())
++        if len(accuracies) == 1 and encode_chunk_size is not None:
++            execution = {"encoding_chunk_size": encode_chunk_size,
++                         "first_episode_seconds": time.perf_counter()-started,
++                         "first_episode_peak_cuda_memory_bytes": torch.cuda.max_memory_allocated(device),
++                         "dropblock_counter_policy": "one logical increment per episode"}
++        if logger is not None and (len(accuracies) == 1 or len(accuracies) % 100 == 0):
++            logger.info("eval %dway_%dshot episodes=%d/%d elapsed=%.2fs mean=%.3fs/episode peak_allocated=%.3fGiB chunk=%s",
++                        way, shot, len(accuracies), episodes, time.perf_counter()-started,
++                        (time.perf_counter()-started)/len(accuracies), torch.cuda.max_memory_allocated(device)/2**30,
++                        encode_chunk_size)
+     values = np.array(accuracies)
+-    return {"seed": config["seed"], "dataset": config["model"]["dataset"], "split": split,
++    return {**execution, "seed": config["seed"], "dataset": config["model"]["dataset"], "split": split,
+             "way": way, "shot": shot, "query": config["eval"]["query"],
+             "episodes": len(accuracies), "accuracy": float(values.mean()),
+             "confidence_interval": float(config["eval"]["confidence_multiplier"]*
+--- a/experiments/sceg_cars_author/check_chunked.py
++++ b/experiments/sceg_cars_author/check_chunked.py
+@@ -0,0 +1,109 @@
++"""One small validation check and an auditable inference-only source update."""
++import difflib
++import hashlib
++import subprocess
++
++import torch
++
++from datasets import make_loader
++from evaluators.fewshot_eval import encode_in_chunks
++from models import SCEG
++from trainers.trainer import dropblock_counters
++from utils.config import ModelConfig, load_config
++from utils.experiment import write_json
++from experiments.sceg_cars_author import run
++
++
++@torch.no_grad()
++def main():
++    path = run.HERE / 'runs/cars800_seed42_author_v1'
++    config = load_config(path / 'config.yaml')
++    original_sources = run.read_json(path / 'execution_sources.json')
++    sources = run.source_identity()
++    changed = {name for name, sha in sources.items() if original_sources.get(name) != sha}
++    assert changed == {'evaluators/fewshot_eval.py', 'experiments/sceg_cars_author/run.py',
++                       'experiments/sceg_cars_author/check_chunked.py'}
++    preserved = run.read_json(path / 'pause.json')['preserved_sha256_before_equals_after']
++    for name, sha in preserved.items():
++        assert run.digest(path / name) == sha, name
++    run.configure(config)
++    model = SCEG(ModelConfig.from_dict(config['model'])).cuda().eval()
++    best = torch.load(path / 'checkpoint.pth', map_location='cpu', weights_only=False)
++    run.checkpoint_identity(best, config)
++    model.load_state_dict(best['model_state_dict'])
++    del best
++    boundary = run.read_json(path / 'evaluation_boundaries.json')['49way_1shot']
++    run.restore_counters(model, boundary['counters'])
++    tolerance_config = load_config(run.REPO / 'configs/sceg_original.yaml')['verification']
++    tolerance = {'atol': tolerance_config['parity_atol'], 'rtol': tolerance_config['parity_rtol']}
++    tasks = []
++    for shot in (1, 5):
++        loader = make_loader(config, 'val', way=5, shot=shot, episodes=1)
++        images, labels = next(iter(loader))
++        support = labels[:5*shot].reshape(5, shot)
++        query = labels[5*shot:].reshape(5, 16)
++        assert (support == support[:, :1]).all() and (query == support[:, :1]).all()
++        assert support[:, 0].unique().numel() == 5
++        indices = loader.batch_sampler.episode_indices[0]
++        assert len(indices) == len(set(indices)) == len(images)
++        tasks.append((shot, images))
++    # Two original 5-way tasks; concatenate only for a >128-image encoder check,
++    # then classify each original task separately with its untouched ordering.
++    buffers = {n: b.clone() for n, b in model.named_buffers()}
++    cpu_rng, gpu_rng = torch.get_rng_state(), torch.cuda.get_rng_state()
++    original = [model.encode(images.cuda()) for _, images in tasks]
++    before = dropblock_counters(model)
++    joined = encode_in_chunks(model, torch.cat([images for _, images in tasks]), run.EVAL_CHUNK_SIZE)
++    assert dropblock_counters(model) == {name: value+1 for name, value in before.items()}
++    assert torch.equal(cpu_rng, torch.get_rng_state()) and torch.equal(gpu_rng, torch.cuda.get_rng_state())
++    for name, value in model.named_buffers():
++        torch.testing.assert_close(value, buffers[name], atol=0, rtol=0)
++    checks, offset = [], 0
++    for (shot, images), expected in zip(tasks, original):
++        actual = tuple(branch[offset:offset+len(images)] for branch in joined)
++        offset += len(images)
++        for left, right in zip(expected, actual):
++            torch.testing.assert_close(left, right, **tolerance)
++            torch.testing.assert_close(left[:5*shot].reshape(5, shot, -1).mean(1),
++                                       right[:5*shot].reshape(5, shot, -1).mean(1), **tolerance)
++        a, b = model.classify(expected, 5, shot), model.classify(actual, 5, shot)
++        for left, right in zip(a, b):
++            torch.testing.assert_close(left, right, **tolerance)
++        torch.testing.assert_close(a.scores, b.scores, **tolerance)
++        torch.testing.assert_close(b.scores, b[0]+b[1]+b[2], atol=0, rtol=0)
++        assert torch.equal(a.scores.argmax(1), b.scores.argmax(1))
++        checks.append({'way': 5, 'shot': shot, 'query': 16,
++                       'embedding_max_abs_errors': [float((x-y).abs().max()) for x,y in zip(expected,actual)],
++                       'scores_max_abs_error': float((a.scores-b.scores).abs().max()),
++                       'predictions_equal': True})
++    # Preserve the original source record. A small delta records exactly the three
++    # reviewed inference/check files, including the untracked Cars entry.
++    patch = ''
++    for name in sorted(changed):
++        if name == 'evaluators/fewshot_eval.py':
++            old = subprocess.check_output(['rtk', 'proxy', 'git', 'show', 'HEAD:'+name], cwd=run.REPO).decode()
++        elif name.endswith('/run.py'):
++            old = (path / 'source_snapshot/run.py').read_text()
++        else:
++            old = ''
++        if name in original_sources:
++            assert hashlib.sha256(old.encode()).hexdigest() == original_sources[name]
++        patch += ''.join(difflib.unified_diff(old.splitlines(True), (run.REPO/name).read_text().splitlines(True),
++                                            fromfile='a/'+name, tofile='b/'+name))
++    (path / 'evaluation_source.patch').write_text(patch)
++    record = {'status': 'passed', 'at': run.utc(), 'encoding_chunk_size': run.EVAL_CHUNK_SIZE,
++              'checkpoint_sha256': preserved['checkpoint.pth'], 'preserved_files': preserved,
++              'config_sha256': run.config_hash(config), 'tolerance': tolerance, 'validation_tasks': checks,
++              'bn_buffers_unchanged': True, 'encoding_rng_unchanged': True,
++              'dropblock_counter_policy': 'one logical increment per episode; eval DropBlock inactive',
++              'original_source_manifest_sha256': run.digest(path / 'execution_sources.json'),
++              'source_identity': sources, 'changed_files': sorted(changed),
++              'patch_sha256': run.digest(path / 'evaluation_source.patch'),
++              'scope': 'inference-only memory adaptation; no config, model, training or sampler changes',
++              'prior_slowdown': 'shared GPU memory observed; extra tensor retention contributes but is not proven to fully explain slowdown, particularly given historical CUB throughput'}
++    write_json(path / 'evaluation_execution.json', record)
++    print({'status': 'passed', 'chunk': run.EVAL_CHUNK_SIZE, 'tolerance': tolerance, 'validation_tasks': checks})
++
++
++if __name__ == '__main__':
++    main()
+--- a/experiments/sceg_cars_author/run.py
++++ b/experiments/sceg_cars_author/run.py
+@@ -30,6 +30,7 @@
+ HERE = Path(__file__).resolve().parent
+ CONFIG = HERE / "configs/cars.yaml"
+ SETTINGS = ((5, 1), (5, 5), (49, 1), (49, 5))
++EVAL_CHUNK_SIZE = 128  # Resource execution parameter; frozen training config stays unchanged.
+ PROTOCOL = "sceg_author_cars_v1"
+ 
+ 
+@@ -273,7 +274,9 @@
+     return {"way": way, "shot": shot, "query": 16, "episodes": len(values),
+             "accuracy": mean, "confidence_interval": ci, "seconds": result["seconds"],
+             "peak_cuda_memory_bytes": result["peak_cuda_memory_bytes"],
+-            "checkpoint_sha256": checkpoint_sha, "statistics_recomputed": True}
++            "checkpoint_sha256": checkpoint_sha, "statistics_recomputed": True,
++            **{k: result[k] for k in ("encoding_chunk_size", "first_episode_seconds",
++                "first_episode_peak_cuda_memory_bytes") if k in result}}
+ 
+ 
+ def evaluate_suite(model, config, run):
+@@ -333,7 +336,8 @@
+             torch.cuda.reset_peak_memory_stats()
+             started = time.perf_counter()
+             event(run, "evaluation_started", setting=key)
+-            result = evaluate_episodes(model, config, "test", way, shot, 2000)
++            result = evaluate_episodes(model, config, "test", way, shot, 2000,
++                encode_chunk_size=EVAL_CHUNK_SIZE if way == 49 else None, logger=run.logger)
+             result.update(protocol_id=PROTOCOL, run_id=config["run_id"], checkpoint_sha256=sha,
+                           split_sha256=config["data_protocol"]["split_manifest_sha256"],
+                           config_sha256=config_hash(config), seconds=time.perf_counter()-started,
+@@ -347,6 +351,7 @@
+         summaries.append(summary)
+         run.update_metrics(evaluation=summaries, status="running")
+         run.logger.info("test=%s accuracy=%.4f ci=%.4f", key, summary["accuracy"], summary["confidence_interval"])
++        write_report(run, config)
+     if digest(best_path) != sha:
+         raise ValueError("Checkpoint changed during evaluation")
+     run.update_metrics(status="completed", training_completed=True, full_evaluation_completed=True,
+@@ -369,8 +374,19 @@
+             target.write_bytes(path.read_bytes())
+ 
+ 
++def recorded_sources(path):
++    adaptation = path / "evaluation_execution.json"
++    if adaptation.exists():
++        record = read_json(adaptation)
++        if (record["status"] != "passed" or record["encoding_chunk_size"] != EVAL_CHUNK_SIZE
++                or record["original_source_manifest_sha256"] != digest(path / "execution_sources.json")):
++            raise ValueError("Invalid recorded inference adaptation")
++        return record["source_identity"]
++    return read_json(path / "execution_sources.json")
++
++
+ def verify_source(run):
+-    if read_json(run.path / "execution_sources.json") != source_identity():
++    if recorded_sources(run.path) != source_identity():
+         raise ValueError("Execution source changed; restore the recorded source before continuing this run")
+ 
+ 
+@@ -414,6 +430,7 @@
+               "recipe": "source_snapshot/recipe.md or repository recipe.md at the recorded version",
+               "latest_sha256": digest(run.path / 'latest.pth') if metrics['status'] == 'completed' else None,
+               "disk_bytes": sum(p.stat().st_size for p in run.path.rglob('*') if p.is_file()),
++              "evaluation_execution_record": "evaluation_execution.json" if (run.path / 'evaluation_execution.json').exists() else None,
+               "uncertainty": "Cars complete command and actual original temperature unconfirmed; lambda36 is generic parser default; mirror pixels not verified against original archive"}
+     write_json(run.path / "report.json", report)
+     lines = ["# Cars original SCEG — author split", "", f"Status: **{report['status']}**; epochs: {report['completed_epochs']}/800.",
+@@ -427,6 +444,14 @@
+     for key, value in rows.items():
+         lines.append(f"| {key} | null | null | null | null | null |" if value is None else
+                      f"| {key} | {value['accuracy']:.6f} | {value['confidence_interval']:.6f} | {value['episodes']} | {value['seconds']:.2f} | {value['peak_cuda_memory_bytes']} |")
++    if report['evaluation_execution_record']:
++        check = read_json(run.path / 'evaluation_execution.json')
++        lines += ["", "49-way resource adaptation: FP32/no-grad encoding in chunks of 128, then the original full-episode classify. BN fixed; DropBlock counters advance once per logical episode. Training config, best and sampling protocol unchanged.",
++                  f"Numerical check: {check['status']}, two 5-way validation tasks; atol/rtol={check['tolerance']}. Evidence and source identity: evaluation_execution.json; exact changes: evaluation_source.patch.",
++                  "Earlier slow run used about 15.22 GiB dedicated + 9.99 GiB shared GPU memory at the Windows VM level and briefly advanced about 34s/episode. This is not the same measurement as PyTorch peak allocated. Extra intermediate tensor residency is a contributor, not a proven complete explanation; the historical CUB result also argues against treating tensor retention alone as sufficient cause."]
++        for key, value in rows.items():
++            if value and 'encoding_chunk_size' in value:
++                lines.append(f"{key}: chunk={value['encoding_chunk_size']}, total/2000={value['seconds']/2000:.3f}s per episode; first episode (includes loader startup)={value['first_episode_seconds']:.3f}s, first peak allocated={value['first_episode_peak_cuda_memory_bytes']/2**30:.3f}GiB; full-setting peak allocated={value['peak_cuda_memory_bytes']/2**30:.3f}GiB.")
+     lines += ["", "CI = 1.96 × sqrt(var(episode_accuracy, ddof=0) / 2000), in percentage points. All available summaries are recomputed from raw arrays.",
+               "One trained model: this CI describes episode sampling only, not variation across training seeds.",
+               "", f"Recorded training + validation + checkpoint time: {report['train_validation_checkpoint_seconds']:.2f}s; peak train allocated GPU bytes: {report['peak_train_cuda_memory_bytes']}.",
+@@ -434,7 +459,7 @@
+               "Interrupted partial epochs are not included in epoch totals; invocation starts, failures and resumes are in events.jsonl.",
+               "", "Recipe provenance: recipe.md. Cars intra=0.65 explicitly uses the paper value through the official parameter interface; fixed lambda36 is the generic parser default, not a confirmed Cars-specific training temperature. The Cars g_st gate still executes and updates BN but its output is discarded. No model formulas changed.",
+               f"Run disk bytes (including two checkpoints when present): {report['disk_bytes']}. Raw-image mirror equivalence to the original Stanford archive is unverified; full images were not cropped/re-encoded for training.",
+-              "Source: git_commit.txt + git_diff.patch for tracked files, source_snapshot/ for new entry files, execution_sources.json for loaded source identity; environment.json and command.txt record the actual invocation.",
++              "Original source: git_commit.txt + git_diff.patch + source_snapshot/ + execution_sources.json. Inference-only updates, when present: evaluation_source.patch + evaluation_execution.json. Original environment and training config remain preserved; resume_commands.txt records subsequent invocations.",
+               "Input fingerprints: data_check.json, referencing the original prep manifests without duplicating their sample list.",
+               "Raw tests bind the same best SHA and split SHA, with class names, sample indices, relative paths and episode accuracy; evaluation_boundaries.json preserves retries' RNG.",
+               "This task changes only the author entry and optional public trainer recording/finalization. CUB, ProKeR and archives are not written. No ProKeR gain is computed.",
+@@ -484,7 +509,7 @@
+         if reuse:
+             run_path = HERE / "runs" / args.run_id
+             saved_config = load_config(run_path / "config.yaml")
+-            if config != saved_config or read_json(run_path / "execution_sources.json") != source_identity():
++            if config != saved_config or recorded_sources(run_path) != source_identity():
+                 raise ValueError("Run config/source mismatch; restore recorded version before continuation")
+             if read_json(run_path / 'metrics.json').get('status') == 'completed':
+                 print(json.dumps({'status': 'completed', 'action': 'preserved; no recomputation', 'run': str(run_path)}))
+@@ -506,6 +531,8 @@
+                 raise ValueError("Model check is missing or does not match the frozen execution source")
+             data_check = check["data_check"]
+         run = AuthorRun(config, args.run_id, reuse_existing=reuse)
++        if reuse:
++            run.update_metrics(pause_requested_by_user=False, error=None)
+         if not reuse:
+             snapshot(run)
+             write_json(run.path / "data_check.json", data_check)

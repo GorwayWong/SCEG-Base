@@ -1,0 +1,70 @@
+{
+  "status": "evaluating",
+  "protocol_id": "sceg_author_cars_v1",
+  "training_completed": true,
+  "full_evaluation_completed": false,
+  "completed_epochs": 800,
+  "best_epoch": 660,
+  "best_sha256": "d4cf951237d05dbc751d9bc6196bd7fcc5d7cce9bed2c0b6dcbe0e9bca45168f",
+  "results": {
+    "5way_1shot": {
+      "way": 5,
+      "shot": 1,
+      "query": 16,
+      "episodes": 2000,
+      "accuracy": 90.2525,
+      "confidence_interval": 0.3333809806287695,
+      "seconds": 214.56393143999594,
+      "peak_cuda_memory_bytes": 1191471616,
+      "checkpoint_sha256": "d4cf951237d05dbc751d9bc6196bd7fcc5d7cce9bed2c0b6dcbe0e9bca45168f",
+      "statistics_recomputed": true
+    },
+    "5way_5shot": {
+      "way": 5,
+      "shot": 5,
+      "query": 16,
+      "episodes": 2000,
+      "accuracy": 96.929375,
+      "confidence_interval": 0.14607946770401203,
+      "seconds": 263.03105672200036,
+      "peak_cuda_memory_bytes": 1410168832,
+      "checkpoint_sha256": "d4cf951237d05dbc751d9bc6196bd7fcc5d7cce9bed2c0b6dcbe0e9bca45168f",
+      "statistics_recomputed": true
+    },
+    "49way_1shot": null,
+    "49way_5shot": null
+  },
+  "train_validation_checkpoint_seconds": 38216.260306855,
+  "train_seconds": 32857.49611833701,
+  "validation_seconds": 5273.100965125006,
+  "peak_train_cuda_memory_bytes": 10306869760,
+  "commands": {
+    "train": "rtk proxy env CUDA_VISIBLE_DEVICES=0 /root/projects/aris/sceg_fsfg/.venv/bin/python -m experiments.sceg_cars_author.run --run-id cars800_seed42_author_v1 --mode pipeline",
+    "resume": "rtk proxy env CUDA_VISIBLE_DEVICES=0 /root/projects/aris/sceg_fsfg/.venv/bin/python -m experiments.sceg_cars_author.run --run-id cars800_seed42_author_v1 --mode pipeline --resume",
+    "evaluate_only": "rtk proxy env CUDA_VISIBLE_DEVICES=0 /root/projects/aris/sceg_fsfg/.venv/bin/python -m experiments.sceg_cars_author.run --run-id cars800_seed42_author_v1 --mode evaluate",
+    "status": "rtk proxy env CUDA_VISIBLE_DEVICES=0 /root/projects/aris/sceg_fsfg/.venv/bin/python -m experiments.sceg_cars_author.run --run-id cars800_seed42_author_v1 --mode status"
+  },
+  "updated_at": "2026-10-16T14:30:35.560384+00:00",
+  "initialization": "random; no pretrained weights",
+  "training_seeds": [
+    42
+  ],
+  "class_counts": [
+    130,
+    17,
+    49
+  ],
+  "image_counts": [
+    10747,
+    1410,
+    4028
+  ],
+  "ci_scope": "episode sampling conditional on one trained model; not multi-training-seed stability",
+  "failure_and_resume_record": "events.jsonl",
+  "source": "execution_sources.json + git_commit.txt + git_diff.patch + source_snapshot/",
+  "recipe": "source_snapshot/recipe.md or repository recipe.md at the recorded version",
+  "latest_sha256": null,
+  "disk_bytes": 315771792,
+  "evaluation_execution_record": "evaluation_execution.json",
+  "uncertainty": "Cars complete command and actual original temperature unconfirmed; lambda36 is generic parser default; mirror pixels not verified against original archive"
+}

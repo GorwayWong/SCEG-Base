@@ -1,0 +1,32 @@
+{
+  "status": "paused",
+  "requested_by": "user",
+  "reason": "Stop work before later memory optimization and native restart; no automatic continuation authorized by this pause",
+  "verified_at": "2026-10-16T22:11:14+08:00",
+  "training_completed": true,
+  "completed_epochs": 800,
+  "best_epoch": 660,
+  "full_evaluation_completed": false,
+  "completed_settings": ["5way_1shot", "5way_5shot"],
+  "interrupted_setting": "49way_1shot",
+  "observed_volatile_completed_episodes_before_stop": 1431,
+  "volatile_partial_result_saved": false,
+  "pending_settings": ["49way_1shot", "49way_5shot"],
+  "signals_sent": ["SIGINT to PID7343", "SIGTERM to verified Cars process group7343 after initial 15-second wait"],
+  "original_event": "KeyboardInterrupt recorded at 2026-10-16T14:10:46.661449+00:00; retained unchanged",
+  "exited_pids": [7342, 7343, 35335, 35337, 35339, 35341],
+  "screen_session_exited": true,
+  "gpu_memory_after_mib": 823,
+  "preserved_sha256_before_equals_after": {
+    "latest.pth": "bce92de8765b82695de417e246eb311f5a5fa40a94a8d0909fa14dc37d01999b",
+    "checkpoint.pth": "d4cf951237d05dbc751d9bc6196bd7fcc5d7cce9bed2c0b6dcbe0e9bca45168f",
+    "test_5way_1shot.json": "72dc4692696c8d3d9923c00f0a26ee2d54e0383fb38a2a9d16aa8427705002e4",
+    "test_5way_5shot.json": "76049a406a89b5153632f1c3d5840ef998e510362dcc2861a196633926f203e2",
+    "evaluation_boundaries.json": "94a0066e0dcde36be352037d1e39277a75a3c0da759e471fb89f6bf20f16b4fb"
+  },
+  "execution_source_modified": false,
+  "optimization_performed": false,
+  "automatic_restart": false,
+  "recovery": "After validated and recorded inference-only memory adaptation, load the same best; reuse complete 5-way results; restore the saved 49way_1shot RNG boundary and replay that incomplete setting. Then perform 49way_5shot. No retraining.",
+  "native_platform_note": "Existing entry is Linux/WSL. Windows-native environment/path compatibility has not been validated; avoid promising a direct cross-platform invocation or bitwise equivalence. Source/config identity must be handled explicitly, not bypassed."
+}

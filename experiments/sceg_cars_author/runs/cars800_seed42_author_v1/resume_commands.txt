@@ -1,0 +1,1 @@
+/root/projects/aris/sceg_fsfg/.venv/bin/python -u -m experiments.sceg_cars_author.run --run-id cars800_seed42_author_v1 --mode evaluate

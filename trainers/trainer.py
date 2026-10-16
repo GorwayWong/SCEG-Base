@@ -96,6 +96,8 @@ def train(model, config, run, resume=None):
             raise RuntimeError("No complete official training episodes")
         validation = None
         improved = False
+        train_seconds = time.perf_counter()-epoch_started
+        validation_started = time.perf_counter()
         if (epoch+1) % config["train"]["validation_every"] == 0:
             validation = evaluate_episodes(model, config, "val", config["eval"]["way"],
                 config["eval"]["validation_shot"], config["eval"]["validation_episodes"])
@@ -104,6 +106,7 @@ def train(model, config, run, resume=None):
                 best_validation, best_epoch = validation["accuracy"], epoch+1
                 improved = True
             model.train()
+        validation_seconds = time.perf_counter()-validation_started if validation is not None else 0.0
         # Step occurs after validation, exactly as official trainer.py:248.
         scheduler.step()
         payload = {"model_state_dict": model.state_dict(), "optimizer": optimizer.state_dict(),
@@ -117,6 +120,7 @@ def train(model, config, run, resume=None):
         timing = {}
         if config.get("runtime", {}).get("record_epoch_timing", False):
             timing = {"epoch_seconds": time.perf_counter()-epoch_started,
+                      "train_seconds": train_seconds, "validation_seconds": validation_seconds,
                       "validation_accuracy": validation["accuracy"] if validation else None,
                       "validation_ci": validation["confidence_interval"] if validation else None,
                       "peak_cuda_memory_bytes": torch.cuda.max_memory_allocated(device)

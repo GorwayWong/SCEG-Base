@@ -1,0 +1,71 @@
+{
+  "status": "passed",
+  "official_commit": "f7f130aeb5b1b49246150574c53a874d4ce8de80",
+  "official_sources": {
+    "models/SCEG.py": "4970008494d9fff8bcdd5aad0387ea70df19c466bbd1ecc5e408cfac4edf4cfa",
+    "models/SC.py": "1cbaea7ddd2b4f911ea151c8f8150e0929812e778426a23700372b4739594941",
+    "models/backbones/ResNet.py": "4095a87b9765d931902e680ed217b52824fb305bcf7a66cc379bfefc664f1d6e",
+    "utils/l2_norm.py": "da9d54361f784998e5376fc11d28d48413597d5b99cee853c2381139f7b59ff7",
+    "utils/util.py": "4a98ef1f8097ba6da76e1269c0c80a3a3322bdbc6fa025e9f742043153768536",
+    "loss.py": "25d387f80d0d7c140c1c3f440206d7ef918088563aa9553f36fc14d6467f3b8d"
+  },
+  "replica_sources": {
+    "models/__init__.py": "8b8e4a8c3a23b16b5e7a92a4d5d30e5354fe9ac0f9d7efdb82ae837ac4fbe6ae",
+    "models/sceg.py": "4f146599c3b7475fe9c9f102a4b2ccfe5571e50cf505693c7bbc2a74f5af4a11",
+    "models/backbone/__init__.py": "4e9b84bfdd6989f9555dc1bf73c7cdaa83cc08d853574bbe4d566de839068dbb",
+    "models/backbone/resnet12.py": "efae5d9d29c73eee3ca4308cf559dd0c8baef357b4c76a5b14642b9ce29e3491",
+    "models/modules/sc.py": "ed7881cb681de69f870d2fd13e06bf9c5bc92449fb909161799d9c8669ac5f35",
+    "models/modules/__init__.py": "ed986c39787d931e3544a0d9d2cd3e0b0b685aa4ad5be1007fc5036d8f4a99a0",
+    "models/modules/cosine_classifier.py": "b8f5951fd0197dcbb9eff68cc84ba12d3ab930be272c8fd7441870e8b90c916d",
+    "models/modules/transform_fc.py": "eb3cb72376a7c32009b0970fc517625f05b2e17269b6e967c2672865e5dd0437",
+    "losses/__init__.py": "247682f23ee6ab0c7a8ac14d92c11688ef5f336bb75eb6bcf655c10bfc89bd57",
+    "losses/intra_inter_loss.py": "ca45456eda12aa2bff852e5ee8d1aff0558cf1e5d3952491fc97b0892e60cf1b"
+  },
+  "dataset": "stanford_car",
+  "base_classes": 130,
+  "loss_config": {
+    "lamda": 36.0,
+    "inter": 0.05,
+    "intra": 0.65
+  },
+  "eval_max_abs_errors": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "train_losses": [
+    38.48090744018555,
+    38.48090744018555
+  ],
+  "gradient_max_abs_error": 6.365776062011719e-05,
+  "gradient_tolerance": {
+    "atol": 0.002,
+    "rtol": 0.002
+  },
+  "inactive_parameters": [
+    "SC.g_st.0.bias",
+    "SC.g_st.0.weight",
+    "SC.g_st.1.bias",
+    "SC.g_st.1.weight",
+    "SC.g_st.3.bias",
+    "SC.g_st.3.weight",
+    "SC.t_l.mlp.0.bias",
+    "SC.t_l.mlp.0.weight",
+    "SC.t_l.mlp.1.bias",
+    "SC.t_l.mlp.1.weight",
+    "SC.t_s.mlp.0.bias",
+    "SC.t_s.mlp.0.weight",
+    "SC.t_s.mlp.1.bias",
+    "SC.t_s.mlp.1.weight",
+    "SC.t_t.mlp.0.bias",
+    "SC.t_t.mlp.0.weight",
+    "SC.t_t.mlp.1.bias",
+    "SC.t_t.mlp.1.weight"
+  ],
+  "g_st_bn_updated": [
+    true,
+    true
+  ],
+  "weights_saved": false
+}

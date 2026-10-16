@@ -1,0 +1,28 @@
+{
+  "status": "data_prepared",
+  "data_ready": true,
+  "protocol_id": "sceg_author_cars_v1",
+  "root": "/root/projects/aris/sceg_cars_author/data/cars_author/StanfordCars_fewshot",
+  "source_root": "/root/datasets/fasterVitBase/raw/cars/StanfordCars-Dataset-main/stanford_cars",
+  "image_counts": {
+    "test": 4028,
+    "train": 10747,
+    "val": 1410
+  },
+  "class_counts": {
+    "train": 130,
+    "val": 17,
+    "test": 49
+  },
+  "author_split_sha256": "2677107210b2bf1c9dfe1741ddc7d6d8dad992232ff04efa24ba4676aa48052c",
+  "split_manifest": "split.json",
+  "sample_manifest": "samples.jsonl",
+  "split_manifest_sha256": "56f00b9fb9471e34087504d2121af5168f6c4d8b51fa0983e2795c313d2eeb4a",
+  "sample_manifest_sha256": "bce036da17a2f3b481d282cde5ece325a548b8807fe98a714ee1bc1df6b92877",
+  "provenance_sha256": "4e6ca0bec673a1a610cc199d70befc299256f46ed001f3d08d2432f031a4e34c",
+  "source_record_sha256": "3f41569ae54cb2b915485b6708ab6ffb17faaf75f51f1223b1cc0dd9a16b5a82",
+  "full_decode_passed": true,
+  "seconds": 50.56907078900008,
+  "preprocessing": "RGB -> Resize(short edge=92) -> CenterCrop(84) -> PNG; loader only ToTensor/Normalize",
+  "training_started": false
+}

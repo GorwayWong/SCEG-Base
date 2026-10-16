@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "command": "rtk proxy /root/projects/aris/sceg_fsfg/.venv/bin/python -m pytest -q experiments/sceg_cars_author/test_contracts.py",
+  "cwd": "/root/projects/aris/sceg_cars_author",
+  "passed": 6,
+  "seconds": 3.81,
+  "scope": ["original annotation and author membership mapping; collision-safe filenames; ImageFolder labels", "support-first weighted-depletion sampler", "2000-episode statistics and identity checks", "RNG roundtrip and checkpoint constraints", "evaluate-only epoch gate and completed-run protection", "optional public timing preserves parameter updates"],
+  "formal_training_epochs": 0,
+  "test_images_used_for_model_checks": false
+}

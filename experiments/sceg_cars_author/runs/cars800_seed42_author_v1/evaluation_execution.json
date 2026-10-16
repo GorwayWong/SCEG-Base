@@ -1,0 +1,106 @@
+{
+  "status": "passed",
+  "formal_start_observation": {
+    "first_100_episodes_seconds": 105.52,
+    "first_100_mean_seconds_per_episode": 1.055,
+    "first_100_peak_pytorch_allocated_gib": 1.402,
+    "progress_log": "train.log (every 100 episodes)",
+    "setting": "49way_1shot",
+    "first_episode_seconds_including_loader_startup": 1.972,
+    "first_episode_peak_pytorch_allocated_gib": 1.401,
+    "windows_adapter_dedicated_bytes": 3072114688,
+    "windows_adapter_shared_bytes": 149258240,
+    "old_windows_adapter_dedicated_bytes": 16800428032,
+    "old_windows_adapter_shared_bytes": 10757169152,
+    "scope": "Host adapter snapshots include other display allocations; PyTorch allocated is a different measurement. Fresh eval process and chunking are a combined intervention, not an isolated causal benchmark. Full-setting performance is recorded in each completed result."
+  },
+  "at": "2026-10-16T14:29:54.206095+00:00",
+  "encoding_chunk_size": 128,
+  "checkpoint_sha256": "d4cf951237d05dbc751d9bc6196bd7fcc5d7cce9bed2c0b6dcbe0e9bca45168f",
+  "preserved_files": {
+    "latest.pth": "bce92de8765b82695de417e246eb311f5a5fa40a94a8d0909fa14dc37d01999b",
+    "checkpoint.pth": "d4cf951237d05dbc751d9bc6196bd7fcc5d7cce9bed2c0b6dcbe0e9bca45168f",
+    "test_5way_1shot.json": "72dc4692696c8d3d9923c00f0a26ee2d54e0383fb38a2a9d16aa8427705002e4",
+    "test_5way_5shot.json": "76049a406a89b5153632f1c3d5840ef998e510362dcc2861a196633926f203e2",
+    "evaluation_boundaries.json": "94a0066e0dcde36be352037d1e39277a75a3c0da759e471fb89f6bf20f16b4fb"
+  },
+  "config_sha256": "128a81f21bb492df58ef50b4bb7f9e2c3d7d713666703cf4ede0c82f544fbbc9",
+  "tolerance": {
+    "atol": 1e-05,
+    "rtol": 1e-05
+  },
+  "validation_tasks": [
+    {
+      "way": 5,
+      "shot": 1,
+      "query": 16,
+      "embedding_max_abs_errors": [
+        2.86102294921875e-06,
+        3.6954879760742188e-06,
+        5.4836273193359375e-06
+      ],
+      "scores_max_abs_error": 9.5367431640625e-07,
+      "predictions_equal": true
+    },
+    {
+      "way": 5,
+      "shot": 5,
+      "query": 16,
+      "embedding_max_abs_errors": [
+        2.384185791015625e-06,
+        3.337860107421875e-06,
+        6.556510925292969e-06
+      ],
+      "scores_max_abs_error": 9.5367431640625e-07,
+      "predictions_equal": true
+    }
+  ],
+  "bn_buffers_unchanged": true,
+  "encoding_rng_unchanged": true,
+  "dropblock_counter_policy": "one logical increment per episode; eval DropBlock inactive",
+  "original_source_manifest_sha256": "476ba14e1ad47a07e4418582c788ef91335447928bf70e88b7b81cb4e0aa9b74",
+  "source_identity": {
+    "datasets/__init__.py": "b97a121266d09a11dcc1166dc055c38b26b675be2e4c793ebc0d12889345ec4f",
+    "datasets/cars.py": "978dc919f5e17b5d91b79eca23d77db4c0550c3051df569035335ccd3d12ed5a",
+    "datasets/cub.py": "094e5995a43c5b2abe36849c6f7620a0c0c36f6d43f1313733e1377fb2a55fb2",
+    "datasets/dogs.py": "6baff532e3e3242bcf0af26b81d13a660ac7acb6f42ba56f3c5144bcd7e31278",
+    "datasets/flowers.py": "5073a5d0b98f7632dc0d74bedf6fcb461e52d1f27cdad29a8520aa12a6da2327",
+    "datasets/folder.py": "e6af785a75a68e69744c527889895c0fc225d6c2198fd6d2535e33c71fa35dc7",
+    "datasets/samplers.py": "e92ff0bce7d01aeeec2926c45fe620d18fee1dbaf0af15a0dffb46bb9aec1ee4",
+    "datasets/transforms.py": "50ae8a15bf76a8b66ca602e9b2416c1b497bb7e488300009e6ceab736fdf4be2",
+    "evaluators/__init__.py": "0a6568c18ea985ced28ee693c888b930bfcb84ea1a98289f50d79455ff43daba",
+    "evaluators/fewshot_eval.py": "3f27591f11655e43defbf50e5c465f46335bbce9e930b3dd6535e820290f076a",
+    "experiments/sceg_cars_author/check_chunked.py": "b72c2ef29bf3f5401967c2b873e27363ccba39c6ca16d497b5b54187010c91dd",
+    "experiments/sceg_cars_author/check_official.py": "ccf38b68f6f2adbdee33ee8b4bb9cf3b07ac37876fbc8e09d66a5ac22fa54dc6",
+    "experiments/sceg_cars_author/configs/cars.yaml": "798856a268e8df37eb85f9de386b3a42c653600c311363f0ebeabe2d8b1aea5c",
+    "experiments/sceg_cars_author/prepare.py": "936060226c0fb5776665a1416a0e76403d439604fd87703c893c6c46a13b24ec",
+    "experiments/sceg_cars_author/recipe.md": "84f0627589b2cab063a072b9df0cd8ae2d7a3ad4071314c61843eb1763ec8991",
+    "experiments/sceg_cars_author/run.py": "cc6db82cea768a937dd14ef841281980d1e272e7222fa662992060348cdd893e",
+    "experiments/sceg_cars_author/test_contracts.py": "3159f022b913b93b4582ce8e454a84a9433dd320ce1dd4d531ef312887a9714d",
+    "losses/__init__.py": "247682f23ee6ab0c7a8ac14d92c11688ef5f336bb75eb6bcf655c10bfc89bd57",
+    "losses/intra_inter_loss.py": "ca45456eda12aa2bff852e5ee8d1aff0558cf1e5d3952491fc97b0892e60cf1b",
+    "models/__init__.py": "8b8e4a8c3a23b16b5e7a92a4d5d30e5354fe9ac0f9d7efdb82ae837ac4fbe6ae",
+    "models/backbone/__init__.py": "4e9b84bfdd6989f9555dc1bf73c7cdaa83cc08d853574bbe4d566de839068dbb",
+    "models/backbone/resnet12.py": "efae5d9d29c73eee3ca4308cf559dd0c8baef357b4c76a5b14642b9ce29e3491",
+    "models/modules/__init__.py": "ed986c39787d931e3544a0d9d2cd3e0b0b685aa4ad5be1007fc5036d8f4a99a0",
+    "models/modules/cosine_classifier.py": "b8f5951fd0197dcbb9eff68cc84ba12d3ab930be272c8fd7441870e8b90c916d",
+    "models/modules/sc.py": "ed7881cb681de69f870d2fd13e06bf9c5bc92449fb909161799d9c8669ac5f35",
+    "models/modules/transform_fc.py": "eb3cb72376a7c32009b0970fc517625f05b2e17269b6e967c2672865e5dd0437",
+    "models/sceg.py": "4f146599c3b7475fe9c9f102a4b2ccfe5571e50cf505693c7bbc2a74f5af4a11",
+    "trainers/__init__.py": "c975c61959a6129aea070dcab99d6cf95fa2d5b374878cce07ebacfaa53da599",
+    "trainers/trainer.py": "2c9c14e6d957a87dde1cdacf7e87a72ddfc60d6161d8af92d58519b712eba5e0",
+    "utils/__init__.py": "2ea78307524e490c4173108aaaced61d6d3ba04470971411669ee53fcec1d7ff",
+    "utils/config.py": "fb30781879583e31fa29fd3c47bcd463e96cf4cf953b2e694a5d9fad7f95db24",
+    "utils/diagnostics.py": "b0f476cb43ae5bd728bcd5c813df66b8d6b1b3caf14a6dbe209f8489dd07ce22",
+    "utils/experiment.py": "ff3f4ad8a7e6504ec05e6dbeedae43b492a74c6d840023a113bbf204c55f0f75",
+    "utils/reproducibility.py": "11b4817516ad265d965296e290fdbfccd0d7b5bb230276a5e23d9f554f60330b"
+  },
+  "changed_files": [
+    "evaluators/fewshot_eval.py",
+    "experiments/sceg_cars_author/check_chunked.py",
+    "experiments/sceg_cars_author/run.py"
+  ],
+  "patch_sha256": "3b4ec97c09b70d5b91753d1cdcba6c3b80ec253c9c875e703c8234fe935fe92c",
+  "scope": "inference-only memory adaptation; no config, model, training or sampler changes",
+  "prior_slowdown": "shared GPU memory observed; extra tensor retention contributes but is not proven to fully explain slowdown, particularly given historical CUB throughput"
+}

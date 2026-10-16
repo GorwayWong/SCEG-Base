@@ -1,0 +1,39 @@
+diff --git a/experiments/INDEX.md b/experiments/INDEX.md
+index 617b499..7c6c4a4 100644
+--- a/experiments/INDEX.md
++++ b/experiments/INDEX.md
+@@ -17,4 +17,4 @@ The seed42 original SCEG author-split run **dogs800_seed42_author_v1 is complete
+ 
+ The DN4 run remains evidence for its own public protocol. It is not an author-split reproduction: 62 class assignments differ and its training set includes 14 author test classes. Its weights must never initialize, resume, or formally evaluate the author protocol. The author entry passed its isolated contract tests and one real train/val model check before the separate random-initialized formal process started.
+ 
+-Cars is limited to preservation and validation of the author class-ID file. Its IDs are 1-based; Cars image mapping and image preparation have not been performed. CUB and ProKeR v1 are outside this closeout and remain unchanged. Historical Dogs blocked/synthetic notes and their shared test helpers are retained as history, not active split instructions or dependencies of the author preparation script.
++Cars now has an isolated author-protocol entry in this worktree: [recipe](sceg_cars_author/recipe.md), [configuration](sceg_cars_author/configs/cars.yaml), [data preparation](sceg_cars_author/prep/prepared.json), and [entry](sceg_cars_author/run.py). Original annotation IDs map to the author's 130/17/49 classes and 10747/1410/4028 images. The live Cars run state is [metrics](sceg_cars_author/runs/cars800_seed42_author_v1/metrics.json), with [report](sceg_cars_author/runs/cars800_seed42_author_v1/report.md); preparation or process launch does not imply completion. CUB, Dogs and ProKeR evidence are unchanged. Historical Dogs blocked/synthetic notes are not Cars dependencies.
+diff --git a/trainers/trainer.py b/trainers/trainer.py
+index 00e6a38..0f88194 100644
+--- a/trainers/trainer.py
++++ b/trainers/trainer.py
+@@ -96,6 +96,8 @@ def train(model, config, run, resume=None):
+             raise RuntimeError("No complete official training episodes")
+         validation = None
+         improved = False
++        train_seconds = time.perf_counter()-epoch_started
++        validation_started = time.perf_counter()
+         if (epoch+1) % config["train"]["validation_every"] == 0:
+             validation = evaluate_episodes(model, config, "val", config["eval"]["way"],
+                 config["eval"]["validation_shot"], config["eval"]["validation_episodes"])
+@@ -104,6 +106,7 @@ def train(model, config, run, resume=None):
+                 best_validation, best_epoch = validation["accuracy"], epoch+1
+                 improved = True
+             model.train()
++        validation_seconds = time.perf_counter()-validation_started if validation is not None else 0.0
+         # Step occurs after validation, exactly as official trainer.py:248.
+         scheduler.step()
+         payload = {"model_state_dict": model.state_dict(), "optimizer": optimizer.state_dict(),
+@@ -117,6 +120,7 @@ def train(model, config, run, resume=None):
+         timing = {}
+         if config.get("runtime", {}).get("record_epoch_timing", False):
+             timing = {"epoch_seconds": time.perf_counter()-epoch_started,
++                      "train_seconds": train_seconds, "validation_seconds": validation_seconds,
+                       "validation_accuracy": validation["accuracy"] if validation else None,
+                       "validation_ci": validation["confidence_interval"] if validation else None,
+                       "peak_cuda_memory_bytes": torch.cuda.max_memory_allocated(device)

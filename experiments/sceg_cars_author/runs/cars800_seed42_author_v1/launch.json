@@ -1,0 +1,18 @@
+{
+  "run_id": "cars800_seed42_author_v1",
+  "protocol_id": "sceg_author_cars_v1",
+  "cwd": "/root/projects/aris/sceg_cars_author",
+  "screen_session": "7342.sceg_cars_author_seed42",
+  "initial_training_pid": 7343,
+  "launch_command": "rtk proxy screen -dmS sceg_cars_author_seed42 bash -c 'cd /root/projects/aris/sceg_cars_author && exec env CUDA_VISIBLE_DEVICES=0 /root/projects/aris/sceg_fsfg/.venv/bin/python -u -m experiments.sceg_cars_author.run --run-id cars800_seed42_author_v1 --mode pipeline > experiments/sceg_cars_author/console.log 2>&1'",
+  "console_log": "experiments/sceg_cars_author/console.log",
+  "initial_resume": false,
+  "automatic_watchdog_or_retry": false,
+  "other_training_processes_before_launch": "none found in Linux ps, screen/tmux sessions, nvidia-smi compute list, or Windows Python process list",
+  "gpu_before_launch": "RTX 4060 Ti 16GB; 1302MiB display allocation, no compute process reported",
+  "source_root_raw_images": "/root/datasets/fasterVitBase/raw/cars/StanfordCars-Dataset-main/stanford_cars",
+  "prepared_png_bytes": 67942395,
+  "raw_images_duplicated": false,
+  "controls": "Use the recorded same-run resume command only after the active process exits; an exclusive run lock rejects overlap. No automatic monitoring is installed.",
+  "known_numeric_limitation": "PyTorch adaptive_max_pool2d_backward_cuda warns about nondeterministic CUDA backward under deterministic_warn_only=true; preserved existing FP32 numeric environment, no bitwise cross-run guarantee."
+}

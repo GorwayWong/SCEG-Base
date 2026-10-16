@@ -1,0 +1,30 @@
+{
+  "source_root": "/root/datasets/fasterVitBase/raw/cars/StanfordCars-Dataset-main/stanford_cars",
+  "source_kind": "existing local GitHub mirror copy",
+  "mirror": "https://github.com/jhpohovey/StanfordCars",
+  "local_readme": "/root/datasets/fasterVitBase/raw/cars/StanfordCars-Dataset-main/README.md",
+  "original_archive_pixel_equivalence": "not_verified",
+  "image_storage": "symlinks to stable raw dataset; no bbox use, cropping or rewriting of originals",
+  "annotation_hashes": {
+    "cars_annos.mat": "1cfb9206f1336038fc27c70a926e47d1c5d3ed0c870aec48cf5aa1b3880d42bf",
+    "devkit/cars_train_annos.mat": "1c1973dd828a2964060b0bbc0e423466393fe3001a3f8e303f41fbf22067dfb1",
+    "cars_test_annos_withlabels.mat": "790f75be8ea34eeded134cc559332baf23e30e91367e9ddca97d26ed9b895f05",
+    "devkit/cars_meta.mat": "fe43dfda289448f97c25b09e09fafc0414e22fc4143831537780884a0a5f4a1a",
+    "devkit/README.txt": "46f43dec384ba12f1c2eabd19f93a33a750c902b620388dca514175afca827fd"
+  },
+  "source_readme_sha256": "18c4f5168b55d9bfda17f8c45d9b3a00f5c7068e63560421dcbde527a5287633",
+  "original_image_modes": {
+    "RGB": 16151,
+    "L": 34
+  },
+  "decoded_images": 16185,
+  "dimensions_min": [
+    78,
+    41
+  ],
+  "dimensions_max": [
+    7800,
+    5400
+  ],
+  "images_at_84x84": 0
+}

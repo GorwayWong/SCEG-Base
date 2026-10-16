@@ -1,0 +1,62 @@
+{
+  "protocol_id": "sceg_author_cars_v1",
+  "references": {
+    "author_split_sha256": {
+      "path": "/root/projects/aris/sceg_cars_author/data/provenance/sceg_author/StanfordCars_fewshot_splits.txt",
+      "sha256": "2677107210b2bf1c9dfe1741ddc7d6d8dad992232ff04efa24ba4676aa48052c"
+    },
+    "split_manifest_sha256": {
+      "path": "/root/projects/aris/sceg_cars_author/experiments/sceg_cars_author/prep/split.json",
+      "sha256": "56f00b9fb9471e34087504d2121af5168f6c4d8b51fa0983e2795c313d2eeb4a"
+    },
+    "sample_manifest_sha256": {
+      "path": "/root/projects/aris/sceg_cars_author/experiments/sceg_cars_author/prep/samples.jsonl",
+      "sha256": "bce036da17a2f3b481d282cde5ece325a548b8807fe98a714ee1bc1df6b92877"
+    },
+    "prepared": {
+      "path": "/root/projects/aris/sceg_cars_author/experiments/sceg_cars_author/prep/prepared.json",
+      "sha256": "945677180b30b6e1cbb872fac5814ad2ed7efa855582095315da926c65b2bdda"
+    },
+    "source": {
+      "path": "/root/projects/aris/sceg_cars_author/data/provenance/sceg_author/source.json",
+      "sha256": "3f41569ae54cb2b915485b6708ab6ffb17faaf75f51f1223b1cc0dd9a16b5a82"
+    },
+    "provenance": {
+      "path": "/root/projects/aris/sceg_cars_author/experiments/sceg_cars_author/prep/provenance.json",
+      "sha256": "4e6ca0bec673a1a610cc199d70befc299256f46ed001f3d08d2432f031a4e34c"
+    }
+  },
+  "datasets": {
+    "train": {
+      "root": "/root/projects/aris/sceg_cars_author/data/cars_author/StanfordCars_fewshot/train",
+      "classes": 130,
+      "images": 10747,
+      "transforms": [
+        "RandomResizedCrop",
+        "ColorJitter",
+        "RandomHorizontalFlip",
+        "ToTensor",
+        "Normalize"
+      ]
+    },
+    "val": {
+      "root": "/root/projects/aris/sceg_cars_author/data/cars_author/StanfordCars_fewshot/val_pre",
+      "classes": 17,
+      "images": 1410,
+      "transforms": [
+        "ToTensor",
+        "Normalize"
+      ]
+    },
+    "test": {
+      "root": "/root/projects/aris/sceg_cars_author/data/cars_author/StanfordCars_fewshot/test_pre",
+      "classes": 49,
+      "images": 4028,
+      "transforms": [
+        "ToTensor",
+        "Normalize"
+      ]
+    }
+  },
+  "scope": "metadata hashes + ImageFolder paths/mapping; prior full image validation reused"
+}
