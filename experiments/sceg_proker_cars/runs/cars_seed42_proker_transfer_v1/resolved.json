@@ -1,0 +1,380 @@
+{
+  "status": "completed",
+  "config": {
+    "run_id": "cars_seed42_proker_transfer_v1",
+    "base_commit": "88b4bf81a05e839770cf917e5188851eb53c2220",
+    "reference_commit": "6facdc199acda7b17a2b3b6cda5cc353a39878c0",
+    "baseline_root": "/root/projects/aris/sceg_cars_author",
+    "baseline_run": "experiments/sceg_cars_author/runs/cars800_seed42_author_v1",
+    "reference_root": "/root/projects/aris/sceg_proker_dogs",
+    "checkpoint_sha256": "d4cf951237d05dbc751d9bc6196bd7fcc5d7cce9bed2c0b6dcbe0e9bca45168f",
+    "settings": [
+      [
+        5,
+        1
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        49,
+        1
+      ],
+      [
+        49,
+        5
+      ]
+    ],
+    "episodes": 2000,
+    "query": 16,
+    "parameters": {
+      "1": {
+        "beta": 10.0,
+        "ridge_lambda": 1.0,
+        "residual_weight": 1.0,
+        "linear_ridge_lambda": 100.0
+      },
+      "5": {
+        "beta": 1.0,
+        "ridge_lambda": 0.1,
+        "residual_weight": 1.5,
+        "linear_ridge_lambda": 0.1
+      }
+    },
+    "runtime": {
+      "device": "cuda:0",
+      "workers": 4,
+      "cpu_threads": 2,
+      "encoding_chunk_size": 128,
+      "amp": false,
+      "allow_tf32": false
+    },
+    "checks": {
+      "feature_atol": 1e-05,
+      "feature_rtol": 1e-05,
+      "score_atol": 1e-05,
+      "score_rtol": 1e-05,
+      "baseline_atol": 1e-06,
+      "baseline_rtol": 1e-06
+    }
+  },
+  "cars_resolved_config": {
+    "experiment": "sceg_cars_author",
+    "official_commit": "f7f130aeb5b1b49246150574c53a874d4ce8de80",
+    "seed": 42,
+    "model": {
+      "dataset": "stanford_car",
+      "input_channels": 3,
+      "image_size": 84,
+      "stage_channels": [
+        64,
+        160,
+        320,
+        640
+      ],
+      "feature_dim": 640,
+      "base_classes": 130,
+      "train_way": 10,
+      "train_shot": 5,
+      "train_query": 15,
+      "transform_alpha": 0.3,
+      "gate_hidden_channels": 16,
+      "stage3_to_stage2_datasets": [
+        "cub_raw",
+        "stanford_dog"
+      ],
+      "dropout": 0.1,
+      "dropblock_size": 5,
+      "dropblock_ramp_batches": 40000,
+      "negative_slope": 0.1,
+      "batchnorm_eps": 1e-05,
+      "batchnorm_momentum": 0.1,
+      "projection_bn_momentum": 0.01,
+      "episode_norm_eps": 1e-12,
+      "global_norm_eps": 1e-12,
+      "convolution_kernel": 3,
+      "pool_stride": 2
+    },
+    "loss": {
+      "lamda": 36.0,
+      "inter": 0.05,
+      "intra": 0.65
+    },
+    "data": {
+      "root": "/root/projects/aris/sceg_cars_author/data/cars_author/StanfordCars_fewshot",
+      "image_size": 84,
+      "eval_resize": 92,
+      "mean": [
+        0.485,
+        0.456,
+        0.406
+      ],
+      "std": [
+        0.229,
+        0.224,
+        0.225
+      ],
+      "crop_scale": [
+        0.08,
+        1.0
+      ],
+      "crop_ratio": [
+        0.75,
+        1.3333333333333333
+      ],
+      "jitter": 0.4,
+      "flip_probability": 0.5,
+      "pre_resized": true,
+      "workers": 4
+    },
+    "train": {
+      "optimizer": "sgd",
+      "lr": 0.1,
+      "momentum": 0.9,
+      "nesterov": true,
+      "weight_decay": 0.0005,
+      "epochs": 800,
+      "scheduler": "StepLR",
+      "scheduler_step": 400,
+      "scheduler_gamma": 0.1,
+      "validation_every": 20
+    },
+    "eval": {
+      "way": 5,
+      "validation_shot": 5,
+      "shots": [
+        1,
+        5
+      ],
+      "ways": [
+        5,
+        49
+      ],
+      "query": 16,
+      "validation_episodes": 1000,
+      "test_episodes": 2000,
+      "confidence_multiplier": 1.96
+    },
+    "runtime": {
+      "device": "cuda:0",
+      "deterministic": true,
+      "deterministic_warn_only": true,
+      "allow_tf32": false,
+      "amp": false,
+      "cpu_threads": 2,
+      "record_activations": false,
+      "record_epoch_timing": true,
+      "post_training_evaluation": false
+    },
+    "data_protocol": {
+      "protocol_id": "sceg_author_cars_v1",
+      "prepared": "experiments/sceg_cars_author/prep/prepared.json",
+      "author_split_sha256": "2677107210b2bf1c9dfe1741ddc7d6d8dad992232ff04efa24ba4676aa48052c",
+      "split_manifest_sha256": "56f00b9fb9471e34087504d2121af5168f6c4d8b51fa0983e2795c313d2eeb4a",
+      "sample_manifest_sha256": "bce036da17a2f3b481d282cde5ece325a548b8807fe98a714ee1bc1df6b92877"
+    },
+    "run_id": "cars800_seed42_author_v1"
+  },
+  "inputs": {
+    "checkpoint": {
+      "path": "/root/projects/aris/sceg_cars_author/experiments/sceg_cars_author/runs/cars800_seed42_author_v1/checkpoint.pth",
+      "sha256_file_bytes": "d4cf951237d05dbc751d9bc6196bd7fcc5d7cce9bed2c0b6dcbe0e9bca45168f"
+    },
+    "baseline_config": {
+      "path": "/root/projects/aris/sceg_cars_author/experiments/sceg_cars_author/runs/cars800_seed42_author_v1/config.yaml",
+      "sha256_file_bytes": "8c97a7b2829043531c3ec3b9663b8a1c3b0c9d1dda829d7fb31ac4c851614553"
+    },
+    "prepared": {
+      "path": "/root/projects/aris/sceg_cars_author/experiments/sceg_cars_author/prep/prepared.json",
+      "sha256_file_bytes": "945677180b30b6e1cbb872fac5814ad2ed7efa855582095315da926c65b2bdda"
+    },
+    "split_manifest": {
+      "path": "/root/projects/aris/sceg_cars_author/experiments/sceg_cars_author/prep/split.json",
+      "sha256_file_bytes": "56f00b9fb9471e34087504d2121af5168f6c4d8b51fa0983e2795c313d2eeb4a"
+    },
+    "sample_manifest": {
+      "path": "/root/projects/aris/sceg_cars_author/experiments/sceg_cars_author/prep/samples.jsonl",
+      "sha256_file_bytes": "bce036da17a2f3b481d282cde5ece325a548b8807fe98a714ee1bc1df6b92877"
+    },
+    "5way_1shot": {
+      "path": "/root/projects/aris/sceg_cars_author/experiments/sceg_cars_author/runs/cars800_seed42_author_v1/test_5way_1shot.json",
+      "sha256_file_bytes": "72dc4692696c8d3d9923c00f0a26ee2d54e0383fb38a2a9d16aa8427705002e4",
+      "relative_to_baseline_root": "experiments/sceg_cars_author/runs/cars800_seed42_author_v1/test_5way_1shot.json",
+      "fields": [
+        "episode_indices",
+        "episode_classes",
+        "sample_index_paths",
+        "episode_accuracies"
+      ],
+      "historical_parsed_config_sha256": "128a81f21bb492df58ef50b4bb7f9e2c3d7d713666703cf4ede0c82f544fbbc9"
+    },
+    "5way_5shot": {
+      "path": "/root/projects/aris/sceg_cars_author/experiments/sceg_cars_author/runs/cars800_seed42_author_v1/test_5way_5shot.json",
+      "sha256_file_bytes": "76049a406a89b5153632f1c3d5840ef998e510362dcc2861a196633926f203e2",
+      "relative_to_baseline_root": "experiments/sceg_cars_author/runs/cars800_seed42_author_v1/test_5way_5shot.json",
+      "fields": [
+        "episode_indices",
+        "episode_classes",
+        "sample_index_paths",
+        "episode_accuracies"
+      ],
+      "historical_parsed_config_sha256": "128a81f21bb492df58ef50b4bb7f9e2c3d7d713666703cf4ede0c82f544fbbc9"
+    },
+    "49way_1shot": {
+      "path": "/root/projects/aris/sceg_cars_author/experiments/sceg_cars_author/runs/cars800_seed42_author_v1/test_49way_1shot.json",
+      "sha256_file_bytes": "3002c17dc2dc147372c351b9d640f9e62dde443abd852c81c51b1270668cb4d1",
+      "relative_to_baseline_root": "experiments/sceg_cars_author/runs/cars800_seed42_author_v1/test_49way_1shot.json",
+      "fields": [
+        "episode_indices",
+        "episode_classes",
+        "sample_index_paths",
+        "episode_accuracies"
+      ],
+      "historical_parsed_config_sha256": "128a81f21bb492df58ef50b4bb7f9e2c3d7d713666703cf4ede0c82f544fbbc9"
+    },
+    "49way_5shot": {
+      "path": "/root/projects/aris/sceg_cars_author/experiments/sceg_cars_author/runs/cars800_seed42_author_v1/test_49way_5shot.json",
+      "sha256_file_bytes": "8f9a8f10ff1296bcfcebc5ec7cb8c8da2aa0039d0bd9af3c3d5dae51a47d844c",
+      "relative_to_baseline_root": "experiments/sceg_cars_author/runs/cars800_seed42_author_v1/test_49way_5shot.json",
+      "fields": [
+        "episode_indices",
+        "episode_classes",
+        "sample_index_paths",
+        "episode_accuracies"
+      ],
+      "historical_parsed_config_sha256": "128a81f21bb492df58ef50b4bb7f9e2c3d7d713666703cf4ede0c82f544fbbc9"
+    },
+    "reference_head": {
+      "path": "/root/projects/aris/sceg_proker_dogs/experiments/sceg_proker_dogs/head.py",
+      "sha256_file_bytes": "cde51fdb07ac72916da6ceb9c1c6bc40e9852b36cc116108fbece23f38c9089f"
+    },
+    "reference_config": {
+      "path": "/root/projects/aris/sceg_proker_dogs/experiments/sceg_proker_dogs/config.yaml",
+      "sha256_file_bytes": "d240973fbe18e0e5794ab2377e848ad036afe14faecbd286983bb5f1836d93ed"
+    },
+    "reference_report": {
+      "path": "/root/projects/aris/sceg_proker_dogs/experiments/sceg_proker_dogs/runs/dogs_seed42_proker_transfer_v1/REPORT.md",
+      "sha256_file_bytes": "709291564b37115624c5dcb06b53ff9c248ff8087257c00f68ee8969cf2e647f"
+    }
+  },
+  "sources": {
+    "config.yaml": {
+      "path": "/root/projects/aris/sceg_proker_cars/experiments/sceg_proker_cars/config.yaml",
+      "sha256_file_bytes": "844b7e17bf5f53618f0d17eb6108df279e3ddad0f10f11a271df74b06caf3c7b"
+    },
+    "head.py": {
+      "path": "/root/projects/aris/sceg_proker_cars/experiments/sceg_proker_cars/head.py",
+      "sha256_file_bytes": "21fb9735248041d4fe364824e6c28a55764ac488a78407371fb771b148563b0b"
+    },
+    "run.py": {
+      "path": "/root/projects/aris/sceg_proker_cars/experiments/sceg_proker_cars/run.py",
+      "sha256_file_bytes": "0cfdd1def99cfc1b47b37e01b9d923181eecb52ebb777fd5a483c68647eb3b2a"
+    }
+  },
+  "config_sha256_canonical_json": "1372304a959aee5ddf0277f7f76372c8f47c253064e017317dcb1226c38a8839",
+  "cwd": "/root/projects/aris/sceg_proker_cars",
+  "command": "/root/projects/aris/sceg_fsfg/.venv/bin/python -B -m experiments.sceg_proker_cars.run",
+  "environment": {
+    "python": "3.10.20 (main, Mar 11 2026, 17:46:40) [GCC 14.3.0]",
+    "executable": "/root/projects/aris/sceg_fsfg/.venv/bin/python",
+    "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.35",
+    "torch": "2.6.0+cu124",
+    "cuda": "12.4",
+    "cudnn": 90100,
+    "gpu": "NVIDIA GeForce RTX 4060 Ti",
+    "cpu_threads": 2
+  },
+  "startup_resources": {
+    "gpu_free_total_bytes": [
+      15960375296,
+      17175150592
+    ],
+    "host_mem_available_bytes": 77361152,
+    "disk_available_bytes": 916913659904
+  },
+  "startup_observation": "Original worktree has pre-existing untracked docs/paper/; left untouched. No compute process shown by nvidia-smi. 14812 MiB GPU free, 6.2 GiB host available, 855 GiB disk, 3.9 GiB shm.",
+  "run_identity": "3a4c7db284ac7b27821ccc7c057ba3dfcfa9596b1c0d8156e0182ad027780612",
+  "encoding": {
+    "seconds": 5.870267185999978,
+    "peak_cuda_allocated_bytes": 1499947520,
+    "peak_cuda_reserved_bytes": 1925185536,
+    "cache_bytes": 30935040
+  },
+  "cache": {
+    "path": "/root/projects/aris/sceg_proker_cars/experiments/sceg_proker_cars/runs/cars_seed42_proker_transfer_v1/features.pt",
+    "sha256_file_bytes": "397d2906bd5b81bf28647a7ca75068c5bdd67e714984bf0a32e89691505487e6"
+  },
+  "short_check": {
+    "episodes": [
+      {
+        "setting": "5way_1shot",
+        "episode": 0,
+        "feature_max_abs": 6.4373016357421875e-06,
+        "score_max_abs": {
+          "sceg": 9.5367431640625e-07,
+          "ridge": 3.725290298461914e-09,
+          "proker": 2.980232238769531e-07
+        },
+        "original_score_max_abs": 0.0,
+        "prediction_differences": 0,
+        "w0_exact": true,
+        "seconds": 0.47569662300008986,
+        "peak_cuda_allocated_bytes": 1030272000,
+        "historical_accuracy_match": true
+      },
+      {
+        "setting": "5way_5shot",
+        "episode": 0,
+        "feature_max_abs": 6.079673767089844e-06,
+        "score_max_abs": {
+          "sceg": 9.5367431640625e-07,
+          "ridge": 8.344650268554688e-07,
+          "proker": 4.172325134277344e-07
+        },
+        "original_score_max_abs": 0.0,
+        "prediction_differences": 0,
+        "w0_exact": true,
+        "seconds": 0.21493852399999014,
+        "peak_cuda_allocated_bytes": 1250740736,
+        "historical_accuracy_match": true
+      },
+      {
+        "setting": "49way_1shot",
+        "episode": 0,
+        "feature_max_abs": 5.185604095458984e-06,
+        "score_max_abs": {
+          "sceg": 9.5367431640625e-07,
+          "ridge": 3.259629011154175e-09,
+          "proker": 2.980232238769531e-07
+        },
+        "original_score_max_abs": 0.0,
+        "prediction_differences": 0,
+        "w0_exact": true,
+        "seconds": 1.4919542389999378,
+        "peak_cuda_allocated_bytes": 1507338240,
+        "historical_accuracy_match": true
+      },
+      {
+        "setting": "49way_5shot",
+        "episode": 0,
+        "feature_max_abs": 5.364418029785156e-06,
+        "score_max_abs": {
+          "sceg": 7.152557373046875e-07,
+          "ridge": 3.814697265625e-06,
+          "proker": 5.364418029785156e-07
+        },
+        "original_score_max_abs": 0.0,
+        "prediction_differences": 0,
+        "w0_exact": true,
+        "seconds": 1.8036695399999871,
+        "peak_cuda_allocated_bytes": 1527646720,
+        "historical_accuracy_match": true
+      }
+    ],
+    "dropblock_counter_independence_exact": true,
+    "status": "passed",
+    "bn_buffers_unchanged": true
+  },
+  "inference_wall_seconds": 52.831706036000014
+}

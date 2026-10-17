@@ -1,0 +1,15 @@
+run_id: cars_seed42_proker_transfer_v1
+base_commit: 88b4bf81a05e839770cf917e5188851eb53c2220
+reference_commit: 6facdc199acda7b17a2b3b6cda5cc353a39878c0
+baseline_root: /root/projects/aris/sceg_cars_author
+baseline_run: experiments/sceg_cars_author/runs/cars800_seed42_author_v1
+reference_root: /root/projects/aris/sceg_proker_dogs
+checkpoint_sha256: d4cf951237d05dbc751d9bc6196bd7fcc5d7cce9bed2c0b6dcbe0e9bca45168f
+settings: [[5, 1], [5, 5], [49, 1], [49, 5]]
+episodes: 2000
+query: 16
+parameters:
+  1: {beta: 10.0, ridge_lambda: 1.0, residual_weight: 1.0, linear_ridge_lambda: 100.0}
+  5: {beta: 1.0, ridge_lambda: 0.1, residual_weight: 1.5, linear_ridge_lambda: 0.1}
+runtime: {device: 'cuda:0', workers: 4, cpu_threads: 2, encoding_chunk_size: 128, amp: false, allow_tf32: false}
+checks: {feature_atol: 1.0e-5, feature_rtol: 1.0e-5, score_atol: 1.0e-5, score_rtol: 1.0e-5, baseline_atol: 1.0e-6, baseline_rtol: 1.0e-6}

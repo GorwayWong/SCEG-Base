@@ -1,0 +1,92 @@
+2026-10-17 23:26:33,570 Inputs verified; loading frozen Cars epoch660 checkpoint on CPU
+2026-10-17 23:26:33,839 Encoding test-only cache: 4028 images, three 640D branches, FP32 batch128
+2026-10-17 23:26:40,248 short check passed 5way_1shot feature_error=6.44e-06 score_errors={'sceg': 9.5367431640625e-07, 'ridge': 3.725290298461914e-09, 'proker': 2.980232238769531e-07}
+2026-10-17 23:26:40,463 short check passed 5way_5shot feature_error=6.08e-06 score_errors={'sceg': 9.5367431640625e-07, 'ridge': 8.344650268554688e-07, 'proker': 4.172325134277344e-07}
+2026-10-17 23:26:41,956 short check passed 49way_1shot feature_error=5.19e-06 score_errors={'sceg': 9.5367431640625e-07, 'ridge': 3.259629011154175e-09, 'proker': 2.980232238769531e-07}
+2026-10-17 23:26:43,759 short check passed 49way_5shot feature_error=5.36e-06 score_errors={'sceg': 7.152557373046875e-07, 'ridge': 3.814697265625e-06, 'proker': 5.364418029785156e-07}
+2026-10-17 23:26:43,793 Short checks passed; starting the four fixed formal groups sequentially
+2026-10-17 23:26:44,185 5way_1shot episodes=100/2000 elapsed=0.39s
+2026-10-17 23:26:44,568 5way_1shot episodes=200/2000 elapsed=0.77s
+2026-10-17 23:26:44,961 5way_1shot episodes=300/2000 elapsed=1.17s
+2026-10-17 23:26:45,321 5way_1shot episodes=400/2000 elapsed=1.53s
+2026-10-17 23:26:45,693 5way_1shot episodes=500/2000 elapsed=1.90s
+2026-10-17 23:26:46,103 5way_1shot episodes=600/2000 elapsed=2.31s
+2026-10-17 23:26:46,513 5way_1shot episodes=700/2000 elapsed=2.72s
+2026-10-17 23:26:46,910 5way_1shot episodes=800/2000 elapsed=3.12s
+2026-10-17 23:26:47,366 5way_1shot episodes=900/2000 elapsed=3.57s
+2026-10-17 23:26:47,757 5way_1shot episodes=1000/2000 elapsed=3.96s
+2026-10-17 23:26:48,144 5way_1shot episodes=1100/2000 elapsed=4.35s
+2026-10-17 23:26:48,525 5way_1shot episodes=1200/2000 elapsed=4.73s
+2026-10-17 23:26:48,919 5way_1shot episodes=1300/2000 elapsed=5.13s
+2026-10-17 23:26:49,322 5way_1shot episodes=1400/2000 elapsed=5.53s
+2026-10-17 23:26:49,713 5way_1shot episodes=1500/2000 elapsed=5.92s
+2026-10-17 23:26:50,075 5way_1shot episodes=1600/2000 elapsed=6.28s
+2026-10-17 23:26:50,463 5way_1shot episodes=1700/2000 elapsed=6.67s
+2026-10-17 23:26:50,848 5way_1shot episodes=1800/2000 elapsed=7.05s
+2026-10-17 23:26:51,220 5way_1shot episodes=1900/2000 elapsed=7.43s
+2026-10-17 23:26:51,600 5way_1shot episodes=2000/2000 elapsed=7.81s
+2026-10-17 23:26:51,603 Completed 5way_1shot statistics={'sceg': {'accuracy': 90.2525, 'confidence_interval': 0.3333809806287695}, 'ridge': {'accuracy': 90.265, 'confidence_interval': 0.3331191762267672, 'gain': 0.0125, 'paired_ci': 0.01406351218579484}, 'proker': {'accuracy': 90.256875, 'confidence_interval': 0.3333407990888417, 'gain': 0.004375, 'paired_ci': 0.008572855981964238}} historical_differences=0
+2026-10-17 23:26:52,011 5way_5shot episodes=100/2000 elapsed=0.41s
+2026-10-17 23:26:52,404 5way_5shot episodes=200/2000 elapsed=0.80s
+2026-10-17 23:26:52,781 5way_5shot episodes=300/2000 elapsed=1.18s
+2026-10-17 23:26:53,154 5way_5shot episodes=400/2000 elapsed=1.55s
+2026-10-17 23:26:53,530 5way_5shot episodes=500/2000 elapsed=1.93s
+2026-10-17 23:26:53,929 5way_5shot episodes=600/2000 elapsed=2.33s
+2026-10-17 23:26:54,326 5way_5shot episodes=700/2000 elapsed=2.72s
+2026-10-17 23:26:54,724 5way_5shot episodes=800/2000 elapsed=3.12s
+2026-10-17 23:26:55,110 5way_5shot episodes=900/2000 elapsed=3.51s
+2026-10-17 23:26:55,507 5way_5shot episodes=1000/2000 elapsed=3.90s
+2026-10-17 23:26:55,914 5way_5shot episodes=1100/2000 elapsed=4.31s
+2026-10-17 23:26:56,314 5way_5shot episodes=1200/2000 elapsed=4.71s
+2026-10-17 23:26:56,730 5way_5shot episodes=1300/2000 elapsed=5.13s
+2026-10-17 23:26:57,126 5way_5shot episodes=1400/2000 elapsed=5.52s
+2026-10-17 23:26:57,504 5way_5shot episodes=1500/2000 elapsed=5.90s
+2026-10-17 23:26:57,888 5way_5shot episodes=1600/2000 elapsed=6.28s
+2026-10-17 23:26:58,317 5way_5shot episodes=1700/2000 elapsed=6.71s
+2026-10-17 23:26:58,709 5way_5shot episodes=1800/2000 elapsed=7.10s
+2026-10-17 23:26:59,129 5way_5shot episodes=1900/2000 elapsed=7.53s
+2026-10-17 23:26:59,537 5way_5shot episodes=2000/2000 elapsed=7.93s
+2026-10-17 23:26:59,540 Completed 5way_5shot statistics={'sceg': {'accuracy': 96.929375, 'confidence_interval': 0.14607946770401203}, 'ridge': {'accuracy': 97.115, 'confidence_interval': 0.1384969202545674, 'gain': 0.185625, 'paired_ci': 0.06462261647200228}, 'proker': {'accuracy': 97.101875, 'confidence_interval': 0.13890719769755452, 'gain': 0.1725, 'paired_ci': 0.03520488879402973}} historical_differences=0
+2026-10-17 23:27:00,253 49way_1shot episodes=100/2000 elapsed=0.71s
+2026-10-17 23:27:00,860 49way_1shot episodes=200/2000 elapsed=1.32s
+2026-10-17 23:27:01,537 49way_1shot episodes=300/2000 elapsed=2.00s
+2026-10-17 23:27:02,236 49way_1shot episodes=400/2000 elapsed=2.70s
+2026-10-17 23:27:02,835 49way_1shot episodes=500/2000 elapsed=3.29s
+2026-10-17 23:27:03,477 49way_1shot episodes=600/2000 elapsed=3.94s
+2026-10-17 23:27:04,122 49way_1shot episodes=700/2000 elapsed=4.58s
+2026-10-17 23:27:04,764 49way_1shot episodes=800/2000 elapsed=5.22s
+2026-10-17 23:27:05,398 49way_1shot episodes=900/2000 elapsed=5.86s
+2026-10-17 23:27:06,043 49way_1shot episodes=1000/2000 elapsed=6.50s
+2026-10-17 23:27:06,634 49way_1shot episodes=1100/2000 elapsed=7.09s
+2026-10-17 23:27:07,258 49way_1shot episodes=1200/2000 elapsed=7.72s
+2026-10-17 23:27:07,821 49way_1shot episodes=1300/2000 elapsed=8.28s
+2026-10-17 23:27:08,426 49way_1shot episodes=1400/2000 elapsed=8.89s
+2026-10-17 23:27:08,997 49way_1shot episodes=1500/2000 elapsed=9.46s
+2026-10-17 23:27:09,595 49way_1shot episodes=1600/2000 elapsed=10.05s
+2026-10-17 23:27:10,167 49way_1shot episodes=1700/2000 elapsed=10.63s
+2026-10-17 23:27:10,754 49way_1shot episodes=1800/2000 elapsed=11.21s
+2026-10-17 23:27:11,337 49way_1shot episodes=1900/2000 elapsed=11.80s
+2026-10-17 23:27:11,925 49way_1shot episodes=2000/2000 elapsed=12.38s
+2026-10-17 23:27:11,928 Completed 49way_1shot statistics={'sceg': {'accuracy': 62.198469387755104, 'confidence_interval': 0.12127493351884387}, 'ridge': {'accuracy': 62.287882653061224, 'confidence_interval': 0.12017102799239925, 'gain': 0.08941326530612248, 'paired_ci': 0.021224690074297902}, 'proker': {'accuracy': 62.284183673469386, 'confidence_interval': 0.12086551617396915, 'gain': 0.08571428571428569, 'paired_ci': 0.01222882864382358}} historical_differences=0
+2026-10-17 23:27:12,664 49way_5shot episodes=100/2000 elapsed=0.74s
+2026-10-17 23:27:13,327 49way_5shot episodes=200/2000 elapsed=1.40s
+2026-10-17 23:27:13,988 49way_5shot episodes=300/2000 elapsed=2.06s
+2026-10-17 23:27:14,640 49way_5shot episodes=400/2000 elapsed=2.71s
+2026-10-17 23:27:15,265 49way_5shot episodes=500/2000 elapsed=3.34s
+2026-10-17 23:27:15,897 49way_5shot episodes=600/2000 elapsed=3.97s
+2026-10-17 23:27:16,569 49way_5shot episodes=700/2000 elapsed=4.64s
+2026-10-17 23:27:17,235 49way_5shot episodes=800/2000 elapsed=5.31s
+2026-10-17 23:27:17,909 49way_5shot episodes=900/2000 elapsed=5.98s
+2026-10-17 23:27:18,549 49way_5shot episodes=1000/2000 elapsed=6.62s
+2026-10-17 23:27:19,196 49way_5shot episodes=1100/2000 elapsed=7.27s
+2026-10-17 23:27:19,916 49way_5shot episodes=1200/2000 elapsed=7.99s
+2026-10-17 23:27:20,548 49way_5shot episodes=1300/2000 elapsed=8.62s
+2026-10-17 23:27:21,225 49way_5shot episodes=1400/2000 elapsed=9.30s
+2026-10-17 23:27:21,917 49way_5shot episodes=1500/2000 elapsed=9.99s
+2026-10-17 23:27:22,557 49way_5shot episodes=1600/2000 elapsed=10.63s
+2026-10-17 23:27:23,219 49way_5shot episodes=1700/2000 elapsed=11.29s
+2026-10-17 23:27:23,874 49way_5shot episodes=1800/2000 elapsed=11.95s
+2026-10-17 23:27:24,528 49way_5shot episodes=1900/2000 elapsed=12.60s
+2026-10-17 23:27:25,186 49way_5shot episodes=2000/2000 elapsed=13.26s
+2026-10-17 23:27:25,189 Completed 49way_5shot statistics={'sceg': {'accuracy': 82.50950255102042, 'confidence_interval': 0.0662742290010793}, 'ridge': {'accuracy': 81.84368622448979, 'confidence_interval': 0.06491752694525184, 'gain': -0.6658163265306123, 'paired_ci': 0.051911764080986494}, 'proker': {'accuracy': 83.596875, 'confidence_interval': 0.0642762348554075, 'gain': 1.0873724489795917, 'paired_ci': 0.02710014702450893}} historical_differences=0
+2026-10-17 23:27:25,264 Completed: CPU reaggregation verified all 8000 episodes; report=/root/projects/aris/sceg_proker_cars/experiments/sceg_proker_cars/runs/cars_seed42_proker_transfer_v1/REPORT.md
