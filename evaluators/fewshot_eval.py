@@ -21,13 +21,15 @@ def encode_in_chunks(model, images, chunk_size):
 
 
 @torch.no_grad()
-def evaluate_episodes(model, config, split, way, shot, episodes, *, encode_chunk_size=None, logger=None):
+def evaluate_episodes(model, config, split, way, shot, episodes, *, encode_chunk_size=None,
+                      logger=None, loader=None, record_indices=True):
     if config["eval"]["query"] != 16:
         raise ValueError("Official evaluation sampler requires actual query=16 (D05)")
     if episodes <= 0:
         raise ValueError("Evaluation requires at least one episode")
     model.eval()
-    loader = make_loader(config, split, way=way, shot=shot, episodes=episodes)
+    if loader is None:
+        loader = make_loader(config, split, way=way, shot=shot, episodes=episodes)
     device = next(model.parameters()).device
     targets = torch.arange(way, device=device).repeat_interleave(config["eval"]["query"])
     accuracies = []
@@ -44,8 +46,10 @@ def evaluate_episodes(model, config, split, way, shot, episodes, *, encode_chunk
         else:
             output = model.classify(encode_in_chunks(model, images, encode_chunk_size), way, shot)
         assert output.scores.shape[0] == targets.numel()
+        assert torch.isfinite(output.scores).all(), "Nonfinite evaluation scores"
         predictions = output.scores.argmax(dim=1)
         accuracies.append(100*(predictions == targets).sum().item()/targets.numel())
+        del output, predictions, images, global_labels
         if len(accuracies) == 1 and encode_chunk_size is not None:
             execution = {"encoding_chunk_size": encode_chunk_size,
                          "first_episode_seconds": time.perf_counter()-started,
@@ -56,6 +60,7 @@ def evaluate_episodes(model, config, split, way, shot, episodes, *, encode_chunk
                         way, shot, len(accuracies), episodes, time.perf_counter()-started,
                         (time.perf_counter()-started)/len(accuracies), torch.cuda.max_memory_allocated(device)/2**30,
                         encode_chunk_size)
+    assert len(accuracies) == episodes, "Incomplete evaluation"
     values = np.array(accuracies)
     return {**execution, "seed": config["seed"], "dataset": config["model"]["dataset"], "split": split,
             "way": way, "shot": shot, "query": config["eval"]["query"],
@@ -64,6 +69,7 @@ def evaluate_episodes(model, config, split, way, shot, episodes, *, encode_chunk
                                            np.sqrt(values.var()/len(values))),
             "confidence_interval_type": "95% normal half-width, population variance ddof=0",
             "episode_accuracies": accuracies,
-            "episode_indices": loader.batch_sampler.episode_indices,
+            "elapsed_seconds": time.perf_counter()-started,
+            **({"episode_indices": loader.batch_sampler.episode_indices,
             "sample_index_paths": [str(Path(path).relative_to(loader.dataset.root))
-                                   for path, _ in loader.dataset.samples]}
+                                   for path, _ in loader.dataset.samples]} if record_indices else {})}

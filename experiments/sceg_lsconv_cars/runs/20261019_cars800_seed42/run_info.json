@@ -1,0 +1,686 @@
+{
+  "status": "blocked_precheck",
+  "config": {
+    "experiment": "sceg_lsconv_cars",
+    "official_commit": "f7f130aeb5b1b49246150574c53a874d4ce8de80",
+    "seed": 42,
+    "model": {
+      "dataset": "stanford_car",
+      "input_channels": 3,
+      "image_size": 84,
+      "stage_channels": [
+        64,
+        160,
+        320,
+        640
+      ],
+      "feature_dim": 640,
+      "base_classes": 130,
+      "train_way": 10,
+      "train_shot": 5,
+      "train_query": 15,
+      "transform_alpha": 0.3,
+      "gate_hidden_channels": 16,
+      "stage3_to_stage2_datasets": [
+        "cub_raw",
+        "stanford_dog"
+      ],
+      "dropout": 0.1,
+      "dropblock_size": 5,
+      "dropblock_ramp_batches": 40000,
+      "negative_slope": 0.1,
+      "batchnorm_eps": 1e-05,
+      "batchnorm_momentum": 0.1,
+      "projection_bn_momentum": 0.01,
+      "episode_norm_eps": 1e-12,
+      "global_norm_eps": 1e-12,
+      "convolution_kernel": 3,
+      "pool_stride": 2
+    },
+    "loss": {
+      "lamda": 36.0,
+      "inter": 0.05,
+      "intra": 0.65
+    },
+    "data": {
+      "root": "/root/projects/aris/sceg_cars_author/data/cars_author/StanfordCars_fewshot",
+      "image_size": 84,
+      "eval_resize": 92,
+      "mean": [
+        0.485,
+        0.456,
+        0.406
+      ],
+      "std": [
+        0.229,
+        0.224,
+        0.225
+      ],
+      "crop_scale": [
+        0.08,
+        1.0
+      ],
+      "crop_ratio": [
+        0.75,
+        1.3333333333333333
+      ],
+      "jitter": 0.4,
+      "flip_probability": 0.5,
+      "pre_resized": true,
+      "workers": 4
+    },
+    "train": {
+      "optimizer": "sgd",
+      "lr": 0.1,
+      "momentum": 0.9,
+      "nesterov": true,
+      "weight_decay": 0.0005,
+      "epochs": 800,
+      "scheduler": "StepLR",
+      "scheduler_step": 400,
+      "scheduler_gamma": 0.1,
+      "validation_every": 20
+    },
+    "eval": {
+      "way": 5,
+      "validation_shot": 5,
+      "shots": [
+        1,
+        5
+      ],
+      "ways": [
+        5,
+        49
+      ],
+      "query": 16,
+      "validation_episodes": 1000,
+      "test_episodes": 2000,
+      "confidence_multiplier": 1.96
+    },
+    "runtime": {
+      "device": "cuda:0",
+      "deterministic": true,
+      "deterministic_warn_only": true,
+      "allow_tf32": false,
+      "amp": false,
+      "cpu_threads": 2,
+      "record_activations": false,
+      "record_epoch_timing": true,
+      "post_training_evaluation": false
+    },
+    "data_protocol": {
+      "protocol_id": "sceg_author_cars_v1",
+      "prepared": "experiments/sceg_cars_author/prep/prepared.json",
+      "author_split_sha256": "2677107210b2bf1c9dfe1741ddc7d6d8dad992232ff04efa24ba4676aa48052c",
+      "split_manifest_sha256": "56f00b9fb9471e34087504d2121af5168f6c4d8b51fa0983e2795c313d2eeb4a",
+      "sample_manifest_sha256": "bce036da17a2f3b481d282cde5ece325a548b8807fe98a714ee1bc1df6b92877"
+    },
+    "run_id": "20261019_cars800_seed42",
+    "replacement": {
+      "location": "SC.self_s",
+      "implementation": "LSConv",
+      "channels": 320,
+      "large_kernel": 7,
+      "dynamic_kernel": 3,
+      "groups": 8,
+      "kernel_channel_index": "channel_index % 40",
+      "internal_residual": true
+    },
+    "execution": {
+      "encode_chunk_size": 128,
+      "last_every": 20,
+      "lightweight": true,
+      "pin_memory": false,
+      "prefetch_factor": 2,
+      "initialization": "random"
+    }
+  },
+  "specification": {
+    "baseline_root": "/root/projects/aris/sceg_cars_author",
+    "baseline_run": "experiments/sceg_cars_author/runs/cars800_seed42_author_v1",
+    "baseline_commit": "88b4bf81a05e839770cf917e5188851eb53c2220",
+    "baseline_best_sha256": "d4cf951237d05dbc751d9bc6196bd7fcc5d7cce9bed2c0b6dcbe0e9bca45168f",
+    "module_root": "/root/projects/aris/sceg_lsconv_cub",
+    "module_commit": "7539881285fd0e02c8ccb1c9142c9382e5e69c9b",
+    "module_evidence": "experiments/sceg_lsconv_cub/runs/20261019_cub800_seed42/run_info.json",
+    "upstream_commit": "cbe737c92b7c43ecf02d08545a07f03f1010177c",
+    "replacement": {
+      "location": "SC.self_s",
+      "implementation": "LSConv",
+      "channels": 320,
+      "large_kernel": 7,
+      "dynamic_kernel": 3,
+      "groups": 8,
+      "kernel_channel_index": "channel_index % 40",
+      "internal_residual": true
+    },
+    "execution": {
+      "encode_chunk_size": 128,
+      "last_every": 20,
+      "lightweight": true,
+      "pin_memory": false,
+      "prefetch_factor": 2,
+      "initialization": "random"
+    }
+  },
+  "command": "/root/projects/aris/sceg_fsfg/.venv/bin/python -m experiments.sceg_lsconv_cars.check --repair-precheck",
+  "cwd": "/root/projects/aris/sceg_lsconv_cars",
+  "commit": "88b4bf81a05e839770cf917e5188851eb53c2220",
+  "git_diff": "diff --git a/evaluators/fewshot_eval.py b/evaluators/fewshot_eval.py\nindex 1bd40e2..e25a72f 100644\n--- a/evaluators/fewshot_eval.py\n+++ b/evaluators/fewshot_eval.py\n@@ -21,13 +21,15 @@ def encode_in_chunks(model, images, chunk_size):\n \n \n @torch.no_grad()\n-def evaluate_episodes(model, config, split, way, shot, episodes, *, encode_chunk_size=None, logger=None):\n+def evaluate_episodes(model, config, split, way, shot, episodes, *, encode_chunk_size=None,\n+                      logger=None, loader=None, record_indices=True):\n     if config[\"eval\"][\"query\"] != 16:\n         raise ValueError(\"Official evaluation sampler requires actual query=16 (D05)\")\n     if episodes <= 0:\n         raise ValueError(\"Evaluation requires at least one episode\")\n     model.eval()\n-    loader = make_loader(config, split, way=way, shot=shot, episodes=episodes)\n+    if loader is None:\n+        loader = make_loader(config, split, way=way, shot=shot, episodes=episodes)\n     device = next(model.parameters()).device\n     targets = torch.arange(way, device=device).repeat_interleave(config[\"eval\"][\"query\"])\n     accuracies = []\n@@ -44,8 +46,10 @@ def evaluate_episodes(model, config, split, way, shot, episodes, *, encode_chunk\n         else:\n             output = model.classify(encode_in_chunks(model, images, encode_chunk_size), way, shot)\n         assert output.scores.shape[0] == targets.numel()\n+        assert torch.isfinite(output.scores).all(), \"Nonfinite evaluation scores\"\n         predictions = output.scores.argmax(dim=1)\n         accuracies.append(100*(predictions == targets).sum().item()/targets.numel())\n+        del output, predictions, images, global_labels\n         if len(accuracies) == 1 and encode_chunk_size is not None:\n             execution = {\"encoding_chunk_size\": encode_chunk_size,\n                          \"first_episode_seconds\": time.perf_counter()-started,\n@@ -56,6 +60,7 @@ def evaluate_episodes(model, config, split, way, shot, episodes, *, encode_chunk\n                         way, shot, len(accuracies), episodes, time.perf_counter()-started,\n                         (time.perf_counter()-started)/len(accuracies), torch.cuda.max_memory_allocated(device)/2**30,\n                         encode_chunk_size)\n+    assert len(accuracies) == episodes, \"Incomplete evaluation\"\n     values = np.array(accuracies)\n     return {**execution, \"seed\": config[\"seed\"], \"dataset\": config[\"model\"][\"dataset\"], \"split\": split,\n             \"way\": way, \"shot\": shot, \"query\": config[\"eval\"][\"query\"],\n@@ -64,6 +69,7 @@ def evaluate_episodes(model, config, split, way, shot, episodes, *, encode_chunk\n                                            np.sqrt(values.var()/len(values))),\n             \"confidence_interval_type\": \"95% normal half-width, population variance ddof=0\",\n             \"episode_accuracies\": accuracies,\n-            \"episode_indices\": loader.batch_sampler.episode_indices,\n+            \"elapsed_seconds\": time.perf_counter()-started,\n+            **({\"episode_indices\": loader.batch_sampler.episode_indices,\n             \"sample_index_paths\": [str(Path(path).relative_to(loader.dataset.root))\n-                                   for path, _ in loader.dataset.samples]}\n+                                   for path, _ in loader.dataset.samples]} if record_indices else {})}\ndiff --git a/trainers/trainer.py b/trainers/trainer.py\nindex 0f88194..1e0c9e3 100644\n--- a/trainers/trainer.py\n+++ b/trainers/trainer.py\n@@ -31,7 +31,7 @@ def dropblock_counters(model):\n             if hasattr(module, \"ramp_batches\")}\n \n \n-def train(model, config, run, resume=None):\n+def train(model, config, run, resume=None, *, lightweight=False, evaluator=evaluate_episodes):\n     settings = config[\"model\"]\n     optimizer = torch.optim.SGD(model.parameters(), **{key: config[\"train\"][key]\n         for key in (\"lr\", \"momentum\", \"weight_decay\", \"nesterov\")})\n@@ -44,7 +44,7 @@ def train(model, config, run, resume=None):\n     first_epoch, step, best_validation, best_epoch = 0, 0, 0.0, None\n     if resume is not None:\n         payload = torch.load(resume, map_location=device, weights_only=False)\n-        for key in (\"model\", \"train\", \"loss\", \"data\", \"seed\", \"official_commit\"):\n+        for key in (\"model\", \"train\", \"loss\", \"data\", \"seed\", \"official_commit\", *([\"replacement\", \"execution\", \"run_id\"] if lightweight else [])):\n             if payload[\"config\"][key] != config[key]:\n                 raise ValueError(f\"Resume configuration mismatch: {key}\")\n         model.load_state_dict(payload[\"model_state_dict\"], strict=True)\n@@ -63,10 +63,14 @@ def train(model, config, run, resume=None):\n             import shutil\n             if best_path.resolve() != (run.path/\"checkpoint.pth\").resolve():\n                 shutil.copy2(best_path, run.path/\"checkpoint.pth\")\n-    (run.path/\"model_summary.txt\").write_text(str(model))\n-    write_json(run.path/\"parameter_summary.json\", parameter_summary(model))\n+        del payload\n+    if not lightweight:\n+        (run.path/\"model_summary.txt\").write_text(str(model))\n+        write_json(run.path/\"parameter_summary.json\", parameter_summary(model))\n     for epoch in range(first_epoch, config[\"train\"][\"epochs\"]):\n         epoch_started = time.perf_counter()\n+        progress_at = epoch_started\n+        epoch_lr = optimizer.param_groups[0][\"lr\"]\n         model.train()\n         # Recreate both loss modules each epoch exactly as official default_train.\n         criterion = IntraInterLoss(settings[\"train_way\"], **config[\"loss\"]).to(device)\n@@ -74,7 +78,7 @@ def train(model, config, run, resume=None):\n         loss_sum, accuracy_sum, batches = 0.0, 0.0, 0\n         for images, global_labels in loader:\n             images, global_labels = images.to(device), global_labels.to(device)\n-            if batches == 0 and config.get(\"runtime\", {}).get(\"record_activations\", True):\n+            if batches == 0 and not lightweight and config.get(\"runtime\", {}).get(\"record_activations\", True):\n                 with activation_statistics(model) as activations:\n                     output = model(images)\n                 write_json(run.path/f\"activations_epoch_{epoch+1}.json\", activations)\n@@ -86,22 +90,36 @@ def train(model, config, run, resume=None):\n             assert_finite(total_loss, f\"epoch{epoch+1}.loss\")\n             optimizer.zero_grad()\n             total_loss.backward()\n-            gradients = gradient_summary(model)\n-            assert set(gradients[\"missing_parameters\"]) == model.expected_inactive_parameters()\n+            if not lightweight:\n+                gradients = gradient_summary(model)\n+                assert set(gradients[\"missing_parameters\"]) == model.expected_inactive_parameters()\n             optimizer.step()\n-            accuracy = 100*(output.scores.argmax(1) == target_query).sum().item()/target_query.numel()\n-            loss_sum += total_loss.item(); accuracy_sum += accuracy\n+            accuracy = 100*(output.scores.detach().argmax(1) == target_query).sum()/target_query.numel()\n+            if lightweight:\n+                loss_sum = loss_sum + total_loss.detach()\n+                accuracy_sum = accuracy_sum + accuracy\n+            else:\n+                loss_sum += total_loss.item(); accuracy_sum += accuracy.item()\n             batches += 1; step += 1\n+            if lightweight:\n+                del output, total_loss, images, global_labels, accuracy\n+                if time.perf_counter()-progress_at >= 60:\n+                    run.logger.info(\"train epoch=%d/%d episodes=%d elapsed=%.1fs\", epoch+1,\n+                                    config[\"train\"][\"epochs\"], batches, time.perf_counter()-epoch_started)\n+                    progress_at = time.perf_counter()\n         if batches == 0:\n             raise RuntimeError(\"No complete official training episodes\")\n         validation = None\n         improved = False\n+        if lightweight and device.type == \"cuda\":\n+            torch.cuda.synchronize(device)\n         train_seconds = time.perf_counter()-epoch_started\n         validation_started = time.perf_counter()\n         if (epoch+1) % config[\"train\"][\"validation_every\"] == 0:\n-            validation = evaluate_episodes(model, config, \"val\", config[\"eval\"][\"way\"],\n+            validation = evaluator(model, config, \"val\", config[\"eval\"][\"way\"],\n                 config[\"eval\"][\"validation_shot\"], config[\"eval\"][\"validation_episodes\"])\n-            write_json(run.path/f\"validation_epoch_{epoch+1}.json\", validation)\n+            if not lightweight:\n+                write_json(run.path/f\"validation_epoch_{epoch+1}.json\", validation)\n             if validation[\"accuracy\"] > best_validation:\n                 best_validation, best_epoch = validation[\"accuracy\"], epoch+1\n                 improved = True\n@@ -109,30 +127,44 @@ def train(model, config, run, resume=None):\n         validation_seconds = time.perf_counter()-validation_started if validation is not None else 0.0\n         # Step occurs after validation, exactly as official trainer.py:248.\n         scheduler.step()\n-        payload = {\"model_state_dict\": model.state_dict(), \"optimizer\": optimizer.state_dict(),\n-                   \"scheduler\": scheduler.state_dict(), \"config\": config, \"completed_epochs\": epoch+1,\n-                   \"step\": step, \"rng\": rng_state(), \"dropblock_counters\": dropblock_counters(model),\n-                   \"best_validation\": best_validation, \"best_epoch\": best_epoch}\n-        partial = run.path/\"latest.pth.part\"\n-        torch.save(payload, partial); partial.replace(run.path/\"latest.pth\")\n-        if improved or best_epoch is None:\n-            run.checkpoint(payload)\n+        save_started = time.perf_counter()\n+        if not lightweight or validation is not None or epoch+1 == config[\"train\"][\"epochs\"]:\n+            payload = {\"model_state_dict\": model.state_dict(), \"optimizer\": optimizer.state_dict(),\n+                       \"scheduler\": scheduler.state_dict(), \"config\": config, \"completed_epochs\": epoch+1,\n+                       \"step\": step, \"rng\": rng_state(), \"dropblock_counters\": dropblock_counters(model),\n+                       \"best_validation\": best_validation, \"best_epoch\": best_epoch}\n+            if lightweight:\n+                payload[\"source_sha256\"] = run.info[\"source_sha256\"]\n+                payload[\"checkpoint_role\"] = \"last\"\n+            partial = run.path/\"latest.pth.part\"\n+            torch.save(payload, partial); partial.replace(run.path/\"latest.pth\")\n+            if improved or (best_epoch is None and not lightweight):\n+                if lightweight:\n+                    payload[\"checkpoint_role\"] = \"best_validation\"\n+                run.checkpoint(payload)\n+            del payload\n+        save_seconds = time.perf_counter()-save_started\n+        if lightweight:\n+            loss_sum, accuracy_sum = loss_sum.item(), accuracy_sum.item()\n         timing = {}\n         if config.get(\"runtime\", {}).get(\"record_epoch_timing\", False):\n             timing = {\"epoch_seconds\": time.perf_counter()-epoch_started,\n                       \"train_seconds\": train_seconds, \"validation_seconds\": validation_seconds,\n+                      \"save_seconds\": save_seconds, \"learning_rate_used\": epoch_lr,\n                       \"validation_accuracy\": validation[\"accuracy\"] if validation else None,\n                       \"validation_ci\": validation[\"confidence_interval\"] if validation else None,\n+                      \"validation_episodes\": validation[\"episodes\"] if validation else None,\n                       \"peak_cuda_memory_bytes\": torch.cuda.max_memory_allocated(device)\n                           if device.type == \"cuda\" else 0}\n         run.update_metrics(completed_epochs=epoch+1, step=step, epoch_episodes=batches,\n             train_loss=loss_sum/batches, train_accuracy=accuracy_sum/batches,\n-            gradient_norm=gradients[\"global_norm\"], learning_rate=scheduler.get_last_lr()[0],\n+            **({} if lightweight else {\"gradient_norm\": gradients[\"global_norm\"]}), learning_rate=scheduler.get_last_lr()[0],\n             best_validation=best_validation, best_epoch=best_epoch,\n             checkpoint_role=\"best_validation\" if best_epoch is not None else \"provisional_last\", **timing)\n-        run.logger.info(\"epoch=%d/%d episodes=%d loss=%.6f train_acc=%.4f best_val=%.4f lr=%.6g\",\n-            epoch+1, config[\"train\"][\"epochs\"], batches, loss_sum/batches,\n-            accuracy_sum/batches, best_validation, optimizer.param_groups[0][\"lr\"])\n+        if not lightweight:\n+            run.logger.info(\"epoch=%d/%d episodes=%d loss=%.6f train_acc=%.4f best_val=%.4f lr=%.6g\",\n+                epoch+1, config[\"train\"][\"epochs\"], batches, loss_sum/batches,\n+                accuracy_sum/batches, best_validation, optimizer.param_groups[0][\"lr\"])\n     if best_epoch is None:\n         raise RuntimeError(\"No best-validation checkpoint selected; do not report a paper result\")\n     if not config.get(\"runtime\", {}).get(\"post_training_evaluation\", True):\n",
+  "git_status": " M evaluators/fewshot_eval.py\n M trainers/trainer.py\n?? experiments/sceg_lsconv_cars/\n",
+  "new_source": {
+    "experiments/sceg_lsconv_cars/AGENTS.md": "# Cars LSConv experiment\n\nOnly SC.self_s -> fixed LSConv; Cars seed42/800 epochs. See README.md and config.yaml.\nUse model.build_model for training, resume and strict best evaluation.\nReferenced baseline data, weights and results are read-only. No seed/recipe search.\nKeep only best and rolling last; never edit frozen execution sources during a run.\nOne GPU-heavy process; detached launch, no AI polling or automatic retry.\n",
+    "experiments/sceg_lsconv_cars/README.md": "# Cars fixed LSConv validation\n\nOnly `SC.self_s` is replaced. Cars `g_st` is still computed and discarded.\n`model.build_model` constructs full Cars SCEG first, constructs LSConv inside\nCPU `torch.random.fork_rng(devices=[])`, then returns the model for optimizer\ncreation or strict state loading. Disabled replacement consumes no extra RNG.\n\nBase: Cars `88b4bf81a05e839770cf917e5188851eb53c2220`.\nModule files copied verbatim from CUB `7539881285fd0e02c8ccb1c9142c9382e5e69c9b`.\nLSNet by THU-MIG authors, upstream `cbe737c92b7c43ecf02d08545a07f03f1010177c`.\nOriginal SCEG reference `f7f130aeb5b1b49246150574c53a874d4ce8de80`.\nKeep upstream attribution; no new license assertion is made.\n\n`config.yaml` references the completed Cars configuration. Effective config,\nsource hashes, uncommitted source snapshot and diff, checks and lifecycle state\nlive in one `run_info.json`; epoch/progress metrics in `metrics.jsonl`.\n`checkpoint.pth` is strict-validation best; `latest.pth` is last every20/final.\nBoth retain full Cars checkpoint state, and explicit roles are checked on read.\nFour formal JSONs reference historical task files without copying their arrays;\n`results.json` is the independently recomputed CPU float64 paired summary.\nNo pretrained/CUB/baseline weight is loaded for initialization.\n\nUse `/root/projects/aris/sceg_fsfg/.venv/bin/python` from this worktree:\n\n```bash\nrtk proxy env CUDA_VISIBLE_DEVICES=0 /root/projects/aris/sceg_fsfg/.venv/bin/python -m experiments.sceg_lsconv_cars.check\nrtk proxy bash experiments/sceg_lsconv_cars/launch.sh\n```\n\nLaunch the second command through nohup with stdout/stderr to the run's\n`console.log`. It trains, waits for normal Python exit, evaluates in a new\nprocess, and computes statistics in a third CPU process. There is no monitor,\nretry or AI callback. Each phase's exit code is recorded in `console.log`.\n\nNative recovery (only after inspecting a failure and confirming no active run):\n\n```bash\nrtk proxy bash experiments/sceg_lsconv_cars/launch.sh --resume\nrtk proxy env CUDA_VISIBLE_DEVICES=0 /root/projects/aris/sceg_fsfg/.venv/bin/python -m experiments.sceg_lsconv_cars.run --mode evaluate\nrtk proxy /root/projects/aris/sceg_fsfg/.venv/bin/python -m experiments.sceg_lsconv_cars.run --mode statistics\n```\n\nResume retains the original optimizer/scheduler/RNG/DropBlock state; at most\n19 unsaved epochs may be repeated. Existing valid formal results are reused.\nFrozen source or config conflicts fail explicitly. No automatic fallback.\nOne seed cannot establish cross-seed stability or mechanism causality.\nLambda36 is the completed Cars baseline's value, not an author-confirmed full\nCars recipe. Existing mirror provenance limitations remain. Uncontrolled wall\ntime differences are not evidence of an LSConv speedup.\n",
+    "experiments/sceg_lsconv_cars/check.py": "\"\"\"One bounded Cars precheck, isolated from the formal seed42 process.\"\"\"\nimport argparse\nimport hashlib\nimport gc\nimport json\nimport os\nfrom pathlib import Path\nimport resource\nimport shutil\nimport subprocess\nimport time\n\nimport torch\nfrom datasets import make_dataset, make_loader\nfrom evaluators.fewshot_eval import encode_in_chunks\nfrom losses import IntraInterLoss\nfrom trainers.trainer import dropblock_counters\nfrom .model import build_model\nfrom .run import Run, DEFAULT_RUN, HERE, ROOT, SETTINGS, setup, sha256, historical_result\n\n\ndef command(*args):\n    result = subprocess.run([\"rtk\", \"proxy\", *args], capture_output=True, text=True, timeout=20)\n    return result.stdout.strip() if result.returncode == 0 else \"unavailable: \"+result.stderr.strip()\n\n\ndef memory():\n    info = dict(line.split(\":\", 1) for line in Path(\"/proc/meminfo\").read_text().splitlines())\n    vm = dict(line.split() for line in Path(\"/proc/vmstat\").read_text().splitlines())\n    return {\"wsl\": {k: info[k].strip() for k in (\"MemTotal\", \"MemAvailable\", \"SwapTotal\", \"SwapFree\")},\n            \"swap_pages_in\": int(vm[\"pswpin\"]), \"swap_pages_out\": int(vm[\"pswpout\"]),\n            \"process_max_rss_kib\": resource.getrusage(resource.RUSAGE_SELF).ru_maxrss}\n\n\ndef resources_and_sources(run):\n    prep_path = Path(run.info[\"data_manifest_reference\"])\n    prep = json.loads(prep_path.read_text())\n    split_path = prep_path.parent/prep[\"split_manifest\"]\n    split = json.loads(split_path.read_text())\n    assert prep[\"full_decode_passed\"] and prep[\"data_ready\"]\n    assert prep[\"protocol_id\"] == split[\"protocol_id\"] == \"sceg_author_cars_v1\"\n    assert prep[\"root\"] == run.config[\"data\"][\"root\"]\n    assert sha256(split_path) == run.config[\"data_protocol\"][\"split_manifest_sha256\"]\n    assert sha256(prep_path.parent/prep[\"sample_manifest\"]) == run.config[\"data_protocol\"][\"sample_manifest_sha256\"]\n    counts = {}\n    for name, classes, images in ((\"train\", 130, 10747), (\"val\", 17, 1410), (\"test\", 49, 4028)):\n        dataset = make_dataset(run.config, name)\n        assert len(dataset.classes) == classes and len(dataset) == images\n        assert dataset.class_to_idx == split[\"class_to_idx\"][name]\n        counts[name] = {\"classes\": classes, \"images\": images}\n    baseline = Path(run.spec[\"baseline_root\"])/run.spec[\"baseline_run\"]\n    report = json.loads((baseline/\"report.json\").read_text())\n    assert report[\"status\"] == \"completed\" and report[\"best_sha256\"] == run.spec[\"baseline_best_sha256\"]\n    assert sha256(baseline/\"checkpoint.pth\") == report[\"best_sha256\"]\n    # Read one historical task array at a time, then retain only its parseable reference.\n    run.info[\"historical_results\"] = {}\n    for way, shot in SETTINGS:\n        path = baseline/f\"test_{way}way_{shot}shot.json\"\n        run.info[\"historical_results\"][f\"{way}way_{shot}shot\"] = {\"path\": str(path), \"sha256\": sha256(path)}\n        historical, _ = historical_result(run, dataset, way, shot)\n        assert abs(historical[\"accuracy\"]-report[\"results\"][f\"{way}way_{shot}shot\"][\"accuracy\"]) < 1e-10\n        del historical\n    cub_root = Path(run.spec[\"module_root\"])\n    for path, commit in ((ROOT, run.spec[\"baseline_commit\"]), (Path(run.spec[\"baseline_root\"]), run.spec[\"baseline_commit\"]),\n                         (cub_root, run.spec[\"module_commit\"])):\n        assert command(\"git\", \"-C\", str(path), \"rev-parse\", \"HEAD\") == commit\n    evidence_path = cub_root/run.spec[\"module_evidence\"]\n    evidence = json.loads(evidence_path.read_text())\n    module_identity = {}\n    for filename in (\"model.py\", \"lsconv.py\", \"ska.py\"):\n        relative = \"experiments/sceg_lsconv_cub/\"+filename\n        assert sha256(HERE/filename) == sha256(cub_root/relative)\n        snapshot = evidence[\"new_source\"][relative]\n        assert hashlib.sha256(snapshot.encode()).hexdigest() == evidence[\"source_sha256\"][relative]\n        # CUB's final commit strips trailing whitespace/empty EOF lines only.\n        normalize = lambda text: \"\\n\".join(line.rstrip() for line in text.splitlines()).rstrip()\n        assert normalize(snapshot) == normalize((HERE/filename).read_text()), filename\n        module_identity[filename] = {\"fixed_commit_and_local_sha256\": sha256(HERE/filename),\n            \"validated_snapshot_sha256\": evidence[\"source_sha256\"][relative],\n            \"difference\": \"none except trailing whitespace/empty EOF lines\"}\n    current, previous = run.info[\"environment\"], evidence[\"environment\"]\n    for key in (\"python\", \"torch_build\", \"cuda_runtime\", \"gpu\", \"platform\"):\n        assert current[key] == previous[key], f\"Operator evidence environment changed: {key}\"\n    for package in (\"torch\", \"torchvision\", \"triton\"):\n        assert current[\"packages\"][package] == previous[\"packages\"][package]\n    assert evidence[\"precheck\"][\"operator\"][\"status\"] == \"passed\"\n    processes = command(\"nvidia-smi\", \"--query-compute-apps=pid,process_name,used_memory\", \"--format=csv,noheader\")\n    assert not processes.startswith(\"unavailable\"), processes\n    other = [line for line in processes.splitlines() if int(line.split(\",\")[0]) != os.getpid()]\n    assert not other, f\"Other CUDA workloads: {other}\"\n    disk = shutil.disk_usage(run.path)\n    assert disk.free >= 1024**3\n    return {\"status\": \"passed\", \"splits\": counts, \"historical_pairing\": \"all four sets validated, 2000 each\",\n        \"data_evidence\": \"Existing full-decode record plus manifest hashes/class mappings reused; no image rehash/preprocessing\",\n        \"operator_reused\": {\"path\": str(evidence_path), \"sha256\": sha256(evidence_path),\n            \"check\": \"precheck.operator\", \"result\": evidence[\"precheck\"][\"operator\"],\n            \"module_identity\": module_identity,\n            \"basis\": \"Identical executable source (trailing whitespace only), operator shape, precision, Python/PyTorch/Triton/CUDA/GPU/platform\"},\n        \"memory_before\": memory(), \"disk_free_bytes\": disk.free,\n        \"gpu_before\": command(\"nvidia-smi\", \"--query-gpu=name,memory.used,memory.total,driver_version\", \"--format=csv,noheader\"),\n        \"host_memory\": command(\"powershell.exe\", \"-NoProfile\", \"-Command\",\n            \"Get-CimInstance Win32_OperatingSystem | Select-Object TotalVisibleMemorySize,FreePhysicalMemory | ConvertTo-Json\"),\n        \"effective_loader\": {\"workers\": 4, \"pin_memory\": False, \"prefetch_factor\": 2, \"persistent_workers\": False},\n        \"precision\": {\"parameter_dtype\": \"float32\", \"amp\": False, \"tf32\": False,\n            \"deterministic\": torch.are_deterministic_algorithms_enabled(),\n            \"warn_only\": torch.is_deterministic_algorithms_warn_only_enabled()}}\n\n\ndef training_check(config):\n    setup(config)\n    baseline = build_model(config, enabled=False)\n    baseline_rng = torch.get_rng_state().clone()\n    baseline_count = sum(p.numel() for p in baseline.parameters())\n    setup(config)\n    model = build_model(config)\n    assert torch.equal(torch.get_rng_state(), baseline_rng)\n    reference = baseline.state_dict()\n    for name, value in model.state_dict().items():\n        if not name.startswith(\"SC.self_s.\"):\n            assert torch.equal(value, reference[name]), name\n    del reference, baseline\n    model.to(config[\"runtime\"][\"device\"]).train()\n    assert all(p.dtype == torch.float32 for p in model.parameters())\n    optimizer = torch.optim.SGD(model.parameters(), **{key: config[\"train\"][key]\n        for key in (\"lr\", \"momentum\", \"weight_decay\", \"nesterov\")})\n    criterion = IntraInterLoss(10, **config[\"loss\"]).to(config[\"runtime\"][\"device\"])\n    global_criterion = IntraInterLoss(130, **config[\"loss\"]).to(config[\"runtime\"][\"device\"])\n    assert not ({id(p) for p in criterion.parameters()} & {id(p) for g in optimizer.param_groups for p in g[\"params\"]})\n    targets = torch.arange(10, device=config[\"runtime\"][\"device\"]).repeat_interleave(15)\n    before = {n: p.detach().clone() for n, p in model.SC.self_s.named_parameters()}\n    loader = make_loader(config, \"train\")\n    assert loader.num_workers == 4 and loader.pin_memory is False and loader.prefetch_factor == 2\n    iterator = iter(loader)\n    torch.cuda.reset_peak_memory_stats()\n    losses, elapsed = [], []\n    seen_shapes = []\n    hook = model.SC.self_s.register_forward_pre_hook(lambda m, args: seen_shapes.append(list(args[0].shape)))\n    for update in range(5):\n        images, labels = next(iterator)\n        assert images.shape == (200, 3, 84, 84)\n        support = labels[:50].reshape(10, 5)\n        assert (support == support[:, :1]).all() and support[:, 0].unique().numel() == 10\n        assert (labels[50:].reshape(10, 15) == support[:, :1]).all()\n        images, labels = images.to(config[\"runtime\"][\"device\"]), labels.to(config[\"runtime\"][\"device\"])\n        torch.cuda.synchronize()\n        started = time.perf_counter()\n        output = model(images)\n        assert all(item.shape == (150, 10) and torch.isfinite(item).all() for item in output[:3])\n        assert output.global_cosine.shape == (200, 130) and torch.isfinite(output.global_cosine).all()\n        terms = [criterion(cosine, targets) for cosine in output[:3]]\n        terms.append(global_criterion(output.global_cosine, labels))\n        loss = sum(terms)\n        assert torch.isfinite(loss)\n        optimizer.zero_grad()\n        loss.backward()\n        missing = {n for n, p in model.named_parameters() if p.grad is None}\n        assert missing == model.expected_inactive_parameters(), missing\n        assert any(n.startswith(\"SC.g_st.\") for n in missing)\n        assert all(p.grad is not None and torch.isfinite(p.grad).all() for p in model.SC.self_s.parameters())\n        optimizer.step()\n        torch.cuda.synchronize()\n        elapsed.append(time.perf_counter()-started)\n        losses.append([float(term.detach()) for term in terms])\n        del output, terms, loss, images, labels\n    hook.remove()\n    assert seen_shapes == [[200, 320, 10, 10]]*5\n    assert all(not torch.equal(p, before[n]) for n, p in model.SC.self_s.named_parameters())\n    result = {\"status\": \"passed\", \"updates\": 5, \"warmup_updates\": 2, \"four_loss_terms\": losses,\n        \"warmup_seconds\": elapsed[:2], \"steady_update_seconds\": elapsed[2:],\n        \"peak_cuda_bytes\": torch.cuda.max_memory_allocated(), \"all_lsconv_parameters_finite_and_updated\": True,\n        \"baseline_parameters\": baseline_count, \"parameters\": sum(p.numel() for p in model.parameters()),\n        \"unchanged_parameters_and_cpu_rng\": \"bitwise matched original Cars construction\",\n        \"inactive_parameters\": sorted(missing), \"stage3_shape\": seen_shapes[0],\n        \"task_score_shapes\": [[150, 10]]*3, \"global_shape\": [200, 130]}\n    del optimizer, iterator, loader, before, criterion, global_criterion\n    model.zero_grad(set_to_none=True)\n    gc.collect()\n    return model.eval(), result\n\n\n@torch.no_grad()\ndef chunk_check(model, config):\n    iterator = iter(make_loader(config, \"val\", way=10, shot=5, episodes=1))\n    images, _ = next(iterator)\n    assert images.shape == (210, 3, 84, 84)\n    counters = dropblock_counters(model)\n    buffers = {n: p.clone() for n, p in model.named_buffers()}\n    torch.cuda.reset_peak_memory_stats()\n    full = model.encode(images.to(config[\"runtime\"][\"device\"]))\n    full_output = model.classify(full, 10, 5)\n    for name, module in model.named_modules():\n        if name in counters:\n            module.num_batches_tracked = counters[name]\n    cpu_rng = torch.get_rng_state().clone()\n    gpu_rng = torch.cuda.get_rng_state().clone()\n    chunks = encode_in_chunks(model, images, 128)\n    chunk_output = model.classify(chunks, 10, 5)\n    differences = {}\n    pairs = [(f\"embedding_{i}\", a, b) for i, (a, b) in enumerate(zip(full, chunks))]\n    pairs += [(f\"cosine_{i}\", a, b) for i, (a, b) in enumerate(zip(full_output, chunk_output))]\n    pairs += [(\"sum_scores\", full_output.scores, chunk_output.scores)]\n    for name, a, b in pairs:\n        torch.testing.assert_close(a, b, atol=1e-5, rtol=1e-5)\n        differences[name] = float((a-b).abs().max())\n    assert torch.equal(full_output.scores.argmax(1), chunk_output.scores.argmax(1))\n    assert dropblock_counters(model) == {n: v+1 for n, v in counters.items()}\n    assert all(torch.equal(p, buffers[n]) for n, p in model.named_buffers())\n    assert torch.equal(cpu_rng, torch.get_rng_state()) and torch.equal(gpu_rng, torch.cuda.get_rng_state())\n    return {\"status\": \"passed\", \"split\": \"validation\", \"way\": 10, \"shot\": 5, \"query\": 16,\n        \"images\": 210, \"chunk_sizes\": [128, 82], \"atol\": 1e-5, \"rtol\": 1e-5,\n        \"max_absolute_errors\": differences, \"predictions_identical\": True,\n        \"buffers_and_rng_unchanged\": True, \"logical_dropblock_increment\": 1,\n        \"peak_cuda_bytes\": torch.cuda.max_memory_allocated()}\n\n\n@torch.no_grad()\ndef maximum_check(model, config):\n    images = torch.randn(1029, 3, 84, 84, device=\"cpu\")\n    counters = dropblock_counters(model)\n    torch.cuda.reset_peak_memory_stats()\n    torch.cuda.synchronize()\n    started = time.perf_counter()\n    embeddings = encode_in_chunks(model, images, 128)\n    assert all(value.shape == (1029, 640) for value in embeddings)\n    output = model.classify(embeddings, 49, 5)\n    assert output.scores.shape == (784, 49) and torch.isfinite(output.scores).all()\n    assert dropblock_counters(model) == {n: v+1 for n, v in counters.items()}\n    torch.cuda.synchronize()\n    return {\"status\": \"passed\", \"images\": 1029, \"input\": \"synthetic CPU tensor; no test images\",\n        \"chunk\": 128, \"scores_shape\": [784, 49], \"seconds\": time.perf_counter()-started,\n        \"peak_cuda_bytes\": torch.cuda.max_memory_allocated(), \"logical_dropblock_increment\": 1}\n\n\ndef main():\n    parser = argparse.ArgumentParser()\n    parser.add_argument(\"--run-id\", default=DEFAULT_RUN)\n    parser.add_argument(\"--repair-precheck\", action=\"store_true\")\n    args = parser.parse_args()\n    run = Run(args.run_id, create=True, repair_precheck=args.repair_precheck)\n    setup(run.config)\n    started = time.perf_counter()\n    checks = run.info.setdefault(\"precheck\", {})\n    try:\n        checks[\"resources_sources_pairing\"] = resources_and_sources(run)\n        run.event(\"precheck\", check=\"resources_sources_pairing\", status=\"passed\")\n        run.save()\n        model, checks[\"training_update\"] = training_check(run.config)\n        run.event(\"precheck\", check=\"training_update\", **checks[\"training_update\"])\n        run.save()\n        checks[\"chunk_boundary\"] = chunk_check(model, run.config)\n        run.event(\"precheck\", check=\"chunk_boundary\", **checks[\"chunk_boundary\"])\n        run.save()\n        checks[\"maximum_eval\"] = maximum_check(model, run.config)\n        run.event(\"precheck\", check=\"maximum_eval\", **checks[\"maximum_eval\"])\n        checks[\"memory_after\"] = memory()\n        checks[\"gpu_after\"] = command(\"nvidia-smi\", \"--query-gpu=memory.used,memory.total\", \"--format=csv,noheader\")\n        checks[\"memory_units\"] = \"PyTorch peak allocated bytes is distinct from nvidia-smi whole-card usage; Windows shared GPU memory not measured\"\n        run.info[\"stages\"][\"precheck\"] = \"completed\"\n        run.info[\"status\"] = \"ready\"\n    except BaseException as error:\n        run.info[\"stages\"][\"precheck\"] = \"failed\"\n        run.info[\"status\"] = \"stopped\"\n        run.info[\"error\"] = f\"{type(error).__name__}: {error}\"\n        raise\n    finally:\n        checks[\"total_seconds\"] = time.perf_counter()-started\n        run.save()\n\n\nif __name__ == \"__main__\":\n    main()\n",
+    "experiments/sceg_lsconv_cars/config.yaml": "baseline_root: /root/projects/aris/sceg_cars_author\nbaseline_run: experiments/sceg_cars_author/runs/cars800_seed42_author_v1\nbaseline_commit: 88b4bf81a05e839770cf917e5188851eb53c2220\nbaseline_best_sha256: d4cf951237d05dbc751d9bc6196bd7fcc5d7cce9bed2c0b6dcbe0e9bca45168f\nmodule_root: /root/projects/aris/sceg_lsconv_cub\nmodule_commit: 7539881285fd0e02c8ccb1c9142c9382e5e69c9b\nmodule_evidence: experiments/sceg_lsconv_cub/runs/20261019_cub800_seed42/run_info.json\nupstream_commit: cbe737c92b7c43ecf02d08545a07f03f1010177c\nreplacement:\n  location: SC.self_s\n  implementation: LSConv\n  channels: 320\n  large_kernel: 7\n  dynamic_kernel: 3\n  groups: 8\n  kernel_channel_index: channel_index % 40\n  internal_residual: true\nexecution:\n  encode_chunk_size: 128\n  last_every: 20\n  lightweight: true\n  pin_memory: false\n  prefetch_factor: 2\n  initialization: random\n",
+    "experiments/sceg_lsconv_cars/launch.sh": "#!/usr/bin/env bash\n# One detached pipeline, separate Python processes; no retries or monitor.\nset -u\ncd /root/projects/aris/sceg_lsconv_cars || exit 1\nexport CUDA_VISIBLE_DEVICES=0\nexport PYTHONUNBUFFERED=1\npython_bin=/root/projects/aris/sceg_fsfg/.venv/bin/python\nrun_id=20261019_cars800_seed42\nrun_path=experiments/sceg_lsconv_cars/runs/$run_id\nprintf 'pipeline_pid=%s\\n' \"$$\"\nrtk proxy \"$python_bin\" -m experiments.sceg_lsconv_cars.run --mode train --run-id \"$run_id\" \"$@\"\ncode=$?\nprintf 'train_exit_code=%s\\n' \"$code\"\nif [ \"$code\" -ne 0 ]; then exit \"$code\"; fi\nrtk proxy \"$python_bin\" -m experiments.sceg_lsconv_cars.run --mode evaluate --run-id \"$run_id\"\ncode=$?\nprintf 'evaluate_exit_code=%s\\n' \"$code\"\nif [ \"$code\" -ne 0 ]; then exit \"$code\"; fi\nrtk proxy \"$python_bin\" -m experiments.sceg_lsconv_cars.run --mode statistics --run-id \"$run_id\"\ncode=$?\nprintf 'statistics_exit_code=%s\\n' \"$code\"\nexit \"$code\"\n",
+    "experiments/sceg_lsconv_cars/lsconv.py": "\"\"\"LSNet core by THU-MIG/LSNet authors; CVPR 2025.\nSource: https://raw.githubusercontent.com/THU-MIG/lsnet/cbe737c92b7c43ecf02d08545a07f03f1010177c/model/lsnet.py\nNo root license file was supplied at this upstream revision.\nThis experiment only migrates the authors\\' module into SC.self_s.\n\"\"\"\nimport torch\nimport torch.nn as nn\nfrom .ska import SKA\n\nclass Conv2d_BN(torch.nn.Sequential):\n    def __init__(self, a, b, ks=1, stride=1, pad=0, dilation=1,\n                 groups=1, bn_weight_init=1):\n        super().__init__()\n        self.add_module('c', torch.nn.Conv2d(\n            a, b, ks, stride, pad, dilation, groups, bias=False))\n        self.add_module('bn', torch.nn.BatchNorm2d(b))\n        torch.nn.init.constant_(self.bn.weight, bn_weight_init)\n        torch.nn.init.constant_(self.bn.bias, 0)\n\n    @torch.no_grad()\n    def fuse(self):\n        c, bn = self._modules.values()\n        w = bn.weight / (bn.running_var + bn.eps)**0.5\n        w = c.weight * w[:, None, None, None]\n        b = bn.bias - bn.running_mean * bn.weight / \\\n            (bn.running_var + bn.eps)**0.5\n        m = torch.nn.Conv2d(w.size(1) * self.c.groups, w.size(\n            0), w.shape[2:], stride=self.c.stride, padding=self.c.padding, dilation=self.c.dilation, groups=self.c.groups,\n            device=c.weight.device)\n        m.weight.data.copy_(w)\n        m.bias.data.copy_(b)\n        return m\n\n\nclass LKP(nn.Module):\n    def __init__(self, dim, lks, sks, groups):\n        super().__init__()\n        self.cv1 = Conv2d_BN(dim, dim // 2)\n        self.act = nn.ReLU()\n        self.cv2 = Conv2d_BN(dim // 2, dim // 2, ks=lks, pad=(lks - 1) // 2, groups=dim // 2)\n        self.cv3 = Conv2d_BN(dim // 2, dim // 2)\n        self.cv4 = nn.Conv2d(dim // 2, sks ** 2 * dim // groups, kernel_size=1)\n        self.norm = nn.GroupNorm(num_groups=dim // groups, num_channels=sks ** 2 * dim // groups)\n\n        self.sks = sks\n        self.groups = groups\n        self.dim = dim\n\n    def forward(self, x):\n        x = self.act(self.cv3(self.cv2(self.act(self.cv1(x)))))\n        w = self.norm(self.cv4(x))\n        b, _, h, width = w.size()\n        w = w.view(b, self.dim // self.groups, self.sks ** 2, h, width)\n        return w\n\nclass LSConv(nn.Module):\n    def __init__(self, dim):\n        super(LSConv, self).__init__()\n        self.lkp = LKP(dim, lks=7, sks=3, groups=8)\n        self.ska = SKA()\n        self.bn = nn.BatchNorm2d(dim)\n\n    def forward(self, x):\n        return self.bn(self.ska(x, self.lkp(x))) + x\n",
+    "experiments/sceg_lsconv_cars/model.py": "\"\"\"Only migration: SC.self_s(F_s) -> official LSNet LSConv(F_s).\"\"\"\nimport torch\nfrom models import SCEG\nfrom utils.config import ModelConfig\n\n\ndef build_model(config, enabled=True):\n    model = SCEG(ModelConfig.from_dict(config[\"model\"]))\n    if not enabled:\n        return model\n    # Construct on CPU after SCEG's initialization pass. Preserve subsequent RNG.\n    with torch.random.fork_rng(devices=[]):\n        from .lsconv import LSConv\n        model.SC.self_s = LSConv(dim=320)\n    return model\n",
+    "experiments/sceg_lsconv_cars/run.py": "\"\"\"Cars-only fixed LSConv experiment; local Cars trainer and historical episode replay.\"\"\"\nimport argparse\nimport hashlib\nimport importlib.metadata\nimport json\nimport logging\nfrom pathlib import Path\nimport shlex\nimport subprocess\nimport sys\nimport time\n\nimport numpy as np\nimport torch\nimport yaml\nfrom torch.utils.data import DataLoader\nfrom datasets import make_dataset\nfrom evaluators.fewshot_eval import evaluate_episodes\nfrom trainers.trainer import train\nfrom utils.config import load_config\nfrom utils.experiment import environment_info, write_json\nfrom utils.reproducibility import seed_worker\nfrom experiments.sceg_cars_author.run import configure as setup, config_hash, validate_result\nfrom .model import build_model\n\nHERE = Path(__file__).resolve().parent\nROOT = HERE.parents[1]\nDEFAULT_RUN = \"20261019_cars800_seed42\"\nSETTINGS = ((5, 1), (5, 5), (49, 1), (49, 5))\n\n\ndef sha256(path):\n    digest = hashlib.sha256()\n    with Path(path).open(\"rb\") as stream:\n        for block in iter(lambda: stream.read(1024*1024), b\"\"):\n            digest.update(block)\n    return digest.hexdigest()\n\n\ndef configuration(run_id=DEFAULT_RUN):\n    spec = yaml.safe_load((HERE/\"config.yaml\").read_text())\n    baseline = Path(spec[\"baseline_root\"])/spec[\"baseline_run\"]\n    config = load_config(baseline/\"config.yaml\")\n    template = load_config(ROOT/\"experiments/sceg_cars_author/configs/cars.yaml\")\n    for key in (\"model\", \"train\", \"loss\", \"data\", \"runtime\", \"eval\", \"seed\", \"official_commit\"):\n        if config[key] != template[key]:\n            raise ValueError(f\"Cars template differs from historical effective recipe: {key}\")\n    config.update(experiment=\"sceg_lsconv_cars\", run_id=run_id,\n                  replacement=spec[\"replacement\"], execution=spec[\"execution\"])\n    assert config[\"train\"][\"epochs\"] == 800 and config[\"train\"][\"validation_every\"] == 20\n    assert config[\"loss\"] == {\"lamda\": 36.0, \"inter\": .05, \"intra\": .65}\n    assert config[\"model\"][\"dataset\"] == \"stanford_car\" and config[\"model\"][\"base_classes\"] == 130\n    assert not config[\"runtime\"][\"post_training_evaluation\"]\n    return config, spec\n\n\ndef source_identity():\n    paths = [p for directory in (\"models\", \"losses\", \"datasets\", \"utils\", \"trainers\", \"evaluators\")\n             for p in (ROOT/directory).rglob(\"*.py\")]\n    paths += [ROOT/\"experiments/sceg_cars_author/run.py\", ROOT/\"experiments/sceg_cars_author/configs/cars.yaml\"]\n    paths += [p for p in HERE.iterdir() if p.suffix in {\".py\", \".yaml\", \".sh\"}]\n    return {str(p.relative_to(ROOT)): sha256(p) for p in sorted(paths)}\n\n\nclass LogHandler(logging.Handler):\n    def __init__(self, run):\n        super().__init__()\n        self.run = run\n\n    def emit(self, record):\n        self.run.event(\"progress\", message=record.getMessage())\n\n\nclass Run:\n    def __init__(self, run_id=DEFAULT_RUN, create=False, repair_precheck=False):\n        if Path(run_id).name != run_id or run_id in {\".\", \"..\"}:\n            raise ValueError(\"Invalid run id\")\n        self.path = HERE/\"runs\"/run_id\n        self.config, self.spec = configuration(run_id)\n        if create:\n            repair = None\n            if repair_precheck:\n                previous = json.loads((self.path/\"run_info.json\").read_text())\n                assert previous[\"stages\"][\"precheck\"] == \"failed\" and previous[\"stages\"][\"training\"] == \"pending\"\n                assert not list(self.path.glob(\"*.pth\")) and not list(self.path.glob(\"test_*.json\"))\n                assert not any(v.get(\"status\") == \"passed\" for v in previous.get(\"precheck\", {}).values() if isinstance(v, dict)), \"Reuse passed checks; do not repeat them\"\n                repair = {\"error\": previous[\"error\"], \"source_sha256\": previous[\"source_sha256\"],\n                          \"precheck\": previous[\"precheck\"], \"reason\": \"Pre-training implementation repair; no GPU update or passed check repeated\"}\n            else:\n                self.path.mkdir(parents=True, exist_ok=False)\n            baseline = Path(self.spec[\"baseline_root\"])/self.spec[\"baseline_run\"]\n            def git(*args):\n                return subprocess.check_output([\"rtk\", \"proxy\", \"git\", *args], cwd=ROOT, text=True)\n            env = environment_info()\n            env[\"packages\"][\"triton\"] = importlib.metadata.version(\"triton\")\n            self.info = {\"status\": \"implemented\", \"config\": self.config, \"specification\": self.spec,\n                \"command\": shlex.join(sys.orig_argv), \"cwd\": str(ROOT),\n                \"commit\": git(\"rev-parse\", \"HEAD\").strip(), \"git_diff\": git(\"diff\", \"HEAD\"),\n                \"git_status\": git(\"status\", \"--porcelain\"),\n                \"new_source\": {str(p.relative_to(ROOT)): p.read_text() for p in sorted(HERE.iterdir())\n                               if p.suffix in {\".py\", \".yaml\", \".md\", \".sh\"}},\n                \"source_sha256\": source_identity(), \"environment\": env,\n                \"baseline_config\": load_config(baseline/\"config.yaml\"),\n                \"baseline_config_file_sha256\": sha256(baseline/\"config.yaml\"),\n                \"baseline_report_reference\": str(baseline/\"report.json\"),\n                \"baseline_report_sha256\": sha256(baseline/\"report.json\"),\n                \"data_manifest_reference\": str(Path(self.spec[\"baseline_root\"])/self.config[\"data_protocol\"][\"prepared\"]),\n                \"stages\": {\"implementation\": \"completed\", \"precheck\": \"pending\", \"training\": \"pending\",\n                           \"formal_tests\": \"pending\", \"statistics\": \"pending\"},\n                \"changes\": {\"algorithm\": \"Only SC.self_s -> fixed LSConv(320), preserving module internal residual\",\n                    \"execution\": \"Detached epoch accumulation, sparse full-state last/best, separate replay evaluation, chunk128 encoding\",\n                    \"numerical_or_protocol\": \"none; inherited FP32 Cars recipe, original sampler and validation schedule\"}}\n            if repair is not None:\n                self.info[\"precheck_repair\"] = repair\n            self.save()\n        else:\n            self.info = json.loads((self.path/\"run_info.json\").read_text())\n            if self.info[\"config\"] != self.config or self.info[\"source_sha256\"] != source_identity():\n                raise ValueError(\"Frozen configuration/source mismatch; refusing changed execution code\")\n        self.metrics = {}\n        self.logger = logging.getLogger(\"lsconv.\"+run_id)\n        self.logger.handlers.clear()\n        self.logger.setLevel(logging.INFO)\n        self.logger.propagate = False\n        self.logger.addHandler(LogHandler(self))\n\n    def save(self):\n        write_json(self.path/\"run_info.json\", self.info)\n\n    def event(self, event, **values):\n        value = {\"time\": time.time(), \"event\": event, **values}\n        line = json.dumps(value, allow_nan=False)\n        with (self.path/\"metrics.jsonl\").open(\"a\") as stream:\n            stream.write(line+\"\\n\")\n        print(line, flush=True)\n\n    def update_metrics(self, **values):\n        self.metrics.update(values)\n        self.event(\"epoch\" if \"epoch_episodes\" in values else \"status\", **values)\n\n    def checkpoint(self, payload):\n        assert payload[\"checkpoint_role\"] == \"best_validation\"\n        partial = self.path/\"checkpoint.pth.part\"\n        torch.save(payload, partial)\n        partial.replace(self.path/\"checkpoint.pth\")\n\n\ndef historical_result(run, dataset, way, shot):\n    reference = run.info[\"historical_results\"][f\"{way}way_{shot}shot\"]\n    path = Path(reference[\"path\"])\n    assert sha256(path) == reference[\"sha256\"], f\"Historical task hash mismatch: {path}\"\n    result = json.loads(path.read_text())\n    paths = [str(Path(p).relative_to(dataset.root)) for p, _ in dataset.samples]\n    validate_result(result, run.info[\"baseline_config\"], way, shot,\n                    run.spec[\"baseline_best_sha256\"], paths)\n    # Confirm ImageFolder numeric labels agree with recorded relative-path class names.\n    assert all(dataset.classes[label] == Path(relative).parts[0]\n               for relative, label in zip(paths, dataset.targets))\n    return result, reference\n\n\ndef validate_new_result(run, result, way, shot):\n    ref = run.info[\"historical_results\"][f\"{way}way_{shot}shot\"]\n    expected = {\"protocol_id\": \"sceg_author_cars_v1\", \"run_id\": run.config[\"run_id\"],\n        \"config_sha256\": config_hash(run.config), \"seed\": 42, \"dataset\": \"stanford_car\", \"split\": \"test\",\n        \"way\": way, \"shot\": shot, \"query\": 16, \"episodes\": 2000,\n        \"checkpoint_sha256\": run.info[\"best_sha256\"], \"indices_reference\": ref[\"path\"],\n        \"indices_reference_sha256\": ref[\"sha256\"],\n        \"source_sha256\": run.info[\"source_sha256\"],\n        \"split_sha256\": run.config[\"data_protocol\"][\"split_manifest_sha256\"]}\n    for key, value in expected.items():\n        assert result.get(key) == value, f\"Formal result identity mismatch: {key}\"\n    values = np.asarray(result[\"episode_accuracies\"], dtype=np.float64)\n    assert values.shape == (2000,) and np.isfinite(values).all() and ((values >= 0)&(values <= 100)).all()\n    assert abs(float(values.mean())-result[\"accuracy\"]) < 1e-10\n    assert abs(float(1.96*values.std(ddof=0)/np.sqrt(2000))-result[\"confidence_interval\"]) < 1e-10\n    return values\n\n\ndef checkpoint(run, name, role):\n    payload = torch.load(run.path/name, map_location=\"cpu\", weights_only=False)\n    assert payload[\"config\"] == run.config and payload[\"source_sha256\"] == run.info[\"source_sha256\"]\n    assert payload[\"checkpoint_role\"] == role\n    assert all(k in payload for k in (\"optimizer\", \"scheduler\", \"rng\", \"dropblock_counters\", \"step\"))\n    if role == \"best_validation\":\n        assert payload[\"completed_epochs\"] == payload[\"best_epoch\"] == run.info[\"best_epoch\"]\n    return payload\n\n\ndef completed_training(run):\n    assert run.info[\"stages\"][\"training\"] == \"completed\"\n    events = [json.loads(line) for line in (run.path/\"metrics.jsonl\").read_text().splitlines()]\n    # A native resume may redo at most 19 unsaved epochs. Latest event per epoch is authoritative.\n    epochs = {v[\"completed_epochs\"]: v for v in events if v[\"event\"] == \"epoch\"}\n    assert set(epochs) == set(range(1, 801)), \"800 complete epochs required\"\n    validations = [v for v in epochs.values() if v[\"validation_accuracy\"] is not None]\n    assert len(validations) == 40 and all(v[\"completed_epochs\"] % 20 == 0 and v[\"validation_episodes\"] == 1000 for v in validations)\n    best = max(validations, key=lambda v: (v[\"validation_accuracy\"], -v[\"completed_epochs\"]))\n    assert best[\"completed_epochs\"] == run.info[\"best_epoch\"]\n    return epochs\n\n\ndef evaluate(run):\n    completed_training(run)\n    last = checkpoint(run, \"latest.pth\", \"last\")\n    assert last[\"completed_epochs\"] == 800\n    del last\n    best_hash = sha256(run.path/\"checkpoint.pth\")\n    assert best_hash == run.info[\"best_sha256\"]\n    payload = checkpoint(run, \"checkpoint.pth\", \"best_validation\")\n    model = build_model(run.config)\n    model.load_state_dict(payload[\"model_state_dict\"], strict=True)\n    for name, module in model.named_modules():\n        if name in payload[\"dropblock_counters\"]:\n            module.num_batches_tracked = payload[\"dropblock_counters\"][name]\n    del payload\n    model.to(run.config[\"runtime\"][\"device\"]).eval()\n    run.info[\"status\"] = \"evaluating\"\n    run.info[\"stages\"][\"formal_tests\"] = \"running\"\n    run.save()\n    dataset = make_dataset(run.config, \"test\")\n    for way, shot in SETTINGS:\n        out = run.path/f\"test_{way}way_{shot}shot.json\"\n        historical, reference = historical_result(run, dataset, way, shot)\n        if out.exists():\n            validate_new_result(run, json.loads(out.read_text()), way, shot)\n            del historical\n            continue\n        loader = DataLoader(dataset, batch_sampler=historical[\"episode_indices\"],\n            num_workers=run.config[\"data\"][\"workers\"], pin_memory=False, worker_init_fn=seed_worker)\n        torch.cuda.reset_peak_memory_stats()\n        result = evaluate_episodes(model, run.config, \"test\", way, shot, 2000,\n            encode_chunk_size=128, logger=run.logger, loader=loader, record_indices=False)\n        result.update(protocol_id=\"sceg_author_cars_v1\", run_id=run.config[\"run_id\"],\n            config_sha256=config_hash(run.config), source_sha256=run.info[\"source_sha256\"],\n            split_sha256=run.config[\"data_protocol\"][\"split_manifest_sha256\"],\n            checkpoint_sha256=best_hash, indices_reference=reference[\"path\"],\n            indices_reference_sha256=reference[\"sha256\"],\n            pairing=\"exact historical episode_indices, paths, labels and support/query ordering validated\",\n            peak_cuda_bytes=torch.cuda.max_memory_allocated(), encode_chunk_size=128)\n        validate_new_result(run, result, way, shot)\n        write_json(out, result)\n        run.event(\"formal_test_completed\", way=way, shot=shot, accuracy=result[\"accuracy\"],\n                  seconds=result[\"elapsed_seconds\"], peak_cuda_bytes=result[\"peak_cuda_bytes\"])\n        del historical, loader, result\n    run.info[\"stages\"][\"formal_tests\"] = \"completed\"\n    run.save()\n\n\ndef statistics(run):\n    epochs = completed_training(run)\n    assert run.info[\"stages\"][\"formal_tests\"] == \"completed\"\n    assert sha256(run.path/\"checkpoint.pth\") == run.info[\"best_sha256\"]\n    dataset = make_dataset(run.config, \"test\")\n    rows = []\n    for way, shot in SETTINGS:\n        result = json.loads((run.path/f\"test_{way}way_{shot}shot.json\").read_text())\n        values = validate_new_result(run, result, way, shot)\n        historical, _ = historical_result(run, dataset, way, shot)\n        baseline = np.asarray(historical[\"episode_accuracies\"], dtype=np.float64)\n        difference = values-baseline\n        gain = float(difference.mean())\n        paired_half = float(1.96*difference.std(ddof=0)/np.sqrt(2000))\n        rows.append({\"way\": way, \"shot\": shot, \"new_accuracy_percent\": float(values.mean()),\n            \"new_ci95_half\": float(1.96*values.std(ddof=0)/np.sqrt(2000)),\n            \"baseline_accuracy_percent\": float(baseline.mean()),\n            \"baseline_ci95_half\": float(1.96*baseline.std(ddof=0)/np.sqrt(2000)),\n            \"gain_pp\": gain, \"paired_ci95_bounds_pp\": [gain-paired_half, gain+paired_half],\n            \"test_seconds\": result[\"elapsed_seconds\"], \"peak_cuda_bytes\": result[\"peak_cuda_bytes\"]})\n        del historical, result\n    report = {\"status\": \"completed\", \"evaluations\": rows, \"best_epoch\": run.info[\"best_epoch\"],\n        \"best_sha256\": run.info[\"best_sha256\"], \"epochs\": 800, \"validations\": 40,\n        \"timing_seconds\": {key: sum(v[key] for v in epochs.values())\n                           for key in (\"train_seconds\", \"validation_seconds\", \"save_seconds\")},\n        \"training_wall_seconds\": run.info[\"training_wall_seconds\"],\n        \"training_peak_cuda_bytes\": run.info[\"training_peak_cuda_bytes\"],\n        \"statistics\": \"CPU float64; population std ddof=0; 1.96/sqrt(2000); paired episode differences\",\n        \"scope\": \"Single training seed42; no cross-seed stability or internal mechanism causal claim\",\n        \"limitations\": \"Inherited Cars mirror provenance; lambda36 is completed-baseline value, not an author-confirmed full recipe. Timing is not a controlled LSConv speedup comparison.\",\n        \"artifact_bytes_before_report\": sum(p.stat().st_size for p in run.path.iterdir() if p.is_file())}\n    write_json(run.path/\"results.json\", report)\n    run.info[\"stages\"][\"statistics\"] = \"completed\"\n    run.info[\"status\"] = \"completed\"\n    run.save()\n\n\ndef main():\n    parser = argparse.ArgumentParser()\n    parser.add_argument(\"--mode\", choices=(\"train\", \"evaluate\", \"statistics\"), required=True)\n    parser.add_argument(\"--run-id\", default=DEFAULT_RUN)\n    parser.add_argument(\"--resume\", action=\"store_true\")\n    args = parser.parse_args()\n    run = Run(args.run_id)\n    if args.mode != \"statistics\":\n        setup(run.config)\n    run.event(\"invocation\", command=shlex.join(sys.orig_argv))\n    try:\n        if args.mode == \"train\":\n            assert run.info[\"stages\"][\"precheck\"] == \"completed\"\n            assert run.info[\"stages\"][\"training\"] != \"completed\", \"Training already completed\"\n            last = run.path/\"latest.pth\"\n            assert last.exists() == args.resume, \"Use --resume only with existing last\"\n            if args.resume:\n                saved = checkpoint(run, \"latest.pth\", \"last\")\n                run.metrics[\"best_epoch\"] = saved[\"best_epoch\"]\n                del saved\n            run.info[\"status\"] = \"training\"\n            run.info[\"stages\"][\"training\"] = \"running\"\n            run.save()\n            start = time.perf_counter()\n            model = build_model(run.config).to(run.config[\"runtime\"][\"device\"])\n            torch.cuda.reset_peak_memory_stats()\n            def validation(model, config, split, way, shot, episodes):\n                result = evaluate_episodes(model, config, split, way, shot, episodes,\n                    encode_chunk_size=128, logger=run.logger, record_indices=False)\n                result.pop(\"episode_accuracies\")\n                return result\n            train(model, run.config, run, last if args.resume else None,\n                  lightweight=True, evaluator=validation)\n            run.info[\"training_wall_seconds\"] = run.info.get(\"training_wall_seconds\", 0)+time.perf_counter()-start\n            run.info[\"training_peak_cuda_bytes\"] = torch.cuda.max_memory_allocated()\n            run.info[\"best_epoch\"] = run.metrics[\"best_epoch\"]\n            run.info[\"best_sha256\"] = sha256(run.path/\"checkpoint.pth\")\n            run.info[\"stages\"][\"training\"] = \"completed\"\n            run.info[\"status\"] = \"training_completed\"\n            completed_training(run)\n            run.save()\n        elif args.mode == \"evaluate\":\n            evaluate(run)\n        else:\n            statistics(run)\n    except BaseException as error:\n        run.info[\"status\"] = \"stopped\"\n        run.info[\"error\"] = f\"{type(error).__name__}: {error}\"\n        run.save()\n        raise\n\n\nif __name__ == \"__main__\":\n    main()\n",
+    "experiments/sceg_lsconv_cars/ska.py": "\"\"\"LSNet core by THU-MIG/LSNet authors; CVPR 2025.\nSource: https://raw.githubusercontent.com/THU-MIG/lsnet/cbe737c92b7c43ecf02d08545a07f03f1010177c/model/ska.py\nNo root license file was supplied at this upstream revision.\nThis experiment only migrates the authors\\' module into SC.self_s.\n\"\"\"\nimport torch\nfrom torch.autograd import Function\nimport triton\nimport triton.language as tl\nfrom torch.amp import custom_fwd, custom_bwd\nimport math\n\ndef _grid(numel: int, bs: int) -> tuple:\n    return (triton.cdiv(numel, bs),)\n\n@triton.jit\ndef _idx(i, n: int, c: int, h: int, w: int):\n    ni = i // (c * h * w)\n    ci = (i // (h * w)) % c\n    hi = (i // w) % h\n    wi = i % w\n    m = i < (n * c * h * w)\n    return ni, ci, hi, wi, m\n\n@triton.jit\ndef ska_fwd(\n    x_ptr, w_ptr, o_ptr,\n    n, ic, h, w, ks, pad, wc,\n    BS: tl.constexpr,\n    CT: tl.constexpr, AT: tl.constexpr\n):\n    pid = tl.program_id(0)\n    start = pid * BS\n    offs = start + tl.arange(0, BS)\n\n    ni, ci, hi, wi, m = _idx(offs, n, ic, h, w)\n    val = tl.zeros((BS,), dtype=AT)\n\n    for kh in range(ks):\n        hin = hi - pad + kh\n        hb = (hin >= 0) & (hin < h)\n        for kw in range(ks):\n            win = wi - pad + kw\n            b = hb & (win >= 0) & (win < w)\n\n            x_off = ((ni * ic + ci) * h + hin) * w + win\n            w_off = ((ni * wc + ci % wc) * ks * ks + (kh * ks + kw)) * h * w + hi * w + wi\n\n            x_val = tl.load(x_ptr + x_off, mask=m & b, other=0.0).to(CT)\n            w_val = tl.load(w_ptr + w_off, mask=m, other=0.0).to(CT)\n            val += tl.where(b & m, x_val * w_val, 0.0).to(AT)\n\n    tl.store(o_ptr + offs, val.to(CT), mask=m)\n\n@triton.jit\ndef ska_bwd_x(\n    go_ptr, w_ptr, gi_ptr,\n    n, ic, h, w, ks, pad, wc,\n    BS: tl.constexpr,\n    CT: tl.constexpr, AT: tl.constexpr\n):\n    pid = tl.program_id(0)\n    start = pid * BS\n    offs = start + tl.arange(0, BS)\n\n    ni, ci, hi, wi, m = _idx(offs, n, ic, h, w)\n    val = tl.zeros((BS,), dtype=AT)\n\n    for kh in range(ks):\n        ho = hi + pad - kh\n        hb = (ho >= 0) & (ho < h)\n        for kw in range(ks):\n            wo = wi + pad - kw\n            b = hb & (wo >= 0) & (wo < w)\n\n            go_off = ((ni * ic + ci) * h + ho) * w + wo\n            w_off = ((ni * wc + ci % wc) * ks * ks + (kh * ks + kw)) * h * w + ho * w + wo\n\n            go_val = tl.load(go_ptr + go_off, mask=m & b, other=0.0).to(CT)\n            w_val = tl.load(w_ptr + w_off, mask=m, other=0.0).to(CT)\n            val += tl.where(b & m, go_val * w_val, 0.0).to(AT)\n\n    tl.store(gi_ptr + offs, val.to(CT), mask=m)\n\n@triton.jit\ndef ska_bwd_w(\n    go_ptr, x_ptr, gw_ptr,\n    n, wc, h, w, ic, ks, pad,\n    BS: tl.constexpr,\n    CT: tl.constexpr, AT: tl.constexpr\n):\n    pid = tl.program_id(0)\n    start = pid * BS\n    offs = start + tl.arange(0, BS)\n\n    ni, ci, hi, wi, m = _idx(offs, n, wc, h, w)\n\n    for kh in range(ks):\n        hin = hi - pad + kh\n        hb = (hin >= 0) & (hin < h)\n        for kw in range(ks):\n            win = wi - pad + kw\n            b = hb & (win >= 0) & (win < w)\n            w_off = ((ni * wc + ci) * ks * ks + (kh * ks + kw)) * h * w + hi * w + wi\n\n            val = tl.zeros((BS,), dtype=AT)\n            steps = (ic - ci + wc - 1) // wc\n            for s in range(tl.max(steps, axis=0)):\n                cc = ci + s * wc\n                cm = (cc < ic) & m & b\n\n                x_off = ((ni * ic + cc) * h + hin) * w + win\n                go_off = ((ni * ic + cc) * h + hi) * w + wi\n\n                x_val = tl.load(x_ptr + x_off, mask=cm, other=0.0).to(CT)\n                go_val = tl.load(go_ptr + go_off, mask=cm, other=0.0).to(CT)\n                val += tl.where(cm, x_val * go_val, 0.0).to(AT)\n\n            tl.store(gw_ptr + w_off, val.to(CT), mask=m)\n\nclass SkaFn(Function):\n    @staticmethod\n    @custom_fwd(device_type='cuda')\n    def forward(ctx, x: torch.Tensor, w: torch.Tensor) -> torch.Tensor:\n        ks = int(math.sqrt(w.shape[2]))\n        pad = (ks - 1) // 2\n        ctx.ks, ctx.pad = ks, pad\n        n, ic, h, width = x.shape\n        wc = w.shape[1]\n        o = torch.empty(n, ic, h, width, device=x.device, dtype=x.dtype)\n        numel = o.numel()\n\n        x = x.contiguous()\n        w = w.contiguous()\n\n        grid = lambda meta: _grid(numel, meta[\"BS\"])\n\n        ct = tl.float16 if x.dtype == torch.float16 else (tl.float32 if x.dtype == torch.float32 else tl.float64)\n        at = tl.float32 if x.dtype == torch.float16 else ct\n\n        ska_fwd[grid](x, w, o, n, ic, h, width, ks, pad, wc, BS=1024, CT=ct, AT=at)\n\n        ctx.save_for_backward(x, w)\n        ctx.ct, ctx.at = ct, at\n        return o\n\n    @staticmethod\n    @custom_bwd(device_type='cuda')\n    def backward(ctx, go: torch.Tensor) -> tuple:\n        ks, pad = ctx.ks, ctx.pad\n        x, w = ctx.saved_tensors\n        n, ic, h, width = x.shape\n        wc = w.shape[1]\n\n        go = go.contiguous()\n        gx = gw = None\n        ct, at = ctx.ct, ctx.at\n\n        if ctx.needs_input_grad[0]:\n            gx = torch.empty_like(x)\n            numel = gx.numel()\n            ska_bwd_x[lambda meta: _grid(numel, meta[\"BS\"])](go, w, gx, n, ic, h, width, ks, pad, wc, BS=1024, CT=ct, AT=at)\n\n        if ctx.needs_input_grad[1]:\n            gw = torch.empty_like(w)\n            numel = gw.numel() // w.shape[2]\n            ska_bwd_w[lambda meta: _grid(numel, meta[\"BS\"])](go, x, gw, n, wc, h, width, ic, ks, pad, BS=1024, CT=ct, AT=at)\n\n        return gx, gw, None, None\n\nclass SKA(torch.nn.Module):\n    def forward(self, x: torch.Tensor, w: torch.Tensor) -> torch.Tensor:\n        return SkaFn.apply(x, w) # type: ignore\n"
+  },
+  "source_sha256": {
+    "datasets/__init__.py": "b97a121266d09a11dcc1166dc055c38b26b675be2e4c793ebc0d12889345ec4f",
+    "datasets/cars.py": "978dc919f5e17b5d91b79eca23d77db4c0550c3051df569035335ccd3d12ed5a",
+    "datasets/cub.py": "094e5995a43c5b2abe36849c6f7620a0c0c36f6d43f1313733e1377fb2a55fb2",
+    "datasets/dogs.py": "6baff532e3e3242bcf0af26b81d13a660ac7acb6f42ba56f3c5144bcd7e31278",
+    "datasets/flowers.py": "5073a5d0b98f7632dc0d74bedf6fcb461e52d1f27cdad29a8520aa12a6da2327",
+    "datasets/folder.py": "e6af785a75a68e69744c527889895c0fc225d6c2198fd6d2535e33c71fa35dc7",
+    "datasets/samplers.py": "e92ff0bce7d01aeeec2926c45fe620d18fee1dbaf0af15a0dffb46bb9aec1ee4",
+    "datasets/transforms.py": "50ae8a15bf76a8b66ca602e9b2416c1b497bb7e488300009e6ceab736fdf4be2",
+    "evaluators/__init__.py": "0a6568c18ea985ced28ee693c888b930bfcb84ea1a98289f50d79455ff43daba",
+    "evaluators/fewshot_eval.py": "78861f6784564e3f7ced6c64e0a15b6c180fd5c9c542a236134db656aa3d3541",
+    "experiments/sceg_cars_author/configs/cars.yaml": "798856a268e8df37eb85f9de386b3a42c653600c311363f0ebeabe2d8b1aea5c",
+    "experiments/sceg_cars_author/run.py": "cc6db82cea768a937dd14ef841281980d1e272e7222fa662992060348cdd893e",
+    "experiments/sceg_lsconv_cars/check.py": "7c42d48965880ed165022bd292fc8ff478f7e0ec02d248a2cdd538569afbdc8f",
+    "experiments/sceg_lsconv_cars/config.yaml": "ee12a9debd2200f3779a61d5f8d3cdcfc33b9c8e576debd1fd3677d54d276027",
+    "experiments/sceg_lsconv_cars/launch.sh": "69b21c82fbd417ae4c897984579d56214f0c82a40e05c5684e7acf2c15882135",
+    "experiments/sceg_lsconv_cars/lsconv.py": "dfc46f55f7f537d972f46bd733c054e5599b0109a064b2128cb0baf96ba16fea",
+    "experiments/sceg_lsconv_cars/model.py": "7bb88e27f146ea0f3f7d286890fc56e14f6877639a5aa16d80df5945748b1c03",
+    "experiments/sceg_lsconv_cars/run.py": "62bd25ff537ad8902235cd83f04050a4b0c5e7bd9532c9489085695250f0f639",
+    "experiments/sceg_lsconv_cars/ska.py": "8cd86218263aebcd05bbd02935eecb04ebb3bb8119a16505eba7c35d7dd721b5",
+    "losses/__init__.py": "247682f23ee6ab0c7a8ac14d92c11688ef5f336bb75eb6bcf655c10bfc89bd57",
+    "losses/intra_inter_loss.py": "ca45456eda12aa2bff852e5ee8d1aff0558cf1e5d3952491fc97b0892e60cf1b",
+    "models/__init__.py": "8b8e4a8c3a23b16b5e7a92a4d5d30e5354fe9ac0f9d7efdb82ae837ac4fbe6ae",
+    "models/backbone/__init__.py": "4e9b84bfdd6989f9555dc1bf73c7cdaa83cc08d853574bbe4d566de839068dbb",
+    "models/backbone/resnet12.py": "efae5d9d29c73eee3ca4308cf559dd0c8baef357b4c76a5b14642b9ce29e3491",
+    "models/modules/__init__.py": "ed986c39787d931e3544a0d9d2cd3e0b0b685aa4ad5be1007fc5036d8f4a99a0",
+    "models/modules/cosine_classifier.py": "b8f5951fd0197dcbb9eff68cc84ba12d3ab930be272c8fd7441870e8b90c916d",
+    "models/modules/sc.py": "ed7881cb681de69f870d2fd13e06bf9c5bc92449fb909161799d9c8669ac5f35",
+    "models/modules/transform_fc.py": "eb3cb72376a7c32009b0970fc517625f05b2e17269b6e967c2672865e5dd0437",
+    "models/sceg.py": "4f146599c3b7475fe9c9f102a4b2ccfe5571e50cf505693c7bbc2a74f5af4a11",
+    "trainers/__init__.py": "c975c61959a6129aea070dcab99d6cf95fa2d5b374878cce07ebacfaa53da599",
+    "trainers/trainer.py": "85a02361a70e18f0d563f7aa0a82331eea03a01d2ca06dfeff49cabaca6571ec",
+    "utils/__init__.py": "2ea78307524e490c4173108aaaced61d6d3ba04470971411669ee53fcec1d7ff",
+    "utils/config.py": "fb30781879583e31fa29fd3c47bcd463e96cf4cf953b2e694a5d9fad7f95db24",
+    "utils/diagnostics.py": "b0f476cb43ae5bd728bcd5c813df66b8d6b1b3caf14a6dbe209f8489dd07ce22",
+    "utils/experiment.py": "ff3f4ad8a7e6504ec05e6dbeedae43b492a74c6d840023a113bbf204c55f0f75",
+    "utils/reproducibility.py": "11b4817516ad265d965296e290fdbfccd0d7b5bb230276a5e23d9f554f60330b"
+  },
+  "environment": {
+    "python": "3.10.20",
+    "executable": "/root/projects/aris/sceg_fsfg/.venv/bin/python",
+    "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.35",
+    "packages": {
+      "torch": "2.6.0",
+      "torchvision": "0.21.0",
+      "numpy": "2.2.6",
+      "scipy": "1.15.3",
+      "Pillow": "11.1.0",
+      "PyYAML": "6.0.3",
+      "pytest": "9.1.1",
+      "scikit-learn": "1.6.1",
+      "triton": "3.2.0"
+    },
+    "torch_build": "2.6.0+cu124",
+    "cuda_runtime": "12.4",
+    "gpu": [
+      {
+        "name": "NVIDIA GeForce RTX 4060 Ti",
+        "memory_bytes": 17175150592
+      }
+    ]
+  },
+  "baseline_config": {
+    "experiment": "sceg_cars_author",
+    "official_commit": "f7f130aeb5b1b49246150574c53a874d4ce8de80",
+    "seed": 42,
+    "model": {
+      "dataset": "stanford_car",
+      "input_channels": 3,
+      "image_size": 84,
+      "stage_channels": [
+        64,
+        160,
+        320,
+        640
+      ],
+      "feature_dim": 640,
+      "base_classes": 130,
+      "train_way": 10,
+      "train_shot": 5,
+      "train_query": 15,
+      "transform_alpha": 0.3,
+      "gate_hidden_channels": 16,
+      "stage3_to_stage2_datasets": [
+        "cub_raw",
+        "stanford_dog"
+      ],
+      "dropout": 0.1,
+      "dropblock_size": 5,
+      "dropblock_ramp_batches": 40000,
+      "negative_slope": 0.1,
+      "batchnorm_eps": 1e-05,
+      "batchnorm_momentum": 0.1,
+      "projection_bn_momentum": 0.01,
+      "episode_norm_eps": 1e-12,
+      "global_norm_eps": 1e-12,
+      "convolution_kernel": 3,
+      "pool_stride": 2
+    },
+    "loss": {
+      "lamda": 36.0,
+      "inter": 0.05,
+      "intra": 0.65
+    },
+    "data": {
+      "root": "/root/projects/aris/sceg_cars_author/data/cars_author/StanfordCars_fewshot",
+      "image_size": 84,
+      "eval_resize": 92,
+      "mean": [
+        0.485,
+        0.456,
+        0.406
+      ],
+      "std": [
+        0.229,
+        0.224,
+        0.225
+      ],
+      "crop_scale": [
+        0.08,
+        1.0
+      ],
+      "crop_ratio": [
+        0.75,
+        1.3333333333333333
+      ],
+      "jitter": 0.4,
+      "flip_probability": 0.5,
+      "pre_resized": true,
+      "workers": 4
+    },
+    "train": {
+      "optimizer": "sgd",
+      "lr": 0.1,
+      "momentum": 0.9,
+      "nesterov": true,
+      "weight_decay": 0.0005,
+      "epochs": 800,
+      "scheduler": "StepLR",
+      "scheduler_step": 400,
+      "scheduler_gamma": 0.1,
+      "validation_every": 20
+    },
+    "eval": {
+      "way": 5,
+      "validation_shot": 5,
+      "shots": [
+        1,
+        5
+      ],
+      "ways": [
+        5,
+        49
+      ],
+      "query": 16,
+      "validation_episodes": 1000,
+      "test_episodes": 2000,
+      "confidence_multiplier": 1.96
+    },
+    "runtime": {
+      "device": "cuda:0",
+      "deterministic": true,
+      "deterministic_warn_only": true,
+      "allow_tf32": false,
+      "amp": false,
+      "cpu_threads": 2,
+      "record_activations": false,
+      "record_epoch_timing": true,
+      "post_training_evaluation": false
+    },
+    "data_protocol": {
+      "protocol_id": "sceg_author_cars_v1",
+      "prepared": "experiments/sceg_cars_author/prep/prepared.json",
+      "author_split_sha256": "2677107210b2bf1c9dfe1741ddc7d6d8dad992232ff04efa24ba4676aa48052c",
+      "split_manifest_sha256": "56f00b9fb9471e34087504d2121af5168f6c4d8b51fa0983e2795c313d2eeb4a",
+      "sample_manifest_sha256": "bce036da17a2f3b481d282cde5ece325a548b8807fe98a714ee1bc1df6b92877"
+    },
+    "run_id": "cars800_seed42_author_v1"
+  },
+  "baseline_config_file_sha256": "8c97a7b2829043531c3ec3b9663b8a1c3b0c9d1dda829d7fb31ac4c851614553",
+  "baseline_report_reference": "/root/projects/aris/sceg_cars_author/experiments/sceg_cars_author/runs/cars800_seed42_author_v1/report.json",
+  "baseline_report_sha256": "656d53f05d870ec29157983776dee873f46482ff650feac8eeeddae2a08a8058",
+  "data_manifest_reference": "/root/projects/aris/sceg_cars_author/experiments/sceg_cars_author/prep/prepared.json",
+  "stages": {
+    "implementation": "completed",
+    "precheck": "failed",
+    "training": "pending",
+    "formal_tests": "pending",
+    "statistics": "pending"
+  },
+  "changes": {
+    "algorithm": "Only SC.self_s -> fixed LSConv(320), preserving module internal residual",
+    "execution": "Detached epoch accumulation, sparse full-state last/best, separate replay evaluation, chunk128 encoding",
+    "numerical_or_protocol": "none; inherited FP32 Cars recipe, original sampler and validation schedule"
+  },
+  "precheck_repair": {
+    "error": "AssertionError: ",
+    "source_sha256": {
+      "datasets/__init__.py": "b97a121266d09a11dcc1166dc055c38b26b675be2e4c793ebc0d12889345ec4f",
+      "datasets/cars.py": "978dc919f5e17b5d91b79eca23d77db4c0550c3051df569035335ccd3d12ed5a",
+      "datasets/cub.py": "094e5995a43c5b2abe36849c6f7620a0c0c36f6d43f1313733e1377fb2a55fb2",
+      "datasets/dogs.py": "6baff532e3e3242bcf0af26b81d13a660ac7acb6f42ba56f3c5144bcd7e31278",
+      "datasets/flowers.py": "5073a5d0b98f7632dc0d74bedf6fcb461e52d1f27cdad29a8520aa12a6da2327",
+      "datasets/folder.py": "e6af785a75a68e69744c527889895c0fc225d6c2198fd6d2535e33c71fa35dc7",
+      "datasets/samplers.py": "e92ff0bce7d01aeeec2926c45fe620d18fee1dbaf0af15a0dffb46bb9aec1ee4",
+      "datasets/transforms.py": "50ae8a15bf76a8b66ca602e9b2416c1b497bb7e488300009e6ceab736fdf4be2",
+      "evaluators/__init__.py": "0a6568c18ea985ced28ee693c888b930bfcb84ea1a98289f50d79455ff43daba",
+      "evaluators/fewshot_eval.py": "78861f6784564e3f7ced6c64e0a15b6c180fd5c9c542a236134db656aa3d3541",
+      "experiments/sceg_cars_author/configs/cars.yaml": "798856a268e8df37eb85f9de386b3a42c653600c311363f0ebeabe2d8b1aea5c",
+      "experiments/sceg_cars_author/run.py": "cc6db82cea768a937dd14ef841281980d1e272e7222fa662992060348cdd893e",
+      "experiments/sceg_lsconv_cars/check.py": "76bab7cde7a262258eecb8eb5d0317b312a012af864d4688e599ed7febc3e943",
+      "experiments/sceg_lsconv_cars/config.yaml": "ee12a9debd2200f3779a61d5f8d3cdcfc33b9c8e576debd1fd3677d54d276027",
+      "experiments/sceg_lsconv_cars/launch.sh": "69b21c82fbd417ae4c897984579d56214f0c82a40e05c5684e7acf2c15882135",
+      "experiments/sceg_lsconv_cars/lsconv.py": "dfc46f55f7f537d972f46bd733c054e5599b0109a064b2128cb0baf96ba16fea",
+      "experiments/sceg_lsconv_cars/model.py": "7bb88e27f146ea0f3f7d286890fc56e14f6877639a5aa16d80df5945748b1c03",
+      "experiments/sceg_lsconv_cars/run.py": "862ff9cd4f050f899dc5b65e7463816f92f96ad39037702bc6d2e37a049c8114",
+      "experiments/sceg_lsconv_cars/ska.py": "8cd86218263aebcd05bbd02935eecb04ebb3bb8119a16505eba7c35d7dd721b5",
+      "losses/__init__.py": "247682f23ee6ab0c7a8ac14d92c11688ef5f336bb75eb6bcf655c10bfc89bd57",
+      "losses/intra_inter_loss.py": "ca45456eda12aa2bff852e5ee8d1aff0558cf1e5d3952491fc97b0892e60cf1b",
+      "models/__init__.py": "8b8e4a8c3a23b16b5e7a92a4d5d30e5354fe9ac0f9d7efdb82ae837ac4fbe6ae",
+      "models/backbone/__init__.py": "4e9b84bfdd6989f9555dc1bf73c7cdaa83cc08d853574bbe4d566de839068dbb",
+      "models/backbone/resnet12.py": "efae5d9d29c73eee3ca4308cf559dd0c8baef357b4c76a5b14642b9ce29e3491",
+      "models/modules/__init__.py": "ed986c39787d931e3544a0d9d2cd3e0b0b685aa4ad5be1007fc5036d8f4a99a0",
+      "models/modules/cosine_classifier.py": "b8f5951fd0197dcbb9eff68cc84ba12d3ab930be272c8fd7441870e8b90c916d",
+      "models/modules/sc.py": "ed7881cb681de69f870d2fd13e06bf9c5bc92449fb909161799d9c8669ac5f35",
+      "models/modules/transform_fc.py": "eb3cb72376a7c32009b0970fc517625f05b2e17269b6e967c2672865e5dd0437",
+      "models/sceg.py": "4f146599c3b7475fe9c9f102a4b2ccfe5571e50cf505693c7bbc2a74f5af4a11",
+      "trainers/__init__.py": "c975c61959a6129aea070dcab99d6cf95fa2d5b374878cce07ebacfaa53da599",
+      "trainers/trainer.py": "85a02361a70e18f0d563f7aa0a82331eea03a01d2ca06dfeff49cabaca6571ec",
+      "utils/__init__.py": "2ea78307524e490c4173108aaaced61d6d3ba04470971411669ee53fcec1d7ff",
+      "utils/config.py": "fb30781879583e31fa29fd3c47bcd463e96cf4cf953b2e694a5d9fad7f95db24",
+      "utils/diagnostics.py": "b0f476cb43ae5bd728bcd5c813df66b8d6b1b3caf14a6dbe209f8489dd07ce22",
+      "utils/experiment.py": "ff3f4ad8a7e6504ec05e6dbeedae43b492a74c6d840023a113bbf204c55f0f75",
+      "utils/reproducibility.py": "11b4817516ad265d965296e290fdbfccd0d7b5bb230276a5e23d9f554f60330b"
+    },
+    "precheck": {
+      "total_seconds": 6.95110419599996
+    },
+    "reason": "Pre-training implementation repair; no GPU update or passed check repeated"
+  },
+  "precheck": {
+    "resources_sources_pairing": {
+      "status": "passed",
+      "splits": {
+        "train": {
+          "classes": 130,
+          "images": 10747
+        },
+        "val": {
+          "classes": 17,
+          "images": 1410
+        },
+        "test": {
+          "classes": 49,
+          "images": 4028
+        }
+      },
+      "historical_pairing": "all four sets validated, 2000 each",
+      "data_evidence": "Existing full-decode record plus manifest hashes/class mappings reused; no image rehash/preprocessing",
+      "operator_reused": {
+        "path": "/root/projects/aris/sceg_lsconv_cub/experiments/sceg_lsconv_cub/runs/20261019_cub800_seed42/run_info.json",
+        "sha256": "ca251fe35a5f612da83e01bba86cc595526632fe19056faf3ca26cc96558047d",
+        "check": "precheck.operator",
+        "result": {
+          "status": "passed",
+          "shape": [
+            2,
+            320,
+            10,
+            10
+          ],
+          "dynamic_kernel": [
+            2,
+            40,
+            9,
+            10,
+            10
+          ],
+          "atol": 1e-05,
+          "rtol": 1e-05,
+          "max_abs_errors": {
+            "forward": 0.0,
+            "input_gradient": 2.86102294921875e-06,
+            "kernel_gradient": 0.0
+          },
+          "modulo40_and_zero_padding_verified": true,
+          "first_compile_forward_backward_seconds": 1.585739090000061,
+          "steady_forward_backward_seconds": 0.0005590169997352253,
+          "peak_cuda_bytes": 6923264
+        },
+        "module_identity": {
+          "model.py": {
+            "fixed_commit_and_local_sha256": "7bb88e27f146ea0f3f7d286890fc56e14f6877639a5aa16d80df5945748b1c03",
+            "validated_snapshot_sha256": "7bb88e27f146ea0f3f7d286890fc56e14f6877639a5aa16d80df5945748b1c03",
+            "difference": "none except trailing whitespace/empty EOF lines"
+          },
+          "lsconv.py": {
+            "fixed_commit_and_local_sha256": "dfc46f55f7f537d972f46bd733c054e5599b0109a064b2128cb0baf96ba16fea",
+            "validated_snapshot_sha256": "5b60af04ac92be289b0801c8555a7859ab73b338cf5539d1fcca302468b6b215",
+            "difference": "none except trailing whitespace/empty EOF lines"
+          },
+          "ska.py": {
+            "fixed_commit_and_local_sha256": "8cd86218263aebcd05bbd02935eecb04ebb3bb8119a16505eba7c35d7dd721b5",
+            "validated_snapshot_sha256": "d75422da598cc4a8848709b8fe389e43076999c80fc88adc45027a017414756f",
+            "difference": "none except trailing whitespace/empty EOF lines"
+          }
+        },
+        "basis": "Identical executable source (trailing whitespace only), operator shape, precision, Python/PyTorch/Triton/CUDA/GPU/platform"
+      },
+      "memory_before": {
+        "wsl": {
+          "MemTotal": "8133232 kB",
+          "MemAvailable": "6141312 kB",
+          "SwapTotal": "2097152 kB",
+          "SwapFree": "2094592 kB"
+        },
+        "swap_pages_in": 8,
+        "swap_pages_out": 641,
+        "process_max_rss_kib": 654868
+      },
+      "disk_free_bytes": 915552305152,
+      "gpu_before": "NVIDIA GeForce RTX 4060 Ti, 1083 MiB, 16380 MiB, 617.14",
+      "host_memory": "{\n    \"TotalVisibleMemorySize\":  33338804,\n    \"FreePhysicalMemory\":  15555340\n}",
+      "effective_loader": {
+        "workers": 4,
+        "pin_memory": false,
+        "prefetch_factor": 2,
+        "persistent_workers": false
+      },
+      "precision": {
+        "parameter_dtype": "float32",
+        "amp": false,
+        "tf32": false,
+        "deterministic": true,
+        "warn_only": true
+      }
+    },
+    "training_update": {
+      "status": "passed",
+      "updates": 5,
+      "warmup_updates": 2,
+      "four_loss_terms": [
+        [
+          11.851004600524902,
+          9.102794647216797,
+          12.691344261169434,
+          23.17960548400879
+        ],
+        [
+          9.175149917602539,
+          7.169741153717041,
+          11.19109058380127,
+          22.275978088378906
+        ],
+        [
+          9.047802925109863,
+          8.3243408203125,
+          10.421534538269043,
+          22.87918472290039
+        ],
+        [
+          8.509564399719238,
+          7.433603763580322,
+          10.02090835571289,
+          22.823373794555664
+        ],
+        [
+          8.11186408996582,
+          7.407806396484375,
+          9.432334899902344,
+          18.41983985900879
+        ]
+      ],
+      "warmup_seconds": [
+        2.8018726620000507,
+        0.8449907960000473
+      ],
+      "steady_update_seconds": [
+        0.8506419929999538,
+        0.8516702439999335,
+        0.848588307
+      ],
+      "peak_cuda_bytes": 10363915264,
+      "all_lsconv_parameters_finite_and_updated": true,
+      "baseline_parameters": 16804995,
+      "parameters": 16743195,
+      "unchanged_parameters_and_cpu_rng": "bitwise matched original Cars construction",
+      "inactive_parameters": [
+        "SC.g_st.0.bias",
+        "SC.g_st.0.weight",
+        "SC.g_st.1.bias",
+        "SC.g_st.1.weight",
+        "SC.g_st.3.bias",
+        "SC.g_st.3.weight",
+        "SC.t_l.mlp.0.bias",
+        "SC.t_l.mlp.0.weight",
+        "SC.t_l.mlp.1.bias",
+        "SC.t_l.mlp.1.weight",
+        "SC.t_s.mlp.0.bias",
+        "SC.t_s.mlp.0.weight",
+        "SC.t_s.mlp.1.bias",
+        "SC.t_s.mlp.1.weight",
+        "SC.t_t.mlp.0.bias",
+        "SC.t_t.mlp.0.weight",
+        "SC.t_t.mlp.1.bias",
+        "SC.t_t.mlp.1.weight"
+      ],
+      "stage3_shape": [
+        200,
+        320,
+        10,
+        10
+      ],
+      "task_score_shapes": [
+        [
+          150,
+          10
+        ],
+        [
+          150,
+          10
+        ],
+        [
+          150,
+          10
+        ]
+      ],
+      "global_shape": [
+        200,
+        130
+      ]
+    },
+    "total_seconds": 16.560937593000062
+  },
+  "historical_results": {
+    "5way_1shot": {
+      "path": "/root/projects/aris/sceg_cars_author/experiments/sceg_cars_author/runs/cars800_seed42_author_v1/test_5way_1shot.json",
+      "sha256": "72dc4692696c8d3d9923c00f0a26ee2d54e0383fb38a2a9d16aa8427705002e4"
+    },
+    "5way_5shot": {
+      "path": "/root/projects/aris/sceg_cars_author/experiments/sceg_cars_author/runs/cars800_seed42_author_v1/test_5way_5shot.json",
+      "sha256": "76049a406a89b5153632f1c3d5840ef998e510362dcc2861a196633926f203e2"
+    },
+    "49way_1shot": {
+      "path": "/root/projects/aris/sceg_cars_author/experiments/sceg_cars_author/runs/cars800_seed42_author_v1/test_49way_1shot.json",
+      "sha256": "3002c17dc2dc147372c351b9d640f9e62dde443abd852c81c51b1270668cb4d1"
+    },
+    "49way_5shot": {
+      "path": "/root/projects/aris/sceg_cars_author/experiments/sceg_cars_author/runs/cars800_seed42_author_v1/test_49way_5shot.json",
+      "sha256": "8f9a8f10ff1296bcfcebc5ec7cb8c8da2aa0039d0bd9af3c3d5dae51a47d844c"
+    }
+  },
+  "error": "AssertionError: Tensor-likes are not close!\n\nMismatched elements: 96 / 134400 (0.1%)\nGreatest absolute difference: 3.075599670410156e-05 at index (15, 60) (up to 1e-05 allowed)\nGreatest relative difference: 0.0019606410060077906 at index (194, 138) (up to 1e-05 allowed)",
+  "affected_check_diagnosis": {
+    "status": "blocked_on_raw_embedding_parity",
+    "execution": "Two isolated diagnostic processes reconstructed the failed five-update model in memory; no random checkpoints saved; no formal training",
+    "input": "Same Cars validation 10-way/5-shot/query16 task, 210 images, full versus chunks [128,82]",
+    "atol": 0.00001,
+    "rtol": 0.00001,
+    "layer_max_absolute_errors": {
+      "feature_extractor.layer1": 0.0,
+      "feature_extractor.layer2": 0.000270843505859375,
+      "feature_extractor.layer3": 0.0018310546875,
+      "feature_extractor.layer4": 0.018310546875,
+      "SC.self_s": 0.00341796875,
+      "fc_t": 0.0000400543212890625,
+      "fc_s": 0.0008544921875,
+      "fc_l": 0.005859375
+    },
+    "embedding_tolerance_mismatch_counts": [96, 1334, 3168],
+    "four_cosine_max_absolute_errors": [0.00000035762786865234375, 0.000000298023223876953125, 0.000000417232513427734375, 0.0000001490116119384765625],
+    "four_cosines_and_sum_scores_close": true,
+    "predictions_equal": true,
+    "finding": "First observed discrepancy is in the inherited backbone layer2, before LSConv; large partially-trained eval feature magnitudes amplify batch-shape FP32 differences. Raw-feature tolerance remains failed.",
+    "native_backend_diagnostic": {
+      "cudnn_disabled_only_in_diagnostic": true,
+      "embedding_max_absolute_errors": [0.000034332275390625, 0.0006103515625, 0.0029296875],
+      "embedding_tolerance_mismatch_counts": [7, 138, 602],
+      "raw_features_close": false,
+      "four_cosines_close": true,
+      "predictions_equal": true,
+      "adopted": false
+    },
+    "maximum_eval": {
+      "status": "passed",
+      "images": 1029,
+      "input": "synthetic CPU tensor; no test images",
+      "chunk": 128,
+      "scores_shape": [784, 49],
+      "seconds": 1.3111045240000294,
+      "peak_cuda_bytes": 1540009984,
+      "logical_dropblock_increment": 1
+    },
+    "memory_after_maximum": {
+      "wsl_mem_available_kib": 4944508,
+      "swap_free_kib": 2094524,
+      "swap_pages_in": 12,
+      "swap_pages_out": 660,
+      "process_max_rss_kib": 1860156
+    },
+    "formal_training_epochs": 0,
+    "active_experiment_pid": null,
+    "next_action": "Resolve raw-feature parity blocker or obtain explicit authorization for a revised precheck acceptance criterion; do not launch while precheck remains failed"
+  }
+}

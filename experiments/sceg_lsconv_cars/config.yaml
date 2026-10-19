@@ -1,0 +1,24 @@
+baseline_root: /root/projects/aris/sceg_cars_author
+baseline_run: experiments/sceg_cars_author/runs/cars800_seed42_author_v1
+baseline_commit: 88b4bf81a05e839770cf917e5188851eb53c2220
+baseline_best_sha256: d4cf951237d05dbc751d9bc6196bd7fcc5d7cce9bed2c0b6dcbe0e9bca45168f
+module_root: /root/projects/aris/sceg_lsconv_cub
+module_commit: 7539881285fd0e02c8ccb1c9142c9382e5e69c9b
+module_evidence: experiments/sceg_lsconv_cub/runs/20261019_cub800_seed42/run_info.json
+upstream_commit: cbe737c92b7c43ecf02d08545a07f03f1010177c
+replacement:
+  location: SC.self_s
+  implementation: LSConv
+  channels: 320
+  large_kernel: 7
+  dynamic_kernel: 3
+  groups: 8
+  kernel_channel_index: channel_index % 40
+  internal_residual: true
+execution:
+  encode_chunk_size: 128
+  last_every: 20
+  lightweight: true
+  pin_memory: false
+  prefetch_factor: 2
+  initialization: random
