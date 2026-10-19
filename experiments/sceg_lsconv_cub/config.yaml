@@ -1,0 +1,18 @@
+# The effective configuration is frozen once in runs/<run_id>/run_info.json.
+baseline_root: /root/projects/aris/sceg_fsfg
+baseline_config: experiments/sceg_original/configs/cub.yaml
+baseline_resolved: experiments/sceg_original/runs/20261010_cub800_seed42_resume122/config_resolved.yaml
+baseline_results: experiments/sceg_original/results/20261010_cub800_seed42_completed/results.json
+data_manifest: experiments/sceg_original/runs/20261009_cub800_seed42_phase_a_verified/data_manifest.json
+replacement:
+  target: SC.self_s
+  module: LSNet.LSConv
+  dim: 320
+  lks: 7
+  sks: 3
+  groups: 8
+  source_commit: cbe737c92b7c43ecf02d08545a07f03f1010177c
+execution:
+  encode_chunk_size: 128
+  last_every: 20
+  automatic_test: false

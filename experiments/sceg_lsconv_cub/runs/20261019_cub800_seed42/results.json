@@ -1,0 +1,68 @@
+{
+  "status": "completed",
+  "evaluations": [
+    {
+      "way": 5,
+      "shot": 1,
+      "accuracy_percent": 87.893125,
+      "ci95_half": 0.3796930520001485,
+      "baseline_percent": 87.61375,
+      "gain_pp": 0.279375,
+      "paired_ci95_half_pp": 0.1793740336132504,
+      "paired_ci95_bounds_pp": [
+        0.10000096638674957,
+        0.45874903361325037
+      ],
+      "evaluation_seconds": 218.89571800100384,
+      "peak_cuda_bytes": 1029864448
+    },
+    {
+      "way": 5,
+      "shot": 5,
+      "accuracy_percent": 94.785625,
+      "ci95_half": 0.192532340425414,
+      "baseline_percent": 94.525625,
+      "gain_pp": 0.26,
+      "paired_ci95_half_pp": 0.09413765941428541,
+      "paired_ci95_bounds_pp": [
+        0.16586234058571458,
+        0.35413765941428543
+      ],
+      "evaluation_seconds": 267.44816769500176,
+      "peak_cuda_bytes": 1248326656
+    },
+    {
+      "way": 50,
+      "shot": 1,
+      "accuracy_percent": 56.7545,
+      "ci95_half": 0.12415514952590567,
+      "baseline_percent": 56.5245625,
+      "gain_pp": 0.2299375,
+      "paired_ci95_half_pp": 0.08295805273900102,
+      "paired_ci95_bounds_pp": [
+        0.14697944726099899,
+        0.312895552739001
+      ],
+      "evaluation_seconds": 2059.145962472998,
+      "peak_cuda_bytes": 1505247232
+    },
+    {
+      "way": 50,
+      "shot": 5,
+      "accuracy_percent": 74.66125,
+      "ci95_half": 0.06497534416030439,
+      "baseline_percent": 74.1623125,
+      "gain_pp": 0.4989375,
+      "paired_ci95_half_pp": 0.0551664786156129,
+      "paired_ci95_bounds_pp": [
+        0.44377102138438707,
+        0.5541039786156129
+      ],
+      "evaluation_seconds": 2536.974972087999,
+      "peak_cuda_bytes": 1507293184
+    }
+  ],
+  "best_sha256": "e785aad48a67d350a75b28fa3e75a3ea144cb7616da11740e08018f0cd4a8c74",
+  "statistics_cpu_recomputed": true,
+  "scope": "One CUB seed42 SC.self_s replacement; no cross-training-seed or internal-mechanism attribution"
+}
