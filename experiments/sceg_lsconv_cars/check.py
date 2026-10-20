@@ -8,15 +8,19 @@ from pathlib import Path
 import resource
 import shutil
 import subprocess
+import sys
 import time
+import traceback
 
 import torch
 from datasets import make_dataset, make_loader
 from evaluators.fewshot_eval import encode_in_chunks
 from losses import IntraInterLoss
 from trainers.trainer import dropblock_counters
+from utils.experiment import write_json
 from .model import build_model
-from .run import Run, DEFAULT_RUN, HERE, ROOT, SETTINGS, setup, sha256, historical_result
+from .run import (Run, DEFAULT_RUN, HERE, ROOT, SETTINGS, setup, sha256,
+                  historical_result, configuration, source_identity)
 
 
 def command(*args):
@@ -179,38 +183,146 @@ def training_check(config):
 
 
 @torch.no_grad()
-def chunk_check(model, config):
+def chunk_check(model, config, evidence=None):
+    evidence = {} if evidence is None else evidence
+    assert not torch.is_grad_enabled() and all(not m.training for m in model.modules())
+    assert torch.backends.cudnn.enabled, "Diagnostic cuDNN disable must not be adopted"
     iterator = iter(make_loader(config, "val", way=10, shot=5, episodes=1))
-    images, _ = next(iterator)
+    images, labels = next(iterator)
     assert images.shape == (210, 3, 84, 84)
+    assert images.device.type == "cpu" and images.dtype == torch.float32 and torch.isfinite(images).all()
+    support = labels[:50].reshape(10, 5)
+    assert (support == support[:, :1]).all() and support[:, 0].unique().numel() == 10
+    assert (labels[50:].reshape(10, 16) == support[:, :1]).all(), "Support/query ordering changed"
     counters = dropblock_counters(model)
     buffers = {n: p.clone() for n, p in model.named_buffers()}
+    cpu_rng = torch.get_rng_state().clone()
+    gpu_rng = [s.clone() for s in torch.cuda.get_rng_state_all()]
+    def check_state():
+        assert dropblock_counters(model) == {n: v+1 for n, v in counters.items()}, "DropBlock increment is not one"
+        assert all(torch.equal(p, buffers[n]) for n, p in model.named_buffers()), "BN/module buffer changed"
+        assert torch.equal(cpu_rng, torch.get_rng_state()), "CPU RNG changed during encoding/classification"
+        assert all(torch.equal(a, b) for a, b in zip(gpu_rng, torch.cuda.get_rng_state_all())), "CUDA RNG changed"
+        return {"buffers_unchanged": True, "cpu_rng_unchanged": True,
+                "cuda_rng_unchanged": True, "logical_dropblock_increment": 1}
     torch.cuda.reset_peak_memory_stats()
     full = model.encode(images.to(config["runtime"]["device"]))
     full_output = model.classify(full, 10, 5)
+    evidence["full_state_checks"] = check_state()
     for name, module in model.named_modules():
         if name in counters:
             module.num_batches_tracked = counters[name]
-    cpu_rng = torch.get_rng_state().clone()
-    gpu_rng = torch.cuda.get_rng_state().clone()
-    chunks = encode_in_chunks(model, images, 128)
+    # Observe actual chunk input order without changing encoding or classification.
+    offset, sizes = 0, []
+    def check_order(module, args):
+        nonlocal offset
+        block = args[0]
+        size = block.shape[0]
+        assert torch.equal(block.cpu(), images[offset:offset+size]), "Chunk input reordered"
+        offset += size
+        sizes.append(size)
+    hook = model.feature_extractor.register_forward_pre_hook(check_order)
+    try:
+        chunks = encode_in_chunks(model, images, 128)
+    finally:
+        hook.remove()
+    assert offset == 210 and sizes == [128, 82]
     chunk_output = model.classify(chunks, 10, 5)
+    evidence["chunk_state_checks"] = check_state()
+    assert all(v.shape == (210, 640) and torch.isfinite(v).all() for v in (*full, *chunks))
+    for output in (full_output, chunk_output):
+        assert all(v.shape == (160, 10) and torch.isfinite(v).all() for v in output[:3])
+        assert output.global_cosine.shape == (210, 130) and torch.isfinite(output.global_cosine).all()
+        assert output.scores.shape == (160, 10) and torch.isfinite(output.scores).all()
+    evidence["raw_embedding_diagnostic"] = [
+        {"branch": i, "max_absolute_error": float((a-b).abs().max()),
+         "mismatches": int((~torch.isclose(a, b, atol=1e-5, rtol=1e-5)).sum()),
+         "passes_old_tolerance": bool(torch.allclose(a, b, atol=1e-5, rtol=1e-5)),
+         "blocking": False} for i, (a, b) in enumerate(zip(full, chunks))]
     differences = {}
-    pairs = [(f"embedding_{i}", a, b) for i, (a, b) in enumerate(zip(full, chunks))]
-    pairs += [(f"cosine_{i}", a, b) for i, (a, b) in enumerate(zip(full_output, chunk_output))]
+    pairs = [(f"cosine_{i}", a, b) for i, (a, b) in enumerate(zip(full_output, chunk_output))]
     pairs += [("sum_scores", full_output.scores, chunk_output.scores)]
     for name, a, b in pairs:
+        evidence["current_assertion"] = name
         torch.testing.assert_close(a, b, atol=1e-5, rtol=1e-5)
         differences[name] = float((a-b).abs().max())
+    evidence["current_assertion"] = "predictions"
     assert torch.equal(full_output.scores.argmax(1), chunk_output.scores.argmax(1))
-    assert dropblock_counters(model) == {n: v+1 for n, v in counters.items()}
-    assert all(torch.equal(p, buffers[n]) for n, p in model.named_buffers())
-    assert torch.equal(cpu_rng, torch.get_rng_state()) and torch.equal(gpu_rng, torch.cuda.get_rng_state())
-    return {"status": "passed", "split": "validation", "way": 10, "shot": 5, "query": 16,
-        "images": 210, "chunk_sizes": [128, 82], "atol": 1e-5, "rtol": 1e-5,
-        "max_absolute_errors": differences, "predictions_identical": True,
-        "buffers_and_rng_unchanged": True, "logical_dropblock_increment": 1,
-        "peak_cuda_bytes": torch.cuda.max_memory_allocated()}
+    evidence.update(status="passed", split="validation", way=10, shot=5, query=16,
+        images=210, chunk_sizes=sizes, atol=1e-5, rtol=1e-5,
+        max_absolute_errors=differences, predictions_identical=True,
+        finite_shapes_and_sample_order=True, complete_task_classification=True,
+        eval_no_grad=True, cudnn_enabled=True, input_sha256=hashlib.sha256(images.numpy().tobytes()).hexdigest(),
+        peak_cuda_bytes=torch.cuda.max_memory_allocated())
+    evidence.pop("current_assertion")
+    return evidence
+
+
+def revise_b(run_id):
+    """One authorized B-only revision; retain all old checks and source snapshots."""
+    assert run_id == DEFAULT_RUN, "This entry is only for the existing Cars run"
+    path = HERE/"runs"/run_id/"run_info.json"
+    info = json.loads(path.read_text())
+    config, _ = configuration(run_id)
+    assert info["config"] == config
+    assert info["status"] == "blocked_precheck" and info["stages"]["training"] == "pending"
+    assert not list(path.parent.glob("*.pth")) and not list(path.parent.glob("test_*.json"))
+    assert "b_protocol_revision" not in info, "B revision already recorded; do not repeat"
+    assert info["precheck"]["training_update"]["status"] == "passed"
+    assert info["precheck"]["resources_sources_pairing"]["operator_reused"]["result"]["status"] == "passed"
+    assert info["affected_check_diagnosis"]["maximum_eval"]["status"] == "passed"
+    changed = "experiments/sceg_lsconv_cars/check.py"
+    old_identity, new_identity = info["source_sha256"], source_identity()
+    assert old_identity.keys() == new_identity.keys()
+    assert {p for p in old_identity if old_identity[p] != new_identity[p]} == {changed}, "Unexpected source changes"
+    old_bytes = subprocess.check_output(["rtk", "proxy", "git", "show", "da41baf:"+changed], cwd=ROOT)
+    assert hashlib.sha256(old_bytes).hexdigest() == old_identity[changed], "Old check identity mismatch"
+    revision = {"authorization": "User explicitly approved Cars B-only revision: raw encoded features diagnostic, four full cosine scores and their three-branch sum must assert_close at atol=rtol=1e-5, exact predictions; preserve all state/shape/order/finite checks. No training or numerical configuration changes. Reconstruct original five-step model only as necessary; reuse A/C/SKA.",
+        "recorded_at_unix": time.time(), "command": sys.orig_argv,
+        "old_acceptance": "Raw embeddings, four cosines and sum_scores assert_close(1e-5,1e-5); identical predictions and unchanged state",
+        "new_acceptance": "Raw embeddings diagnostic only; four cosines and sum_scores assert_close(1e-5,1e-5); identical predictions; finite shapes/order/full-task classification; unchanged buffers/CPU and CUDA RNG; one DropBlock increment per logical task",
+        "old_source_sha256": old_identity.copy(), "new_source_sha256": new_identity,
+        "old_status": info["status"], "old_precheck_status": info["stages"]["precheck"],
+        "old_check_source": old_bytes.decode(), "new_check_source": (ROOT/changed).read_text(),
+        "git_commit": command("git", "rev-parse", "HEAD"),
+        "git_diff": command("git", "diff", "HEAD", "--", changed),
+        "reused_evidence": ["precheck.training_update", "precheck.resources_sources_pairing.operator_reused",
+                            "affected_check_diagnosis.maximum_eval"],
+        "old_state_checks": "No complete evidence: original B stopped at raw-feature assertion",
+        "status": "running", "result": {}}
+    info["b_protocol_revision"] = revision
+    write_json(path, info)
+    started = time.perf_counter()
+    try:
+        setup(config)
+        assert torch.backends.cudnn.enabled
+        model, reconstructed = training_check(config)
+        revision["reconstruction"] = {"updates": 5, "formal_training_epochs": 0,
+            "random_weights_saved": False, "purpose": "Rebuild original five-step in-memory model only",
+            "four_loss_terms": reconstructed["four_loss_terms"]}
+        chunk_check(model, config, revision["result"])
+        del model
+        assert source_identity() == new_identity, "Source changed during B check"
+        revision["status"] = "passed"
+        revision["frozen_at_unix"] = time.time()
+        info["source_sha256"] = new_identity
+        info["stages"]["precheck"] = "completed"
+        info["status"] = "ready"
+        info["error_resolved_by"] = "b_protocol_revision; historical error and diagnosis retained unchanged"
+    except BaseException as error:
+        revision["status"] = "failed"
+        revision["error"] = f"{type(error).__name__}: {error}"
+        revision["traceback"] = traceback.format_exc()
+        raise
+    finally:
+        revision["seconds"] = time.perf_counter()-started
+        write_json(path, info)
+        event = {"time": time.time(), "event": "b_protocol_revision", "status": revision["status"],
+                 "seconds": revision["seconds"], "result": revision["result"]}
+        with (path.parent/"metrics.jsonl").open("a") as stream:
+            stream.write(json.dumps(event, allow_nan=False)+"\n")
+        print(json.dumps(event, allow_nan=False), flush=True)
+    Run(run_id)  # Unchanged strict configuration/source check must accept new frozen identity.
 
 
 @torch.no_grad()
@@ -235,7 +347,12 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--run-id", default=DEFAULT_RUN)
     parser.add_argument("--repair-precheck", action="store_true")
+    parser.add_argument("--revise-b", action="store_true")
     args = parser.parse_args()
+    if args.revise_b:
+        assert not args.repair_precheck
+        revise_b(args.run_id)
+        return
     run = Run(args.run_id, create=True, repair_precheck=args.repair_precheck)
     setup(run.config)
     started = time.perf_counter()

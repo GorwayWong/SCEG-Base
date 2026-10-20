@@ -1,0 +1,80 @@
+{
+  "status": "completed",
+  "evaluations": [
+    {
+      "way": 5,
+      "shot": 1,
+      "new_accuracy_percent": 90.065,
+      "new_ci95_half": 0.32922793338354506,
+      "baseline_accuracy_percent": 90.2525,
+      "baseline_ci95_half": 0.3333809806287695,
+      "gain_pp": -0.1875,
+      "paired_ci95_bounds_pp": [
+        -0.37726432258198583,
+        0.0022643225819858614
+      ],
+      "test_seconds": 217.30336231600086,
+      "peak_cuda_bytes": 1029899776
+    },
+    {
+      "way": 5,
+      "shot": 5,
+      "new_accuracy_percent": 96.875,
+      "new_ci95_half": 0.14392577079870025,
+      "baseline_accuracy_percent": 96.929375,
+      "baseline_ci95_half": 0.14607946770401203,
+      "gain_pp": -0.054375,
+      "paired_ci95_bounds_pp": [
+        -0.14219319435451575,
+        0.03344319435451575
+      ],
+      "test_seconds": 265.4804376769971,
+      "peak_cuda_bytes": 1248353792
+    },
+    {
+      "way": 49,
+      "shot": 1,
+      "new_accuracy_percent": 62.4734693877551,
+      "new_ci95_half": 0.12103560116759034,
+      "baseline_accuracy_percent": 62.198469387755104,
+      "baseline_ci95_half": 0.12127493351884387,
+      "gain_pp": 0.275,
+      "paired_ci95_bounds_pp": [
+        0.1874515020117421,
+        0.36254849798825795
+      ],
+      "test_seconds": 1989.8342970890008,
+      "peak_cuda_bytes": 1504496128
+    },
+    {
+      "way": 49,
+      "shot": 5,
+      "new_accuracy_percent": 82.73380102040817,
+      "new_ci95_half": 0.06497915795660944,
+      "baseline_accuracy_percent": 82.50950255102042,
+      "baseline_ci95_half": 0.0662742290010793,
+      "gain_pp": 0.2242984693877551,
+      "paired_ci95_bounds_pp": [
+        0.16746395694428023,
+        0.28113298183123
+      ],
+      "test_seconds": 2455.328471203,
+      "peak_cuda_bytes": 1506462208
+    }
+  ],
+  "best_epoch": 800,
+  "best_sha256": "dc0babaad6042109167554bad3d2d4bf639480fc480f51a05c812008ec2105ec",
+  "epochs": 800,
+  "validations": 40,
+  "timing_seconds": {
+    "train_seconds": 32467.984957549896,
+    "validation_seconds": 5324.630988489,
+    "save_seconds": 5.965729600004579
+  },
+  "training_wall_seconds": 37799.515882018,
+  "training_peak_cuda_bytes": 10364659200,
+  "statistics": "CPU float64; population std ddof=0; 1.96/sqrt(2000); paired episode differences",
+  "scope": "Single training seed42; no cross-seed stability or internal mechanism causal claim",
+  "limitations": "Inherited Cars mirror provenance; lambda36 is completed-baseline value, not an author-confirmed full recipe. Timing is not a controlled LSConv speedup comparison.",
+  "artifact_bytes_before_report": 259892744
+}
